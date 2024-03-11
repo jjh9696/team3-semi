@@ -24,6 +24,7 @@ import com.kh.semiteam3.dao.InquiryDao;
 import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dto.InquiryDto;
 import com.kh.semiteam3.dto.MemberDto;
+import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.vo.PageVO;
 
 import jakarta.servlet.http.HttpSession;

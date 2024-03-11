@@ -1,5 +1,7 @@
 package com.kh.semiteam3.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -44,6 +46,89 @@ public class MemberDao {
 		};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
+	
+	//비밀번호 수정
+	public boolean updateMemberPw(MemberDto memberDto) {
+		String sql = "update member set member_pw = ? where member_id = ?";
+		Object[] data = {memberDto.getMemberPw(), memberDto.getMemberId()};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	//최종로그인 시각 업데이트
+	public boolean updateMemberLogin(String memberId) {
+		String sql = "update member set member_login = CURRENT_TIMESTAMP"
+				+ "where member_id = ?";
+		Object[] data = {memberId};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	//목록(회원가입 최신순으로 정렬)
+	public List<MemberDto> selectList(){
+		String sql = "select * from member order by member_join desc";
+		return jdbcTemplate.query(sql, memberMapper);
+	}
+	
+	//상세
+	public MemberDto selectOne(String memberId) {
+		String sql = "select * from member where member_id = ?";
+		Object[] data = {memberId};
+		List<MemberDto> list = jdbcTemplate.query(sql, memberMapper, data);
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
+	//검색
+	public List<MemberDto> searchList(String column, String keyword){
+		String sql = "select * from member where instr(" + column + ", ?) > 0 "
+				+ "order by "+ column + " asc";
+		Object[] data = {keyword};
+		return jdbcTemplate.query(sql, memberMapper, data);
+	}
+	
+	//관리자에 의한 회원 정보 수정
+	public boolean updateMemberByAdmin(MemberDto memberDto) {
+		String sql = "update member set "
+				+ "member_nick = ?, member_contact = ?, member_grade = ?, "
+				+ "member_email = ?, member_birth = ?, member_post = ?, "
+				+ "member_address1 = ?, member_address2 = ? "
+				+ "where member_id = ?";
+		Object[] data = {
+				memberDto.getMemberNick(), memberDto.getMemberContact(),
+				memberDto.getMemberGrade(), memberDto.getMemberBirth(),
+				memberDto.getMemberPost(), memberDto.getMemberAddress1(),
+				memberDto.getMemberAddress2(), memberDto.getMemberId()
+		};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	//회원 탈퇴
+	public boolean withdraw(String memberId) {
+		String sql = "delete member where member_id = ?";
+		Object[] data = {memberId};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

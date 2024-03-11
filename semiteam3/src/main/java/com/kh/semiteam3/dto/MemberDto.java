@@ -29,7 +29,7 @@ public class MemberDto {
 	public String getMemberContact() {
 		return memberContact;
 	}
-	public void setMemberContect(String memberContact) {
+	public void setMemberContact(String memberContact) {
 		this.memberContact = memberContact;
 	}
 	public String getMemberGrade() {

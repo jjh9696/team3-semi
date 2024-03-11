@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 import com.kh.semiteam3.dto.BoardDto;
 
 @Service
-public class BoardMapper implements RowMapper<BoardDto> {//boardContent 있는 Mapper
+public class BoardListMapper implements RowMapper<BoardDto>{//boardContent 없는 Mapper
 
 	@Override
 	public BoardDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 		BoardDto boardDto = new BoardDto();
 		boardDto.setBoardNo(rs.getInt("board_no"));
 		boardDto.setBoardTitle(rs.getString("board_title"));
-		boardDto.setBoardContent(rs.getString("board_content"));
+		//boardDto.setBoardContent(rs.getString("board_content"));
 		boardDto.setBoardView(rs.getInt("board_view"));
 		boardDto.setBoardLike(rs.getInt("board_like"));
 		boardDto.setBoardReply(rs.getInt("board_reply"));

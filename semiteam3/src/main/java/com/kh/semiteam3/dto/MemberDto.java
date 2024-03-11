@@ -5,6 +5,7 @@ import java.sql.Date;
 public class MemberDto {
 	private String memberId;
 	private String memberPw;
+	private String memberNick;
 	private String memberContact;
 	private String memberGrade;
 	private String memberEmail;
@@ -25,6 +26,12 @@ public class MemberDto {
 	}
 	public void setMemberPw(String memberPw) {
 		this.memberPw = memberPw;
+	}
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
 	}
 	public String getMemberContact() {
 		return memberContact;

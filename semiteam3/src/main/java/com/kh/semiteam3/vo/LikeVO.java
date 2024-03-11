@@ -6,6 +6,10 @@ public class LikeVO {
 	public boolean isState() {
 		return state;
 	}
+
+	public LikeVO() {
+		super();
+	}
 	public void setState(boolean state) {
 		this.state = state;
 	}
@@ -14,8 +18,6 @@ public class LikeVO {
 	}
 	public void setCount(int count) {
 		this.count = count;
-	}
-	public LikeVO() {
-		super();
+
 	}
 }

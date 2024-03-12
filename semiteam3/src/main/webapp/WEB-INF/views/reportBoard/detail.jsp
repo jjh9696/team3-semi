@@ -9,6 +9,7 @@
 <title>게시글 신고</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 	<div class="container w-800">
 	<div class="cell">
 		<h2>게시글 신고</h2>
@@ -57,5 +58,6 @@
 			
 	
 </div>
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>
 </html>

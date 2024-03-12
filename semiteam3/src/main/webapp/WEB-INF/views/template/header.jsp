@@ -131,23 +131,23 @@
 	<div>
 	<li class="menu-end"><c:choose>
 					<c:when test="${sessionScope.loginId !=null}">
-						<a href="/home/mypage"> <iclass+"fa-soldfa-user"></i>
+						<a href="/member/mypage"> <iclass+"fa-soldfa-user"></i>
 							${sessionScope.loginId}
 						</a>
 						<ul>
 							<li><a href="/point/charge"> <i
 									class="fa-solid fa-coins"></i> 포인트충전
 							</a></li>
-							<li><a href="/home/logout"> <i
+							<li><a href="/member/logout"> <i
 									class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
 							</a></li>
 						</ul>
 					</c:when>
 					<c:otherwise>
-						<a href="/home/login"> <i class="fa-regular fa-user"></i> 로그인
+						<a href="/member/login"> <i class="fa-regular fa-user"></i> 로그인
 						</a>
 						<ul>
-							<li><a href="/home/join"> <i
+							<li><a href="/member/join"> <i
 									class="fa-solid fa-user-plus"></i> 회원가입
 							</a></li>
 						</ul>

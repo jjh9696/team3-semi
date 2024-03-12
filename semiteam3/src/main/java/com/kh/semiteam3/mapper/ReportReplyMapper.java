@@ -15,10 +15,11 @@ public class ReportReplyMapper implements RowMapper<ReportReplyDto> {
 	public ReportReplyDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ReportReplyDto reportReplyDto = new ReportReplyDto();
 		reportReplyDto.setReportReplyNo(rs.getInt("report_reply_no"));
-		reportReplyDto.setReportReplyReason(rs.getString("report_reply_reason"));
+		reportReplyDto.setReportReplyContent(rs.getString("report_reply_content"));
 		reportReplyDto.setReportReplyOrigin(rs.getInt("reply_no"));
 		reportReplyDto.setReportReplyWriter(rs.getString("member_id"));
 		reportReplyDto.setReportReplyDate(rs.getDate("report_reply_date"));
+		reportReplyDto.setReportReplyReason(rs.getString("report_reply_reason"));
 		return reportReplyDto;
 	}
 

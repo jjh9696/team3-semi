@@ -29,15 +29,20 @@ public class BoardDao {
 					+ "board_category, board_writer, board_limit_time"
 					+ ") "
 					+ "values"
-					+ "(board_seq.nextval, ?, ?, ?, ?, ?)";
+					+ "(?, ?, ?, ?, ?, ?)";
 		Object[] data = {
+				boardDto.getBoardNo(),
 				boardDto.getBoardTitle(), boardDto.getBoardContent(),
 				boardDto.getBoardCategory(), boardDto.getBoardWriter(),
 				boardDto.getBoardLimitTime()
 		};
 		jdbcTemplate.update(sql, data);
 	}
-	
+	public int getSequence() {
+		String sql = "select board_seq.nextval from dual";
+		//jdbcTemplate.queryForObject(구문, 결과자료형);
+		return jdbcTemplate.queryForObject(sql, int.class);//내가 실행할 구문을 인트로 실행해라
+	}
 //	//게시글 목록-카테고리 별로 띄우는법?
 //	public List<BoardDto> selectList(){//번호, 제목, 작성자, 작성일, 마감일, 조회수, 찜수
 //		String sql = "select "
@@ -64,7 +69,7 @@ public class BoardDao {
 	public List<BoardDto> selectListByPaging(PageVO pageVO){
 		if(pageVO.isSearch()) {//게시글 검색
 			String sql = "select * from("
-							+ "select rownum rn, TMP.*from("
+							+ "select rownum rn, TMP.* from("
 							+ "select "
 								+ "board_no, board_title, board_writer, "
 								+ "board_write_time, board_limit_time, "
@@ -83,7 +88,7 @@ public class BoardDao {
 		}
 		else {//게시글 목록--카테고리 별로 구현하는 법
 			String sql = "select * from("
-							+ "select rownum rn, TMP.*from("
+							+ "select rownum rn, TMP.* from("
 							+ "select "
 								+ "board_no, board_title, board_writer,"
 								+ "board_write_time, board_limit_time, "
@@ -97,6 +102,13 @@ public class BoardDao {
 			};
 			return jdbcTemplate.query(sql, boardListMapper, data);
 		}
+	}
+	
+	//카테고리별로 게시판 조회
+	public List<BoardDto> selectByCategory(String boardCategory){
+		String sql="select * from board where board_category=?";
+		Object[] data= {boardCategory};
+		return jdbcTemplate.query(sql, boardListMapper, data);
 	}
 	
 	//통합 페이지 카운트(목록 + 검색)

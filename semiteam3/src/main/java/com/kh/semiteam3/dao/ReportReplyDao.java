@@ -25,8 +25,9 @@ public class ReportReplyDao {
 			String sql = "select * from("
 					+ "select rownum rn, TMP.*from("
 					+ "select "
-						+ "report_reply_no, report_reply_reason, "
-						+ "reply_no, member_id, report_reply_date "
+						+ "report_reply_no, report_reply_content, "
+						+ "reply_no, member_id, report_reply_date, "
+						+ "report_reply_reason "
 					+ "from report_reply "
 					+ "where instr("+pageVO.getColumn()+", ?) > 0 "
 					+ "order by report_reply_no desc"
@@ -43,8 +44,9 @@ public class ReportReplyDao {
 			String sql = "select * from("
 					+ "select rownum rn, TMP.*from("
 					+ "select "
-						+ "report_reply_no, report_reply_reason, "
-						+ "reply_no, member_id, report_reply_date "
+						+ "report_reply_no, report_reply_content, "
+						+ "reply_no, member_id, report_reply_date, "
+						+ "report_reply_reason "
 					+ "from report_reply "
 					+ "order by report_reply_no desc"
 					+ ")TMP"
@@ -58,17 +60,32 @@ public class ReportReplyDao {
 		
 	}
 	
+	//통합 페이지 카운트(목록 + 검색)
+			public int count(PageVO pageVO) {
+				if(pageVO.isSearch()) {//검색
+					String sql = "select count(*) from report_reply "
+							+ "where instr("+pageVO.getColumn()+", ?) > 0";
+					Object[] data = {pageVO.getKeyword()};
+					return jdbcTemplate.queryForObject(sql, int.class, data);
+				}
+				else {//목록
+					String sql = "select count(*) from report_reply";
+					return jdbcTemplate.queryForObject(sql, int.class);
+				}
+			}
+				
 	//댓글 신고 등록
 	public void insert(ReportReplyDto reportReplyDto) {
 		String sql = "insert into report_reply("
-						+ "report_reply_no, report_reply_reason, "
-						+ "reply_no, member_id "
-					+ ") values(report_reply_seq.nextval, ?, ?, ?)";
+						+ "report_reply_no, report_reply_content, "
+						+ "reply_no, member_id, report_reply_reason "
+					+ ") values(report_reply_seq.nextval, ?, ?, ?, ?)";
 		Object[] data = {
 				reportReplyDto.getReportReplyNo(), 
-				reportReplyDto.getReportReplyReason(), 
+				reportReplyDto.getReportReplyContent(), 
 				reportReplyDto.getReportReplyOrigin(), 
-				reportReplyDto.getReportReplyWriter()
+				reportReplyDto.getReportReplyWriter(),
+				reportReplyDto.getReportReplyReason() 
 		};
 		jdbcTemplate.update(sql, data);
 	}
@@ -78,5 +95,13 @@ public class ReportReplyDao {
 		String sql = "delete report_reply where report_reply_no = ?";
 		Object[] data = {reportReplyNo};
 		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	//상세 조회
+	public ReportReplyDto selectOne(int reportReplyNo) {
+		String sql = "select * from report_reply where report_reply_no = ?";
+		Object[] data = {reportReplyNo};
+		List<ReportReplyDto> list = jdbcTemplate.query(sql, reportReplyMapper, data);
+		return list.isEmpty() ? null : list.get(0);
 	}
 }

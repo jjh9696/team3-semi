@@ -19,17 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.semiteam3.dao.MemberDao;
-import com.kh.semiteam3.dao.ReportReplyDao;
+import com.kh.semiteam3.dao.ReportBoardDao;
 import com.kh.semiteam3.dto.MemberDto;
-import com.kh.semiteam3.dto.ReportReplyDto;
+import com.kh.semiteam3.dto.ReportBoardDto;
 import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.vo.PageVO;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/reportReply")
-public class ReportReplyController {
+@RequestMapping("/reportBoard")
+public class ReportBoardController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -37,7 +37,7 @@ public class ReportReplyController {
 	}
 	
 	@Autowired
-	private ReportReplyDao reportReplyDao;
+	private ReportBoardDao reportBoardDao;
 	
 	@Autowired
 	private MemberDao memberDao;
@@ -50,23 +50,23 @@ public class ReportReplyController {
 	public String list(
 			@ModelAttribute PageVO pageVO,
 			Model model) {
-		int count = reportReplyDao.count(pageVO);
+		int count = reportBoardDao.count(pageVO);
 		pageVO.setCount(count);
 		model.addAttribute("pageVO", pageVO);
 		
-		List<ReportReplyDto> list = reportReplyDao.selectListByPaging(pageVO);
+		List<ReportBoardDto> list = reportBoardDao.selectListByPaging(pageVO);
 		model.addAttribute("list", list);
 		
-		return "/WEB-INF/views/reportReply/list.jsp";
+		return "/WEB-INF/views/reportBoard/list.jsp";
 	}
 	
 	//삭제
 	@GetMapping("/delete")
-	public String delete(@RequestParam int reportReplyNo) {
-		ReportReplyDto reportReplyDto =  reportReplyDao.selectOne(reportReplyNo);
+	public String delete(@RequestParam int reportBoardNo) {
+		ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardNo);
 		
 		//Jsoup으로 내용을 탐색하는 과정
-		Document document = Jsoup.parse(reportReplyDto.getReportReplyContent());
+		Document document = Jsoup.parse(reportBoardDto.getReportBoardContent());
 		Elements elements = document.select(".server-img");//태그 찾기
 		for(Element element : elements) {//반복문으로 한개씩 처리
 			String key = element.attr("data-key");//data-key 속성을 읽어라!
@@ -74,37 +74,39 @@ public class ReportReplyController {
 			attachService.remove(attachNo);//파일삭제+DB삭제
 		}
 		
-		reportReplyDao.delete(reportReplyNo);
+		reportBoardDao.delete(reportBoardNo);
 		return "redirect:list";
 	}
 	
 	//등록
-		@GetMapping("/insert")
-		public String insert() {
-			return "/WEB-INF/views/reportReply/insert.jsp";
-		}
+	@GetMapping("/insert")
+	public String insert() {
+		return "/WEB-INF/views/reportBoard/insert.jsp";
+	}
+	
+	@PostMapping("/insert")
+	public String insert(@ModelAttribute ReportBoardDto reportBoardDto, 
+						HttpSession session, Model model) {
+		String loginId = (String)session.getAttribute("loginId");
+		reportBoardDto.setReportBoardWriter(loginId);
 		
-		@PostMapping("/insert")
-		public String insert(@ModelAttribute ReportReplyDto reportReplyDto, 
-							HttpSession session, Model model) {
-			String loginId = (String)session.getAttribute("loginId");
-			reportReplyDto.setReportReplyWriter(loginId);
-			
-			reportReplyDao.insert(reportReplyDto);
-			
-			return "redirect:detail?reportReplyNo="+reportReplyDto.getReportReplyNo();
-		}
+		reportBoardDao.insert(reportBoardDto);
 		
-		//상세
-		@RequestMapping("/detail")
-		public String detail(@RequestParam int reportReplyNo, Model model) {
-			ReportReplyDto reportReplyDto = reportReplyDao.selectOne(reportReplyNo);
-			model.addAttribute("reportReplyDto", reportReplyDto);
-			
-			if(reportReplyDto.getReportReplyWriter() != null) {
-				MemberDto memberDto = memberDao.selectOne(reportReplyDto.getReportReplyWriter());
-				model.addAttribute("memberDto", memberDto);
-			}
-			return "/WEB-INF/views/reportReply/detail.jsp";
+		return "redirect:detail?reportBoardNo="+reportBoardDto.getReportBoardNo();
+	}
+	
+	//상세
+	@RequestMapping("/detail")
+	public String detail(@RequestParam int reportBoardNo, Model model) {
+		ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardNo);
+		model.addAttribute("reportBoardDto", reportBoardDto);
+		
+		if(reportBoardDto.getReportBoardWriter() != null) {
+			MemberDto memberDto = memberDao.selectOne(reportBoardDto.getReportBoardWriter());
+			model.addAttribute("memberDto", memberDto);
 		}
+				
+		return "/WEB-INF/views/reportBoard/detail.jsp";
+	}
+	
 }

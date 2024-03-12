@@ -90,8 +90,8 @@ public class BoardController {
 			return "/WEB-INF/views/board/list.jsp";
 		}
 		//축구 게시판 목록
-		@RequestMapping("/soccerList")
-		public String soccerList(
+		@RequestMapping("/footballList")
+		public String footballList(
 				@ModelAttribute PageVO pageVO,
 				Model model) {
 			int count = boardDao.count(pageVO);//count는 무조건 있어야 하니깐 vo에 넣어줘야지 model은 안돼
@@ -103,11 +103,11 @@ public class BoardController {
 			List<BoardDto> list = boardDao.selectListByPaging(pageVO);
 			model.addAttribute("list",list);//이걸 써도 되고
 			
-			return "/WEB-INF/views/board/soccerList.jsp";
+			return "/WEB-INF/views/board/footballList.jsp";
 		}
 		//농구게시판 목록
-		@RequestMapping("/basketList")
-		public String basketList(
+		@RequestMapping("/basketballList")
+		public String basketballList(
 				@ModelAttribute PageVO pageVO,
 				Model model) {
 			int count = boardDao.count(pageVO);//count는 무조건 있어야 하니깐 vo에 넣어줘야지 model은 안돼
@@ -119,11 +119,11 @@ public class BoardController {
 			List<BoardDto> list = boardDao.selectListByPaging(pageVO);
 			model.addAttribute("list",list);//이걸 써도 되고
 			
-			return "/WEB-INF/views/board/basketList.jsp";
+			return "/WEB-INF/views/board/basketballList.jsp";
 		}
 		//야구 게시판 목록
-		@RequestMapping("/baseList")
-		public String baseList(
+		@RequestMapping("/baseballList")
+		public String baseballList(
 				@ModelAttribute PageVO pageVO,
 				Model model) {
 			int count = boardDao.count(pageVO);//count는 무조건 있어야 하니깐 vo에 넣어줘야지 model은 안돼
@@ -135,7 +135,7 @@ public class BoardController {
 			List<BoardDto> list = boardDao.selectListByPaging(pageVO);
 			model.addAttribute("list",list);//이걸 써도 되고
 			
-			return "/WEB-INF/views/board/baseList.jsp";
+			return "/WEB-INF/views/board/baseballList.jsp";
 		}
 		//게임 게시판 목록
 		@RequestMapping("/esportsList")

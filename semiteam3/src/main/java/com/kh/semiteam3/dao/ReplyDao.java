@@ -21,7 +21,7 @@ public class ReplyDao {
 	//댓글은 전체 목록이 없다 (게시글마다 조회)
 	public List<ReplyDto> selectList(int replyOrigin){
 		String sql = "select * from reply "
-				+ "where reply_origin=? "
+				+ "where board_no=? "
 				+ "order by reply_no asc";
 		Object[] data = {replyOrigin};
 		return jdbcTemplate.query(sql, replyMapper, data);

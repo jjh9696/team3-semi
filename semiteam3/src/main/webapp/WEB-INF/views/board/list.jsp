@@ -3,28 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!-- 구글 폰트 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-
-
-   	<!-- jquery cdn (jquery불러오는 코드)--><!-- 이부분에 코드 쓰면 안돼 -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
-    <!-- summernote cdn -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    
-    <!-- 내가 구현한 스타일 -->
-    <link rel="stylesheet" type="text/css" href="/css/commons.css">
-    <!-- <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
-    <link rel="stylesheet" type="text/css" href="/css/layout.css">
-
-    <!-- font awesome 아이콘 CDN -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <script src="/js/exit.js"></script>
     
     <div class="container w-800">
 	<div class="cell">
@@ -63,7 +43,7 @@
 				<td>${boardDto.boardWriterStr}</td><%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
 				<td>${boardDto.boardWriteTimeStr}</td><%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
 				<td>${boardDto.boardLimitTime}</td>
-				<td>${boardDto.boardReadCount}</td>
+				<td>${boardDto.boardView}</td>
 			</tr>
 		</c:forEach>
 	</tbody>

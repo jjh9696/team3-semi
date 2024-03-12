@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.semiteam3.dto.ReportBoardDto;
 import com.kh.semiteam3.mapper.ReportBoardMapper;
+import com.kh.semiteam3.vo.PageVO;
 
 @Repository
 public class ReportBoardDao {

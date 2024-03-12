@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.semiteam3.dto.ReportReplyDto;
 import com.kh.semiteam3.mapper.ReportReplyMapper;
+import com.kh.semiteam3.vo.PageVO;
 
 @Repository
 public class ReportReplyDao {

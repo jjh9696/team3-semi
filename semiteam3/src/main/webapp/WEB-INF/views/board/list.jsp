@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
     
     <div class="container w-800">
 	<div class="cell">
@@ -42,7 +43,7 @@
 				<td>${boardDto.boardWriterStr}</td><%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
 				<td>${boardDto.boardWriteTimeStr}</td><%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
 				<td>${boardDto.boardLimitTime}</td>
-				<td>${boardDto.boardReadCount}</td>
+				<td>${boardDto.boardView}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -65,4 +66,3 @@
 	</form>
 	</div>
 </div>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>  

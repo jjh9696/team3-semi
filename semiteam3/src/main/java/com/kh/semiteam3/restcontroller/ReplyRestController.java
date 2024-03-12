@@ -14,21 +14,24 @@ import com.kh.semiteam3.dto.ReplyDto;
 
 import jakarta.servlet.http.HttpSession;
 
+//@CrossOrigin
 @RestController
 @RequestMapping("/rest/reply")
 public class ReplyRestController {
-	
+
 	@Autowired
 	private ReplyDao replyDao;
-	
+
 	@PostMapping("/list")
 	public List<ReplyDto> list(@RequestParam int replyOrigin) {
 		return replyDao.selectList(replyOrigin);
 	}
+
 	@PostMapping("/delete")
 	public void delete(@RequestParam int replyNo) {
 		replyDao.delete(replyNo);
 	}
+	
 	@PostMapping("/insert")
 	public void insert(@ModelAttribute ReplyDto replyDto, HttpSession session) {
 		String loginId = (String)session.getAttribute("loginId");
@@ -43,5 +46,4 @@ public class ReplyRestController {
 	public void edit(@ModelAttribute ReplyDto replyDto) {
 		replyDao.update(replyDto);
 	}
-	
 }

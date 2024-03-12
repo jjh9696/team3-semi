@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+
 <head>
 
 </head>
@@ -14,7 +16,3 @@
 </div>
 </body>
      
-     
-       
-
-

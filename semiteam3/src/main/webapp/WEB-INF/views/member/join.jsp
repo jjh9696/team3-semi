@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 <head>
-<link rel="stylesheet" type="text/css" href="/css/commons.css">
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<script src="/js/commons.js"></script>
+
 </head>
 
 

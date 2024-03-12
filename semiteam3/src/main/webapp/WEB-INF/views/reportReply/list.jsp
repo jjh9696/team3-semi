@@ -6,15 +6,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글 신고 목록</title>
+<title>댓글 신고 목록</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 	<div class="container w-800">
 		<div class="cell">
-			<h1>게시글 신고 목록</h1>
+			<h1>댓글 신고 목록</h1>
 		</div>
 		<div class="cell right">
-			<h2><a href="write" class="link">글쓰기</a></h2>
+			<h2><a href="insert" class="link">글쓰기</a></h2>
 		</div>
 		<div class="cell">
 			<%-- 목록 --%>
@@ -56,5 +57,7 @@
 			</form>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>
 </html>

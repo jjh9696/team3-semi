@@ -121,14 +121,14 @@
 	<div class="cell">
 		<ul class="menu" width="400px">
 
-			<li><a href="#"> <i class="fa-solid fa-soccer-ball"></i>&nbsp축구게시판
-			</a></li>
-			<li><a href="#"> <i class="fa-solid fa-baseball"></i>&nbsp야구게시판
-			</a>
-			<li><a href="#"> <i class="fa-solid fa-basketball"></i>&nbsp농구게시판
-			</a></li>
-
+			<li><a href="#"> <i class="fa-solid fa-soccer-ball"></i>&nbsp축구게시판</a></li>
+			<li><a href="#"> <i class="fa-solid fa-baseball"></i>&nbsp야구게시판</a></li>
+			<li><a href="#"> <i class="fa-solid fa-basketball"></i>&nbsp농구게시판</a></li>
+			<li><a href="/member/login.jsp"></button><i class="fa-solid fa-user"></i></a></li>
 		</ul>
+	</div>
+	<div>
+	
 	</div>
 </body>
 </html>

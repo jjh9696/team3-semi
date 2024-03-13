@@ -43,27 +43,7 @@ public class BoardDao {
 		//jdbcTemplate.queryForObject(구문, 결과자료형);
 		return jdbcTemplate.queryForObject(sql, int.class);//내가 실행할 구문을 인트로 실행해라
 	}
-//	//게시글 목록-카테고리 별로 띄우는법?
-//	public List<BoardDto> selectList(){//번호, 제목, 작성자, 작성일, 마감일, 조회수, 찜수
-//		String sql = "select "
-//					+ "board_no, board_title, board_writer,"
-//					+ "board_write_time, board_limit_time, "
-//					+ "board_view, board_like "
-//					+ "from board order by board_no desc";//어느 기준으로 정렬할지 회의
-//		return jdbcTemplate.query(sql, boardListMapper);//최적화 방법(내용 x)
-//	}
-//	//게시글 검색
-//	public List<BoardDto> selectList(String column, String keyword){//제목, 작성자, 내용 으로 검색 가능하도록
-//		String sql = "select "
-//				+ "board_no, board_title, board_writer, "
-//				+ "board_write_time, board_limit_time, "
-//				+ "board_view, board_like "
-//				+ "from board "
-//				+ "where instr("+column+", ?) > 0 "
-//				+ "order by board_no desc";
-//		Object[] data = {keyword};
-//		return jdbcTemplate.query(sql, boardListMapper, data);
-//	}
+
 	
 	//통합 페이징(목록 + 검색)--목록에 카테고리 띄울껀가요? 어차피 각각 나눠져서 보여질껀데
 	public List<BoardDto> selectListByPaging(PageVO pageVO){
@@ -104,12 +84,38 @@ public class BoardDao {
 		}
 	}
 	
-	//카테고리별로 게시판 조회
-	public List<BoardDto> selectByCategory(String boardCategory){
-		String sql="select * from board where board_category=?";
-		Object[] data= {boardCategory};
-		return jdbcTemplate.query(sql, boardListMapper, data);
-	}
+	//카테고리별로 게시판 조회(목록) + 페이징
+    public List<BoardDto> selectByCategoryAndPaging(PageVO pageVO, 
+                                                            String boardCategory){
+        
+        if(pageVO.isSearch()) { //검색
+            String sql = "select * from ("
+                    + "select rownum rn, TMP.* from ("
+                    	+ "select board_no, board_title, board_writer,"
+                    	+ "board_write_time, board_limit_time,"
+                    	+ "board_view, board_like "
+                        + "from board where board_category = ? and instr(" + pageVO.getColumn() + ", ?) > 0 order by board_no desc "
+                    + ")TMP"
+                + ") where rn between ? and ?";
+            Object[] data = {boardCategory, pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
+            return jdbcTemplate.query(sql, boardListMapper, data);
+        }
+        
+        else {//목록
+            String sql = "select * from("
+                    + "select rownum rn, TMP.* from("
+                    + "select "
+                        + "board_no, board_title, board_writer,"
+                        + "board_write_time, board_limit_time, "
+                        + "board_view, board_like "
+                    + "from board where board_category = ? order by board_no desc"
+                    + ")TMP"
+                    + ") where rn between ? and ?";
+            Object[] data= {boardCategory, 
+                                    pageVO.getBeginRow(), pageVO.getEndRow()};
+            return jdbcTemplate.query(sql, boardListMapper, data);
+        }
+    }
 	
 	//통합 페이지 카운트(목록 + 검색)
 	public int count(PageVO pageVO) {
@@ -120,8 +126,9 @@ public class BoardDao {
 			return jdbcTemplate.queryForObject(sql, int.class, data);
 		}
 		else {//목록
-			String sql = "select count(*) from board";
-			return jdbcTemplate.queryForObject(sql, int.class);
+			String sql = "select count(*) from board where board_category=?";
+			Object[] data = {pageVO.getCategory()};
+			return jdbcTemplate.queryForObject(sql, int.class, data);
 		}
 	}
 	

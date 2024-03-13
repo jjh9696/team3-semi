@@ -3,7 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
- <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <style>
 .replylist-wrapper>.reply-item,
@@ -233,6 +234,7 @@
 		});
 	});
 
+
 </script>
 </c:if>
 <script type="text/javascript">
@@ -332,6 +334,7 @@
 		</c:if>
 		<a class="btn positive" href="list">글목록</a>
 	</div>
+
 		<!-- 댓글 작성창 + 댓글 목록 -->
 	<div class="cell">
 		<span class="reply-count">0</span>개의 댓글이 있습니다
@@ -390,3 +393,4 @@
 		</c:otherwise>
 	</c:choose>
 </div>
+

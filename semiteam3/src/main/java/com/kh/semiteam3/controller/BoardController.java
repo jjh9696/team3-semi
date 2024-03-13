@@ -71,105 +71,22 @@ public class BoardController {
 			
 			return "redirect:detail?boardNo=" + sequence;
 		}
-		//Paging 처리를 별도의 VO 클래스로 구현
-		//(참고) @ModelAttribute에 옵션을 주면 자동으로 모델에 첨부된다
 		
-		@RequestMapping("/list")
-		public String list(
-				@ModelAttribute PageVO pageVO,
-				Model model) {
-			int count = boardDao.count(pageVO);//count는 무조건 있어야 하니깐 vo에 넣어줘야지 model은 안돼
-			pageVO.setCount(count);
-			model.addAttribute("pageVO",pageVO);
-			
-			//내가 알려줄테니깐 목록인지 검색인지 니가 판단해 (vo 니가 판단해)컨트롤러에서는 검색인지 아닌지 신경쓰지 않아
-			//목록인지 검색인지는 DAO에서 처리하는거임
-			List<BoardDto> list = boardDao.selectListByPaging(pageVO);
-			model.addAttribute("list",list);//이걸 써도 되고
-			
-			return "/WEB-INF/views/board/list.jsp";
-		}
-		//축구 게시판 목록
-		@RequestMapping("/footballList")
-		public String footballList(
-				@ModelAttribute PageVO pageVO,
-				Model model) {
-			int count = boardDao.count(pageVO);//count는 무조건 있어야 하니깐 vo에 넣어줘야지 model은 안돼
-			pageVO.setCount(count);
-			model.addAttribute("pageVO",pageVO);
-			
-			//내가 알려줄테니깐 목록인지 검색인지 니가 판단해 (vo 니가 판단해)컨트롤러에서는 검색인지 아닌지 신경쓰지 않아
-			//목록인지 검색인지는 DAO에서 처리하는거임
-			List<BoardDto> list = boardDao.selectListByPaging(pageVO);
-			model.addAttribute("list",list);//이걸 써도 되고
-			
-			return "/WEB-INF/views/board/footballList.jsp";
-		}
-		//농구게시판 목록
-		@RequestMapping("/basketballList")
-		public String basketballList(
-				@ModelAttribute PageVO pageVO,
-				Model model) {
-			int count = boardDao.count(pageVO);//count는 무조건 있어야 하니깐 vo에 넣어줘야지 model은 안돼
-			pageVO.setCount(count);
-			model.addAttribute("pageVO",pageVO);
-			
-			//내가 알려줄테니깐 목록인지 검색인지 니가 판단해 (vo 니가 판단해)컨트롤러에서는 검색인지 아닌지 신경쓰지 않아
-			//목록인지 검색인지는 DAO에서 처리하는거임
-			List<BoardDto> list = boardDao.selectListByPaging(pageVO);
-			model.addAttribute("list",list);//이걸 써도 되고
-			
-			return "/WEB-INF/views/board/basketballList.jsp";
-		}
-		//야구 게시판 목록
-		@RequestMapping("/baseballList")
-		public String baseballList(
-				@ModelAttribute PageVO pageVO,
-				Model model) {
-			int count = boardDao.count(pageVO);//count는 무조건 있어야 하니깐 vo에 넣어줘야지 model은 안돼
-			pageVO.setCount(count);
-			model.addAttribute("pageVO",pageVO);
-			
-			//내가 알려줄테니깐 목록인지 검색인지 니가 판단해 (vo 니가 판단해)컨트롤러에서는 검색인지 아닌지 신경쓰지 않아
-			//목록인지 검색인지는 DAO에서 처리하는거임
-			List<BoardDto> list = boardDao.selectListByPaging(pageVO);
-			model.addAttribute("list",list);//이걸 써도 되고
-			
-			return "/WEB-INF/views/board/baseballList.jsp";
-		}
-		//게임 게시판 목록
-		@RequestMapping("/esportsList")
-		public String esportsListist(
-				@ModelAttribute PageVO pageVO,
-				Model model) {
-			int count = boardDao.count(pageVO);//count는 무조건 있어야 하니깐 vo에 넣어줘야지 model은 안돼
-			pageVO.setCount(count);
-			model.addAttribute("pageVO",pageVO);
-			
-			//내가 알려줄테니깐 목록인지 검색인지 니가 판단해 (vo 니가 판단해)컨트롤러에서는 검색인지 아닌지 신경쓰지 않아
-			//목록인지 검색인지는 DAO에서 처리하는거임
-			List<BoardDto> list = boardDao.selectListByPaging(pageVO);
-			model.addAttribute("list",list);//이걸 써도 되고
-			
-			return "/WEB-INF/views/board/esportsList.jsp";
-		}
-		//공지 게시판 목록
-		@RequestMapping("/adminList")
-		public String adminList(
-				@ModelAttribute PageVO pageVO,
-				Model model) {
-			int count = boardDao.count(pageVO);//count는 무조건 있어야 하니깐 vo에 넣어줘야지 model은 안돼
-			pageVO.setCount(count);
-			model.addAttribute("pageVO",pageVO);
-			
-			//내가 알려줄테니깐 목록인지 검색인지 니가 판단해 (vo 니가 판단해)컨트롤러에서는 검색인지 아닌지 신경쓰지 않아
-			//목록인지 검색인지는 DAO에서 처리하는거임
-			List<BoardDto> list = boardDao.selectListByPaging(pageVO);
-			model.addAttribute("list",list);//이걸 써도 되고
-			
-			return "/WEB-INF/views/board/adminList.jsp";
-		}
-		
+        //게시글 목록
+        @RequestMapping("/list")
+        public String list(@RequestParam String category,
+                @ModelAttribute PageVO pageVO,
+                Model model) {
+            int count = boardDao.count(pageVO);
+            pageVO.setCount(count);
+            model.addAttribute("pageVO",pageVO);
+            
+            List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
+            model.addAttribute("list", list);
+            
+            return "/WEB-INF/views/board/list.jsp";
+        }
+        
 		//게시글상세
 		@RequestMapping("/detail")
 		public String detail(@RequestParam int boardNo, 

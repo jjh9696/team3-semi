@@ -99,7 +99,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginId"); //세션의 값 삭제
-		session.removeAttribute("loginLevel"); //세션의 값 삭제
+		session.removeAttribute("loginGrade"); //세션의 값 삭제
 		
 		return "redirect:/"; //홈화면으로 리다이렉트(or 원래있던 화면으로? -> 만약 회원만 가능한곳이라면 홈으로되게..?)
 	}

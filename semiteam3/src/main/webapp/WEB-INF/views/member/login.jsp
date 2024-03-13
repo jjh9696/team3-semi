@@ -9,6 +9,7 @@
 	border: 0.1px;
 }
 </style>
+
 <script type="text/javascript">
 	$(function() {
 		//해야할 일
@@ -91,6 +92,7 @@
 							<i class="fa-solid fa-arrow-right-to-bracket"></i>
 						로그인</button>
 				</div>
+
 				<div class="cell right">
 					<a href="findId">아이디 찾기</a>				
 				</div>

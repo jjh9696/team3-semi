@@ -124,7 +124,7 @@
 			<li><a href="#"> <i class="fa-solid fa-soccer-ball"></i>&nbsp축구게시판</a></li>
 			<li><a href="#"> <i class="fa-solid fa-baseball"></i>&nbsp야구게시판</a></li>
 			<li><a href="#"> <i class="fa-solid fa-basketball"></i>&nbsp농구게시판</a></li>
-			<li><a href="/member/login"><i class="fa-solid fa-user"></i></a></li>
+			<%-- <li><a href="/member/login"><i class="fa-solid fa-user"></i></a></li> --%>
 			<li><a href="/board/list"><i class="fa-solid fa-list"></i></a></li>
 		</ul>
 	</div>
@@ -135,9 +135,6 @@
 							${sessionScope.loginId}
 						</a>
 						<ul>
-							<li><a href="/point/charge"> <i
-									class="fa-solid fa-coins"></i> 포인트충전
-							</a></li>
 							<li><a href="/member/logout"> <i
 									class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
 							</a></li>

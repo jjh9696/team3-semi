@@ -163,7 +163,7 @@ public class MemberController {
 	
 	//개인정보 변경 페이지
 	@GetMapping("/edit")
-	public String change(HttpSession session, Model model) {
+	public String edit(HttpSession session, Model model) {
 		//사용자 아이디를 세션에서 추출
 		String loginId = (String)session.getAttribute("loginId");
 		
@@ -177,7 +177,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/edit")
-	public String change(@ModelAttribute MemberDto memberDto, HttpSession session) {
+	public String edit(@ModelAttribute MemberDto memberDto, HttpSession session) {
 		//세션에서 아이디 추출
 		String loginId = (String)session.getAttribute("loginId");
 		
@@ -197,7 +197,7 @@ public class MemberController {
 		}
 		else {
 			//이전 페이지로 리다이렉트
-			return "redirect:change?error";
+			return "redirect:edit?error";
 		}
 	}
 	

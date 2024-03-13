@@ -24,12 +24,17 @@
 	</h3>
 	<pre class="reply-content"> 댓글 내용</pre>
 	<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
+			<%-- <c:if test="${sessionScope.loginId != null && sessionScope.loginId != boardDto.boardWriter}">  --%>	
+			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginLevel == '관리자')}">
+				<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
+			</c:if>
+			
 	</div>
 	
 </script>
 <script type="text/template" id="reply-item-edit-wrapper">
 <div class="reply-item-edit">
-		<textarea class="tool w-100 reply-editor2 style="min-height: 150px"></textarea>
+		<textarea class="tool w-100 reply-editor2" style="min-height: 150px"></textarea>
 		<div class="right">
 			<button class="btn positive btn-reply-save">
 				<i class="fa-solid fa-check"></i>
@@ -100,107 +105,103 @@
 	
 	
 	$(function(){
-		//최초에 목록 불러오기
-		loadList();
-		
-		//문서에 댓글 삭제 이벤트 등록
-		//- 화면을 지우는 것이 아니라 서버에 지워달라고 요청을 해야한다
-		//- 삭제가 완료되면 화면을 직접 지우지 말고 목록을 다시 불러온다
-		$(document).on("click", ".btn-reply-delete", function(){
-			var choice = window.confirm("댓글을 삭제하시겠습니까?");
-			if(choice == false)return;
-			
-			//태그에 심어져 있는 번호 정보를 읽어와서 삭제하도록 요청
-			var replyNo = $(this).data("reply-no");
-			
-			$.ajax({
-				url:"/rest/reply/delete",
-				method:"post",
-				data:{replyNo:replyNo},
-				success:function(response){
-					loadList()//삭제가 완료되면 목록 불러오기
-				}
-			});
-		});
-	
-		//댓글 등록
-		$(".btn-reply-insert").click(function(){
-			//등록에 필요한 정보(내용, 소속글번호)를 구해온다
-			var replyContent = $(".reply-editor").val();
-			if(replyContent.length == 0) return;//비어있는 경우만 차단
-			//if(replyContent.trim().length == 0) return;//공백만 있는경우도 차단
-			
-			var params = new URLSearchParams(location.search);
-			var boardNo = params.get("boardNo");
-		
-			$.ajax({
-				url:"/rest/reply/insert",
-				method:"post",
-				data:{
-					replyContent:replyContent,
-					replyOrigin:boardNo
-				},
-				success:function(response){
-					$(".reply-editor").val("");//에디터 내용 삭제
-					loadList();//등록 완료시 목록 갱신
-				
-				}
-			});
-		});
-			
-		//문서에 댓글 수정 이벤트 등록
-		//- 수정용 템플릿을 불러와서 출력용 템플릿의 내용을 복사한 뒤 추가
-		//-(네이버) 하나의 글만 수정이 가능하던데....
-		$(document).on("click", ".btn-reply-edit", function(){
-			
-			//(네이버)열려있는 모든 수정화면을 되돌린다
-			$(".reply-item-edit").prev(".reply-item").show();
-			$(".reply-item-edit").remove;
-			
-			//템플릿 불러와서 해석
-			var templateText = $("#reply-item-edit-wrapper").text();
-			var templateHtml = $.parseHTML(templateText);
-			
-			//댓글내용을 템플릿의 textarea에 설정
-			var replyContent = $(this).parents(".reply-item")
-										.find(".reply-content").text();
-			$(templateHtml).find(".reply-editor2").val(replyContent);
-			
-			//(추가) 변경버튼을 눌렀을 때 글번호를 알 수 있도록 설정
-			var replyNo = $(this).data("reply-no");
-			$(templateHtml).find(".btn-reply-save")
-							.attr("data-reply-no", replyNo);
-			//화면에 추가
-			$(this).parents(".reply-item").hide().after(templateHtml);
-		});
-		$(document).on("click", ".btn-reply-save", function(){
-			//서버에 변경요청을 비동기로 보내고 나서 목록을 갱신
-			//전송에 필요한 정보 - 글번호, 글내용
-			
-			var replyNo = $(this).data("reply-no");
-			var replyContent = $(this).parents(".reply-item-edit")
-										.find(".reply-editor2").val();
-			if(replyContent.length == 0) return;
-			
-			$.ajax({
-				url:"/rest/reply/edit",
-				method:"post",
-				data:{
-					replyNo:replyNo,
-					replyContent:replyContent
-				},
-				success:function(response){
-					loadList();//수정 완료 시 목록 갱신
-				}
-			});
-		});
-	
-		$(document).on("click", ".btn-reply-cancel", function(){
-		//수정용 화면을 제거하고 출력용 화면을 출력
-		$(this).parents(".reply-item-edit").prev(".reply-item").show();
-		$(this).parents(".reply-item-edit").remove();
+	    //최초에 목록 불러오기
+	    loadList();
+	    
+	    //문서에 댓글 삭제 이벤트 등록
+	    //- 화면을 지우는 것이 아니라 서버에 지워달라고 요청을 해야한다
+	    //- 삭제가 완료되면 화면을 직접 지우지 말고 목록을 다시 불러온다
+	    $(document).on("click", ".btn-reply-delete", function(){
+	        var choice = window.confirm("댓글을 삭제하시겠습니까?");
+	        if(choice == false) return;
+	        
+	        //태그에 심어져 있는 번호 정보를 읽어와서 삭제하도록 요청
+	        var replyNo = $(this).data("reply-no");
+	        
+	        $.ajax({
+	            url:"/rest/reply/delete",
+	            method:"post",
+	            data:{replyNo:replyNo},
+	            success:function(response){
+	                loadList(); //삭제가 완료되면 목록 불러오기
+	            }
+	        });
+	    });
+	    
+	    //댓글 등록
+	    $(".btn-reply-insert").click(function(){
+	        //등록에 필요한 정보(내용, 소속글번호)를 구해온다
+	        var replyContent = $(".reply-editor").val();
+	        if(replyContent.length == 0) return; //비어있는 경우만 차단
+	        
+	        var params = new URLSearchParams(location.search);
+	        var boardNo = params.get("boardNo");
+	        
+	        $.ajax({
+	            url:"/rest/reply/insert",
+	            method:"post",
+	            data:{
+	                replyContent:replyContent,
+	                replyOrigin:boardNo
+	            },
+	            success:function(response){
+	                $(".reply-editor").val(""); //에디터 내용 삭제
+	                loadList(); //등록 완료시 목록 갱신
+	            }
+	        });
+	    });
+	    
+	    //문서에 댓글 수정 이벤트 등록
+	    $(document).on("click", ".btn-reply-edit", function(){
+	        //(네이버)열려있는 모든 수정화면을 되돌린다
+	        $(".reply-item-edit").prev(".reply-item").show();
+	        $(".reply-item-edit").remove;
+	        
+	        //템플릿 불러와서 해석
+	        var templateText = $("#reply-item-edit-wrapper").text();
+	        var templateHtml = $.parseHTML(templateText);
+	        
+	        //댓글내용을 템플릿의 textarea에 설정
+	        var replyContent = $(this).parents(".reply-item")
+	                                    .find(".reply-content").text();
+	        $(templateHtml).find(".reply-editor2").val(replyContent);
+	        
+	        //(추가) 변경버튼을 눌렀을 때 글번호를 알 수 있도록 설정
+	        var replyNo = $(this).data("reply-no");
+	        $(templateHtml).find(".btn-reply-save")
+	                        .attr("data-reply-no", replyNo);
+	        //화면에 추가
+	        $(this).parents(".reply-item").hide().after(templateHtml);
+	    });
+	    
+	    $(document).on("click", ".btn-reply-save", function(){
+	        //서버에 변경요청을 비동기로 보내고 나서 목록을 갱신
+	        //전송에 필요한 정보 - 글번호, 글내용
+	        
+	        var replyNo = $(this).data("reply-no");
+	        var replyContent = $(this).parents(".reply-item-edit")
+	                                    .find(".reply-editor2").val();
+	        if(replyContent.length == 0) return;
+	        
+	        $.ajax({
+	            url:"/rest/reply/edit",
+	            method:"post",
+	            data:{
+	                replyNo:replyNo,
+	                replyContent:replyContent
+	            },
+	            success:function(response){
+	                loadList(); //수정 완료 시 목록 갱신
+	            }
+	        });
+	    });
+	    
+	    $(document).on("click", ".btn-reply-cancel", function(){
+	        //수정용 화면을 제거하고 출력용 화면을 출력
+	        $(this).parents(".reply-item-edit").prev(".reply-item").show();
+	        $(this).parents(".reply-item-edit").remove();
+	    });
 	});
-});
 </script>
 
 <c:if test="${sessionScope.loginId != null}">
@@ -289,6 +290,7 @@
 			</c:choose>
 		</h4>
 	</div>
+	<a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">신고</a>
 	<hr>
 	<div class="cell" style="min-height:250px">
 		<%--
@@ -346,6 +348,10 @@
 			</h3>
 			<pre class="reply-content">댓글 내용</pre>
 			<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
+			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginLevel == '관리자')}">
+				<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
+			</c:if>
+			
 		</div>
 		<div class="reply-item-edit">
 			<textarea class="tool w-100 reply-editor2" style="min-height:150px"></textarea>

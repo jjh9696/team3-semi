@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <%--
 	HTML은 여러 버전이 있었으며, 지금은 HTML5가 표준
 	- 디자인과 관련된 요소를 많이 제거하고 다른 언어들과의 화합을 고려
@@ -124,8 +125,12 @@
 			<li><a href="#"> <i class="fa-solid fa-soccer-ball"></i>&nbsp축구게시판</a></li>
 			<li><a href="#"> <i class="fa-solid fa-baseball"></i>&nbsp야구게시판</a></li>
 			<li><a href="#"> <i class="fa-solid fa-basketball"></i>&nbsp농구게시판</a></li>
-			<li><a href="/member/login"><i class="fa-solid fa-user"></i></a></li>
-			<li><a href="/board/list"><i class="fa-solid fa-list"></i></a></li>
+			<li><a href="/member/login"><i class="fa-solid fa-user"></i>
+										<i class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
+			<li><a href="/board/list"><i class="fa-solid fa-peace"></i>
+										<i class="fa-solid fa-list"></i></a></li>
+			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
+										<i class="fa-solid fa-list"></i></a></li>
 		</ul>
 	</div>
 	<div>
@@ -135,9 +140,6 @@
 							${sessionScope.loginId}
 						</a>
 						<ul>
-							<li><a href="/point/charge"> <i
-									class="fa-solid fa-coins"></i> 포인트충전
-							</a></li>
 							<li><a href="/member/logout"> <i
 									class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
 							</a></li>

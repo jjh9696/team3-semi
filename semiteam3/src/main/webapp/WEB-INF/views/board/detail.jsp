@@ -332,4 +332,61 @@
 		</c:if>
 		<a class="btn positive" href="list">글목록</a>
 	</div>
+		<!-- 댓글 작성창 + 댓글 목록 -->
+	<div class="cell">
+		<span class="reply-count">0</span>개의 댓글이 있습니다
+		<hr>
+	</div>
+	<div class="cell reply-list-wrapper">
+		<div class="reply-item">
+			<h3>
+				<span class="reply-writer">작성자</span>
+				<i class="fa-solid fa-edit blue ms-20 btn-reply-edit"></i>
+				<i class="fa-solid fa-trash red btn-reply-delete"></i>
+			</h3>
+			<pre class="reply-content">댓글 내용</pre>
+			<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
+		</div>
+		<div class="reply-item-edit">
+			<textarea class="tool w-100 reply-editor2" style="min-height:150px"></textarea>
+			<div class="right">
+				<button class="btn positive btn-reply-save">
+					<i class="fa-solid fa-check"></i>
+					변경
+				</button>
+				<button class="btn negative btn-reply-cancel">
+					<i class="fa-solid fa-xmark"></i>
+					취소
+				</button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 로그인이 딘 경우만 댓글 작성란이 활성화 되도록 구현 -->
+	<c:choose>
+		<c:when test="${sessionScope.loginId != null}">
+			<div class="cell">
+				<textarea class="tool w-100 reply-editor" style="min-height:150px"
+						placeholder="댓글 내용을 입력하세요"></textarea>
+			</div>
+			<div class="cell">
+				<button class="btn positive w-100 btn-reply-insert">
+					<i class="fa-solid fa-pen"></i>
+					댓글 작성
+				</button>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="cell">
+				<textarea class="tool w-100 reply-editor" style="min-height:150px"
+						placeholder="로그인 후 댓글 작성이 가능합니다" disabled></textarea>
+			</div>
+			<div class="cell">
+				<button class="btn positive w-100 btn-reply-insert" disabled>
+					<i class="fa-solid fa-ban"></i>
+					댓글 작성(로그인 후 이용 가능)
+				</button>
+			</div>
+		</c:otherwise>
+	</c:choose>
 </div>

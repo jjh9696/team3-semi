@@ -233,7 +233,7 @@
 			});
 		});
 	});
->>>>>>> refs/remotes/origin/main
+
 
 </script>
 </c:if>

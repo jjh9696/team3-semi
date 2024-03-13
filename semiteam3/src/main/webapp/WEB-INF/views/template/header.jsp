@@ -147,7 +147,7 @@
 		<li class="menu-end"><c:choose>
 				<c:when test="${sessionScope.loginId !=null}">
 					<a href="/member/mypage"> <i class="fa-sold fa-user"></i>
-						${sessionScope.loginId}
+						${sessionScope.loginNick}
 					</a>
 					<ul>
 						<li><a href="/member/logout"> <i

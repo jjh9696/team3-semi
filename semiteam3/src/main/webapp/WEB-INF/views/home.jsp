@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript 예제</title>
+    <title>KH13c</title>
 
     <!-- 구글 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,9 +26,12 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-rwdImageMaps/1.6/jquery.rwdImageMaps.min.js"></script>
-    
-
+  
+  
     <style>
+    body{
+    	background-color: #e3c7a6;
+    }
         .swiper {
             width: 100%;
 /*             height: 300px; */
@@ -71,64 +74,31 @@
          
         });
     });
-    
     </script>
-    
+    </head>
+<body>
+    <div id="maincontainer">
        <div class="container w-100%">
-     <div class="cell">
-                        
-        </div>
         <div class="cell center">
             <!-- Slider main container -->
             <div class="swiper demo02">
                 <!-- Additional required wrapper -->
                 <div class="swiper-wrapper">
                     <!-- Slides -->
-                    <div class="swiper-slide"><img src="https://picsum.photos/id/25/1000/600"></div>
-                    <div class="swiper-slide"><img src="https://picsum.photos/id/27/1000/600"></div>
-                    <div class="swiper-slide"><img src="https://picsum.photos/id/28/1000/600"></div>
-                    <div class="swiper-slide"><img src="https://picsum.photos/id/29/1000/600"></div>
-                    <div class="swiper-slide"><img src="https://picsum.photos/id/33/1000/600"></div>
+                    <div class="swiper-slide"><img src="https://picsum.photos/id/25/600/400"></div>
+                    <div class="swiper-slide"><img src="https://picsum.photos/id/27/600/400"></div>
+                    <div class="swiper-slide"><img src="https://picsum.photos/id/28/600/400"></div>
+                    <div class="swiper-slide"><img src="https://picsum.photos/id/29/600/400"></div>
+                    <div class="swiper-slide"><img src="https://picsum.photos/id/33/600/400"></div>
                 </div>
                 <!-- If we need pagination -->
                 <div class="swiper-pagination"></div>
 
                 <!-- If we need navigation buttons -->           </div>
         </div>
-     
+     </div>
+     </sesstion>
 
-  <div class="sample">
-    
-    <!--이미지맵 코드 시작-->
-    <!--img태그의 usemap속성의 값은  map 태그와 name가 동일해야 합니다.-->
-    <!--usemap의 map이름 앞에 반드시 #을 붙여서 작성합니다. -->
-    <img src="http://usingu.cdn3.cafe24.com/blog/imagemap-sample.jpg" usemap="#imagemap-sample1" class="responsive-img">
   
-    <!--map태그의 name 속성의 값은 문서 내에서 중복되지 않고 유일해야합니다.-->
-    <!--map태그의 id 속성을 추가하다면 name의 이름과 동일하게 지정합니다.-->
-    <map name="imagemap-sample1">
-      <area target="_blank" alt="일러스트레이터 튜토리얼로 이동" title="일러스트레이터 튜토리얼로 이동"
-        href="https://helpx.adobe.com/kr/illustrator/tutorials.html" coords="71,352,270,503" shape="rect">
-      <area target="_blank" alt="포토샵 튜토리얼 이동" title="포토샵 튜토리얼 이동"
-        href="https://helpx.adobe.com/kr/photoshop/tutorials.html" coords="611,418,100" shape="circle">
-      <area target="_blank" alt="MDN HTML Docs 이동" title="MDN HTML Docs 이동"
-        href="https://developer.mozilla.org/ko/docs/Web/HTML" coords="279,206,226,270,400,367,397,273" shape="poly">
-      <area target="_blank" alt="MDN CSS Docs 이동" title="MDN CSS Docs 이동"
-        href="https://developer.mozilla.org/ko/docs/Web/CSS" coords="342,134,288,196,396,258,397,168" shape="poly">
-      <area target="_blank" alt="MDN JS Docs 이동" title="MDN JS Docs 이동"
-        href="https://developer.mozilla.org/ko/docs/Web/JavaScript" coords="345,130,399,158,399,65" shape="poly">
-    </map>
     
-    <--//이미지맵 코드 끝 -->
-    
-  </div>
-
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-rwdImageMaps/1.6/jquery.rwdImageMaps.min.js"></script>
-   <script>
-   $(document).ready(function() {
-	   $('img[usemap]').rwdImageMaps();
-   });
-   </script>
-    
-    
+</body>

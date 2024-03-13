@@ -38,7 +38,7 @@ public class EmailService {
 		
 		if(memberDto != null) {
 			SimpleMailMessage message = new SimpleMailMessage();
-			message.setTo(memberDto.getMemberId());
+			message.setTo(memberDto.getMemberEmail());
 			message.setSubject("제목");
 			message.setText("아이디는 ["+ memberDto.getMemberId() +"] 입니다");
 			sender.send(message);

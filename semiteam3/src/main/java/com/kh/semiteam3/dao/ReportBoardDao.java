@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.semiteam3.dto.BoardDto;
+import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.dto.ReportBoardDto;
 import com.kh.semiteam3.mapper.ReportBoardMapper;
 import com.kh.semiteam3.vo.PageVO;
@@ -82,8 +83,8 @@ public class ReportBoardDao {
 						+ "board_no, member_id, report_board_reason "
 					+ ") values(report_board_seq.nextval, ?, ?, ?, ?)";
 		Object[] data = {
-				reportBoardDto.getReportBoardNo(), 
 				reportBoardDto.getReportBoardContent(), 
+				reportBoardDto.getReportBoardNo(), 
 				reportBoardDto.getReportBoardOrigin(), 
 				reportBoardDto.getReportBoardWriter(),
 				reportBoardDto.getReportBoardReason() 

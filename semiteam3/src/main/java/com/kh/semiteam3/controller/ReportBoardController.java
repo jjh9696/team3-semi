@@ -90,6 +90,12 @@ public class ReportBoardController {
 						HttpSession session, Model model) {
 		String loginId = (String)session.getAttribute("loginId");
 		reportBoardDto.setReportBoardWriter(loginId);
+		
+		 System.out.println("reportBoardDto.getReportBoardContent(): " + reportBoardDto.getReportBoardContent());
+         System.out.println("reportBoardDto.getReportBoardNo(): " + reportBoardDto.getReportBoardNo());
+         System.out.println("reportBoardDto.getReportBoardWriter(): " + reportBoardDto.getReportBoardWriter());
+         System.out.println("reportBoardDto.getReportBoardReason(): " + reportBoardDto.getReportBoardReason());
+         
 		reportBoardDao.insert(reportBoardDto);
 		return "redirect:detail?reportBoardNo="+reportBoardDto.getReportBoardOrigin();
 	}

@@ -38,7 +38,7 @@ public class MemberController {
 		return "/WEB-INF/views/member/join.jsp";
 	}
 	
-	@PostMapping("join")
+	@PostMapping("/join")
 	public String join(@ModelAttribute MemberDto memberDto,
 							@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
 		
@@ -99,7 +99,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginId"); //세션의 값 삭제
-		session.removeAttribute("loginLevel"); //세션의 값 삭제
+		session.removeAttribute("loginGrade"); //세션의 값 삭제
 		
 		return "redirect:/"; //홈화면으로 리다이렉트(or 원래있던 화면으로? -> 만약 회원만 가능한곳이라면 홈으로되게..?)
 	}
@@ -163,7 +163,7 @@ public class MemberController {
 	
 	//개인정보 변경 페이지
 	@GetMapping("/edit")
-	public String change(HttpSession session, Model model) {
+	public String edit(HttpSession session, Model model) {
 		//사용자 아이디를 세션에서 추출
 		String loginId = (String)session.getAttribute("loginId");
 		
@@ -177,7 +177,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/edit")
-	public String change(@ModelAttribute MemberDto memberDto, HttpSession session) {
+	public String edit(@ModelAttribute MemberDto memberDto, HttpSession session) {
 		//세션에서 아이디 추출
 		String loginId = (String)session.getAttribute("loginId");
 		
@@ -197,7 +197,7 @@ public class MemberController {
 		}
 		else {
 			//이전 페이지로 리다이렉트
-			return "redirect:change?error";
+			return "redirect:edit?error";
 		}
 	}
 	
@@ -268,6 +268,7 @@ public class MemberController {
 			return "redirect:findIdFail";
 		}
 	}
+	
 	@RequestMapping("/findIdSuccess")
 	public String findIdSuccess() {
 		return "/WEB-INF/views/member/findIdSuccess.jsp";

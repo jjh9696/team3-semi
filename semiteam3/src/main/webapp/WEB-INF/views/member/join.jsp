@@ -93,7 +93,7 @@ input[name=memberAddress2] {
 			memberPwValid : false,
 			memberPwCheckValid : false,
 			memberNickValid : false,
-			memberEmailValid : true,
+			memberEmailValid : false,//수정
 			memberBirthValid : true, //선택항목
 			memberContactValid : true, //선택항목
 			memberAddressValid : true,//선택항목
@@ -207,14 +207,14 @@ input[name=memberAddress2] {
 		//이메일 입력을 마친 상황일 때 잘못 입력한 경우만큼은 상태를 갱신
 		$("[name=memberEmail]").blur(
 				function() {
-					var regex = /^[a-z0-9]{8,20}@[a-z0-9\.]{1,20}$/;
+					var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 					var value = $(this).val();
 
 					var isValid = regex.test(value);
 
-					//if (isValid == false) {
-						//state.memberEmailValid = false;
-					//}
+					if (isValid == false) {
+						state.memberEmailValid = false;
+					}
 
 					$(this).removeClass("success fail").addClass(
 							isValid ? "success" : "fail");
@@ -226,7 +226,68 @@ input[name=memberAddress2] {
 				});
 
 		//인증 메일 보내기 이벤트
-		//안돼서 나중에 구현
+		var memberEmail;
+		$(".btn-send-cert").click(function(){
+			var btn = this;
+			$(btn).find("i").removeClass("fa-regular fa-paper-plane")
+							.addClass("fa-solid fa-spinner fa-spin");
+			//보내기 버튼을 누르면 이메일 수정 불가
+			$(btn).prop("disabled", true);
+			
+			//이메일 불러오기
+			var email = $("[name=memberEmail]").val();
+			if(email.length == 0) return;
+			
+			$.ajax({
+				url:"/rest/member/sendCert",
+				method:"post",//제출
+				data:{ memberEmail : email },
+				success: function(response){//성공했을시
+					//템플릿 불러와서 인증번호 입력창을 추가
+					var templateText = $("#cert-template").text();
+					var templateHtml = $.parseHTML(templateText);
+					
+					$(".cert-wrapper").empty().append(templateHtml);
+					
+					memberEmail = email;
+				},
+				error:function(){
+					aler("시스템 오류. 잠시 후 이용바람");
+				},
+				complete:function(){
+					$(btn).find("i").removeClass("fa-solid fa-spinner fa-spin")  
+                    			.addClass("fa-regular fa-paper-plane");
+					$(btn).prop("disabled", false);
+				},				
+			});
+		});
+		
+		//인증번호 확인 이벤트
+		$(document).on("click", ".btn-check-cert", function(){
+			var number = $(".cert-input").val();//인증번호
+			if(memberEmail == undefined || number.length == 0 ) return;
+			
+			$.ajax({
+				url:"/rest/member/checkCert",
+				method:"post",
+				data:{certEmail : memberEmail, certNumber : number},
+				success: function(response){
+					$(".cert-input").removeClass("success fail")
+						.addClass(response === true ? "success" : "fail");
+					
+					if(response === true){
+						 $(".btn-check-cert").prop("disabled", true);
+	                     state.memberEmailValid = true;
+					}
+					else{
+						state.memberEmailValid = false;
+					}
+				},
+				error:function(){
+					alert("오류");
+				},	
+			});
+		});
 
 		$("[name=memberContact]").blur(
 				function() {
@@ -251,9 +312,7 @@ input[name=memberAddress2] {
 						});
 
 		//주소는 세 개의 입력창이 모두 입력되거나 안되거나 둘 중 하나
-		$("[name=memberAddress2]")
-				.blur(
-						function() {
+		$("[name=memberAddress2]").blur(function(){
 							var post = $("[name=memberPost]").val();
 							var address1 = $("[name=memberAddress1]").val();
 							var address2 = $("[name=memberAddress2]").val();
@@ -286,9 +345,43 @@ input[name=memberAddress2] {
 	});
 </script>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+<script>
+    $(function(){
+        $(".btn-address-search").click(function(){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
+                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var addr = ''; // 주소 변수
 
+                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    $("[name=memberPost]").val(data.zonecode);
+                    $("[name=memberAddress1]").val(addr);
+                    
+                    // 커서를 상세주소 필드로 이동한다.
+                    $("[name=memberAddress2]").focus();
+                }
+            }).open();
+        });
+        
+        $(".btn-address-clear").click(function(){
+        	$("[name=memberPost]").val("");
+        	$("[name=memberAddress1]").val("");
+        	$("[name=memberAddress2]").val("");
+        });
+    });
+</script>
 
 <form action="join" method="post" enctype="multipart/form-data"
 	class="check-form" autocomplete="off">
@@ -367,15 +460,14 @@ input[name=memberAddress2] {
 				<div class="flex-cell" style="flex-wrap: wrap;">
 					<input type="email" name="memberEmail"
 						placeholder="test1234@kh.com" class="tool tool-image width-fill">
-
 					<button type="button" class="btn negative btn-send-cert ms-10">
 						<i class="fa-regular fa-paper-plane"></i>
 					</button>
-
 					<div class="fail-feedback w-100">잘못된 이메일 형식입니다</div>
 				</div>
-
 			</div>
+			
+			 <div class="cell cert-wrapper"></div>
 			
 
 			<div class="flex-cell">
@@ -455,3 +547,5 @@ input[name=memberAddress2] {
 
 	</div>
 </form>
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

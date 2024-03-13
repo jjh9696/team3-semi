@@ -122,6 +122,7 @@
 	<div class="cell">
 		<ul class="menu" width="400px">
 
+<<<<<<< HEAD
 			<li><a href="#"> <i class="fa-solid fa-soccer-ball"></i>&nbsp축구게시판</a></li>
 			<li><a href="#"> <i class="fa-solid fa-baseball"></i>&nbsp야구게시판</a></li>
 			<li><a href="#"> <i class="fa-solid fa-basketball"></i>&nbsp농구게시판</a></li>
@@ -131,15 +132,31 @@
 										<i class="fa-solid fa-list"></i></a></li>
 			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
 										<i class="fa-solid fa-list"></i></a></li>
+=======
+			<li><a href="/board/list?category=축구"> <i class="fa-solid fa-soccer-ball"></i>&nbsp축구게시판</a></li>
+            <li><a href="/board/list?category=야구"> <i class="fa-solid fa-baseball"></i>&nbsp야구게시판</a></li>
+            <li><a href="/board/list?category=농구"> <i class="fa-solid fa-basketball"></i>&nbsp농구게시판</a></li>
+            <li><a href="/board/list?category=E-스포츠"> <i class="fa-solid fa-gamepad"></i>&nbsp게임게시판</a></li>
+>>>>>>> refs/remotes/origin/main
 		</ul>
 	</div>
 	<div>
 	<li class="menu-end"><c:choose>
 					<c:when test="${sessionScope.loginId !=null}">
+<<<<<<< HEAD
 						<a href="/member/mypage"> <iclass+"fa-soldfa-user"></i>
+=======
+						<a href="/member/mypage"> <i class="fa-sold fa-user"></i>
+>>>>>>> refs/remotes/origin/main
 							${sessionScope.loginId}
 						</a>
 						<ul>
+<<<<<<< HEAD
+=======
+							<li><a href="/point/charge"> <i
+									class="fa-solid fa-coins"></i> 포인트충전
+							</a></li>
+>>>>>>> refs/remotes/origin/main
 							<li><a href="/member/logout"> <i
 									class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
 							</a></li>

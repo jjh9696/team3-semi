@@ -1,18 +1,33 @@
 package com.kh.semiteam3.vo;
 
 //페이징에 필요한 값들을 전달받아 계산을 수행하는 클래스
-//필요한 값 - column, keyword, page, size, count
+//필요한 값 - column, keyword, page, size, count + category
 
 public class PageVO {
+	//카테고리 별로 분류?
+	private String category;//카테고리
 	private String column, keyword;//검색항목, 검색어
 	private int count;//전체 개수
 	private int page=1;//현재 페이지
 	private int size=10;//한페이지에 보여줄 게시글 개수
 	private int blockSize=10;//블럭 표시개수
 	
+	
+	
 	public PageVO() {
 		super();
 	}
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 
 	public String getColumn() {
 		if(column == null)return "";
@@ -55,7 +70,7 @@ public class PageVO {
 
 	//계산을 위한 가상의 Getter 메소드 추가
 	public boolean isSearch() {
-		return column != null && keyword != null;
+		return column != null && keyword != null && category != null;//카테고리 추가
 	}
 	
 	public int getBeginRow() {
@@ -86,7 +101,7 @@ public class PageVO {
 	}
 	//물음표 뒤에 붙는 데이터 중 공통된 부분
 	public String getQueryString() {
-		return"&size="+size+"&column="+getColumn()+"&keyword="+getKeyword();
+		return "&size="+size+"&column="+getColumn()+"&keyword="+getKeyword();
 	}
 	
 

@@ -36,7 +36,7 @@ public class MemberDao {
 	public boolean updateMember(MemberDto memberDto) {
 		String sql = "update member set "
 				+ "member_nick = ?, member_contact = ?, member_email = ?, member_birth = ?, "
-				+ "member_post = ?, member_address1 = ?, member_address2 = ?, "
+				+ "member_post = ?, member_address1 = ?, member_address2 = ? "
 				+ "where member_id = ?";
 		Object[] data = {
 				memberDto.getMemberNick(), memberDto.getMemberContact(),
@@ -102,7 +102,7 @@ public class MemberDao {
 	
 	//회원 탈퇴
 	public boolean withdraw(String memberId) {
-		String sql = "delete member where member_id = ?";
+		String sql = "delete from member where member_id = ?";
 		Object[] data = {memberId};
 		return jdbcTemplate.update(sql, data) > 0;
 	}

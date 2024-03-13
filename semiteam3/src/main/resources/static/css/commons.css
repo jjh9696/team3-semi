@@ -592,8 +592,8 @@ textarea.tool.tool-fixed {
 .menu, 
 .menu ul{
     list-style: none; /* list에 표기되는 모양 제거*/
-    margin: 0; /* 기본 여백 제거 */
-    padding: 0; /* 기본 여백 제거 */
+    margin: 10; /* 기본 여백 제거 */
+    padding: 10; /* 기본 여백 제거 */
 }
 .menu a{
     color: inherit; /* 글자색상은 외부 상태를 따라가겠다*/
@@ -624,7 +624,7 @@ textarea.tool.tool-fixed {
     background-color: #2d3436;
 }
 .menu li {
-    font-size: 24px;
+    font-size: 20px;
     width: 200px;
     color: white;
     padding: 0.25em;

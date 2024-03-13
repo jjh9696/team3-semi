@@ -38,7 +38,7 @@ public class MemberController {
 		return "/WEB-INF/views/member/join.jsp";
 	}
 	
-	@PostMapping("join")
+	@PostMapping("/join")
 	public String join(@ModelAttribute MemberDto memberDto,
 							@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
 		
@@ -268,6 +268,7 @@ public class MemberController {
 			return "redirect:findIdFail";
 		}
 	}
+	
 	@RequestMapping("/findIdSuccess")
 	public String findIdSuccess() {
 		return "/WEB-INF/views/member/findIdSuccess.jsp";

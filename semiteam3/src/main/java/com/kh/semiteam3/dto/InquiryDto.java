@@ -102,7 +102,7 @@ public class InquiryDto {
 	
 	
 	//현재시각을 기준으로 얼마나 지난 글인지를 계산하여 반환
-	public String getUnquiryWtimeDiff() {
+	public String getinquiryWtimeDiff() {
 		long now = System.currentTimeMillis();
 		long before = inquiryWtime.getTime();
 		long gap = now - before;

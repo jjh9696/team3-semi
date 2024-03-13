@@ -80,7 +80,8 @@ public class ReportBoardController {
 	
 	//등록
 	@GetMapping("/insert")
-	public String insert() {
+	public String insert(@RequestParam Integer reportBoardOrigin, Model model) {
+		ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardOrigin);
 		return "/WEB-INF/views/reportBoard/insert.jsp";
 	}
 	
@@ -89,10 +90,8 @@ public class ReportBoardController {
 						HttpSession session, Model model) {
 		String loginId = (String)session.getAttribute("loginId");
 		reportBoardDto.setReportBoardWriter(loginId);
-		
 		reportBoardDao.insert(reportBoardDto);
-		
-		return "redirect:detail?reportBoardNo="+reportBoardDto.getReportBoardNo();
+		return "redirect:detail?reportBoardNo="+reportBoardDto.getReportBoardOrigin();
 	}
 	
 	//상세

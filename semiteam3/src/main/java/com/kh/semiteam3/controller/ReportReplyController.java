@@ -80,7 +80,8 @@ public class ReportReplyController {
 	
 	//등록
 		@GetMapping("/insert")
-		public String insert() {
+		public String insert(@RequestParam Integer reportReplyOrigin, Model model) {
+			ReportReplyDto reportReplyDto = reportReplyDao.selectOne(reportReplyOrigin);
 			return "/WEB-INF/views/reportReply/insert.jsp";
 		}
 		
@@ -92,7 +93,7 @@ public class ReportReplyController {
 			
 			reportReplyDao.insert(reportReplyDto);
 			
-			return "redirect:detail?reportReplyNo="+reportReplyDto.getReportReplyNo();
+			return "redirect:detail?reportReplyNo="+reportReplyDto.getReportReplyOrigin();
 		}
 		
 		//상세

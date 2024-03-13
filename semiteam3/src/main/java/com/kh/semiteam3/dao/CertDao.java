@@ -18,22 +18,29 @@ public class CertDao {
 	@Autowired
 	private CertMapper certMapper;
 	
+	//등록
 	public void insert(CertDto certDto) {
 		String sql = "insert into cert(cert_email, cert_number) values(?, ?)";
 		Object[] data = {certDto.getCertEmail(), certDto.getCertNumber()};
 		jdbcTemplate.update(sql, data);
 	}
+	
+	//삭제
 	public boolean delete(String certEmail) {
 		String sql = "delete cert where cert_email = ?";
 		Object[] data = {certEmail};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
+	
+	//확인
 	public CertDto selectOne(String certEmail) {
 		String sql = "select * from cert where cert_email = ?";
 		Object[] data = {certEmail};
 		List<CertDto> list = jdbcTemplate.query(sql, certMapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+	
+	//이메일에 전송된 인증번호 확인
 	public boolean checkValid(CertDto certDto) {
 		String sql = "select * from cert "
 						+ "where cert_email = ? "

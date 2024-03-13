@@ -128,10 +128,16 @@ public class MemberDao {
 		List<MemberDto> list = jdbcTemplate.query(sql, memberMapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+
+	public boolean delete(String memberId) {
+		String sql = "delete Home where Member_id=?";
+		Object[] data = {memberId};
+		return jdbcTemplate.update(sql, data) > 0;
 	
 	
 	
-	
+	}
+}
 	
 	
 		
@@ -151,6 +157,4 @@ public class MemberDao {
 	
 	
 	
-	
 
-}

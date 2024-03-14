@@ -1,5 +1,7 @@
 package com.kh.semiteam3.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -161,7 +163,7 @@ public class BoardController {
 		//게시글삭제(jsp x)
 		//만약에 비밀번호 받으려면 겟 포스트 만들어서 회원탈퇴 햇던것처럼 만들면 되지
 		@GetMapping("/delete")
-		public String delete(@RequestParam int boardNo) {
+		public String delete(@RequestParam int boardNo) throws UnsupportedEncodingException {
 			//(summernote 관련 추가할 내용)
 			//- 글을 지우면 첨부파일이 좀비가 된다
 			//- 글과 첨부파일이 연결되어 있지 않다
@@ -170,6 +172,11 @@ public class BoardController {
 			//- 글 안에 있는 <img>중에 .server-img를 찾아서 data-key를 읽어서 삭제
 			//- (문제점)JAVA에서 HTML 구조를 탐색(해석)할 수 있나? OK!(=>Jsoup이라는 라이브러리)
 			BoardDto boardDto = boardDao.selectOne(boardNo);
+			String boardCategory = boardDto.getBoardCategory();
+			
+			//자바에서 UTF-8글자를 인식 못해서.. 바꿔주는 코드를 찾아 넣었음.
+			String boardCategoryEncoded = URLEncoder.encode(boardCategory, "UTF-8"); 
+
 			
 			//*Jsoup* 으로 내용을 탐색하는 과정
 			Document document = Jsoup.parse(boardDto.getBoardContent());//게시글 내용을 탐색해달라!
@@ -180,9 +187,8 @@ public class BoardController {
 				int attachNo = Integer.parseInt(key);//숫자로 변환
 				attachService.remove(attachNo);//파일 삭제 + DB삭제
 			}
-			
 			boardDao.delete(boardNo);//그러고 나서 게시글을 지워라
-			return "redirect:list";
+			return "redirect:list?category=" + boardCategoryEncoded;
 		}
 }
 

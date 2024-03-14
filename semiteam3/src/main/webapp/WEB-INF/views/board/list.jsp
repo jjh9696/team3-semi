@@ -130,7 +130,7 @@
 		<%--네비게이터 출력(구조는 복잡하지만 /board/list와 같지 않을까?) --%>
 		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 	</div>
-	<div class="cell left">
+	<div class="cell center">
 		<%-- 검색창 --%>
 		<form action="list" method="get">
 			<!-- 카테고리를 넘겨줘야함 -->

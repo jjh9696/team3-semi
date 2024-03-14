@@ -68,6 +68,7 @@
 		--%>
 		<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == InquiryDto.inquiryWriter || sessionScope.loginGrade == '관리자')}">
 		<a class="btn negative" href="edit?inquiryNo=${InquiryDto.inquiryNo}">글수정</a>
+		<a class="btn positive" href="write?inquiryTarget=${InquiryDto.inquiryNo}">답글쓰기</a>
 		<a class="btn negative link-confirm" 
 			data-message="정말 삭제하시겠습니까?" 
 			href="delete?inquiryNo=${InquiryDto.inquiryNo}">글삭제</a>

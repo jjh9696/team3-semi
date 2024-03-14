@@ -143,7 +143,7 @@ public class BoardDao {
 	//게시글 수정
 	public boolean update(BoardDto boardDto) {//제목, 내용, 수정일, 카테고리, 마감일을 게시글 번호 뽑아서 수정~!
 		String sql = "update board "
-				+ "set board_title=?, board_content=?, board_edit_time=sysdate "
+				+ "set board_title=?, board_content=?, board_edit_time=sysdate, "
 				+ "board_category=?, board_limit_time=? "
 				+ "where board_no=?";
 		Object[] data = {

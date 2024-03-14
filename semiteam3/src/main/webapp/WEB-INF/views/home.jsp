@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 
 
-<html lang="ko">
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+
 <head>
 
     <meta charset="UTF-8">
@@ -37,6 +37,7 @@
    
         .swiper {
             width: 100%;
+            
 /*             height: 300px; */
         }
 
@@ -78,8 +79,8 @@
     </script>
     </head>
 <body>
-    <div id="maincontainer">
-       <div class="container w-100%">
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+       <div class="container w-100% center">
         <div class="cell center">
             <!-- Slider main container -->
             <div class="swiper demo02">

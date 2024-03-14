@@ -26,7 +26,7 @@
 	<pre class="reply-content"> 댓글 내용</pre>
 	<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
 			<%-- <c:if test="${sessionScope.loginId != null && sessionScope.loginId != boardDto.boardWriter}">  --%>	
-			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginLevel == '관리자')}">
+			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
 				<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
 			</c:if>
 			
@@ -297,7 +297,7 @@
 	<c:if test="${sessionScope.loginId != null}">
 		<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
 	</c:if>
-	<c:if test="${sessionScope.loginLevel == '관리자'}">
+	<c:if test="${sessionScope.login == '관리자'}">
 		신고 횟수 : ${reportCount}
 	</c:if> 
 	
@@ -320,10 +320,7 @@
 				<i class="fa-regular fa-heart"></i>
 				<span class="count">?</span>
 		</span>
-		<span class="board-report red">
-				<i class="fa-regular fa-bell"></i>
-				<span class="report-count">?</span>
-		</span>
+
 	</div>
 	<div class="cell">
 		<fmt:formatDate value="${boardDto.boardWriteTime}"
@@ -340,7 +337,7 @@
 			- 본인글이란 로그인한 사용자 아이디와 게시글 작성자가 같은 경우
 			- 관리자란 로그인한 사용자 등급이 '관리자'인 경우
 		--%>
-		<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginLevel == '관리자')}">
+		<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
 		<a class="btn negative" href="edit?boardNo=${boardDto.boardNo}">글수정</a>
 		<a class="btn negative link-confirm" 
 			data-message="정말 삭제하시겠습니까?" 
@@ -363,7 +360,7 @@
 			</h3>
 			<pre class="reply-content">댓글 내용</pre>
 			<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
-			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginLevel == '관리자')}">
+			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
 				<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
 			</c:if>
 			

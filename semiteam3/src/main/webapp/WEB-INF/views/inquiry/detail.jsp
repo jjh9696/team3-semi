@@ -66,7 +66,7 @@
 			- 본인글이란 로그인한 사용자 아이디와 게시글 작성자가 같은 경우
 			- 관리자란 로그인한 사용자 등급이 '관리자'인 경우
 		--%>
-		<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == InquiryDto.inquiryWriter || sessionScope.loginLevel == '관리자')}">
+		<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == InquiryDto.inquiryWriter || sessionScope.loginGrade == '관리자')}">
 		<a class="btn negative" href="edit?inquiryNo=${InquiryDto.inquiryNo}">글수정</a>
 		<a class="btn negative link-confirm" 
 			data-message="정말 삭제하시겠습니까?" 
@@ -88,7 +88,7 @@
 					
 					 --%> <c:if
 				test="${sessionScope.loginId != null &&
-				 (sessionScope.loginId == InquiryDto.inquiryWriter || sessionScope.loginLevel == '관리자')}">
+				 (sessionScope.loginId == InquiryDto.inquiryWriter || sessionScope.loginGrade == '관리자')}">
 				<a href="edit?inquiryNo=${InquiryDto.inquiryNo}">글수정</a>
 				<a data-message="삭제하시겠습니까?" href="delete?inquiryNo=${InquiryDto.inquiryNo}">삭제</a>
 			</c:if> <a href="list">목록</a></td>

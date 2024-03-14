@@ -152,6 +152,16 @@ $(function(){
 		</ul>
 	</div>
 	<div>
+
+		<c:if test="${sessionScope.loginGrade == '관리자'}">
+			<li><a href="#">관리자메뉴</a>
+				<ul>
+					<li><a href="/admin/member/search">회원관리</a></li>
+					<li><a href="/admin/replyReport/list">댓글신고 게시판</a></li>
+					<li><a href="/admin/boardReport/list">게시글신고 게시판</a></li>
+				</ul></li>
+		</c:if>
+
 		<li class="menu-end"><c:choose>
 				<c:when test="${sessionScope.loginId !=null}">
 					<a href="/member/mypage"> <i class="fa-sold fa-user"></i>

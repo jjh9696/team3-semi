@@ -44,6 +44,23 @@
 <h1>개인정보 변경</h1>
 
 <form action="edit" method="post">
+	<div class="profile-image-area">
+
+		<%-- 프로필 이미지가 없으면 기본 이미지 --%>
+		<c:if test="${empty loginMember.profileImage}">
+			<img src="/images/user.png" id="profileImage">
+		</c:if>
+
+		<%-- 프로필 이미지가 있으면 있는 이미지 --%>
+		<c:if test="${!empty loginMember.profileImage}">
+			<div class="">
+                <img src="image" width="200" height="200">
+            </div>
+		</c:if>
+
+	</div>
+	<span id="deleteImage">x</span><br><br>
+
 	닉네임 * <input type="text" name="memberNick" required value="${memberDto.memberNick }"><br><br>
 	이메일 * <input type="email" name="memberEmail" required value="${memberDto.memberEmail }"><br><br>
 	생년월일 <input type="date" name="memberBirth"  value="${memberDto.memberBirth }"><br><br>

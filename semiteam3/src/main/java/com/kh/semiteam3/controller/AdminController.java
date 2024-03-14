@@ -38,26 +38,18 @@ public class AdminController implements HandlerInterceptor{
 			return "/WEB-INF/views/admin/stat/member.jsp";
 	}
 	*/
+	//회원 검색
 		@RequestMapping("/member/search")
-		public String memberSearch(
-				@RequestParam(required = false) String column,
-				@RequestParam(required = false) String keyword,
-				Model model) {
-			//원래는 컬럼과 키워드가 없으면 목록을 출력했으나 지금은 아니다
-			boolean isSearch = column != null && keyword !=null;
-			if(isSearch) {
-				//지정한 항목에서만 검색이 가능하도록 구현
-				switch(column) {
-				//case "member_id", "member_nick", "member_contact", "member_email", "member_birth";
-				case "member_id":
-				case "member_nick":
-				case "member_contact":
-				case "member_email":
-				case "member_birth":
-					List<MemberDto> list = memberDao.selectList();
-					model.addAttribute("list", list);
-				}
-			}
+		public String memberList(@RequestParam(required=false)String column,
+								@RequestParam(required=false)String keyword,
+								Model model) {
+			//컬럼과 키워드가 없어도 목록 출력 가능
+			boolean isSearch = column !=null && keyword != null;
+			
+			List<MemberDto> list = isSearch ?
+					memberDao.searchList(column, keyword) : memberDao.selectList();
+			model.addAttribute("list", list);
+			
 			return "/WEB-INF/views/admin/member/search.jsp";
 		}
 	
@@ -71,7 +63,7 @@ public class AdminController implements HandlerInterceptor{
 		
 		@GetMapping("/member/delete")
 		public String memberDelete(@RequestParam String memberId) {
-			memberDao.delete(memberId);
+			memberDao.withdraw(memberId);
 			return "redirect:search";
 		}
 		
@@ -85,8 +77,7 @@ public class AdminController implements HandlerInterceptor{
 		@PostMapping("/member/edit")
 		public String memberEdit(@ModelAttribute MemberDto memberDto) {
 			memberDao.updateMemberByAdmin(memberDto);
-				return "redirect:detail?memberId="+memberDto.getMemberId();
-			
+			return "redirect:detail?memberId="+memberDto.getMemberId();			
 		}	
 		
 		

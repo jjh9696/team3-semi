@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/rest/Report")
+@RequestMapping("/rest/report")
 public class ReportRestController {
 	
 	@Autowired
@@ -48,7 +48,5 @@ public class ReportRestController {
 		int count = reportDao.count(ReportMember);
 		reportVO.setCount(count);
 		return reportVO;
-
-		
 	}
 }

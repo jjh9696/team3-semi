@@ -201,7 +201,13 @@ input[name=memberAddress2] {
 		//- 인증번호 입력창 제거
 		//- 이메일 피드백 제거
 		
-		//오류때문에 구현예정
+		$("[name=memberEmail]").on("input", function(){
+			if(state.memberEmailValid){
+				state.memberEmailValid = false;
+				$(this).removeClass("success fail");				
+				$(".cert-wrapper").empty();
+			}
+		})
 		
 		
 		//이메일 입력을 마친 상황일 때 잘못 입력한 경우만큼은 상태를 갱신
@@ -340,6 +346,9 @@ input[name=memberAddress2] {
 
 			//입력창 중에서 success fail fail2가 없는 창
 			$(this).find(".tool").not(".success, .fail, .fail2").blur();
+// 			console.table(state);
+// 			console.log(state.ok());
+			
 			return state.ok();
 		});
 	});
@@ -529,8 +538,8 @@ input[name=memberAddress2] {
 		<!-- 4페이지 - 프로필사진 -->
 		<div class="cell page">
 			<div class="cell">
-				<label>프로필 이미지</label> <input type="file" name="attach"
-					class="too w-100">
+				<label>프로필 이미지</label>
+				<input type="file" name="attach" class="too w-100">
 			</div>
 
 			<div class="flex-cell">

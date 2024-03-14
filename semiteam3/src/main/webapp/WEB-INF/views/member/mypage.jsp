@@ -5,7 +5,12 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 
-<div class="cell">
+<script type="text/javascript">
+
+</script>
+
+<div class="flex-cell">
+			<img src="image" width="200" height="200">
 		<ul>
 			<li><a href="/member/password">비밀번호 변경</a></li>
 			<li><a href="/member/edit">개인정보 변경</a></li>

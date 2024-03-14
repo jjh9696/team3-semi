@@ -32,6 +32,9 @@
 <!-- 내가 구현한 스타일 -->
 <link rel="stylesheet" type="text/CSS" href="/css/commons.css">
 <link rel="stylesheet" type="text/CSS" href="/css/test.css">
+<script src="/js/commons.js"></script>
+
+
 
 <!-- font awesome 아이콘 CDN -->
 <link rel="stylesheet" type="text/css"
@@ -49,7 +52,7 @@
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <style>
 .note-editor {
-	border: 1px solid #66BB6A !important;
+	border: 1px solid #e3c7a6 !important;
 }
 </style>
 
@@ -141,6 +144,8 @@
 					<i class="fa-solid fa-list"></i></a></li>
 			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
 					<i class="fa-solid fa-list"></i></a></li>
+			<li><a href="/"><i class="fa-solid fa-home"></i>
+					<i class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
 		</ul>
 	</div>
 	<div>

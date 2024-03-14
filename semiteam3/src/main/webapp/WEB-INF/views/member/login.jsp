@@ -65,7 +65,7 @@
 	<form action="login" method="post" autocomplete="off"
 		class="check-form">
 		<div class="container w-450">
-			<div class="cell center title" style="color: #66BB6A">
+			<div class="cell center title" style="color: #e3c7a6">
 				<h1>
 					<i class="fa-regular fa-user"></i>
 				로그인</h1>
@@ -88,7 +88,7 @@
 					
 				<div class="cell">
 					<button class="btn positive w-100"
-						style="background-color: #66BB6A">
+						style="background-color: #e3c7a6">
 							<i class="fa-solid fa-arrow-right-to-bracket"></i>
 						로그인</button>
 				</div>

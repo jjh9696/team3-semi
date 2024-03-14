@@ -50,19 +50,4 @@ public class AttachDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

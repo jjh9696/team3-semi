@@ -38,12 +38,30 @@
 	    });
 	});
 </script>
+<script>
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <h1>개인정보 변경</h1>
 
-<form action="edit" method="post">
+<form action="edit" method="post" autocomplete="off" enctype="multipart/form-data">
+	<div>
+		<img src="image" width="200" height="200"><br>
+		프로필사진 변경<input type="file" name="attach"  class="input" onchange="previewImage(this)"><br><br>
+	</div>
 	닉네임 * <input type="text" name="memberNick" required value="${memberDto.memberNick }"><br><br>
 	이메일 * <input type="email" name="memberEmail" required value="${memberDto.memberEmail }"><br><br>
 	생년월일 <input type="date" name="memberBirth"  value="${memberDto.memberBirth }"><br><br>
@@ -59,7 +77,7 @@
 	<input type="text" name="memberAddress1" placeholder="기본주소" value="${memberDto.memberAddress1}"><br><br>
 	<input type="text" name="memberAddress2" placeholder="상세주소" value="${memberDto.memberAddress2}"><br><br>
 	비밀번호 확인 * <input type="password" name="memberPw" required><br><br>
-	<button>변경하기</button>
+	<button type="submit">변경하기</button>
 </form>
 
 <c:if test="${param.error != null }">

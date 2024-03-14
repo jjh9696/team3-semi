@@ -34,9 +34,7 @@
   
   
     <style>
-    body{
-    	background-color: #e3c7a6;
-    }
+   
         .swiper {
             width: 100%;
 /*             height: 300px; */

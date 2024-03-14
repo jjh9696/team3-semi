@@ -109,4 +109,9 @@ public class ReportBoardDao {
 		List<ReportBoardDto> list = jdbcTemplate.query(sql, reportBoardMapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+	//신고 개수 카운트
+	public int reportCount(int reportBoardOrigin) {
+		String sql = "select count(*) from report_board where board_no=?";
+		return jdbcTemplate.queryForObject(sql, Integer.class, reportBoardOrigin);
+	}
 }	

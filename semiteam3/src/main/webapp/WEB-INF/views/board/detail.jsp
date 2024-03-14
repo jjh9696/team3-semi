@@ -263,32 +263,7 @@
 		});
 	});
 </script>
-<script type="text/javascript">
-	//*신고* 최초 불러오기
-	
-	$(function(){
-		//(주의) 아무리 같은 페이지라도 서로 다른언어를 혼용하지 말것
-		//- 자바스크립트에서 파라미터를 읽어 번호를 추출
-		var params = new URLSearchParams(location.search);
-		var boardNo = params.get("boardNo");
-		
-		//최초에 표시될 화면을 위해 화면이 로딩되자마자 서버로 비동기 통신 시도
-		$.ajax({
-			url:"/rest/Report/check",
-			method:"post",
-			data:{boardNo:boardNo},
-			success:function(response){
-				//response.state에 따라서 신고아이콘의 형태를 설정
-				$(".board-report").find(".fa-bell")
-				.removeClass("fa-solid fa-regular")
-				.addClass(response.state ? "fa-solid" : "fa-regular");
-				
-				//response.count에 따라서 신고 개수를 표기
-				$(".board-report").find(".report-count").text(response.count);
-			}
-		});
-	});
-</script>
+
 <div class="container w-800">
 	<div class="cell center">
 		<h1>${boardDto.boardNo}번 글 보기</h1>
@@ -318,7 +293,12 @@
 			</c:choose>
 		</h4>
 	</div>
-	<a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">신고</a>
+	    <c:if test="${sessionScope.loginId != null}">
+        <div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
+    </c:if>
+    <%-- <c:if test="${sessionScope.loginLevel == '관리자'}"> --%>
+        신고 횟수 : ${reportCount}
+<%--     </c:if> --%>
 	<hr>
 	<div class="cell" style="min-height:250px">
 		<%--

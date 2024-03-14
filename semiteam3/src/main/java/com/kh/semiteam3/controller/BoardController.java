@@ -84,7 +84,12 @@ public class BoardController {
             model.addAttribute("pageVO",pageVO);
             
             List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
+            List<BoardDto> adminListAll = boardDao.listByAdmin();
+            List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
+            
             model.addAttribute("list", list);
+            model.addAttribute("adminListAll", adminListAll);
+            model.addAttribute("adminListCategory", adminListCategory);
             
             return "/WEB-INF/views/board/list.jsp";
         }

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.semiteam3.dao.AttachDao;
 import com.kh.semiteam3.dao.MemberDao;
+import com.kh.semiteam3.dto.AttachDto;
 import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.service.EmailService;
@@ -177,8 +179,12 @@ public class MemberController {
 		return "/WEB-INF/views/member/edit.jsp";
 	}
 	
+	@Autowired
+	AttachDao attachDao;
+	
 	@PostMapping("/edit")
-	public String edit(@ModelAttribute MemberDto memberDto, HttpSession session) {
+	public String edit(@ModelAttribute MemberDto memberDto, HttpSession session, 
+			 			@ModelAttribute AttachDto attachDto) {
 		//세션에서 아이디 추출
 		String loginId = (String)session.getAttribute("loginId");
 		
@@ -191,15 +197,22 @@ public class MemberController {
 		//판정
 		boolean isValid = memberDto.getMemberPw().equals(findDto.getMemberPw());
 		
-		//변경 요청
 		if(isValid) {
-			memberDao.updateMember(memberDto);
-			return "redirect:mypage";
-		}
-		else {
-			//이전 페이지로 리다이렉트
-			return "redirect:edit?error";
-		}
+	        // 회원 정보 업데이트
+	        memberDto.setMemberId(loginId);
+	        memberDao.updateMember(memberDto);
+	        
+	        // 이미지 정보 업데이트
+	        if (attachDto != null) {
+	            attachDao.update(attachDto);
+	        }
+	        
+	        return "redirect:mypage";
+	    }
+	    else {
+	        // 이전 페이지로 리다이렉트
+	        return "redirect:edit?error";
+	    }
 	}
 	
 	//회원 탈퇴 페이지

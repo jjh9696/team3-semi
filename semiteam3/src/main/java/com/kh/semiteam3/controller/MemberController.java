@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.semiteam3.dao.AttachDao;
 import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.service.AttachService;
@@ -22,6 +23,9 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
+	
+	@Autowired
+	private AttachDao attachDao;
 	
 	@Autowired
 	private MemberDao memberDao;
@@ -53,7 +57,7 @@ public class MemberController {
 		}
 		
 		//가입 환영 메일 발송
-//		emailService.sendWelcomeMail(memberDto.getMemberEmail());
+		emailService.sendWelcomeMail(memberDto.getMemberEmail());
 		
 		return "redirect:joinFinish";
 	}
@@ -83,6 +87,7 @@ public class MemberController {
 			//세션에 따라 데이터 추가
 			session.setAttribute("loginId", findDto.getMemberId());
 			session.setAttribute("loginGrade", findDto.getMemberGrade()); //관리자일경우 다른화면
+			session.setAttribute("loginNick", findDto.getMemberNick());
 			
 			//최종 로그인시각 갱신
 			memberDao.updateMemberLogin(findDto.getMemberId());
@@ -186,7 +191,7 @@ public class MemberController {
 		
 		//DB정보 조회
 		MemberDto findDto = memberDao.selectOne(loginId);
-		
+
 		//판정
 		boolean isValid = memberDto.getMemberPw().equals(findDto.getMemberPw());
 		

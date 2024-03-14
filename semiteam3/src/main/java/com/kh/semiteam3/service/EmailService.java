@@ -25,8 +25,8 @@ public class EmailService {
 	public void sendWelcomeMail(String email) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(email);
-		message.setSubject("제목");
-		message.setText("내용");
+		message.setSubject("노실 커뮤니티 회원가입을 축하드립니다");
+		message.setText("같이 노실~?");
 		
 		sender.send(message);
 	}

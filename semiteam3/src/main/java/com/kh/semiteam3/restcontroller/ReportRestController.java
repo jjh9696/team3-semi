@@ -48,7 +48,5 @@ public class ReportRestController {
 		int count = reportDao.count(ReportMember);
 		reportVO.setCount(count);
 		return reportVO;
-
-		
 	}
 }

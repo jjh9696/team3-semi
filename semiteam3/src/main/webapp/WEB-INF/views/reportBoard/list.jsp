@@ -19,7 +19,9 @@
 			<table class="table table-horizontal">
 				<thead>
 					<tr>
-						<th>번호</th>
+						<th>게시글 신고 번호</th>
+						<th>신고된 게시글 번호</th>
+						<th>신고자</th>
 						<th>신고사유</th>
 						<th>신고일</th>
 					</tr>
@@ -27,7 +29,13 @@
 				<tbody align="center">
 					<c:forEach var="reportBoardDto" items="${list}">
 						<tr>
-							<td>${reportBoardDto.reportBoardNo}</td>
+							<td>
+								<a class="link" href="detail?reportBoardNo=${reportBoardDto.reportBoardNo}">
+								${reportBoardDto.reportBoardNo}
+								</a>
+							</td>
+							<td>${reportBoardDto.reportBoardOrigin}</td>
+							<td>${reportBoardDto.reportBoardWriter}</td>
 							<td>${reportBoardDto.reportBoardReason}</td>
 							<td>${reportBoardDto.reportBoardDate}</td>
 						</tr>

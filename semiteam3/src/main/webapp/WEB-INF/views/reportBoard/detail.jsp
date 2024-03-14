@@ -15,12 +15,23 @@
 			<h2>게시글 신고</h2>
 		</div>
 
-		<div class="cell">
+		 <div class="cell">
 			<h3>
-				${reportBoardDto.reportBoardWriter}
-			</h3>
-		</div>
 
+				<c:choose>
+					<c:when test="${reportBoardDto.reportBoardWriter == null}">
+						${reportBoardDto.getReportBoardWriterStr}
+					</c:when>
+					<c:otherwise>
+						신고자: ${reportBoardDto.reportBoardWriter}
+					</c:otherwise>
+				</c:choose>
+
+			</h3>
+		</div> 
+		<div class="cell">
+			<pre>신고사유: ${reportBoardDto.reportBoardReason}</pre>
+		</div>
 		<hr>
 		<div class="cell" style="min-height: 250px;">
 			<pre>${reportBoardDto.reportBoardContent}</pre>
@@ -33,18 +44,14 @@
 				pattern="yyyy-MM-dd HH:mm:ss" />
 		</div>
 
-			<%-- 
-			삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 
-			- 본인글이란 로그인한 사용자 아이디와 게시글 작성자가 같은 경우
-			- 관리자란 로그인한 사용자 등급이 '관리자'인 경우
-		--%>
-				<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
+		<div>
+			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
 					href="delete?reportBoardNo=${reportBoardDto.reportBoardNo}">글삭제</a>
-			<a class="btn positive" href="list">글목록</a>
+			<a class="btn positive" href="list">신고글 목록</a>
+			<a class="btn positive" href="/board/detail?boardNo=${reportBoardDto.reportBoardOrigin}">신고된 글 보러가기</a>
+
 		</div>
-
-
-	</div>
+	
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>
 </html>

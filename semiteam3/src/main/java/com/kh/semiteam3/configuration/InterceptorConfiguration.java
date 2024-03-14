@@ -35,18 +35,20 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 							"/football/list", "/football/detail",
 							"/baseball/list", "/baseball/detail",
 							"/esports/list", "/esports/detail"
-							
+
 							);
 		
 		// 관리자 인터셉터 등록
-//		registry.addInterceptor(adminInterceptor).
-//					addPathPatterns(
-//							"/admin/**",
-//							"/reportBoard/**"
-//							)
-//					.excludePathPatterns(
-//							"/reportBoard/insert*"
-//							);
+
+		registry.addInterceptor(adminInterceptor)
+						.addPathPatterns(
+								"/admin/**",
+								"/reportBoard/**"
+								)
+						.excludePathPatterns(
+								"/reportBoard/insert*"
+								);
+		
 	}	
 
 }

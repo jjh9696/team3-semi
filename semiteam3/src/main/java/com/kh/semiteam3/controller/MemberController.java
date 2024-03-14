@@ -83,6 +83,7 @@ public class MemberController {
 			//세션에 따라 데이터 추가
 			session.setAttribute("loginId", findDto.getMemberId());
 			session.setAttribute("loginGrade", findDto.getMemberGrade()); //관리자일경우 다른화면
+			session.setAttribute("loginNick", findDto.getMemberNick());
 			
 			//최종 로그인시각 갱신
 			memberDao.updateMemberLogin(findDto.getMemberId());

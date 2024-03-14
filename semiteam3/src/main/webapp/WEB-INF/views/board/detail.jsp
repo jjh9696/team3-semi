@@ -263,6 +263,7 @@
 		});
 	});
 </script>
+
 <div class="container w-800">
 	<div class="cell center">
 		<h1>${boardDto.boardNo}번 글 보기</h1>
@@ -292,12 +293,14 @@
 			</c:choose>
 		</h4>
 	</div>
+
 	<c:if test="${sessionScope.loginId != null}">
 		<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
 	</c:if>
 	<c:if test="${sessionScope.loginLevel == '관리자'}">
 		신고 횟수 : ${reportCount}
 	</c:if> 
+	
 	<hr>
 	<div class="cell" style="min-height:250px">
 		<%--
@@ -316,6 +319,10 @@
 		<span class="board-like red">
 				<i class="fa-regular fa-heart"></i>
 				<span class="count">?</span>
+		</span>
+		<span class="board-report red">
+				<i class="fa-regular fa-bell"></i>
+				<span class="report-count">?</span>
 		</span>
 	</div>
 	<div class="cell">

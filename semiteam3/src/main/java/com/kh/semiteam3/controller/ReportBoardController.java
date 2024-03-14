@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.semiteam3.dao.BoardDao;
 import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dao.ReportBoardDao;
+
+import com.kh.semiteam3.dto.BoardDto;
+import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.dto.ReportBoardDto;
 import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.vo.PageVO;
@@ -82,11 +85,11 @@ public class ReportBoardController {
 	}
 	
 	//등록
-	@GetMapping("/insert")
-	public String insert(@RequestParam Integer reportBoardOrigin, Model model) {
-		ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardOrigin);
-		return "/WEB-INF/views/reportBoard/insert.jsp";
-	}
+    @GetMapping("/insert")
+    public String insert(@RequestParam Integer reportBoardOrigin, Model model) {
+        ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardOrigin);
+        return "/WEB-INF/views/reportBoard/insert.jsp";
+    }
 	
 	@PostMapping("/insert")
 	public String insert(@ModelAttribute ReportBoardDto reportBoardDto, 
@@ -100,7 +103,6 @@ public class ReportBoardController {
 	    reportBoardDto.setReportBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
 		reportBoardDao.insert(reportBoardDto);
 		
-		
 		return "redirect:http://localhost:8080/board/detail?boardNo="+reportBoardDto.getReportBoardOrigin();
 	}
 	
@@ -111,7 +113,10 @@ public class ReportBoardController {
 		ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardNo);
 		model.addAttribute("reportBoardDto", reportBoardDto);
 		
-
+//		if(reportBoardDto.getReportBoardWriter() != null) {
+//			MemberDto memberDto = memberDao.selectOne(reportBoardDto.getReportBoardWriter());
+//			model.addAttribute("memberDto", memberDto);
+//		}
 				
 		return "/WEB-INF/views/reportBoard/detail.jsp";
 	}

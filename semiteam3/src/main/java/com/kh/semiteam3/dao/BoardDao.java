@@ -168,6 +168,7 @@ public class BoardDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
+
 	//관리자 전체 공지 조회하기
 	public List<BoardDto> listByAdmin(){
 		String sql = "select * from("
@@ -196,8 +197,6 @@ public class BoardDao {
 		
 		return jdbcTemplate.query(sql, boardListMapper, data);
 	}
-	
-	
 	
 }
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dao.ReportBoardDao;
+import com.kh.semiteam3.dto.BoardDto;
 import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.dto.ReportBoardDto;
 import com.kh.semiteam3.service.AttachService;
@@ -79,19 +80,23 @@ public class ReportBoardController {
 	}
 	
 	//등록
-	@GetMapping("/insert")
-	public String insert(@RequestParam Integer reportBoardOrigin, Model model) {
-		ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardOrigin);
-		return "/WEB-INF/views/reportBoard/insert.jsp";
-	}
+    @GetMapping("/insert")
+    public String insert(@RequestParam Integer reportBoardOrigin, Model model) {
+        ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardOrigin);
+        return "/WEB-INF/views/reportBoard/insert.jsp";
+    }
 	
 	@PostMapping("/insert")
 	public String insert(@ModelAttribute ReportBoardDto reportBoardDto, 
 						HttpSession session, Model model) {
 		String loginId = (String)session.getAttribute("loginId");
 		reportBoardDto.setReportBoardWriter(loginId);
+		
+		int sequence = reportBoardDao.getSequence();//DB에서 시퀀스 번호를 추출(번호 미리 뽑아)
+		reportBoardDto.setReportBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
 		reportBoardDao.insert(reportBoardDto);
-		return "redirect:detail?reportBoardNo="+reportBoardDto.getReportBoardOrigin();
+		
+		return "redirect:http://localhost:8080/board/detail?boardNo="+reportBoardDto.getReportBoardOrigin();
 	}
 	
 	//상세
@@ -100,10 +105,10 @@ public class ReportBoardController {
 		ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardNo);
 		model.addAttribute("reportBoardDto", reportBoardDto);
 		
-		if(reportBoardDto.getReportBoardWriter() != null) {
-			MemberDto memberDto = memberDao.selectOne(reportBoardDto.getReportBoardWriter());
-			model.addAttribute("memberDto", memberDto);
-		}
+//		if(reportBoardDto.getReportBoardWriter() != null) {
+//			MemberDto memberDto = memberDao.selectOne(reportBoardDto.getReportBoardWriter());
+//			model.addAttribute("memberDto", memberDto);
+//		}
 				
 		return "/WEB-INF/views/reportBoard/detail.jsp";
 	}

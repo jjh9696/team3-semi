@@ -80,7 +80,7 @@ public class ReportBoardDao {
 		String sql = "insert into report_board("
 						+ "report_board_no, report_board_content, "
 						+ "board_no, member_id, report_board_reason "
-					+ ") values(report_board_seq.nextval, ?, ?, ?, ?)";
+					+ ") values(?, ?, ?, ?, ?)";
 		Object[] data = {
 				reportBoardDto.getReportBoardNo(), 
 				reportBoardDto.getReportBoardContent(), 
@@ -89,6 +89,10 @@ public class ReportBoardDao {
 				reportBoardDto.getReportBoardReason() 
 		};
 		jdbcTemplate.update(sql, data);
+	}
+	public int getSequence() {
+		String sql = "select report_board_seq.nextval from dual";
+		return jdbcTemplate.queryForObject(sql, int.class);//내가 실행할 구문을 인트로 실행해라
 	}
 	
 	//삭제
@@ -104,5 +108,10 @@ public class ReportBoardDao {
 		Object[] data = {reportBoardNo};
 		List<ReportBoardDto> list = jdbcTemplate.query(sql, reportBoardMapper, data);
 		return list.isEmpty() ? null : list.get(0);
+	}
+	//신고 개수 카운트
+	public int reportCount(int reportBoardOrigin) {
+		String sql = "select count(*) from report_board where board_no=?";
+		return jdbcTemplate.queryForObject(sql, Integer.class, reportBoardOrigin);
 	}
 }	

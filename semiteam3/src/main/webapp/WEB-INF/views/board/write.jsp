@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+	
+
+	    <script src="/js/exit.js"></script>
 
 
-
-    <script src="/js/exit.js"></script>
+    
     
     <div class="container w-800">
 	<%-- 제목칸 --%>
@@ -32,9 +34,9 @@
 				<input type="hidden" name="boardCategory" value="${param.category}">
 			</div>
 			
-			<div class="cell">
-				마감일
-			</div>
+        <div class="cell flex-cell">
+			마감시간
+        </div>
 			
 			<div class="cell">
 				<input class="tool w-100" name="boardTitle" type="text" placeholder="제목">

@@ -167,6 +167,8 @@ public class BoardDao {
 		Object[] data = {boardNo};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
+	
+	
 }
 
 

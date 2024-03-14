@@ -18,6 +18,9 @@
 				<h1>게시글 신고</h1>
 			</div>
 			<div class="cell">
+				<input name="reportBoardOrigin" type="hidden" value="${param.reportBoardOrigin}">
+			</div>
+			<div class="cell">
 				<label>신고사유</label> <select name="reportBoardReason" required
 					class="tool w-100">
 					<option value="">선택하세요</option>

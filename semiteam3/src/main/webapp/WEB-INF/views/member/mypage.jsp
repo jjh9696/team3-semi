@@ -25,10 +25,23 @@ $(function(){
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+
+
+<script type="text/javascript">
+
+</script>
+
+<div class="flex-cell">
+			<img src="image" width="200" height="200">
+		<ul>
+			<li><a href="/member/password">비밀번호 변경</a></li>
+			<li><a href="/member/edit">개인정보 변경</a></li>
+			<li><a href="/member/exit">회원 탈퇴</a></li>
+		</ul>
+	</div>
+	
+
 <div class="cell">
-		<div class="">
-				<img src="image" width="200" height="200">
-			</div>
 				<table class="table">
 					<tr>
 						<th width="30%">닉네임</th>

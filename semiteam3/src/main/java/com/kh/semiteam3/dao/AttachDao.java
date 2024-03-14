@@ -50,6 +50,7 @@ public class AttachDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
+
 	//변경
 	public boolean update(AttachDto attachDto) {
 	    String sql = "UPDATE attach SET "
@@ -65,17 +66,4 @@ public class AttachDao {
 	    };
 	    return jdbcTemplate.update(sql, data) > 0;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

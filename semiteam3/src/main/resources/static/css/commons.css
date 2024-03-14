@@ -79,13 +79,13 @@
     font-size: 20px;
     padding: 0.5em 1em;
     outline: none;/*선택시 자동강조효과 제거*/
-    border: 1px solid #636e72;
+    border: 1px solid #e3c7a6;
     border-radius: 0.1em;
 }
 
 /* 입력창은 focus 효과가 발생할 때 테두리를 강조 */
 .tool:focus {
-    border-color: #2d3436;
+    border-color: #e3c7a6;
 }
 
 /* 밑줄만 있는 입력창 구현 .tool.underline*/
@@ -136,7 +136,7 @@ textarea.tool.tool-fixed {
 */
 
 .btn {/* a태그를 버튼으로 쓸 경우 */
-    color: #2d3436;
+    color: #e3c7a6;
     text-decoration: none; /* 밑줄 제거 */
     display: inline-block;
     text-align: center;
@@ -145,11 +145,11 @@ textarea.tool.tool-fixed {
 }
 
 .btn.positive {
-    background-color: #00b894;
+    background-color: #e3c7a6;
     color: white;
 }
 .btn.negative {
-    background-color: #d63031;
+    background-color: #d630317b;
     color: white;
 }
 
@@ -324,7 +324,7 @@ textarea.tool.tool-fixed {
 .table.table-border > tfoot > tr > th, 
 .table.table-border > tfoot > tr > td 
 {
-    border:1px solid #2d3436;
+    border:1px solid #e3c7a6;
 }
 
 /*
@@ -335,7 +335,7 @@ textarea.tool.tool-fixed {
 .table.table-stripe > thead > tr,
 .table.table-stripe > tbody > tr:nth-child(2n) 
 {
-    background-color: #b2bec3;
+    background-color: #e3c7a6;
 }
 
 /*
@@ -343,7 +343,7 @@ textarea.tool.tool-fixed {
     - 제목은 제외한 내용 줄만 마우스가 올라가면 색상이 변하도록 구현
 */
 .table.table-hover > tbody > tr:hover {
-    background-color: #b2bec3;
+    background-color: #e3c7a1;
 }
 
 /*
@@ -621,7 +621,7 @@ textarea.tool.tool-fixed {
 */
 .menu,
 .menu ul {
-    background-color: #2d3436;
+    background-color: #e3c7a6;
 }
 .menu li {
     font-size: 20px;

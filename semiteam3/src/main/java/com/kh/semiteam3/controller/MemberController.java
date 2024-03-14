@@ -26,6 +26,9 @@ import jakarta.servlet.http.HttpSession;
 public class MemberController {
 	
 	@Autowired
+	private AttachDao attachDao;
+	
+	@Autowired
 	private MemberDao memberDao;
 	
 	@Autowired
@@ -55,7 +58,7 @@ public class MemberController {
 		}
 		
 		//가입 환영 메일 발송
-//		emailService.sendWelcomeMail(memberDto.getMemberEmail());
+		emailService.sendWelcomeMail(memberDto.getMemberEmail());
 		
 		return "redirect:joinFinish";
 	}
@@ -179,8 +182,6 @@ public class MemberController {
 		return "/WEB-INF/views/member/edit.jsp";
 	}
 	
-	@Autowired
-	AttachDao attachDao;
 	
 	@PostMapping("/edit")
 	public String edit(@ModelAttribute MemberDto memberDto, HttpSession session, 
@@ -193,7 +194,7 @@ public class MemberController {
 		
 		//DB정보 조회
 		MemberDto findDto = memberDao.selectOne(loginId);
-		
+
 		//판정
 		boolean isValid = memberDto.getMemberPw().equals(findDto.getMemberPw());
 		
@@ -262,7 +263,7 @@ public class MemberController {
 		return "redirect:/download?attachNo=" + attachNo;
 	}
 	catch(Exception e) {
-		return "redirect:/image/user.png";
+		return "redirect:/image/user.svg";
 		}
 	}
 	

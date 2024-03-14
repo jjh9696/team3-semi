@@ -21,6 +21,8 @@ public class AttachService {
 		int attachNo = attachDao.getSequence();
 		File dir = new File(System.getProperty("user.home"), "upload");
 		dir.mkdir();
+		File target = new File(dir, String.valueOf(attachNo));
+		attach.transferTo(target);//실물파일저장
 		
 		//첨부파일 정보 DB저장
 		AttachDto attachDto = new AttachDto();

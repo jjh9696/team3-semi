@@ -11,19 +11,39 @@
 	<%-- 제목칸 --%>
 	<div class="cell center">
 		<c:if test="${param.category == '축구'}">
-			<h1>축구게시판</h1>
+			<h1>
+				<i class="fa-solid fa-soccer-ball"></i>
+				축구게시판
+				<i class="fa-solid fa-soccer-ball"></i>
+			</h1>
 		</c:if>
 		<c:if test="${param.category == '야구'}">
-			<h1>야구게시판</h1>
+			<h1>
+				<i class="fa-solid fa-baseball"></i>
+				야구게시판
+				<i class="fa-solid fa-baseball"></i>
+			</h1>
 		</c:if>
 		<c:if test="${param.category == '농구'}">
-			<h1>농구게시판</h1>
+			<h1>
+				<i class="fa-solid fa-basketball"></i>
+				농구게시판
+				<i class="fa-solid fa-basketball"></i>
+			</h1>
 		</c:if>
 		<c:if test="${param.category == 'E-스포츠'}">
-			<h1>게임게시판</h1>
+			<h1>
+				<i class="fa-solid fa-gamepad"></i>
+				게임게시판
+				<i class="fa-solid fa-gamepad"></i>
+			</h1>
 		</c:if>
 		<c:if test="${param.category == '관리자'}">
-			<h1>관리자게시판</h1>
+			<h1>
+				<i class="fa-solid fa-gear"></i>
+				관리자게시판
+				<i class="fa-solid fa-gear"></i>
+			</h1>
 		</c:if>
 	</div>
 

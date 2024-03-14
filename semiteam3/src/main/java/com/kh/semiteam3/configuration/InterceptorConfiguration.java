@@ -26,11 +26,12 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		registry.addInterceptor(memberInterceptor)
 					.addPathPatterns(
 							"/member/**",
-							"/qna/**",
+							"/inquiry/**",
 							"/basketball/**",
 							"/football/**",
 							"/baseball/**",
-							"/esports/**"						
+							"/esports/**",
+							"/reportBoard/**"
 							)
 					.excludePathPatterns(
 							"/member/join*",
@@ -39,10 +40,19 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 							"/football/list", "/football/detail",
 							"/baseball/list", "/baseball/detail",
 							"/esports/list", "/esports/detail"
+
 							);
 		
 		// 관리자 인터셉터 등록
-		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**");
+
+		registry.addInterceptor(adminInterceptor)
+						.addPathPatterns(
+								"/admin/**",
+								"/reportBoard/**"
+								)
+						.excludePathPatterns(
+								"/reportBoard/insert*"
+								);
 		
 		//게시글 조회수 중복방지 인터셉터 등록
 		registry.addInterceptor(boardViewInterceptor)

@@ -50,8 +50,21 @@ public class AttachDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
-	
-	
+	//변경
+	public boolean update(AttachDto attachDto) {
+	    String sql = "UPDATE attach SET "
+	                 + "attach_name = ?, "
+	                 + "attach_type = ?, "
+	                 + "attach_size = ? "
+	                 + "WHERE attach_no = ?";
+	    Object[] data = {
+	            attachDto.getAttachName(),
+	            attachDto.getAttachType(),
+	            attachDto.getAttachSize(),
+	            attachDto.getAttachNo()
+	    };
+	    return jdbcTemplate.update(sql, data) > 0;
+	}
 	
 	
 	

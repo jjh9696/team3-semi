@@ -292,7 +292,12 @@
 			</c:choose>
 		</h4>
 	</div>
-	<a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">신고</a>
+	<c:if test="${sessionScope.loginId != null}">
+		<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
+	</c:if>
+	<c:if test="${sessionScope.loginLevel == '관리자'}">
+		신고 횟수 : ${reportCount}
+	</c:if> 
 	<hr>
 	<div class="cell" style="min-height:250px">
 		<%--
@@ -399,4 +404,3 @@
 		</c:otherwise>
 	</c:choose>
 </div>
-

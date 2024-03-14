@@ -167,6 +167,12 @@ public class BoardDao {
 		Object[] data = {boardNo};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
+	
+	//신고 수 증가
+    public void increaseBoardReport(int boardNo) {
+        String sql = "UPDATE board SET board_report = board_report + 1 WHERE board_no = ?";
+        jdbcTemplate.update(sql, boardNo);
+    }
 }
 
 

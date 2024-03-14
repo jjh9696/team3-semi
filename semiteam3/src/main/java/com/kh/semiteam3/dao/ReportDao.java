@@ -11,7 +11,7 @@ public class ReportDao {
 	private JdbcTemplate jdbcTemplate;
 	
 	public void insert(String memberId, String reportMemberId) {//어느 회원이 누구한테 신고 당했나
-		String sql = "insert into report_member(member_id, member_id) values(?,?)";
+		String sql = "insert into report_member(member_id, report_member_id) values(?,?)";
 		Object[] data = {memberId, reportMemberId};
 		jdbcTemplate.update(sql, data);
 	}

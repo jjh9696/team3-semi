@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.semiteam3.dao.BoardDao;
 import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dao.ReportBoardDao;
-import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.dto.ReportBoardDto;
 import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.vo.PageVO;
@@ -44,6 +44,9 @@ public class ReportBoardController {
 	
 	@Autowired
 	private AttachService attachService;
+	
+	@Autowired
+	private BoardDao boardDao;
 	
 	//목록
 	@RequestMapping("/list")
@@ -90,9 +93,17 @@ public class ReportBoardController {
 						HttpSession session, Model model) {
 		String loginId = (String)session.getAttribute("loginId");
 		reportBoardDto.setReportBoardWriter(loginId);
+		
+		boardDao.increaseBoardReport(reportBoardDto.getReportBoardOrigin());
+		
+		int sequence = reportBoardDao.getSequence();//DB에서 시퀀스 번호를 추출(번호 미리 뽑아)
+	    reportBoardDto.setReportBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
 		reportBoardDao.insert(reportBoardDto);
-		return "redirect:detail?reportBoardNo="+reportBoardDto.getReportBoardOrigin();
+		
+		
+		return "redirect:http://localhost:8080/board/detail?boardNo="+reportBoardDto.getReportBoardOrigin();
 	}
+	
 	
 	//상세
 	@RequestMapping("/detail")
@@ -100,10 +111,7 @@ public class ReportBoardController {
 		ReportBoardDto reportBoardDto = reportBoardDao.selectOne(reportBoardNo);
 		model.addAttribute("reportBoardDto", reportBoardDto);
 		
-		if(reportBoardDto.getReportBoardWriter() != null) {
-			MemberDto memberDto = memberDao.selectOne(reportBoardDto.getReportBoardWriter());
-			model.addAttribute("memberDto", memberDto);
-		}
+
 				
 		return "/WEB-INF/views/reportBoard/detail.jsp";
 	}

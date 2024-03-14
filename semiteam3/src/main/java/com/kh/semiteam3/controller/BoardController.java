@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.semiteam3.dao.BoardDao;
 import com.kh.semiteam3.dao.MemberDao;
+import com.kh.semiteam3.dao.ReportBoardDao;
 import com.kh.semiteam3.dto.BoardDto;
 import com.kh.semiteam3.dto.MemberDto;
+import com.kh.semiteam3.dto.ReportBoardDto;
 import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.vo.PageVO;
 
@@ -50,6 +52,8 @@ public class BoardController {
 		@Autowired
 		private AttachService attachService;//삭제도 구현되어잇음 파일도 지우고 디비도 지울수 있게끔
 		
+		@Autowired
+		private ReportBoardDao reportBoardDao;
 		
 		//게시글작성
 		@GetMapping("/write")
@@ -95,6 +99,9 @@ public class BoardController {
 			
 			BoardDto boardDto = boardDao.selectOne(boardNo);
 			model.addAttribute("boardDto", boardDto);
+			
+			int reportCount = reportBoardDao.reportCount(boardNo);
+			model.addAttribute("reportCount", reportCount);
 			
 			//조회한 게시글 정보에 있는 회원 아이디로 작성자!(회원) 정보를 불러와서 첨부
 			if(boardDto.getBoardWriter() != null) {//작성자가 탈퇴하지 않았다면

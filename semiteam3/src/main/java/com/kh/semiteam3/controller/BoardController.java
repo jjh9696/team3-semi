@@ -53,14 +53,16 @@ public class BoardController {
 		
 		//게시글작성
 		@GetMapping("/write")
-		public String write() {//회원 아니면 못들어가게 막아야함//화면으로 넘기는 거니깐 뭐 받을게 없지 않나?
+		public String write(@RequestParam String category) {//회원 아니면 못들어가게 막아야함//화면으로 넘기는 거니깐 뭐 받을게 없지 않나?
 			return "/WEB-INF/views/board/write.jsp";//일단은 작성페이지(jsp)로 가세요!
 		}
 		@PostMapping("/write")
-		public String write(@ModelAttribute BoardDto boardDto, //DTO에는 지금 제목이랑 내용밖에 없어 작성자랑 번호를 알아와야해
+		public String write(@RequestParam String category,
+							@ModelAttribute BoardDto boardDto, //DTO에는 지금 제목이랑 내용밖에 없어 작성자랑 번호를 알아와야해
 							HttpSession session, Model model) {//HttpSession session 필요한 이유는 작성자(회원) 찾기 위해서
 			//세션에서 로그인한 사용자의 ID를 추출
 			String loginId = (String) session.getAttribute("loginId");//아이디 꺼내와
+			
 			
 			//아이디를 게시글 정보에 포함시킨다
 			boardDto.setBoardWriter(loginId);

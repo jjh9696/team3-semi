@@ -30,9 +30,10 @@
 	<div class="cell">타인에 대한 무분별한 비방 또는 욕설은 경고 없이 삭제될 수 있습니다</div>
 	<div class="cell right">
 		<h2>
-			<a class="link" href="write">
-			<i class="fa-solid fa-plus"></i>
-			게시글 작성</a>
+			<a class="link" href="write?category=${param.category}">
+				 <i class="fa-solid fa-plus"></i>
+				게시글 작성
+			</a>
 		</h2>
 	</div>
 	<div class="cell">

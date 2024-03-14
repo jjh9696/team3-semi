@@ -93,7 +93,8 @@ public class MemberDao {
 				+ "where member_id = ?";
 		Object[] data = {
 				memberDto.getMemberNick(), memberDto.getMemberContact(),
-				memberDto.getMemberGrade(), memberDto.getMemberBirth(),
+				memberDto.getMemberGrade(), memberDto.getMemberEmail(),
+				memberDto.getMemberBirth(),
 				memberDto.getMemberPost(), memberDto.getMemberAddress1(),
 				memberDto.getMemberAddress2(), memberDto.getMemberId()
 		};
@@ -129,14 +130,6 @@ public class MemberDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 
-	public boolean delete(String memberId) {
-		String sql = "delete Home where Member_id=?";
-		Object[] data = {memberId};
-		return jdbcTemplate.update(sql, data) > 0;
-	
-	
-	
-	}
 }
 	
 	

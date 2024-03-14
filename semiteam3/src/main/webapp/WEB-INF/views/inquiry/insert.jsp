@@ -28,9 +28,10 @@
 			</div>
 			<div class="flex-cell">
 				<div class="w-100 left">
-					<button class="btn negative">
+					<a href="/inquiry/list" class="btn negative">
 						취소
-					</button>
+					</a>
+						
 				</div>
 				<div class="w-100 right">
 					<button class="btn positive">

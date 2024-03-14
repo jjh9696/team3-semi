@@ -113,7 +113,7 @@ $(function(){
 
 	};
 	
-	$("[name=boardContent]").summernote(options);
+	$("[name='boardContent'], [name='inquiryContent']").summernote(options);
 });
 </script>
 

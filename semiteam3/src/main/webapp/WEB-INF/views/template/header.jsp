@@ -54,58 +54,66 @@
 </style>
 
 <script>
-	// 	$(function() {
-	// 		var options = {
-	// 			//에디터 툴바(메뉴) 설정
-	// 			toolbar : [
-	// 			// [groupName, [list of button]]
-	// 				[ 'style', [ 'bold', 'italic', 'underline' ] ],
-	// 				[ 'fontsize', [ 'fontname', 'fontsize' ] ],
-	// 				[ 'color', [ 'forecolor', 'backcolor' ] ],
-	// 				[ 'para', [ 'style', 'ul', 'ol', 'paragraph' ] ],
-	// 				[ 'insert', [ 'picture', 'link', 'hr' ] ], ],
-	// 			//기본높이 설정(단위 : px)
-	// 			height : 100,
-	// 			minHeight : 100,
-	// 			maxHeight : 200,
-	// 			//안내문구 설정
-	// 			//placeholder: "입력하세요",
 
-	// 			callbacks : {
-	// 				onImageUpload : function(files) {
-	// 					var editor = this;
+$(function(){
+	var options = {toolbar: [
+        // [groupName, [list of button]]
+        ['style', ['bold', 'italic', 'underline']],
+        // ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['fontsize', ['fontname', 'fontsize']],
+        ['color', ['forecolor', 'backcolor']],
+        ['para', ['style', 'ul', 'ol', 'paragraph']],
+        // ['height', ['height']]
+        ['insert', ['picture', 'link', 'hr']],
+    ],
 
-	// 					var formData = new FormData();
-	// 					for (var i = 0; i < files.length; i++) {
-	// 						formData.append("attachList", files[i]);
-	// 					}
+    //기본높이 설정(단위 : px)
+    height: 200, 
+    minHeight: 200, 
+    maxHeight: 300,
 
-	// 					$.ajax({
-	// 						url : "/rest/board_attach/upload",
-	// 						method : "post",
-	// 						data : formData,
-	// 						processData : false,
-	// 						contentType : false,
-	// 						success : function(response) {
-	// 							if (response == null)
-	// 								return;
+    //안내문구 설정
+    //placeholder: "내용을 입력하세요", 
+    callbacks: {
+        onImageUpload: function (files) {
+        	var editor = this;
+           
+            var formData = new FormData();
+            //formData.append("이름", 값);
+            for(var i = 0 ; i < files.length ; i ++){
+                formData.append("attachList", files[i]);
+            }
+            
 
-	// 							for (var i = 0; i < response.length; i++) {
-	// 								var tag = $("<img>")
-	// 									.attr("src", "/download?attachNo="+ response[i]);
-	// 									.attr("data-key", response[i]);
-	// 									.addClass("server-img");
-	// 								$(editor).summernote("insertNode", tag[0]);
-	// 							}
-	// 						}
-	// 					});
-	// 				}
-	// 			}
-	// 		};
+            $.ajax({
+                url: "/rest/board_attach/upload", 
+                method: "post", 
+                data: formData, 
+                processData: false, 
+                contentType: false, 
+                success: function(response){
+                    // console.log(response);
+                    if(response == null) return;
 
-	// 		$("[name=boardContent]").summernote(options);
-	// 	});
+                    for(var i = 0 ; i < response.length ; i++) {
+                        //response[i] == 이미지 번호 1개
+                        var tag = $("<img>")
+                        			.attr("src", "/download?attachNo=" + response[i])
+                        			.attr("data-key", response[i])
+                        			.addClass("server-img");
+                        $(editor).summernote("insertNode", tag[0]);
+                    	}
+                  	}
+               });
+            }
+        }
+
+	};
+	
+	$("[name=boardContent]").summernote(options);
+});
 </script>
+
 <!--ChartJD CDN-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/js/commons.js"></script>
@@ -147,7 +155,7 @@
 		<li class="menu-end"><c:choose>
 				<c:when test="${sessionScope.loginId !=null}">
 					<a href="/member/mypage"> <i class="fa-sold fa-user"></i>
-						${sessionScope.loginId}
+						${sessionScope.loginNick}
 					</a>
 					<ul>
 						<li><a href="/member/logout"> <i

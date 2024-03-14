@@ -168,6 +168,35 @@ public class BoardDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
+
+	//관리자 전체 공지 조회하기
+	public List<BoardDto> listByAdmin(){
+		String sql = "select * from("
+				+ "select rownum rn, TMP.* from("
+				+ "select board_no, board_title, board_writer, board_write_time, "
+				+ "board_limit_time, board_view, board_like, board_category "
+				+ "from board where board_writer in ("
+				+ "select member_id from member where member_grade = '관리자') "
+				+ "and board_category = '관리자' order by board_no desc) TMP)";
+		
+		//Object[] data = {}; //데이터 없음!!
+		
+		return jdbcTemplate.query(sql, boardListMapper);
+	}
+	
+	public List<BoardDto> listByAdminAndCategory(String boardCategory){
+		String sql = "select * from("
+				+ "select rownum rn, TMP.* from("
+				+ "select board_no, board_title, board_writer, board_write_time, "
+				+ "board_limit_time, board_view, board_like, board_category "
+				+ "from board where board_writer in ("
+				+ "select member_id from member where member_grade = '관리자') "
+				+ "and board_category = ? order by board_no desc) TMP)";
+		
+		Object[] data = {boardCategory};
+		
+		return jdbcTemplate.query(sql, boardListMapper, data);
+	}
 	
 }
 

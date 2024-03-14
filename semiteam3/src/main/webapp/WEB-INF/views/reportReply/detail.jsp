@@ -24,7 +24,7 @@
 				</c:when>
 					<c:otherwise>
 					${memberDto.memberNick}
-					(${memberDto.memberLevel})
+					(${memberDto.memberGrade})
 				</c:otherwise>
 				</c:choose>
 			</h3>
@@ -51,7 +51,7 @@
 			- 관리자란 로그인한 사용자 등급이 '관리자'인 경우
 		--%>
 			<c:if
-				test="${sessionScope.loginId != null && (sessionScope.loginId == reportReplyContentDto.reportReplyWriter || sessionScope.loginLevel == '관리자')}">
+				test="${sessionScope.loginId != null && (sessionScope.loginId == reportReplyContentDto.reportReplyWriter || sessionScope.loginGrade == '관리자')}">
 				<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
 					href="delete?reportReplyNo=${reportReplyContentDto.reportReplyNo}">글삭제</a>
 			</c:if>

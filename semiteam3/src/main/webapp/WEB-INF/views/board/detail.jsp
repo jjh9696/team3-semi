@@ -343,7 +343,7 @@
 			data-message="정말 삭제하시겠습니까?" 
 			href="delete?boardNo=${boardDto.boardNo}">글삭제</a>
 		</c:if>
-		<a class="btn positive" href="list">글목록</a>
+		<a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a>
 	</div>
 
 		<!-- 댓글 작성창 + 댓글 목록 -->

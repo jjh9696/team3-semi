@@ -14,17 +14,14 @@
 		<div class="cell">
 			<h1>게시글 신고 목록</h1>
 		</div>
-		<div class="cell right">
-			<h2>
-				<a href="insert" class="link">글쓰기</a>
-			</h2>
-		</div>
 		<div class="cell">
 			<%-- 목록 --%>
 			<table class="table table-horizontal">
 				<thead>
 					<tr>
-						<th>번호</th>
+						<th>게시글 신고 번호</th>
+						<th>신고된 게시글 번호</th>
+						<th>신고자</th>
 						<th>신고사유</th>
 						<th>신고일</th>
 					</tr>
@@ -32,7 +29,13 @@
 				<tbody align="center">
 					<c:forEach var="reportBoardDto" items="${list}">
 						<tr>
-							<td>${reportBoardDto.reportBoardNo}</td>
+							<td>
+								<a class="link" href="detail?reportBoardNo=${reportBoardDto.reportBoardNo}">
+								${reportBoardDto.reportBoardNo}
+								</a>
+							</td>
+							<td>${reportBoardDto.reportBoardOrigin}</td>
+							<td>${reportBoardDto.reportBoardWriter}</td>
 							<td>${reportBoardDto.reportBoardReason}</td>
 							<td>${reportBoardDto.reportBoardDate}</td>
 						</tr>
@@ -41,10 +44,6 @@
 			</table>
 		</div>
 
-		<div class="cell">
-			<%-- 네비게이터 --%>
-			<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
-		</div>
 		<div class="cell center">
 			<%-- 검색창 --%>
 			<form action="list" method="get">

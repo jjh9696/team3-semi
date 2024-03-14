@@ -91,27 +91,20 @@ public class ReportBoardController {
         return "/WEB-INF/views/reportBoard/insert.jsp";
     }
 	
-	@PostMapping("/insert")
-	public String insert(@ModelAttribute ReportBoardDto reportBoardDto, 
-						HttpSession session, Model model) {
-		String loginId = (String)session.getAttribute("loginId");
-		reportBoardDto.setReportBoardWriter(loginId);
-		
-
-		 System.out.println("reportBoardDto.getReportBoardContent(): " + reportBoardDto.getReportBoardContent());
-         System.out.println("reportBoardDto.getReportBoardNo(): " + reportBoardDto.getReportBoardNo());
-         System.out.println("reportBoardDto.getReportBoardWriter(): " + reportBoardDto.getReportBoardWriter());
-         System.out.println("reportBoardDto.getReportBoardReason(): " + reportBoardDto.getReportBoardReason());
-         
-		boardDao.increaseBoardReport(reportBoardDto.getReportBoardOrigin());
-		
-		int sequence = reportBoardDao.getSequence();//DB에서 시퀀스 번호를 추출(번호 미리 뽑아)
-	    reportBoardDto.setReportBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
-
-		reportBoardDao.insert(reportBoardDto);
-		
-		return "redirect:http://localhost:8080/board/detail?boardNo="+reportBoardDto.getReportBoardOrigin();
-	}
+    @PostMapping("/insert")
+    public String insert(@ModelAttribute ReportBoardDto reportBoardDto, 
+                        HttpSession session, Model model) {
+        String loginId = (String)session.getAttribute("loginId");
+        reportBoardDto.setReportBoardWriter(loginId);
+        
+        boardDao.increaseBoardReport(reportBoardDto.getReportBoardOrigin());
+        
+        int sequence = reportBoardDao.getSequence();//DB에서 시퀀스 번호를 추출(번호 미리 뽑아)
+        reportBoardDto.setReportBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
+        reportBoardDao.insert(reportBoardDto);
+        
+        return "redirect:http://localhost:8080/board/detail?boardNo="+reportBoardDto.getReportBoardOrigin();
+    }
 	
 	
 	//상세

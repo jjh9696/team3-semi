@@ -4,31 +4,8 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 	
 
-	<!-- 시간관련 CDN -->
-	<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/ >
-	<script src="/jquery.js"></script>
-	<script src="/build/jquery.datetimepicker.full.min.js"></script>
-	
 	    <script src="/js/exit.js"></script>
-	        <script type="text/javascript">
-	        $(function(){
-	            // 현재 날짜 및 시간을 가져오기
-	            var now = moment().format('YYYY-MM-DD HH:mm:ss');
-	            
-	            // 시작 시간 input 요소에 현재 시간 설정
-	            $("[name=startTime]").val(now);
-	            
-	            var picker = new Lightpick({
-	                field : $("[name=startTime]")[0], //첫 번째 필드
-	                secondField: $("[name=boardLimitTime]")[0], //두 번째 필드
-	                singleDate: true, //단일 날짜 선택 불가(범위 선택 가능)
-	                format : "YYYY-MM-DD HH:mm", 
-	                numberOfMonths: 2, //표시할 총 달의 개수
-	                numberOfColumns: 2, //한 줄에 표시할 달의 개수
-	                minDate: moment(), //현재시각
-	            });
-	        })
-	    </script>
+
 
     
     
@@ -58,8 +35,7 @@
 			</div>
 			
         <div class="cell flex-cell">
-            <input type="text" name="startTime" class="tool w-50">
-            <input type="text" name="boardLimitTime" class="tool w-50">
+			마감시간
         </div>
 			
 			<div class="cell">

@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/rest/Report")
+@RequestMapping("/rest/report")
 public class ReportRestController {
 	
 	@Autowired

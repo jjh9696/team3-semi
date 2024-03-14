@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.semiteam3.dao.BoardDao;
 import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dao.ReportBoardDao;
+
 import com.kh.semiteam3.dto.BoardDto;
 import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.dto.ReportBoardDto;
@@ -45,6 +47,9 @@ public class ReportBoardController {
 	
 	@Autowired
 	private AttachService attachService;
+	
+	@Autowired
+	private BoardDao boardDao;
 	
 	//목록
 	@RequestMapping("/list")
@@ -92,12 +97,15 @@ public class ReportBoardController {
 		String loginId = (String)session.getAttribute("loginId");
 		reportBoardDto.setReportBoardWriter(loginId);
 		
+		boardDao.increaseBoardReport(reportBoardDto.getReportBoardOrigin());
+		
 		int sequence = reportBoardDao.getSequence();//DB에서 시퀀스 번호를 추출(번호 미리 뽑아)
-		reportBoardDto.setReportBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
+	    reportBoardDto.setReportBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
 		reportBoardDao.insert(reportBoardDto);
 		
 		return "redirect:http://localhost:8080/board/detail?boardNo="+reportBoardDto.getReportBoardOrigin();
 	}
+	
 	
 	//상세
 	@RequestMapping("/detail")

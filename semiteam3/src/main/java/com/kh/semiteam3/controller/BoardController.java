@@ -25,7 +25,6 @@ import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dao.ReportBoardDao;
 import com.kh.semiteam3.dto.BoardDto;
 import com.kh.semiteam3.dto.MemberDto;
-import com.kh.semiteam3.dto.ReportBoardDto;
 import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.vo.PageVO;
 
@@ -47,14 +46,13 @@ public class BoardController {
 		private BoardDao boardDao;
 		
 		@Autowired
-		private ReportBoardDao reportBoardDao;
-		
-		@Autowired
 		private MemberDao memberDao;//필요해//아이디 존재해야 게시글 작성할 수 있으니까?
 		
 		@Autowired
 		private AttachService attachService;//삭제도 구현되어잇음 파일도 지우고 디비도 지울수 있게끔
 		
+		@Autowired
+		private ReportBoardDao reportBoardDao;
 		
 		//게시글작성
 		@GetMapping("/write")

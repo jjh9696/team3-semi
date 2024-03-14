@@ -14,11 +14,6 @@
 		<div class="cell">
 			<h1>게시글 신고 목록</h1>
 		</div>
-		<div class="cell right">
-			<h2>
-				<a href="insert" class="link">글쓰기</a>
-			</h2>
-		</div>
 		<div class="cell">
 			<%-- 목록 --%>
 			<table class="table table-horizontal">
@@ -49,10 +44,6 @@
 			</table>
 		</div>
 
-		<div class="cell">
-			<%-- 네비게이터 --%>
-			<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
-		</div>
 		<div class="cell center">
 			<%-- 검색창 --%>
 			<form action="list" method="get">

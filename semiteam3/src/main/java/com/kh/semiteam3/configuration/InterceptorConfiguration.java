@@ -21,7 +21,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		registry.addInterceptor(memberInterceptor)
 					.addPathPatterns(
 							"/member/**",
-							"/qna/**",
+							"/inquiry/**",
 							"/basketball/**",
 							"/football/**",
 							"/baseball/**",
@@ -39,6 +39,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 							);
 		
 		// 관리자 인터셉터 등록
+
 		registry.addInterceptor(adminInterceptor)
 						.addPathPatterns(
 								"/admin/**",

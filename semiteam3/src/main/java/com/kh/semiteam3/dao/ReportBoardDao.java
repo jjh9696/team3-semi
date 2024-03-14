@@ -91,6 +91,7 @@ public class ReportBoardDao {
 		};
 		jdbcTemplate.update(sql, data);
 	}
+	
 	public int getSequence() {
 		String sql = "select report_board_seq.nextval from dual";
 		return jdbcTemplate.queryForObject(sql, int.class);//내가 실행할 구문을 인트로 실행해라

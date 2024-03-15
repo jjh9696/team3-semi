@@ -83,12 +83,21 @@ public class MemberController {
 		//로그인 가능한지
 		boolean isValid = findDto != null && inputDto.getMemberPw().equals(findDto.getMemberPw());
 		
-		
 		if(isValid) {
 			//세션에 따라 데이터 추가
 			session.setAttribute("loginId", findDto.getMemberId());
 			session.setAttribute("loginGrade", findDto.getMemberGrade()); //관리자일경우 다른화면
 			session.setAttribute("loginNick", findDto.getMemberNick());
+			
+			 // 로그인 처리
+	        String previousUrl = (String) session.getAttribute("previousUrl");
+	        if (previousUrl != null) {//이전 url이 있다면
+	            session.removeAttribute("previousUrl"); //이후 재사용하지 않도록 URL 제거
+	            
+	            memberDao.updateMemberLogin(findDto.getMemberId());
+	            
+	            return "redirect:" + previousUrl; // 이전 요청한 URL로 리다이렉트
+	        }
 			
 			//최종 로그인시각 갱신
 			memberDao.updateMemberLogin(findDto.getMemberId());
@@ -326,6 +335,5 @@ public class MemberController {
 	public String findPwFail() {
 		return "/WEB-INF/views/member/findPwFail.jsp";
 	}
-		
 	
 }

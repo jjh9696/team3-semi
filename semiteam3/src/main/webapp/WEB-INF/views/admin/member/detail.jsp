@@ -2,25 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<script type = "text/javascript">
-$(function(){           
-    $("a.link-confirm").click(function(){              
-        var message = $(this).data("message");
-        // console.log(message);
-        if(message == undefined){
-            message = "정말 삭제 하시겠습니까?";
-        }
-        var choice = window.confirm(message);
-        return choice;
 
-        // return false;//차단
-        // return true;//통과
-
-    });
-});
-</script>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <h1>${memberDto.memberNick}님의상세 정보</h1>
@@ -66,7 +48,7 @@ $(function(){
 </table>
 
 <a href="edit?memberId=${memberDto.memberId}"><button>수정</button></a>
-<a href="delete?memberId=${memberDto.memberId}" class="link-confirm"><button>회원
+<a href="delete?memberId=${memberDto.memberId}" class="link-confirm" data-message="정말 탈퇴시키시겠습니까?"><button>회원
 		강제탈퇴</button></a>
 
 <hr>

@@ -32,7 +32,6 @@
 <!-- 내가 구현한 스타일 -->
 <link rel="stylesheet" type="text/CSS" href="/css/commons.css">
 <link rel="stylesheet" type="text/CSS" href="/css/test.css">
-<script src="/js/commons.js"></script>
 
 
 
@@ -43,6 +42,8 @@
 <!-- jquery cdn -->
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+<script src="/js/commons.js"></script>
 
 <!--summernote cdn-->
 <link
@@ -117,18 +118,11 @@ ul > li{
 					});
 				}
 			}
-
-<<<<<<< HEAD
-		};
-
-		$("[name=boardContent]").summernote(options);
-	});
-=======
 	};
 	
 	$("[name='boardContent'], [name='inquiryContent']").summernote(options);
 });
->>>>>>> refs/remotes/origin/main
+
 </script>
 
 <!--ChartJD CDN-->

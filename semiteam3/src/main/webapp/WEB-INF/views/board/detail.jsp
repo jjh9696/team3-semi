@@ -26,8 +26,7 @@
 			<%-- <c:if test="${sessionScope.loginId != null && sessionScope.loginId != boardDto.boardWriter}">  --%>	
 			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
 				<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
-			</c:if>
-			
+			</c:if>	
 	</div>
 	
 </script>
@@ -54,8 +53,9 @@
 
 		//현재 사용자의 정보를 저장한다
 		var loginId = "${sessionScope.loginId}";
-		var isLogin = loginId.length > 0;
-
+		var loginNick = "${sessionScope.loginNick}";
+		var isLogin = loginId.length>0;
+		
 		//페이지 로딩 완료 시 댓글 목록을 불러와서 출력
 		$.ajax({
 			url : "/rest/reply/list",
@@ -89,12 +89,13 @@
 					//- data라는 명형으로는 읽기만 가능
 					//- 태그에 글자를 추가하고 싶다면 .attr()명령 사용
 					//- 현재 로그인한 사용자의 댓글에만 버튼을 표시(나머진 삭제)
-					if (isLogin && loginId == response[i].replyWriter) {
-						$(templateHTML).find(".btn-reply-edit").attr(
-								"data-reply-no", response[i].replyNo);
-						$(templateHTML).find(".btn-reply-delete").attr(
-								"data-reply-no", response[i].replyNo);
-					} else {
+					if(isLogin && loginNick == response[i].replyWriter) {
+						$(templateHTML).find(".btn-reply-edit")
+												.attr("data-reply-no", response[i].replyNo);
+						$(templateHTML).find(".btn-reply-delete")
+												.attr("data-reply-no", response[i].replyNo);
+					}
+					else {
 						$(templateHTML).find(".btn-reply-edit").remove();
 						$(templateHTML).find(".btn-reply-delete").remove();
 					}
@@ -337,11 +338,12 @@
 			<a class="btn"
 				href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a>
 		</div>
-	</c:if>
-	<c:if test="${sessionScope.login == '관리자'}">
-		신고 횟수 : ${reportCount}
-	</c:if>
 
+	</c:if>
+	<c:if test="${sessionScope.loginGrade == '관리자'}">
+		신고 횟수 : ${reportCountByReportBoardOrigin}
+	</c:if> 
+	
 	<hr>
 	<div class="cell" style="min-height: 250px">
 		<%--
@@ -396,6 +398,7 @@
 			</h3>
 			<pre class="reply-content">댓글 내용</pre>
 			<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
+
 			<c:if
 				test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
 				<div>

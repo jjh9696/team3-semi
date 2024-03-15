@@ -112,10 +112,25 @@ public class ReportBoardDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 
-	//신고 개수 카운트
-	public int reportCount(int reportBoardOrigin) {
+	//신고 개수 카운트(원본게시글 번호로 조회)
+	public int reportCountByReportBoardOrigin(int reportBoardOrigin) {
 	    String sql = "SELECT COUNT(*) FROM report_board WHERE board_no = ?";
 	    return jdbcTemplate.queryForObject(sql, Integer.class, reportBoardOrigin);
 
 	}
+	
+	// 신고 개수 카운트(회원 아이디로 조회) - 신고한 횟수
+	public int reporterCountByMemberId(String memberId) {
+	    String sql = "SELECT COUNT(*) FROM report_board WHERE member_id = ?";
+	    return jdbcTemplate.queryForObject(sql, Integer.class, memberId);
+	}
+	
+	// 신고 개수 카운트(회원 아이디로 조회) - 신고당한 횟수
+	public int reporteeCountPostsByMemberId(String memberId) { //rb는 report_board의 별칭, b는 board의 별칭
+	    String sql = "SELECT COUNT(*) FROM report_board rb " +
+	                 "JOIN board b ON rb.board_no = b.board_no " +
+	                 "WHERE b.board_writer = ?";
+	    return jdbcTemplate.queryForObject(sql, Integer.class, memberId);
+	}
+	
 }	

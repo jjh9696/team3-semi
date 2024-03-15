@@ -51,7 +51,7 @@ public class BoardDao {
 			String sql = "select * from("
 							+ "select rownum rn, TMP.* from("
 							+ "select "
-								+ "board_no, board_title, board_writer, "
+								+ "board_no, board_title, board_reply, board_writer, "
 								+ "board_write_time, board_limit_time, "
 								+ "board_view, board_like "
 							+ "from board "
@@ -70,7 +70,7 @@ public class BoardDao {
 			String sql = "select * from("
 							+ "select rownum rn, TMP.* from("
 							+ "select "
-								+ "board_no, board_title, board_writer,"
+								+ "board_no, board_title, board_reply, board_writer,"
 								+ "board_write_time, board_limit_time, "
 								+ "board_view, board_like "
 							+ "from board order by board_no desc"
@@ -91,7 +91,7 @@ public class BoardDao {
         if(pageVO.isSearch()) { //검색
             String sql = "select * from ("
                     + "select rownum rn, TMP.* from ("
-                    	+ "select board_no, board_title, board_writer,"
+                    	+ "select board_no, board_title, board_reply, board_writer,"
                     	+ "board_write_time, board_limit_time,"
                     	+ "board_view, board_like "
                         + "from board where board_category = ? and instr(" + pageVO.getColumn() + ", ?) > 0 order by board_no desc "
@@ -105,7 +105,7 @@ public class BoardDao {
             String sql = "select * from("
                     + "select rownum rn, TMP.* from("
                     + "select "
-                        + "board_no, board_title, board_writer,"
+                        + "board_no, board_title, board_reply, board_writer,"
                         + "board_write_time, board_limit_time, "
                         + "board_view, board_like "
                     + "from board where board_category = ? order by board_no desc"
@@ -173,12 +173,18 @@ public class BoardDao {
         String sql = "UPDATE board SET board_report = board_report + 1 WHERE board_no = ?";
         jdbcTemplate.update(sql, boardNo);
     }
+    
+    //댓글 수 증가
+    public void increaseBoardReply(int boardNo) {
+        String sql = "UPDATE board SET board_reply = board_reply + 1 WHERE board_no = ?";
+        jdbcTemplate.update(sql, boardNo);
+    }
 
 	//관리자 전체 공지 조회하기
 	public List<BoardDto> listByAdmin(){
 		String sql = "select * from("
 				+ "select rownum rn, TMP.* from("
-				+ "select board_no, board_title, board_writer, board_write_time, "
+				+ "select board_no, board_title, board_reply, board_writer, board_write_time, "
 				+ "board_limit_time, board_view, board_like, board_category "
 				+ "from board where board_writer in ("
 				+ "select member_id from member where member_grade = '관리자') "
@@ -192,7 +198,7 @@ public class BoardDao {
 	public List<BoardDto> listByAdminAndCategory(String boardCategory){
 		String sql = "select * from("
 				+ "select rownum rn, TMP.* from("
-				+ "select board_no, board_title, board_writer, board_write_time, "
+				+ "select board_no, board_title, board_reply, board_writer, board_write_time, "
 				+ "board_limit_time, board_view, board_like, board_category "
 				+ "from board where board_writer in ("
 				+ "select member_id from member where member_grade = '관리자') "

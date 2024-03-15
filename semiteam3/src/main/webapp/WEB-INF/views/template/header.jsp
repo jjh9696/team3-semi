@@ -54,67 +54,81 @@
 .note-editor {
 	border: 1px solid #e3c7a6 !important;
 }
+
+.menu {
+	margin: 0;
+	padding: 0;
+}
+ul > li{
+	height:40px;
+}
 </style>
 
 <script>
+	$(function() {
+		var options = {
+			toolbar : [
+			// [groupName, [list of button]]
+			[ 'style', [ 'bold', 'italic', 'underline' ] ],
+			// ['font', ['strikethrough', 'superscript', 'subscript']],
+			[ 'fontsize', [ 'fontname', 'fontsize' ] ],
+					[ 'color', [ 'forecolor', 'backcolor' ] ],
+					[ 'para', [ 'style', 'ul', 'ol', 'paragraph' ] ],
+					// ['height', ['height']]
+					[ 'insert', [ 'picture', 'link', 'hr' ] ], ],
 
-$(function(){
-	var options = {toolbar: [
-        // [groupName, [list of button]]
-        ['style', ['bold', 'italic', 'underline']],
-        // ['font', ['strikethrough', 'superscript', 'subscript']],
-        ['fontsize', ['fontname', 'fontsize']],
-        ['color', ['forecolor', 'backcolor']],
-        ['para', ['style', 'ul', 'ol', 'paragraph']],
-        // ['height', ['height']]
-        ['insert', ['picture', 'link', 'hr']],
-    ],
+			//기본높이 설정(단위 : px)
+			height : 200,
+			minHeight : 200,
+			maxHeight : 300,
 
-    //기본높이 설정(단위 : px)
-    height: 200, 
-    minHeight: 200, 
-    maxHeight: 300,
+			//안내문구 설정
+			//placeholder: "내용을 입력하세요", 
+			callbacks : {
+				onImageUpload : function(files) {
+					var editor = this;
 
-    //안내문구 설정
-    //placeholder: "내용을 입력하세요", 
-    callbacks: {
-        onImageUpload: function (files) {
-        	var editor = this;
-           
-            var formData = new FormData();
-            //formData.append("이름", 값);
-            for(var i = 0 ; i < files.length ; i ++){
-                formData.append("attachList", files[i]);
-            }
-            
+					var formData = new FormData();
+					//formData.append("이름", 값);
+					for (var i = 0; i < files.length; i++) {
+						formData.append("attachList", files[i]);
+					}
 
-            $.ajax({
-                url: "/rest/board_attach/upload", 
-                method: "post", 
-                data: formData, 
-                processData: false, 
-                contentType: false, 
-                success: function(response){
-                    // console.log(response);
-                    if(response == null) return;
+					$.ajax({
+						url : "/rest/board_attach/upload",
+						method : "post",
+						data : formData,
+						processData : false,
+						contentType : false,
+						success : function(response) {
+							// console.log(response);
+							if (response == null)
+								return;
 
-                    for(var i = 0 ; i < response.length ; i++) {
-                        //response[i] == 이미지 번호 1개
-                        var tag = $("<img>")
-                        			.attr("src", "/download?attachNo=" + response[i])
-                        			.attr("data-key", response[i])
-                        			.addClass("server-img");
-                        $(editor).summernote("insertNode", tag[0]);
-                    	}
-                  	}
-               });
-            }
-        }
+							for (var i = 0; i < response.length; i++) {
+								//response[i] == 이미지 번호 1개
+								var tag = $("<img>").attr("src",
+										"/download?attachNo=" + response[i])
+										.attr("data-key", response[i])
+										.addClass("server-img");
+								$(editor).summernote("insertNode", tag[0]);
+							}
+						}
+					});
+				}
+			}
 
+<<<<<<< HEAD
+		};
+
+		$("[name=boardContent]").summernote(options);
+	});
+=======
 	};
 	
 	$("[name='boardContent'], [name='inquiryContent']").summernote(options);
 });
+>>>>>>> refs/remotes/origin/main
 </script>
 
 <!--ChartJD CDN-->
@@ -148,8 +162,8 @@ $(function(){
 
 			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
 					<i class="fa-solid fa-list"></i></a></li>
-			<li><a href="/"><i class="fa-solid fa-home"></i>
-					<i class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
+			<li><a href="/"><i class="fa-solid fa-home"></i> <i
+					class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
 		</ul>
 	</div>
 	<div>
@@ -158,8 +172,7 @@ $(function(){
 			<li><a href="#">관리자메뉴</a>
 				<ul>
 					<li><a href="/admin/member/search">회원관리</a></li>
-					<li><a href="/admin/replyReport/list">댓글신고 게시판</a></li>
-					<li><a href="/admin/boardReport/list">게시글신고 게시판</a></li>
+					<li><a href="/reportBoard/list">게시글 신고 목록</a></li>
 				</ul></li>
 		</c:if>
 

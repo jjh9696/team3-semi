@@ -1,18 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-    
-    
-    <div class="container w-800">
+
+
+<div class="container w-800">
 	<div class="cell center">
 		<h1>문의게시판</h1>
 	</div>
-	<div class="cell">
-		타인에 대한 무분별한 비방 또는 욕설은 경고 없이 삭제될 수 있습니다
-	</div>
+	<div class="cell">타인에 대한 무분별한 비방 또는 욕설은 경고 없이 삭제될 수 있습니다</div>
 	<div class="cell right">
 		<h2><a class="link" href="insert">+문의하기</a></h2>
 	</div>
@@ -85,4 +83,3 @@
 	</form>
 	</div>
 </div>
-    

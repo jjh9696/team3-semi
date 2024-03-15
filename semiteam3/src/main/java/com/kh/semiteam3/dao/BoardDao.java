@@ -203,6 +203,13 @@ public class BoardDao {
 		return jdbcTemplate.query(sql, boardListMapper, data);
 	}
 	
+	//내가 쓴 게시글
+    public List<BoardDto> findBylist(String memberId) {
+        String sql = "SELECT * FROM board WHERE BOARD_WRITER = ?";
+        Object[] data = {memberId};
+        return jdbcTemplate.query(sql, boardListMapper, data);
+    }
+	
 }
 
 

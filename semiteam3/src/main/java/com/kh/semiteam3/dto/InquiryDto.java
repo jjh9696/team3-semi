@@ -15,8 +15,11 @@ public class InquiryDto {
 	private String inquiryContent;
 	private Date inquiryWtime;
 	private Date inquiryEtime;
+	
 	private int inquiryGroup;
 	private Integer inquiryTarget;
+	private int inquiryDepth;
+	
 	public InquiryDto() {
 		super();
 	}
@@ -74,7 +77,7 @@ public class InquiryDto {
 	public void setInquiryDepth(int inquiryDepth) {
 		this.inquiryDepth = inquiryDepth;
 	}
-	private int inquiryDepth;
+	
 	
 	public String getInquiryWriterStr() {
 		if(inquiryWriter == null) {

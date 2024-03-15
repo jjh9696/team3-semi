@@ -6,43 +6,37 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 
-<div class="container w-800">
+<div class="container w-900">
 
 	<%-- 제목칸 --%>
 	<div class="cell center">
 		<c:if test="${param.category == '축구'}">
 			<h1>
-				<i class="fa-solid fa-soccer-ball"></i>
-				축구게시판
-				<i class="fa-solid fa-soccer-ball"></i>
+				<i class="fa-solid fa-soccer-ball"></i> 축구게시판 <i
+					class="fa-solid fa-soccer-ball"></i>
 			</h1>
 		</c:if>
 		<c:if test="${param.category == '야구'}">
 			<h1>
-				<i class="fa-solid fa-baseball"></i>
-				야구게시판
-				<i class="fa-solid fa-baseball"></i>
+				<i class="fa-solid fa-baseball"></i> 야구게시판 <i
+					class="fa-solid fa-baseball"></i>
 			</h1>
 		</c:if>
 		<c:if test="${param.category == '농구'}">
 			<h1>
-				<i class="fa-solid fa-basketball"></i>
-				농구게시판
-				<i class="fa-solid fa-basketball"></i>
+				<i class="fa-solid fa-basketball"></i> 농구게시판 <i
+					class="fa-solid fa-basketball"></i>
 			</h1>
 		</c:if>
 		<c:if test="${param.category == 'E-스포츠'}">
 			<h1>
-				<i class="fa-solid fa-gamepad"></i>
-				게임게시판
-				<i class="fa-solid fa-gamepad"></i>
+				<i class="fa-solid fa-gamepad"></i> 게임게시판 <i
+					class="fa-solid fa-gamepad"></i>
 			</h1>
 		</c:if>
 		<c:if test="${param.category == '관리자'}">
 			<h1>
-				<i class="fa-solid fa-gear"></i>
-				관리자게시판
-				<i class="fa-solid fa-gear"></i>
+				<i class="fa-solid fa-gear"></i> 관리자게시판 <i class="fa-solid fa-gear"></i>
 			</h1>
 		</c:if>
 	</div>
@@ -69,24 +63,24 @@
 					<th>조회수</th>
 				</tr>
 			</thead>
-			
-				<c:forEach var="boardDto" items="${adminListAll}">
-					<tr>
-						<td class="red">전체공지</td>
-						<td class="left"><a class="link"
-							href="detail?boardNo=${boardDto.boardNo}">
-								${boardDto.boardTitle} </a></td>
-						<td>${boardDto.boardWriterStr}</td>
-						<td>${boardDto.boardWriteTimeStr}</td>
-						<td>${boardDto.boardLimitTime}</td>
-						<td>${boardDto.boardView}</td>
-					</tr>
-				</c:forEach>
-			
-			
-		
 
-		<%--게시판별 공지 테이블 --%>
+			<c:forEach var="boardDto" items="${adminListAll}">
+				<tr>
+					<td class="red">전체공지</td>
+					<td class="left"><a class="link"
+						href="detail?boardNo=${boardDto.boardNo}">
+							${boardDto.boardTitle} </a></td>
+					<td>${boardDto.boardWriterStr}</td>
+					<td>${boardDto.boardWriteTimeStr}</td>
+					<td>-</td>
+					<td>${boardDto.boardView}</td>
+				</tr>
+			</c:forEach>
+
+
+
+
+			<%--게시판별 공지 테이블 --%>
 
 			<c:forEach var="boardDto" items="${adminListCategory}">
 				<tr>
@@ -96,14 +90,14 @@
 							${boardDto.boardTitle} </a></td>
 					<td>${boardDto.boardWriterStr}</td>
 					<td>${boardDto.boardWriteTimeStr}</td>
-					<td>${boardDto.boardLimitTime}</td>
+					<td>-</td>
 					<td>${boardDto.boardView}</td>
 				</tr>
 			</c:forEach>
-		
 
 
-		<%--일반 게시판 테이블 --%>
+
+			<%--일반 게시판 테이블 --%>
 
 			<c:forEach var="boardDto" items="${list}">
 				<tr>
@@ -118,7 +112,9 @@
 					<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
 					<td>${boardDto.boardWriteTimeStr}</td>
 					<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
-					<td>${boardDto.boardLimitTime}</td>
+					<td>
+						<fmt:formatDate value="${boardDto.boardLimitTimeDate}" pattern="yyyy-MM-dd HH:mm" ></fmt:formatDate>
+					</td>
 					<td>${boardDto.boardView}</td>
 				</tr>
 			</c:forEach>

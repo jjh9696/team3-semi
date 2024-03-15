@@ -29,7 +29,7 @@ public class BoardDao {
 					+ "board_category, board_writer, board_limit_time"
 					+ ") "
 					+ "values"
-					+ "(?, ?, ?, ?, ?, ?)";
+					+ "(?, ?, ?, ?, ?, to_date(?, 'YYYY-MM-DD HH24:MI'))";
 		Object[] data = {
 				boardDto.getBoardNo(),
 				boardDto.getBoardTitle(), boardDto.getBoardContent(),

@@ -20,7 +20,7 @@ public class BoardListMapper implements RowMapper<BoardDto>{//boardContent ì—†ëŠ
 		boardDto.setBoardLike(rs.getInt("board_like"));
 		boardDto.setBoardWriteTime(rs.getDate("board_write_time"));
 		boardDto.setBoardWriter(rs.getString("board_writer"));
-		boardDto.setBoardLimitTime(rs.getDate("board_limit_time"));
+		boardDto.setBoardLimitTime(rs.getString("board_limit_time"));
 		return boardDto;
 	}
 

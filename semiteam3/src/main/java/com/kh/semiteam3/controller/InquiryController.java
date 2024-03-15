@@ -70,9 +70,8 @@ public class InquiryController {
 	}
 	
 	@GetMapping("/insert") // GET방식 - 일반적인 주소를 이용한 접근
-	public String insert(
-			@RequestParam(required = false) Integer inquiryTarget,
-			Model model) {
+	public String insert(@RequestParam(required = false) Integer inquiryTarget, Model model) {
+		
 		//답글일 경우는 작성 페이지로 답글의 정보를 전달(제목 등에 사용)
 		if(inquiryTarget != null) {
 			InquiryDto targetDto = inquiryDao.selectOne(inquiryTarget);
@@ -83,25 +82,25 @@ public class InquiryController {
 	
 	@PostMapping("/insert")
 	public String insert(@ModelAttribute InquiryDto inquiryDto, HttpSession session) {
+		//새글이던 답글이던 작성자는 있어야 한다
 		String loginId = (String)session.getAttribute("loginId");
 		inquiryDto.setInquiryWriter(loginId);
 		
-		//문의 글번호 생성
 		int sequence = inquiryDao.getsequence();
 		inquiryDto.setInquiryNo(sequence);
-		//새글, 답글에 따른 그룹, 대상, 차수 계산	
-		if(inquiryDto.getInquiryTarget()==null) {//새글(대상 == null)
-				inquiryDto.setInquiryGroup(sequence);//그룸번호는 글번호로 설정
-		}
-		else {//답글(대상!=null)
-			InquiryDto targetDto = inquiryDao.selectOne(inquiryDto.getInquiryTarget());
-			inquiryDto.setInquiryGroup(targetDto.getInquiryGroup());//그룹번호를 대상글의 그룹번호로 설정
-			inquiryDto.setInquiryDepth(targetDto.getInquiryDepth() + 1);//차수를 대상글의 차수+1 로 설정
-		}
-		inquiryDao.insert(inquiryDto);
 		
-		return "redirect:detail?inquiryNo="+sequence;
-	}
+			if(inquiryDto.getInquiryTarget() == null) {//새글(대상 == null)
+				inquiryDto.setInquiryGroup(sequence);//그룹번호는 글번호로 설정
+			}
+			else {//답글(대상!=null)
+				InquiryDto targetDto = inquiryDao.selectOne(inquiryDto.getInquiryTarget());
+				inquiryDto.setInquiryGroup(targetDto.getInquiryGroup());//그룹번호를 대상글의 그룹번호로 설정
+				inquiryDto.setInquiryDepth(targetDto.getInquiryDepth() + 1);//차수를 대상글의 차수+1 로 설정
+			}
+			inquiryDao.insert(inquiryDto);
+			
+			return "redirect:detail?inquiryNo="+sequence;
+		}
 
 	
 	@GetMapping("/delete")

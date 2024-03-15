@@ -5,7 +5,7 @@
 - a태그에 .link-confirm을 추가하면 기본메세지가 출력되는 확인 링크가 생성
 - 생성한 태그에 data-message 속성을 추가하여 확인창의 멘트를 설정
 */
-/*
+
 
 $(function(){
     $("a.link-confirm").click(function(){
@@ -21,7 +21,6 @@ $(function(){
     });
 });
 
-*/
 
 /*
     전체선택 체크박스에 대한 이벤트 구현

@@ -21,30 +21,9 @@ public class InquiryDao {
 	@Autowired
 	private InquiryMapper inquiryMapper;
 
-		// 목록
-		public List<InquiryDto> selectList() {
-			String sql = "select " 
-						+"inquiry_no, inquiry_writer, inquiry_title, "
-						+"inquiry_content, inquiry_wtime, inquiry_etime, "
-						+"from inquiry order by inquiry_no desc";
-			return jdbcTemplate.query(sql, inquiryMapper);
-		}
-		
-		// 검색
-		public List<InquiryDto> selectList(String column, String keyword) {
-			String sql = "select " 
-				+"inquiry_no, inquiry_writer, inquiry_title, " 
-				+"inquiry_content, inquiry_wtime, inquiry_readcount, "
-				+"from inquiry "
-				+"where instr(" + column + ", ?) > 0 " 
-				+"order by inquiry_no desc";
-			Object[] data = { keyword };
-			return jdbcTemplate.query(sql, inquiryMapper, data);
-		}
-		
-		// 통합+페이징
+		// 통합 페이징
 		public List<InquiryDto> selectListByPaging(PageVO pageVO) {
-			if (pageVO.isSearch()) {// 검색
+			if (pageVO.isSearchInquiry()) {// 검색
 				String sql = "select * from (" 
 					+ "select rownum rn, TMP.* from (" 
 					+ "select "
@@ -60,13 +39,14 @@ public class InquiryDao {
 					+ "order siblings by inquiry_group desc, inquiry_no asc" 
 					+ ")TMP" 
 					+ ") where rn between ? and ?";
-
+				
 				Object[] data = { pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow() };
 				return jdbcTemplate.query(sql, inquiryMapper, data);
 			}
 			else {// 목록
 				String sql = "select * from (" 
-					+ "select rownum rn, TMP.* from (" + "select "
+					+ "select rownum rn, TMP.* from (" 
+					+ "select "
 					+ "inquiry_no, inquiry_writer, inquiry_title, " 
 					+ "inquiry_content, inquiry_wtime, inquiry_etime, "
 					+ "inquiry_group, inquiry_target, inquiry_depth " 
@@ -76,27 +56,19 @@ public class InquiryDao {
 					+ "order siblings by inquiry_group desc, inquiry_no asc" 
 					+ ")TMP" 
 					+ ") where rn between ? and ?";
+				
 				Object[] data = { pageVO.getBeginRow(), pageVO.getEndRow() };
 				return jdbcTemplate.query(sql, inquiryMapper, data);
 			}
 			
 		}
 		
-		// 카운트-목록일 경우와 검색일 경우를 각각 구현
-		public int count() {
-			String sql = "select count(*) from inquiry";
-			return jdbcTemplate.queryForObject(sql, int.class);
-		}
 
-		public int count(String column, String keyword) {
-			String sql = "select count(*) from inquiry " + "where instr(" + column + ", ?)>0";
-			Object[] data = { keyword };
-			return jdbcTemplate.queryForObject(sql, int.class, data);
-		}
-
+		// 카운트-목록 검색 통합
 		public int count(PageVO pageVO) {
-			if (pageVO.isSearch()) {// 검색
-				String sql = "select count(*) from inquiry " + "where instr(" + pageVO.getColumn() + ", ?) > 0";
+			if (pageVO.isSearchInquiry()) {// 검색
+				String sql = "select count(*) from inquiry " 
+							+ "where instr(" + pageVO.getColumn() + ", ?) > 0";
 				Object[] data = { pageVO.getKeyword() };
 				return jdbcTemplate.queryForObject(sql, int.class, data);
 			} else {// 목록
@@ -105,7 +77,7 @@ public class InquiryDao {
 			}
 		}
 
-		// 단일조회
+		// 단일조회(상세)
 		public InquiryDto selectOne(int inquiryNo) {
 			String sql = "select * from Inquiry where Inquiry_no = ?";
 			Object[] data = { inquiryNo };
@@ -126,13 +98,14 @@ public class InquiryDao {
 					inquiryDto.getInquiryDepth() };
 			jdbcTemplate.update(sql, data);
 		}
-		// 삭제 메소드
+		//삭제 메소드
 		public boolean delete(int inquiryNo) {
 			String sql = "delete Inquiry where inquiry_no=?";
 			Object[] data = { inquiryNo };
 			return jdbcTemplate.update(sql, data) > 0;
 		}
-
+		
+		//수정 메소드
 		public boolean update(InquiryDto inquiryDto) {
 			String sql = "update inquiry set " 
 						+ "inquiry_title=?, inquiry_content=?, inquiry_etime=sysdate " 

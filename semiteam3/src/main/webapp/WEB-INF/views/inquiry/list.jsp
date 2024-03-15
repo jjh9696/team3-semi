@@ -14,7 +14,7 @@
 		타인에 대한 무분별한 비방 또는 욕설은 경고 없이 삭제될 수 있습니다
 	</div>
 	<div class="cell right">
-		<h2><a class="link" href="insert">+게시글 작성</a></h2>
+		<h2><a class="link" href="insert">+문의하기</a></h2>
 	</div>
 	<div class="cell">
 		<%-- 테이블 --%>
@@ -22,7 +22,7 @@
 	<thead>
 		<tr>
 			<th>번호</th>
-			<th width="40%">문의내용</th>
+			<th width="40%">문의 제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
 			<th>수정일</th>
@@ -32,9 +32,28 @@
 	<tbody align="center">
 		<c:forEach var="inquiryDto" items="${list}">
 			<tr>
-				<td>${inquiryDto.inquiryNo}</td>
+				<c:choose>
+					<c:when test="${inquiryDto.inquiryTarget == null}">
+						<td>${inquiryDto.inquiryNo}</td>
+					</c:when>
+					<c:otherwise>
+						<td class="red">답변</td>
+					</c:otherwise>
+				</c:choose>
+				
 				<%-- 제목칸 --%>
 				<td class="left">
+				
+					<%-- 제목 앞에 차수만큼 띄어쓰기 처리 --%>
+					<c:forEach var="i" begin="1" end="${inquiryDto.inquiryDepth}" step="1">
+						&nbsp;&nbsp;
+					</c:forEach>
+					
+					<%-- 답글일 경우만 이미지를 출력 --%>
+					<c:if test="${inquiryDto.inquiryDepth > 0}">
+						→
+					</c:if>
+				
 					<%-- 제목 출력 --%>
 					<a class="link" href="detail?inquiryNo=${inquiryDto.inquiryNo}">
 					${inquiryDto.inquiryTitle}
@@ -43,7 +62,6 @@
 				<td>${inquiryDto.inquiryWriterStr}</td><%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
 				<td>${inquiryDto.inquiryWtimeStr}</td><%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
 				<td>${inquiryDto.inquiryEtime}</td>
-				
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -54,6 +72,7 @@
 		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 	</div>
 	<div class="cell left">
+	
 	<%-- 검색창 --%>
 	<form action="list" method="get">
 		<select name="column" class="tool">

@@ -83,8 +83,8 @@ public class ReportBoardDao {
 						+ "board_no, member_id, report_board_reason "
 					+ ") values(?, ?, ?, ?, ?)";
 		Object[] data = {
-				reportBoardDto.getReportBoardContent(), 
 				reportBoardDto.getReportBoardNo(), 
+				reportBoardDto.getReportBoardContent(), 
 				reportBoardDto.getReportBoardOrigin(), 
 				reportBoardDto.getReportBoardWriter(),
 				reportBoardDto.getReportBoardReason() 

@@ -6,7 +6,6 @@
     <script src="/js/exit.js"></script>
     
     
-    
     <script>
     
     $(document).ready(function() {

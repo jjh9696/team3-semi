@@ -1,10 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(function(){
+		$("#memberAttach").on("change", function(){
+					var formData = new FormData();
+					//formData.append("이름", 값);
+					formData.append("attachList", this.files[0]);
+			$.ajax({
+				url:"http://localhost:8080/rest/member_attach/upload",
+				method:"post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(response){
+					if(response == null) return;
+					$("#preview").attr("src", "image");
+				}
+			});
+		});
+
+		
+		
 	    $(".btn-address-search").click(function(){
 	        new daum.Postcode({
 	            oncomplete: function(data) {
@@ -48,34 +69,34 @@
             }
 
             reader.readAsDataURL(input.files[0]);
+            
         }
     }
 </script>
 
 
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
 <h1>개인정보 변경</h1>
 
 
 <form action="edit" method="post" autocomplete="off" enctype="multipart/form-data">
+
+<c:choose>
+    <c:when test="${empty loginMember.memberAttach}">
+            <img src="image" width="200" height="200" alt="Priview Image" id="preview">
+    </c:when>
+    <c:otherwise>
+        <img src="/image/user.svg" id="preview" width="200" height="200">
+    </c:otherwise>
+</c:choose>
+
 	<div>
-	
 		프로필사진 변경
-		<input type="file" name="attach"  class="input" onchange="previewImage(this)"><br><br>
+		<label for="memberAttach"><i class="fa-solid fa-camera"></i></label>
+		<input type="file" id="memberAttach" name="memberAttach" class="input" 
+				onchange="previewImage(this)" style="display:none"><br><br>
+		프로필사진 삭제
+		<label ></label>
 	<div class="profile-image-area">
-
-		<%-- 프로필 이미지가 없으면 기본 이미지 --%>
-		<c:if test="${empty loginMember.profileImage}">
-			<img src="/images/user.png" id="profileImage">
-		</c:if>
-
-		<%-- 프로필 이미지가 있으면 있는 이미지 --%>
-		<c:if test="${!empty loginMember.profileImage}">
-			<div class="">
-                <img src="image" width="200" height="200">
-            </div>
-		</c:if>
 
 	</div>
 	</div>
@@ -98,7 +119,7 @@
 	<input type="text" name="memberAddress1" placeholder="기본주소" value="${memberDto.memberAddress1}"><br><br>
 	<input type="text" name="memberAddress2" placeholder="상세주소" value="${memberDto.memberAddress2}"><br><br>
 	비밀번호 확인 * <input type="password" name="memberPw" required><br><br>
-	<button type="submit">변경하기</button>
+	<button type="submit" value="Upload">변경하기</button>
 </form>
 
 <c:if test="${param.error != null }">

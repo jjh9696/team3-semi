@@ -644,7 +644,7 @@ textarea.tool.tool-fixed {
 
 /* 모든 메뉴에 마우스가 올라가면 강조 표시 */
 .menu li:hover{
-    background-color: #636e72;
+    background-color: #ddb484;
 }
 
 /* 2차 메뉴(ul)의 위치를 미세조정 */

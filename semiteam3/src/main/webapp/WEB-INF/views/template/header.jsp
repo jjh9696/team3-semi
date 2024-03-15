@@ -33,7 +33,6 @@
 <link rel="stylesheet" type="text/CSS" href="/css/commons.css">
 <link rel="stylesheet" type="text/CSS" href="/css/test.css">
 
-
 <!-- font awesome 아이콘 CDN -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -117,18 +116,11 @@ ul > li{
 					});
 				}
 			}
-
-<<<<<<< HEAD
-		};
-
-		$("[name=boardContent]").summernote(options);
-	});
-=======
 	};
 	
 	$("[name='boardContent'], [name='inquiryContent']").summernote(options);
 });
->>>>>>> refs/remotes/origin/main
+
 </script>
 
 <!--ChartJD CDN-->

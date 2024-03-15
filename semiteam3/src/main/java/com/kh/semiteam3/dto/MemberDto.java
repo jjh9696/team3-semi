@@ -1,6 +1,7 @@
 package com.kh.semiteam3.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MemberDto {
 	private String memberId;
@@ -14,7 +15,7 @@ public class MemberDto {
 	private String memberPost;
 	private String memberAddress1;
 	private String memberAddress2;
-	private Date memberLogin;
+	private Timestamp memberLogin;
 	public String getMemberId() {
 		return memberId;
 	}
@@ -81,10 +82,10 @@ public class MemberDto {
 	public void setMemberAddress2(String memberAddress2) {
 		this.memberAddress2 = memberAddress2;
 	}
-	public Date getMemberLogin() {
+	public Timestamp getMemberLogin() {
 		return memberLogin;
 	}
-	public void setMemberLogin(Date memberLogin) {
+	public void setMemberLogin(Timestamp memberLogin) {
 		this.memberLogin = memberLogin;
 	}
 	public MemberDto() {

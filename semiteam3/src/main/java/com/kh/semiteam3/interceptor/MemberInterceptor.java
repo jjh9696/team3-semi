@@ -20,9 +20,9 @@ public class MemberInterceptor implements HandlerInterceptor{
 		if(loginId != null) {//회원일때
 			return true;
 		}
-		else {//아닐때 401 보여주기
-			response.sendError(401);
-			return false;
+		else {//로그인 페이지로
+			response.sendRedirect("/member/login");
+            return false;
 		}
 	}
 	

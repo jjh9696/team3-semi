@@ -24,7 +24,6 @@ public class InquiryMapper implements RowMapper<InquiryDto>{
 		inquiryDto.setInquiryTarget(rs.getObject("inquiry_target", Integer.class));
 		inquiryDto.setInquiryDepth(rs.getInt("inquiry_depth"));
 		
-		
 		return inquiryDto;
 	}
 

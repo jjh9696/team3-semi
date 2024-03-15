@@ -6,8 +6,9 @@
  <script src="/js/exit.js"></script>
 
     
-<form action="edit" method="post" autocomplete="off">
+<form action="edit" method="post" autocomplete="off" class="free-pass">
     <input type="hidden" name="boardNo" value="${boardDto.boardNo}">
+    <input type="hidden" name="boardCategory" value="${param.boardCategory}">
 
 <div class="container w-800">
     <div class="cell center"><h1>게시글 수정</h1></div>

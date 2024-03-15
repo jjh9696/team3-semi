@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,18 +8,28 @@
 <title>게시글 신고</title>
 <script src="/js/exit.js"></script>
 
+
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+	<script type="text/javascript"> //헤더 아래에 있어야 작동
+	$(document).ready(function() {
+		$("form").submit(function() {
+			alert("신고가 완료되었습니다");
+		});
+	});
+	</script>
 	
 	<form action="insert" method="post" autocomplete="off">
-	
+
 		<div class="container w-800">
 			<div class="cell center">
 				<h1>게시글 신고</h1>
 			</div>
 			<div class="cell">
-				<input name="reportBoardOrigin" type="hidden" value="${param.reportBoardOrigin}">
+				<input name="reportBoardOrigin" type="hidden"
+					value="${param.reportBoardOrigin}">
 			</div>
 			<div class="cell">
 				<label>신고사유</label> <select name="reportBoardReason" required
@@ -35,11 +46,17 @@
 					rows="10"></textarea>
 			</div>
 			<div class="cell right">
-				<a href="list" class="btn">목록</a>
+
+				<c:if test="${sessionScope.loginGrade == '관리자'}">
+					<a href="list" class="btn">목록</a>
+				</c:if>
 				<button class="btn positive" type="submit">등록</button>
 			</div>
 		</div>
 	</form>
+	
+
+   
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>
 </html>

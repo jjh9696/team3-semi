@@ -80,24 +80,66 @@ public class BoardController {
 		}
 		
         //게시글 목록
-        @RequestMapping("/list")
-        public String list(@RequestParam String category,
-                @ModelAttribute PageVO pageVO,
-                Model model) {
-            int count = boardDao.count(pageVO);
-            pageVO.setCount(count);
-            model.addAttribute("pageVO",pageVO);
-            
-            List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
-            List<BoardDto> adminListAll = boardDao.listByAdmin();
-            List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
-            
-            model.addAttribute("list", list);
-            model.addAttribute("adminListAll", adminListAll);
-            model.addAttribute("adminListCategory", adminListCategory);
-            
-            return "/WEB-INF/views/board/list.jsp";
-        }
+		/*
+		 * @RequestMapping("/list") public String list(@RequestParam String category,
+		 * 
+		 * @ModelAttribute PageVO pageVO, Model model) { int count =
+		 * boardDao.count(pageVO); pageVO.setCount(count);
+		 * model.addAttribute("pageVO",pageVO);
+		 * 
+		 * List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
+		 * List<BoardDto> adminListAll = boardDao.listByAdmin(); List<BoardDto>
+		 * adminListCategory = boardDao.listByAdminAndCategory(category);
+		 * 
+		 * model.addAttribute("list", list); model.addAttribute("adminListAll",
+		 * adminListAll); model.addAttribute("adminListCategory", adminListCategory);
+		 * 
+		 * return "/WEB-INF/views/board/list.jsp"; }
+		 */
+		@RequestMapping("/list") //게시글 작성자 아이디에서 닉네임 보이게 수정
+		public String list(@RequestParam String category,
+		        @ModelAttribute PageVO pageVO,
+		        Model model) {
+		    int count = boardDao.count(pageVO);
+		    pageVO.setCount(count);
+		    model.addAttribute("pageVO",pageVO);
+		    
+		    List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
+		    List<BoardDto> adminListAll = boardDao.listByAdmin();
+		    List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
+		    
+		    // 각 게시글의 작성자 정보 설정
+		    for (BoardDto boardDto : list) {
+		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+		        if (memberDto != null) {
+		            boardDto.setBoardWriter(memberDto.getMemberNick());
+		        } else {
+		            boardDto.setBoardWriter("탈퇴한사용자");
+		        }
+		    }
+		    for (BoardDto boardDto : adminListAll) {
+		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+		    	if (memberDto != null) {
+		    		boardDto.setBoardWriter(memberDto.getMemberNick());
+		    	} else {
+		    		boardDto.setBoardWriter("탈퇴한사용자");
+		    	}
+		    }
+		    for (BoardDto boardDto : adminListCategory) {
+		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+		    	if (memberDto != null) {
+		    		boardDto.setBoardWriter(memberDto.getMemberNick());
+		    	} else {
+		    		boardDto.setBoardWriter("탈퇴한사용자");
+		    	}
+		    }
+		    
+		    model.addAttribute("list", list);
+		    model.addAttribute("adminListAll", adminListAll);
+		    model.addAttribute("adminListCategory", adminListCategory);
+		    
+		    return "/WEB-INF/views/board/list.jsp";
+		}
         
 		//게시글상세
 		@RequestMapping("/detail")
@@ -108,8 +150,8 @@ public class BoardController {
 			BoardDto boardDto = boardDao.selectOne(boardNo);
 			model.addAttribute("boardDto", boardDto);
 			
-			int reportCount = reportBoardDao.reportCount(boardNo);
-			model.addAttribute("reportCount", reportCount);
+			int reportCountByReportBoardOrigin = reportBoardDao.reportCountByReportBoardOrigin(boardNo);
+			model.addAttribute("reportCountByReportBoardOrigin", reportCountByReportBoardOrigin);
 			
 			//조회한 게시글 정보에 있는 회원 아이디로 작성자!(회원) 정보를 불러와서 첨부
 			if(boardDto.getBoardWriter() != null) {//작성자가 탈퇴하지 않았다면
@@ -190,6 +232,24 @@ public class BoardController {
 			boardDao.delete(boardNo);//그러고 나서 게시글을 지워라
 			return "redirect:list?category=" + boardCategoryEncoded;
 		}
+		
+		// 내가 쓴 게시글로 가는 controller
+		@GetMapping("/mywriting")
+		public String myBoard(HttpSession session, Model model) {
+			// 현재 로그인된 사용자의 아이디 가져오기
+			String loginId = (String) session.getAttribute("loginId");
+
+			// 해당 사용자가 작성한 게시글 가져오기
+			List<BoardDto> boardList = boardDao.findBylist(loginId);
+			
+			// 모델에 게시글 목록 추가
+			model.addAttribute("boardList", boardList);
+
+			// 마이페이지 내가 쓴 게시글 화면으로 이동
+			return "/WEB-INF/views/board/mywriting.jsp";
+
+		}
+		
 }
 
 

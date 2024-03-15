@@ -25,7 +25,7 @@ public class BoardMapper implements RowMapper<BoardDto> {//boardContent 있는 M
 		boardDto.setBoardEditTime(rs.getDate("board_edit_time"));
 		boardDto.setBoardCategory(rs.getString("board_category"));
 		boardDto.setBoardWriter(rs.getString("board_writer"));
-		boardDto.setBoardLimitTime(rs.getDate("board_limit_time"));
+		boardDto.setBoardLimitTime(rs.getString("board_limit_time"));
 		return boardDto;
 	}
 

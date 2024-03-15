@@ -118,10 +118,17 @@ ul > li{
 				}
 			}
 
+<<<<<<< HEAD
 		};
 
 		$("[name=boardContent]").summernote(options);
 	});
+=======
+	};
+	
+	$("[name='boardContent'], [name='inquiryContent']").summernote(options);
+});
+>>>>>>> refs/remotes/origin/main
 </script>
 
 <!--ChartJD CDN-->

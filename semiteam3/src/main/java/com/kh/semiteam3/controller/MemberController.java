@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.semiteam3.dao.AttachDao;
+import com.kh.semiteam3.dao.BoardDao;
 import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dto.AttachDto;
 import com.kh.semiteam3.dto.MemberDto;
@@ -36,6 +37,10 @@ public class MemberController {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private BoardDao boardDao;
+	
 	
 	//회원가입 페이지
 	@GetMapping("/join")
@@ -89,7 +94,7 @@ public class MemberController {
 			session.setAttribute("loginGrade", findDto.getMemberGrade()); //관리자일경우 다른화면
 			session.setAttribute("loginNick", findDto.getMemberNick());
 			
-			 // 로그인 처리
+			 // 로그인 처리 후 이전페이지로 돌리기
 	        String previousUrl = (String) session.getAttribute("previousUrl");
 	        if (previousUrl != null) {//이전 url이 있다면
 	            session.removeAttribute("previousUrl"); //이후 재사용하지 않도록 URL 제거
@@ -129,9 +134,6 @@ public class MemberController {
 		MemberDto memberDto = memberDao.selectOne(loginId);
 		
 		model.addAttribute("memberDto", memberDto);
-		
-		
-		//혹시 내 작성글 내역, 댓글내역 확인할 수 있게 할건지 ?????
 		
 		return "/WEB-INF/views/member/mypage.jsp";
 	}

@@ -190,6 +190,24 @@ public class BoardController {
 			boardDao.delete(boardNo);//그러고 나서 게시글을 지워라
 			return "redirect:list?category=" + boardCategoryEncoded;
 		}
+		
+		// 내가 쓴 게시글로 가는 controller
+		@GetMapping("/mywriting")
+		public String myBoard(HttpSession session, Model model) {
+			// 현재 로그인된 사용자의 아이디 가져오기
+			String loginId = (String) session.getAttribute("loginId");
+
+			// 해당 사용자가 작성한 게시글 가져오기
+			List<BoardDto> boardList = boardDao.findBylist(loginId);
+			
+			// 모델에 게시글 목록 추가
+			model.addAttribute("boardList", boardList);
+
+			// 마이페이지 내가 쓴 게시글 화면으로 이동
+			return "/WEB-INF/views/board/mywriting.jsp";
+
+		}
+		
 }
 
 

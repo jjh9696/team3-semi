@@ -28,8 +28,7 @@
 			<%-- <c:if test="${sessionScope.loginId != null && sessionScope.loginId != boardDto.boardWriter}">  --%>	
 			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
 				<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
-			</c:if>
-			
+			</c:if>	
 	</div>
 	
 </script>
@@ -55,6 +54,7 @@
 		
 		//현재 사용자의 정보를 저장한다
 		var loginId = "${sessionScope.loginId}";
+		var loginNick = "${sessionScope.loginNick}";
 		var isLogin = loginId.length>0;
 		
 		//페이지 로딩 완료 시 댓글 목록을 불러와서 출력
@@ -85,7 +85,7 @@
 					//- data라는 명형으로는 읽기만 가능
 					//- 태그에 글자를 추가하고 싶다면 .attr()명령 사용
 					//- 현재 로그인한 사용자의 댓글에만 버튼을 표시(나머진 삭제)
-					if(isLogin && loginId == response[i].replyWriter) {
+					if(isLogin && loginNick == response[i].replyWriter) {
 						$(templateHTML).find(".btn-reply-edit")
 												.attr("data-reply-no", response[i].replyNo);
 						$(templateHTML).find(".btn-reply-delete")
@@ -294,11 +294,11 @@
 		</h4>
 	</div>
 
-	<c:if test="${sessionScope.loginId != null}">
+	<c:if test="${sessionScope.loginId != null && sessionScope.loginId != boardDto.boardWriter}">
 		<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
 	</c:if>
-	<c:if test="${sessionScope.login == '관리자'}">
-		신고 횟수 : ${reportCount}
+	<c:if test="${sessionScope.loginGrade == '관리자'}">
+		신고 횟수 : ${reportCountByReportBoardOrigin}
 	</c:if> 
 	
 	<hr>
@@ -331,7 +331,7 @@
 	</div>
 	
 	<div class="cell right">
-		<a class="btn" href="write">글쓰기</a>
+		<a class="btn" href="write?category=${boardDto.boardCategory}">글쓰기</a>
 		<%-- 
 			수정과 삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 
 			- 본인글이란 로그인한 사용자 아이디와 게시글 작성자가 같은 경우
@@ -343,7 +343,7 @@
 			data-message="정말 삭제하시겠습니까?" 
 			href="delete?boardNo=${boardDto.boardNo}">글삭제</a>
 		</c:if>
-		<a class="btn positive" href="list">글목록</a>
+		<a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a>
 	</div>
 
 		<!-- 댓글 작성창 + 댓글 목록 -->
@@ -360,9 +360,9 @@
 			</h3>
 			<pre class="reply-content">댓글 내용</pre>
 			<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
-			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
+<%-- 			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
 				<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
-			</c:if>
+			</c:if> --%>
 			
 		</div>
 		<div class="reply-item-edit">

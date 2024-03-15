@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.kh.semiteam3.dao.MemberDao;
+import com.kh.semiteam3.dao.ReportBoardDao;
 import com.kh.semiteam3.dto.MemberDto;
 //관리자가 이용할 수 있는 기능을 제공하는 컨트롤러
 @Controller
@@ -23,6 +24,9 @@ public class AdminController implements HandlerInterceptor{
 	
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private ReportBoardDao reportBoardDao;
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -58,6 +62,13 @@ public class AdminController implements HandlerInterceptor{
 		public String memberDetail(@RequestParam String memberId, Model model) {
 			MemberDto memberDto = memberDao.selectOne(memberId);
 			model.addAttribute("memberDto", memberDto);
+			
+			int reporterCountByMemberId = reportBoardDao.reporterCountByMemberId(memberId);
+			model.addAttribute("reporterCountByMemberId", reporterCountByMemberId);
+			
+			int reporteeCountByMemberId = reportBoardDao.reporteeCountPostsByMemberId(memberId);
+			model.addAttribute("reporteeCountByMemberId", reporteeCountByMemberId);
+			
 			return "/WEB-INF/views/admin/member/detail.jsp";
 		}
 		

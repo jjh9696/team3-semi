@@ -1,5 +1,7 @@
 package com.kh.semiteam3.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -78,24 +80,66 @@ public class BoardController {
 		}
 		
         //게시글 목록
-        @RequestMapping("/list")
-        public String list(@RequestParam String category,
-                @ModelAttribute PageVO pageVO,
-                Model model) {
-            int count = boardDao.count(pageVO);
-            pageVO.setCount(count);
-            model.addAttribute("pageVO",pageVO);
-            
-            List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
-            List<BoardDto> adminListAll = boardDao.listByAdmin();
-            List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
-            
-            model.addAttribute("list", list);
-            model.addAttribute("adminListAll", adminListAll);
-            model.addAttribute("adminListCategory", adminListCategory);
-            
-            return "/WEB-INF/views/board/list.jsp";
-        }
+		/*
+		 * @RequestMapping("/list") public String list(@RequestParam String category,
+		 * 
+		 * @ModelAttribute PageVO pageVO, Model model) { int count =
+		 * boardDao.count(pageVO); pageVO.setCount(count);
+		 * model.addAttribute("pageVO",pageVO);
+		 * 
+		 * List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
+		 * List<BoardDto> adminListAll = boardDao.listByAdmin(); List<BoardDto>
+		 * adminListCategory = boardDao.listByAdminAndCategory(category);
+		 * 
+		 * model.addAttribute("list", list); model.addAttribute("adminListAll",
+		 * adminListAll); model.addAttribute("adminListCategory", adminListCategory);
+		 * 
+		 * return "/WEB-INF/views/board/list.jsp"; }
+		 */
+		@RequestMapping("/list") //게시글 작성자 아이디에서 닉네임 보이게 수정
+		public String list(@RequestParam String category,
+		        @ModelAttribute PageVO pageVO,
+		        Model model) {
+		    int count = boardDao.count(pageVO);
+		    pageVO.setCount(count);
+		    model.addAttribute("pageVO",pageVO);
+		    
+		    List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
+		    List<BoardDto> adminListAll = boardDao.listByAdmin();
+		    List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
+		    
+		    // 각 게시글의 작성자 정보 설정
+		    for (BoardDto boardDto : list) {
+		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+		        if (memberDto != null) {
+		            boardDto.setBoardWriter(memberDto.getMemberNick());
+		        } else {
+		            boardDto.setBoardWriter("탈퇴한사용자");
+		        }
+		    }
+		    for (BoardDto boardDto : adminListAll) {
+		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+		    	if (memberDto != null) {
+		    		boardDto.setBoardWriter(memberDto.getMemberNick());
+		    	} else {
+		    		boardDto.setBoardWriter("탈퇴한사용자");
+		    	}
+		    }
+		    for (BoardDto boardDto : adminListCategory) {
+		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+		    	if (memberDto != null) {
+		    		boardDto.setBoardWriter(memberDto.getMemberNick());
+		    	} else {
+		    		boardDto.setBoardWriter("탈퇴한사용자");
+		    	}
+		    }
+		    
+		    model.addAttribute("list", list);
+		    model.addAttribute("adminListAll", adminListAll);
+		    model.addAttribute("adminListCategory", adminListCategory);
+		    
+		    return "/WEB-INF/views/board/list.jsp";
+		}
         
 		//게시글상세
 		@RequestMapping("/detail")
@@ -106,8 +150,8 @@ public class BoardController {
 			BoardDto boardDto = boardDao.selectOne(boardNo);
 			model.addAttribute("boardDto", boardDto);
 			
-			int reportCount = reportBoardDao.reportCount(boardNo);
-			model.addAttribute("reportCount", reportCount);
+			int reportCountByReportBoardOrigin = reportBoardDao.reportCountByReportBoardOrigin(boardNo);
+			model.addAttribute("reportCountByReportBoardOrigin", reportCountByReportBoardOrigin);
 			
 			//조회한 게시글 정보에 있는 회원 아이디로 작성자!(회원) 정보를 불러와서 첨부
 			if(boardDto.getBoardWriter() != null) {//작성자가 탈퇴하지 않았다면
@@ -161,7 +205,7 @@ public class BoardController {
 		//게시글삭제(jsp x)
 		//만약에 비밀번호 받으려면 겟 포스트 만들어서 회원탈퇴 햇던것처럼 만들면 되지
 		@GetMapping("/delete")
-		public String delete(@RequestParam int boardNo) {
+		public String delete(@RequestParam int boardNo) throws UnsupportedEncodingException {
 			//(summernote 관련 추가할 내용)
 			//- 글을 지우면 첨부파일이 좀비가 된다
 			//- 글과 첨부파일이 연결되어 있지 않다
@@ -170,6 +214,11 @@ public class BoardController {
 			//- 글 안에 있는 <img>중에 .server-img를 찾아서 data-key를 읽어서 삭제
 			//- (문제점)JAVA에서 HTML 구조를 탐색(해석)할 수 있나? OK!(=>Jsoup이라는 라이브러리)
 			BoardDto boardDto = boardDao.selectOne(boardNo);
+			String boardCategory = boardDto.getBoardCategory();
+			
+			//자바에서 UTF-8글자를 인식 못해서.. 바꿔주는 코드를 찾아 넣었음.
+			String boardCategoryEncoded = URLEncoder.encode(boardCategory, "UTF-8"); 
+
 			
 			//*Jsoup* 으로 내용을 탐색하는 과정
 			Document document = Jsoup.parse(boardDto.getBoardContent());//게시글 내용을 탐색해달라!
@@ -180,9 +229,8 @@ public class BoardController {
 				int attachNo = Integer.parseInt(key);//숫자로 변환
 				attachService.remove(attachNo);//파일 삭제 + DB삭제
 			}
-			
 			boardDao.delete(boardNo);//그러고 나서 게시글을 지워라
-			return "redirect:list";
+			return "redirect:list?category=" + boardCategoryEncoded;
 		}
 }
 

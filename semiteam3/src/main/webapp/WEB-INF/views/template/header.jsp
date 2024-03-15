@@ -165,8 +165,7 @@ ul > li{
 			<li><a href="#">관리자메뉴</a>
 				<ul>
 					<li><a href="/admin/member/search">회원관리</a></li>
-					<li><a href="/admin/replyReport/list">댓글신고 게시판</a></li>
-					<li><a href="/admin/boardReport/list">게시글신고 게시판</a></li>
+					<li><a href="/reportBoard/list">게시글 신고 목록</a></li>
 				</ul></li>
 		</c:if>
 

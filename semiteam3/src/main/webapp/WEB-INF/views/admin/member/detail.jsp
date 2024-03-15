@@ -28,7 +28,11 @@ $(function(){
 <table border="1">
 	<tr>
 		<th>아이디</th>
-		<td>${memberDto.memberId}</td>
+		<td>
+			${memberDto.memberId} 
+			신고한 횟수 : ${reporterCountByMemberId}
+			신고당한 횟수 : ${reporteeCountByMemberId}
+		</td>
 	</tr>
 	<tr>
 		<th>닉네임</th>

@@ -6,7 +6,7 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
+	<%-- <jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> --%>
 
 	<div class="container w-800">
 
@@ -71,7 +71,7 @@
 						<td class="red">전체공지</td>
 						<td class="left"><a class="link"
 							href="detail?boardNo=${boardDto.boardNo}">
-								${boardDto.boardTitle} </a></td>
+								${boardDto.boardTitle}</a></td>
 						<td>${boardDto.boardWriterStr}</td>
 						<td>${boardDto.boardWriteTimeStr}</td>
 						<td>${boardDto.boardLimitTime}</td>
@@ -108,7 +108,7 @@
 						<td class="left" width="40%">
 							<%-- 제목 출력 --%> <a class="link"
 							href="detail?boardNo=${boardDto.boardNo}">
-								${boardDto.boardTitle} </a>
+								${boardDto.boardTitle} [${boardDto.boardReply}] </a>
 						</td>
 						<td>${boardDto.boardWriterStr}</td>
 						<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
@@ -145,3 +145,4 @@
 		</div>
 	</div>
 </body>
+	

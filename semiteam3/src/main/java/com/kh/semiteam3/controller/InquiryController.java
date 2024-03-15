@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.semiteam3.dao.InquiryDao;
 import com.kh.semiteam3.dao.MemberDao;
+import com.kh.semiteam3.dto.BoardDto;
 import com.kh.semiteam3.dto.InquiryDto;
 import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.service.AttachService;
@@ -54,6 +55,15 @@ public class InquiryController {
 		
 		List<InquiryDto> list = inquiryDao.selectListByPaging(pageVO);
 		model.addAttribute("list", list);
+		
+	    for (InquiryDto inquiryDto : list) {
+	        MemberDto memberDto = memberDao.selectOne(inquiryDto.getInquiryWriter());
+	        if (memberDto != null) {
+	        	inquiryDto.setInquiryWriter(memberDto.getMemberNick());
+	        } else {
+	        	inquiryDto.setInquiryWriter("탈퇴한사용자");
+	        }
+	    }
 		
 		return "/WEB-INF/views/inquiry/list.jsp";
 	}

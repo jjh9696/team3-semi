@@ -16,6 +16,7 @@ public class BoardListMapper implements RowMapper<BoardDto>{//boardContent ì—†ëŠ
 		BoardDto boardDto = new BoardDto();
 		boardDto.setBoardNo(rs.getInt("board_no"));
 		boardDto.setBoardTitle(rs.getString("board_title"));
+		boardDto.setBoardReply(rs.getInt("board_reply"));
 		boardDto.setBoardView(rs.getInt("board_view"));
 		boardDto.setBoardLike(rs.getInt("board_like"));
 		boardDto.setBoardWriteTime(rs.getDate("board_write_time"));
@@ -26,7 +27,6 @@ public class BoardListMapper implements RowMapper<BoardDto>{//boardContent ì—†ëŠ
 
 }
 //		boardDto.setBoardContent(rs.getString("board_content"));
-//		boardDto.setBoardReply(rs.getInt("board_reply"));
 //		boardDto.setBoardReport(rs.getInt("board_report"));
 //		boardDto.setBoardEditTime(rs.getDate("board_edit_time"));
 //		boardDto.setBoardCategory(rs.getString("board_category"));

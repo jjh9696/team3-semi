@@ -21,7 +21,7 @@
 		<table class="table table-horizontal table-hover">
 	<thead>
 		<tr>
-			<th>번호</th>
+			<th></th>
 			<th width="40%">문의 제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
@@ -34,10 +34,10 @@
 			<tr>
 				<c:choose>
 					<c:when test="${inquiryDto.inquiryTarget == null}">
-						<td>${inquiryDto.inquiryNo}</td>
+						<td><i class="fa-solid fa-q"></i></td>
 					</c:when>
 					<c:otherwise>
-						<td class="red">답변</td>
+						<td><i class="fa-solid fa-a red"></i></td>
 					</c:otherwise>
 				</c:choose>
 				
@@ -50,9 +50,9 @@
 					</c:forEach>
 					
 					<%-- 답글일 경우만 이미지를 출력 --%>
-					<c:if test="${inquiryDto.inquiryDepth > 0}">
+					<%-- <c:if test="${inquiryDto.inquiryDepth > 0}">
 						→
-					</c:if>
+					</c:if> --%>
 				
 					<%-- 제목 출력 --%>
 					<a class="link" href="detail?inquiryNo=${inquiryDto.inquiryNo}">

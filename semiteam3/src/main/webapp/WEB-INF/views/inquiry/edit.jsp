@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-    
+<script src="/js/exit.js"></script>
 
-<form action="edit" method="post" autocomplete="off">
+<form class="free-pass" action="edit" method="post" autocomplete="off">
     <input type="hidden" name="inquiryNo" value="${inquiryDto.inquiryNo}">
 
 <div class="container w-800">

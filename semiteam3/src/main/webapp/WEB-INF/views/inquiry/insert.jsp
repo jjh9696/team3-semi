@@ -5,7 +5,10 @@
     
     <script src="/js/exit.js"></script>
     
+    
+    
     <script>
+    
     $(document).ready(function() {
         // 완료 버튼을 클릭했을 때 처리하는 함수
         $('.inquiry-finish').click(function(event) {

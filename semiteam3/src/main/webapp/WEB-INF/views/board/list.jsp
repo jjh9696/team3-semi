@@ -105,7 +105,7 @@
 					<td class="left" width="40%">
 						<%-- 제목 출력 --%> <a class="link"
 						href="detail?boardNo=${boardDto.boardNo}">
-							${boardDto.boardTitle} </a>
+							${boardDto.boardTitle} [${boardDto.boardReply}]</a>
 					</td>
 					<td>${boardDto.boardWriterStr}</td>
 					<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
@@ -117,24 +117,6 @@
 					<td>${boardDto.boardView}</td>
 				</tr>
 			</c:forEach>
-
-				<c:forEach var="boardDto" items="${list}">
-					<tr>
-						<td>${boardDto.boardNo}</td>
-						<%-- 제목칸 --%>
-						<td class="left" width="40%">
-							<%-- 제목 출력 --%> <a class="link"
-							href="detail?boardNo=${boardDto.boardNo}">
-								${boardDto.boardTitle} [${boardDto.boardReply}] </a>
-						</td>
-						<td>${boardDto.boardWriterStr}</td>
-						<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
-						<td>${boardDto.boardWriteTimeStr}</td>
-						<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
-						<td>${boardDto.boardLimitTime}</td>
-						<td>${boardDto.boardView}</td>
-					</tr>
-				</c:forEach>
 
 			</table>
 		</div>

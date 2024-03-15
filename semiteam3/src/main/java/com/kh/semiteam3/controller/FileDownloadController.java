@@ -25,7 +25,6 @@ public class FileDownloadController {
 
 	@Autowired
 	private AttachDao attachDao;
-	
 	//여태까지 모든 컨트롤러에서는 사용자가 볼 화면을 반환했다
 	//이 매핑은 그렇지 않다는 것을 표시해야 한다 (@ResponseBody)
 	//사용자에게는 화면이 아닌 파일이 담신 응답 객체를 반환

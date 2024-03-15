@@ -15,8 +15,6 @@
 	<meta>는 홈페이지의 정보를 설정하는 태그
 	<title>은 문서의 제목이며 브라우저의 탭부분에 표시됨
  --%>
-<style>
-</style>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +30,6 @@
 <!-- 내가 구현한 스타일 -->
 <link rel="stylesheet" type="text/CSS" href="/css/commons.css">
 <link rel="stylesheet" type="text/CSS" href="/css/test.css">
-<script src="/js/commons.js"></script>
 
 
 
@@ -43,6 +40,7 @@
 <!-- jquery cdn -->
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="/js/commons.js"></script>
 
 <!--summernote cdn-->
 <link
@@ -163,26 +161,28 @@ $(function(){
 				</ul></li>
 		</c:if>
 
-		<li class="menu-end"><c:choose>
-				<c:when test="${sessionScope.loginId !=null}">
-					<a href="/member/mypage"> <i class="fa-solid fa-user"></i>${sessionScope.loginNick}
-					</a>
-					<ul>
-						<li><a href="/member/logout"> <i
-								class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
-						</a></li>
-					</ul>
-				</c:when>
-				<c:otherwise>
-					<a href="/member/login"> <i class="fa-regular fa-user"></i> 로그인
-					</a>
-					<ul>
-						<li><a href="/member/join"> <i
-								class="fa-solid fa-user-plus"></i> 회원가입
-						</a></li>
-					</ul>
-				</c:otherwise>
-			</c:choose></li>
+	<li class="menu-end"><c:choose>
+		<c:when test="${sessionScope.loginId !=null}">
+			<a href="/member/mypage"> <i class="fa-solid fa-user"></i>${sessionScope.loginNick}
+			</a>
+				<ul>
+					<li>
+						<a href="/member/logout"><i	class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
+						</a>
+					</li>
+				</ul>
+		</c:when>
+		<c:otherwise>
+			<a href="/member/login"> <i class="fa-regular fa-user"></i> 로그인
+			</a>
+				<ul>
+					<li>
+						<a href="/member/join"> <i class="fa-solid fa-user-plus"></i> 회원가입
+						</a>
+					</li>
+				</ul>
+			</c:otherwise>
+		</c:choose></li>
 	</div>
 </body>
 </html>

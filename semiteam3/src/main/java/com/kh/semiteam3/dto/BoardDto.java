@@ -24,6 +24,8 @@ public class BoardDto {
 
 	
 	
+
+	//마감시간을 Date형태로 변환
 	public Timestamp getBoardLimitTimeDate() {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	    try {
@@ -42,6 +44,8 @@ public class BoardDto {
 	        return null; // 예외가 발생하면 null을 반환
 	    }
 	}
+	
+	
 	
 	
 
@@ -198,5 +202,28 @@ public class BoardDto {
 			return "오래전";
 		}
 	}
+	
+	
+	//모집 중 또는 모집완료 상태 구현 
+	public String getBoardStatus() {
+	    Timestamp currentTime = new Timestamp(System.currentTimeMillis()); // 현재 시간
+	    Timestamp limitTime = getBoardLimitTimeDate(); // 글 쓸 때 설정한 마감 기간
+
+	    // 현재 시간이 마감 기간 이후인지 확인
+	    if (limitTime == null) {
+	        return "-"; // 마감 기간이 설정되지 않은 경우
+	    } 
+	    else if (currentTime.after(limitTime)) {
+	        return "모집 완료"; // 현재 시간이 마감 기간 이후인 경우
+	    } 
+	    else {
+	        return "모집 중"; // 현재 시간이 마감 기간 이전인 경우
+	    }
+	}
+
+	
+	
+	
+	
 
 }

@@ -6,10 +6,10 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	<%-- <jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> --%>
-
+	
+	<div class="container w-1100" style="display:flex;">
+	<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 	<div class="container w-800">
-
 	<%-- 제목칸 --%>
 	<div class="cell center">
 		<c:if test="${param.category == '축구'}">
@@ -142,6 +142,7 @@
 				<button class="btn positive">검색</button>
 			</form>
 		</div>
+	</div>
 	</div>
 </body>
 	

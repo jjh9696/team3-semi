@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,57 +8,53 @@
 <title>Insert title here</title>
 
 <style>
+
 .sidebar {
-	position: sticky;
-	top: 5%;
-	left: 0;
-	width: 200px;
-	background-color: #333;
-	color: #fff;
-	padding: 20px;
+    position: sticky; /* 고정 위치 설정 */
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    top: 200px;
+    height: fit-content;
 }
 
-/* /* Style for links in the sidebar */
 .sidebar a {
-	display: block;
-	color: #fff;
-	text-decoration: none;
-	margin-bottom: 10px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
 }
-
-/* Style for active link in the sidebar */
-.sidebar a.active {
-	background-color: #555;
-} */
-
-
 </style>
 </head>
 <body>
 
-    <div class="sidebar" id="sidebar">
-        <a href="/inquiry/list">
-            <i class="fa-solid fa-question"></i>
-            <i class="fa-solid fa-list"></i>
-        </a>
-    </div>
-
-    <script>
-        window.onscroll = function() {
-            stickySidebar()
-        };
-
-        var sidebar = document.getElementById("sidebar");
-        var sticky = sidebar.offsetTop;
-
-        function stickySidebar() {
-            if (window.pageYOffset >= sticky) {
-                sidebar.classList.add("sticky");
-            } else {
-                sidebar.classList.remove("sticky");
-            }
-        }
-    </script>
+    <aside class="sidebar">
+    	<div class="cell">
+	      	<c:choose>
+				<c:when test="${sessionScope.loginId !=null}">
+					<div>
+						<div class="cell">
+							<a href="/member/mypage">${sessionScope.loginNick}</a>
+							${memberDto.memberGrade}
+						</div>
+						<a href="/board/mywriting"><button>내가쓴 글</button></a>
+					
+					</div>
+				</c:when>
+				<c:otherwise>
+					<a href="/member/login"> <i class="fa-regular fa-user"></i> 
+					<button>로그인</button>
+				</c:otherwise>
+			</c:choose>
+    	</div>
+    	
+		<div class="cell">
+	        <a href="/inquiry/list">
+	            <i class="fa-solid fa-question"></i>
+	            <i class="fa-solid fa-list"></i>
+	        </a>
+        </div>
+    </aside>
 
 </body>
 </html>

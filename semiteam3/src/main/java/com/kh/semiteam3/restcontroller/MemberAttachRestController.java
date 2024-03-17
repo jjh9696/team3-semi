@@ -59,51 +59,66 @@ public class MemberAttachRestController {
 		}
 		return numbers;
 	}
-	@GetMapping("/edit")
-	public String edit(@RequestParam String memberId, Model model) {
-		MemberDto memberDto = memberDao.selectOne(memberId);
-		model.addAttribute("memberDto", memberDto);
-		return "/WEB-INF/views/admin/member/edit.jsp";
-	}
+	
 	@PostMapping("/edit")
 	public String edit(@ModelAttribute MemberDto memberDto, 
-			@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-		//우선 아이템 정보는 첨부파일과 관계 없이 수정 처리
-		memberDao.Update(memberDto);
-		
-		//첨부파일이 있다면 기존의 첨부파일을 지우고 신규 첨부파일을 등록
-		if(!attach.isEmpty()) {
-		
-			//기존 파일 삭제
-			try {
-				int attachNo = attachDao.findAttachNo(memberDto.getMemberId());//파일번호찾고
-				File dir = new File(System.getProperty("user.home"), "upload");
-				File target = new File(dir, String.valueOf(attachNo));
-				target.delete();//실제파일 삭제
-				attachDao.delete(attachNo);//DB에서 삭제
-			}
-			catch(Exception e) {}//예외 발생 시 아무것도 안함(skip)
-			
-			//신규 파일 추가
-			//- attach_seq 번호 생성
-			//- 실물 파일을 저장
-			//- DB에 insert
-			//- member과 connect 처리
-			int attachNo = attachDao.getSequence();//시퀀스생성
-			File dir = new File(System.getProperty("user.home"), "upload");
-			File target = new File(dir, String.valueOf(attachNo));
-			attach.transferTo(target);//실물파일저장
-			
-			AttachDto attachDto = new AttachDto();
-			attachDto.setAttachNo(attachNo);
-			attachDto.setAttachName(attach.getOriginalFilename());
-			attachDto.setAttachType(attach.getContentType());
-			attachDto.setAttachSize(attach.getSize());
-			attachDao.insert(attachDto);//DB저장
-			
-			memberDao.connect(memberDto.getMemberId(), attachNo);//연결처리
-		}
-		return "redirect:list";
-	
+	                   @RequestParam MultipartFile attach) {
+	    try {
+	        // 회원 정보 업데이트
+	        memberDao.Update(memberDto);
+	        
+	        // 첨부 파일이 있을 경우
+	        if (!attach.isEmpty()) {
+	            // 기존 첨부 파일 삭제
+	            int attachNo = attachDao.findAttachNo(memberDto.getMemberId());
+	            deleteExistingAttachment(attachNo);
+	            
+	            // 신규 첨부 파일 추가
+	            int newAttachNo = addAttach(attachNo);
+	            
+	            // 회원과 첨부 파일 연결
+	            memberDao.connect(memberDto.getMemberId(), newAttachNo);
+	        }
+	    } catch (Exception e) {
+	        // 예외 처리
+	        logger.error("Error occurred during member editing: " + e.getMessage());
+	        // 필요에 따라 사용자에게 오류 메시지를 표시하거나 로깅합니다.
+	    }
+	    // 리다이렉트 처리
+	    return "redirect:list";
 	}
+
+	private int addAttach(int attachNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private void deleteExistingAttachment(int attachNo) {
+	    // 기존 파일 삭제
+	    if (attachNo != -1) {
+	        File dir = new File(System.getProperty("user.home"), "upload");
+	        File target = new File(dir, String.valueOf(attachNo));
+	        target.delete();
+	        attachDao.delete(attachNo);
+	    }
+	}
+
+	private int addNewAttachment(MultipartFile attach) throws IOException {
+	    // 신규 파일 추가
+	    int attachNo = attachDao.getSequence();
+	    File dir = new File(System.getProperty("user.home"), "upload");
+	    File target = new File(dir, String.valueOf(attachNo));
+	    attach.transferTo(target);
+	    
+	    // 첨부 파일 정보 DB에 추가
+	    AttachDto attachDto = new AttachDto();
+	    attachDto.setAttachNo(attachNo);
+	    attachDto.setAttachName(attach.getOriginalFilename());
+	    attachDto.setAttachType(attach.getContentType());
+	    attachDto.setAttachSize(attach.getSize());
+	    attachDao.insert(attachDto);
+	    
+	    return attachNo;
+	}
+
 }

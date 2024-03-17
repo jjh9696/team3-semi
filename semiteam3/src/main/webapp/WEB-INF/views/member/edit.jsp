@@ -7,12 +7,34 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(function(){
+		$("#memberAttach").on("remove", function(){
+			var memberId = member_id // 검색할 member_id
+			var attachNoRemove = attach_no // 제거할 attach_no
+		$.ajax({
+		  url: "/rest/member_attach/upload",
+		  type: 'POST',
+		  contentType: false,
+		  processData: false,
+		  data: JSON.stringify({ memberId: member_id, attachNoRemove: attach_no}),
+		  success: function(response) {
+		    if (response.success) {
+		      alert("attach_no가 성공적으로 제거되었습니다.");
+		    } else {
+		      alert("attach_no 제거에 실패했습니다.");
+		    }
+		  },
+		  error: function(xhr, status, error) {
+		    alert("AJAX 요청 중 에러가 발생했습니다: " + error);
+		  }
+		});
+		
 		$("#memberAttach").on("change", function(){
 					var formData = new FormData();
 					//formData.append("이름", 값);
 					formData.append("attachList", this.files[0]);
+					console.log("");
 			$.ajax({
-				url:"http://localhost:8080/rest/member_attach/upload",
+				url:"/rest/member_attach/upload",
 				method:"post",
 				data: formData,
 				processData: false,
@@ -119,7 +141,7 @@
 	<input type="text" name="memberAddress1" placeholder="기본주소" value="${memberDto.memberAddress1}"><br><br>
 	<input type="text" name="memberAddress2" placeholder="상세주소" value="${memberDto.memberAddress2}"><br><br>
 	비밀번호 확인 * <input type="password" name="memberPw" required><br><br>
-	<button type="submit" value="Upload">변경하기</button>
+	<button type="submit" value="Upload" name="">변경하기</button>
 </form>
 
 <c:if test="${param.error != null }">

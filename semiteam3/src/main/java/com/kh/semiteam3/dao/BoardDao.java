@@ -117,6 +117,7 @@ public class BoardDao {
         }
     }
     
+    //닉네임으로 검색
     public List<BoardDto> selectByNick(PageVO pageVO, String boardCategory) {
         // 검색
         	String sql = "SELECT * FROM ("
@@ -133,6 +134,44 @@ public class BoardDao {
             Object[] data = {boardCategory, pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
             return jdbcTemplate.query(sql, boardListMapper, data);
     }
+
+    //카테고리별로 모집중인 게시글만 보기 버튼추가하려고..
+    public List<BoardDto> boardStatus(PageVO pageVO, String boardCategory, String boardStatus) {
+        if ("recruiting".equals(boardStatus) && pageVO.isOnlyRecruitingAndSearch()) { // 모집중인 게시글 중에서 검색하는 경우
+        	String sql = "select * from ("
+                    + "select rownum rn, TMP.* from ("
+                        + "select "
+                            + "board_no, board_title, board_reply, board_writer,"
+                            + "board_write_time, board_limit_time, "
+                            + "board_view, board_like "
+                        + "from board "
+                        + "where board_category = ? "
+                            + "and board_limit_time > sysdate " // 현재 시간 이후인 경우만 모집중으로 간주
+                            + "and instr(" + pageVO.getColumn() + ", ?) > 0" // 검색어와 일치하는 경우만 필터링
+                        + "order by board_no desc"
+                    + ") TMP"
+                + ") where rn between ? and ?";
+            Object[] data = {boardCategory, pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
+            return jdbcTemplate.query(sql, boardListMapper, data);
+        } else { //목록
+            String sql = "select * from("
+                    + "select rownum rn, TMP.* from("
+                    + "select "
+                        + "board_no, board_title, board_reply, board_writer,"
+                        + "board_write_time, board_limit_time, "
+                        + "board_view, board_like "
+                    + "from board where board_category = ? "
+                    	+ "and board_limit_time > sysdate "
+                    + "order by board_no desc"
+                    + ")TMP"
+                    + ") where rn between ? and ?";
+            Object[] data= {boardCategory, 
+                                    pageVO.getBeginRow(), pageVO.getEndRow()};
+            return jdbcTemplate.query(sql, boardListMapper, data);
+        }
+    	
+    }
+    
 	
 	//통합 페이지 카운트(목록 + 검색)
 	public int count(PageVO pageVO) {
@@ -149,6 +188,7 @@ public class BoardDao {
 		}
 	}
 	
+	//닉네임으로 검색 카운트
 	public int countForNick(PageVO pageVO) {
 	    if (pageVO.isSearch()) { // 검색
 	        String sql = "SELECT COUNT(*) FROM board b JOIN member m ON b.board_writer = m.member_id WHERE m.member_nick LIKE ?";
@@ -173,7 +213,7 @@ public class BoardDao {
     public boolean update(BoardDto boardDto) {//제목, 내용, 수정일, 카테고리, 마감일을 게시글 번호 뽑아서 수정~!
         String sql = "update board "
                 + "set board_title=?, board_content=?, board_edit_time=sysdate, "
-                + "board_limit_time=? "
+                + "board_limit_time= to_date(?, 'YYYY-MM-DD HH24:MI') "
                 + "where board_no=?";
         Object[] data = {
                 boardDto.getBoardTitle(), boardDto.getBoardContent(),

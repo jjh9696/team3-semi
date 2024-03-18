@@ -130,6 +130,9 @@ public class MemberDao {
 		List<MemberDto> list = jdbcTemplate.query(sql, memberMapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+	
+	//찜목록(좋아요 누른 글 목록)
+	
 
 	public boolean Update(MemberDto memberDto) {
 		String sql = "update member "

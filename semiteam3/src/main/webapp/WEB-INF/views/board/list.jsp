@@ -6,10 +6,10 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	<%-- <jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> --%>
-
-	<div class="container w-800">
-
+	
+	<div class="container w-1200" style="display:flex;">
+	<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+	<div class="container w-900">
 	<%-- 제목칸 --%>
 	<div class="cell center">
 		<c:if test="${param.category == '축구'}">
@@ -62,6 +62,7 @@
 					<th>작성자</th>
 					<th>작성일</th>
 					<th>마감일</th>
+					<th>상태</th>
 					<th>조회수</th>
 				</tr>
 			</thead>
@@ -74,6 +75,7 @@
 							${boardDto.boardTitle} </a></td>
 					<td>${boardDto.boardWriterStr}</td>
 					<td>${boardDto.boardWriteTimeStr}</td>
+					<td>-</td>
 					<td>-</td>
 					<td>${boardDto.boardView}</td>
 				</tr>
@@ -92,6 +94,7 @@
 							${boardDto.boardTitle} </a></td>
 					<td>${boardDto.boardWriterStr}</td>
 					<td>${boardDto.boardWriteTimeStr}</td>
+					<td>-</td>
 					<td>-</td>
 					<td>${boardDto.boardView}</td>
 				</tr>
@@ -114,6 +117,7 @@
 					<td>
 						<fmt:formatDate value="${boardDto.boardLimitTimeDate}" pattern="yyyy-MM-dd HH:mm" ></fmt:formatDate>
 					</td>
+					<td>${boardDto.boardStatus}</td>
 					<td>${boardDto.boardView}</td>
 				</tr>
 			</c:forEach>
@@ -142,6 +146,7 @@
 				<button class="btn positive">검색</button>
 			</form>
 		</div>
+	</div>
 	</div>
 </body>
 	

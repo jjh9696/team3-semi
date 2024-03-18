@@ -6,8 +6,7 @@ hr {
 	border: 0.5px #e3c7a6 solid;
 }
 </style>
-</div>
-</div>
+
 
 <hr>
 
@@ -28,6 +27,8 @@ hr {
 	</div>
 </div>
 </main>
+</div>
+</div>
 
 </body>
 </html>

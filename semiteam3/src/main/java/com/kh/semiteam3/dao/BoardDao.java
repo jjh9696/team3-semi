@@ -117,9 +117,28 @@ public class BoardDao {
         }
     }
     
+
+    //닉네임으로 검색
+    public List<BoardDto> selectByNick(PageVO pageVO, String boardCategory) {
+        // 검색
+        	String sql = "SELECT * FROM ("
+        	           + "SELECT ROWNUM rn, TMP.* FROM ("
+        	           + "SELECT board_no, board_title, board_reply, board_writer,"
+        	           + "board_write_time, board_limit_time,"
+        	           + "board_view, board_like "
+        	           + "FROM board b "
+        	           + "JOIN member m ON b.board_writer = m.member_id "
+        	           + "WHERE board_category = ? AND INSTR(m.member_nick, ?) > 0 "
+        	           + "ORDER BY board_no DESC "
+        	           + ") TMP"
+        	           + ") WHERE rn BETWEEN ? AND ?";
+            Object[] data = {boardCategory, pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
+            return jdbcTemplate.query(sql, boardListMapper, data);
+    }
+
     //카테고리별로 모집중인 게시글만 보기 버튼추가하려고..
     public List<BoardDto> boardStatus(PageVO pageVO, String boardCategory, String boardStatus) {
-        if ("모집 중".equals(boardStatus) && pageVO.isOnlyRecruitingAndSearch()) { // 모집중인 게시글 중에서 검색하는 경우
+        if ("recruiting".equals(boardStatus) && pageVO.isOnlyRecruitingAndSearch()) { // 모집중인 게시글 중에서 검색하는 경우
         	String sql = "select * from ("
                     + "select rownum rn, TMP.* from ("
                         + "select "
@@ -135,7 +154,8 @@ public class BoardDao {
                 + ") where rn between ? and ?";
             Object[] data = {boardCategory, pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
             return jdbcTemplate.query(sql, boardListMapper, data);
-        } else { //목록
+        } 
+        else { //목록
             String sql = "select * from("
                     + "select rownum rn, TMP.* from("
                     + "select "
@@ -154,22 +174,38 @@ public class BoardDao {
     	
     }
     
-    
-    
 	
-	//통합 페이지 카운트(목록 + 검색)
-	public int count(PageVO pageVO) {
-		if(pageVO.isSearch()) {//검색
-			String sql = "select count(*) from board "
-					+ "where instr("+pageVO.getColumn()+", ?) > 0";
-			Object[] data = {pageVO.getKeyword()};
-			return jdbcTemplate.queryForObject(sql, int.class, data);
-		}
-		else {//목록
-			String sql = "select count(*) from board where board_category=?";
-			Object[] data = {pageVO.getCategory()};
-			return jdbcTemplate.queryForObject(sql, int.class, data);
-		}
+ // 통합 페이지 카운트(목록 + 검색 + 모집중인 게시글)
+    public int count(PageVO pageVO) {
+        if (pageVO.isSearch()) {// 검색
+            String sql = "select count(*) from board where instr(" + pageVO.getColumn() + ", ?) > 0";
+            if (pageVO.isOnlyRecruiting()) { // 모집중인 게시글만 필터링
+                sql += " and board_limit_time > sysdate"; // 현재 시간 이후인 경우만 모집중으로 간주
+            }
+            Object[] data = { pageVO.getKeyword() };
+            return jdbcTemplate.queryForObject(sql, int.class, data);
+        } else {// 목록
+            String sql = "select count(*) from board where board_category = ?";
+            if (pageVO.isOnlyRecruiting()) { // 모집중인 게시글만 필터링
+                sql += " and board_limit_time > sysdate"; // 현재 시간 이후인 경우만 모집중으로 간주
+            }
+            Object[] data = { pageVO.getCategory() };
+            return jdbcTemplate.queryForObject(sql, int.class, data);
+        }
+    }
+
+	
+	//닉네임으로 검색 카운트
+	public int countForNick(PageVO pageVO) {
+	    if (pageVO.isSearch()) { // 검색
+	        String sql = "SELECT COUNT(*) FROM board b JOIN member m ON b.board_writer = m.member_id WHERE m.member_nick LIKE ?";
+	        Object[] data = {"%" + pageVO.getKeyword() + "%"};
+	        return jdbcTemplate.queryForObject(sql, int.class, data);
+	    } else { // 목록
+	        String sql = "SELECT COUNT(*) FROM board WHERE board_category = ?";
+	        Object[] data = {pageVO.getCategory()};
+	        return jdbcTemplate.queryForObject(sql, int.class, data);
+	    }
 	}
 	
 	//게시글 상세 조회
@@ -235,7 +271,6 @@ public class BoardDao {
 		return jdbcTemplate.query(sql, boardListMapper);
 	}
 	
-	//관리자 카테고리별로
 	public List<BoardDto> listByAdminAndCategory(String boardCategory){
 		String sql = "select * from("
 				+ "select rownum rn, TMP.* from("
@@ -257,16 +292,6 @@ public class BoardDao {
         return jdbcTemplate.query(sql, boardListMapper, data);
     }
 	
-    //찜목록
-    public List<BoardDto> likeList(String memberId){
-    	String sql = "SELECT board.* "
-    			+ "FROM board_like "
-    			+ "JOIN board ON board_like.board_no = board.board_no "
-    			+ "WHERE board_like.member_id = ?";
-    	Object[] data = {memberId};
-    	return jdbcTemplate.query(sql, boardListMapper, data);
-    }
-    
 }
 
 

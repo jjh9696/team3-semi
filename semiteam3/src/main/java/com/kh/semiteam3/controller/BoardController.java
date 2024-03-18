@@ -98,26 +98,88 @@ public class BoardController {
 		 * 
 		 * return "/WEB-INF/views/board/list.jsp"; }
 		 */
+//		@RequestMapping("/list") //게시글 작성자 아이디에서 닉네임 보이게 수정
+//		public String list(@RequestParam String category,
+//		        @ModelAttribute PageVO pageVO,
+//		        Model model) {
+//		    int count = boardDao.count(pageVO);
+//		    pageVO.setCount(count);
+//		    model.addAttribute("pageVO",pageVO);
+//		    
+//		    MemberDto memberDto = new MemberDto();
+//		    
+//		    List<BoardDto> list;
+//		    if (memberDto.getMemberNick().equals(pageVO.getColumn())) {
+//		        list = boardDao.selectByNick(pageVO, category);
+//		    } else {
+//		        list = boardDao.selectByCategoryAndPaging(pageVO, category);
+//		    }
+//		    
+////		    List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
+//		    List<BoardDto> adminListAll = boardDao.listByAdmin();
+//		    List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
+//		    
+//		    // 각 게시글의 작성자 정보 설정
+//		    for (BoardDto boardDto : list) {
+//		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+//		        if (memberDto != null) {
+//		            boardDto.setBoardWriter(memberDto.getMemberNick());
+//		        } else {
+//		            boardDto.setBoardWriter("탈퇴한사용자");
+//		        }
+//		    }
+//		    for (BoardDto boardDto : adminListAll) {
+//		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+//		    	if (memberDto != null) {
+//		    		boardDto.setBoardWriter(memberDto.getMemberNick());
+//		    	} else {
+//		    		boardDto.setBoardWriter("탈퇴한사용자");
+//		    	}
+//		    }
+//		    for (BoardDto boardDto : adminListCategory) {
+//		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+//		    	if (memberDto != null) {
+//		    		boardDto.setBoardWriter(memberDto.getMemberNick());
+//		    	} else {
+//		    		boardDto.setBoardWriter("탈퇴한사용자");
+//		    	}
+//		    }
+//		    
+//		    model.addAttribute("list", list);
+//		    model.addAttribute("adminListAll", adminListAll);
+//		    model.addAttribute("adminListCategory", adminListCategory);
+//		    
+//		    return "/WEB-INF/views/board/list.jsp";
+//		}
+		
 		@RequestMapping("/list") //게시글 작성자 아이디에서 닉네임 보이게 수정
 		public String list(@RequestParam String category,
-		        @ModelAttribute PageVO pageVO, 
-		        @RequestParam(required = false) String status,
-		        Model model) {
-		    int count = boardDao.count(pageVO);
+               @ModelAttribute PageVO pageVO,
+               @RequestParam(required = false) String status,
+               Model model) {
+		    int count;
+		    if (pageVO.getColumn().equals("member_nick")) {
+		        count = boardDao.countForNick(pageVO);
+		    } else {
+		        count = boardDao.count(pageVO);
+		    }
 		    pageVO.setCount(count);
-		    model.addAttribute("pageVO",pageVO);
-		    
-//		    List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
-//		    List<BoardDto> recruitingList = boardDao.boardStatus(pageVO, category, status); //모집중인 게시글만 보기
+
+		    model.addAttribute("pageVO", pageVO);
+
 		    List<BoardDto> list;
+		    // pageVO.getColumn()이 memberNick와 일치하는 경우에만 selectByNick을 호출하도록 수정
 		    if ("recruiting".equals(status)) { // 모집중인 게시글만 보기일 경우
-		        list = boardDao.boardStatus(pageVO, category, "모집 중");
+		        list = boardDao.boardStatus(pageVO, category, "recruiting");
+		    } else if (pageVO.getColumn().equals("member_nick")) { // 수정된 부분: 닉네임 검색일 경우 selectByNick 메소드 호출
+		        list = boardDao.selectByNick(pageVO, category);
 		    } else {
 		        list = boardDao.selectByCategoryAndPaging(pageVO, category);
 		    }
+
 		    List<BoardDto> adminListAll = boardDao.listByAdmin();
 		    List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
-		    
+
 		    // 각 게시글의 작성자 정보 설정
 		    for (BoardDto boardDto : list) {
 		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
@@ -136,30 +198,103 @@ public class BoardController {
 //		        }
 //		    }
 		    for (BoardDto boardDto : adminListAll) {
-		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
-		    	if (memberDto != null) {
-		    		boardDto.setBoardWriter(memberDto.getMemberNick());
-		    	} else {
-		    		boardDto.setBoardWriter("탈퇴한사용자");
-		    	}
+		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+		        if (memberDto != null) {
+		            boardDto.setBoardWriter(memberDto.getMemberNick());
+		        } else {
+		            boardDto.setBoardWriter("탈퇴한사용자");
+		        }
 		    }
 		    for (BoardDto boardDto : adminListCategory) {
-		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
-		    	if (memberDto != null) {
-		    		boardDto.setBoardWriter(memberDto.getMemberNick());
-		    	} else {
-		    		boardDto.setBoardWriter("탈퇴한사용자");
-		    	}
+		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+		        if (memberDto != null) {
+		            boardDto.setBoardWriter(memberDto.getMemberNick());
+		        } else {
+		            boardDto.setBoardWriter("탈퇴한사용자");
+		        }
 		    }
-		    
+
 		    model.addAttribute("list", list);
 //		    model.addAttribute("recruitingList", recruitingList);
 		    model.addAttribute("adminListAll", adminListAll);
 		    model.addAttribute("adminListCategory", adminListCategory);
-		    
-		    
+
 		    return "/WEB-INF/views/board/list.jsp";
 		}
+//		@RequestMapping("/list") //게시글 작성자 아이디에서 닉네임 보이게 수정
+//		public String list(@RequestParam String category,
+//				@ModelAttribute PageVO pageVO,
+//				@RequestParam(required = false) String status,
+//				Model model) {
+//			int count;
+//			if (pageVO.getColumn().equals("member_nick")) {
+//				count = boardDao.countForNick(pageVO);
+//			} else {
+//				count = boardDao.count(pageVO);
+//			}
+//			pageVO.setCount(count);
+//			
+//			model.addAttribute("pageVO", pageVO);
+//			
+//			List<BoardDto> list;
+//			// pageVO.getColumn()이 memberNick와 일치하는 경우에만 selectByNick을 호출하도록 수정
+//			if (pageVO.getColumn().equals("member_nick")) {
+//				list = boardDao.selectByNick(pageVO, category);
+//			} else {
+//				list = boardDao.selectByCategoryAndPaging(pageVO, category);
+//			}
+//			
+//			if ("recruiting".equals(status)) { // 모집중인 게시글만 보기일 경우
+//				list = boardDao.boardStatus(pageVO, category, "recruiting");
+//			} else {
+//				list = boardDao.selectByCategoryAndPaging(pageVO, category);
+//			}
+//			
+//			List<BoardDto> adminListAll = boardDao.listByAdmin();
+//			List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
+//			
+//			// 각 게시글의 작성자 정보 설정
+//			for (BoardDto boardDto : list) {
+//				MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+//				if (memberDto != null) {
+//					boardDto.setBoardWriter(memberDto.getMemberNick());
+//				} else {
+//					boardDto.setBoardWriter("탈퇴한사용자");
+//				}
+//			}
+////		    for (BoardDto boardDto : recruitingList) {
+////		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+////		        if (memberDto != null) {
+////		            boardDto.setBoardWriter(memberDto.getMemberNick());
+////		        } else {
+////		            boardDto.setBoardWriter("탈퇴한사용자");
+////		        }
+////		    }
+//			for (BoardDto boardDto : adminListAll) {
+//				MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+//				if (memberDto != null) {
+//					boardDto.setBoardWriter(memberDto.getMemberNick());
+//				} else {
+//					boardDto.setBoardWriter("탈퇴한사용자");
+//				}
+//			}
+//			for (BoardDto boardDto : adminListCategory) {
+//				MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+//				if (memberDto != null) {
+//					boardDto.setBoardWriter(memberDto.getMemberNick());
+//				} else {
+//					boardDto.setBoardWriter("탈퇴한사용자");
+//				}
+//			}
+//			
+//			model.addAttribute("list", list);
+////		    model.addAttribute("recruitingList", recruitingList);
+//			model.addAttribute("adminListAll", adminListAll);
+//			model.addAttribute("adminListCategory", adminListCategory);
+//			
+//			return "/WEB-INF/views/board/list.jsp";
+//		}
+
         
 		//게시글상세
 		@RequestMapping("/detail")

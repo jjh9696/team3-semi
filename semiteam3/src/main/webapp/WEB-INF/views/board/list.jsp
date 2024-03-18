@@ -7,7 +7,7 @@
 
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-	<div class="container w-1200" style="display: flex;">
+	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 		<div class="container w-1000">
 			<%-- 제목칸 --%>
@@ -47,12 +47,23 @@
 			<div class="cell">타인에 대한 무분별한 비방 또는 욕설은 경고 없이 삭제될 수 있습니다</div>
 			<div class="cell flex-cell">
 				<div class="cell w-50 left">
-					<form action="list" method="get">
-						<input type="hidden" name="category" value="${param.category}">
-						<input type="hidden" name="status" value="recruiting">
-						<button class="btn positive">모집중인 게시글만 보기</button>
-					</form>
+					<c:choose>
+						<c:when test="${param.status == null}">
+							<form action="list" method="get">
+								<input type="hidden" name="category" value="${param.category}">
+								<input type="hidden" name="status" value="recruiting">
+								<button class="btn positive">모집중인 게시글만 보기</button>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<a href="list?category=${param.category}" class="btn positive">
+								전체 글 보기</a>
+						</c:otherwise>
+					</c:choose>
 				</div>
+
+
+
 				<div class="cell w-50 right">
 					<h2>
 						<a class="link" href="write?category=${param.category}"> <i
@@ -140,18 +151,20 @@
 				<%--네비게이터 출력(구조는 복잡하지만 /board/list와 같지 않을까?) --%>
 				<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 			</div>
+
 			<div class="cell center">
 				<%-- 검색창 --%>
 				<form action="list" method="get">
 					<!-- 카테고리를 넘겨줘야함 -->
 					<input type="hidden" name="category" value="${param.category}">
+					<input type="hidden" name="status" value="${param.status}">
 					<select name="column" class="tool">
 						<option value="board_title"
 							${param.column == 'board_title' ? 'selected' : ''}>제목</option>
 						<option value="board_content"
 							${param.column == 'board_content' ? 'selected' : ''}>내용</option>
-						<option value="board_writer"
-							${param.column == 'board_writer' ? 'selected' : ''}>작성자</option>
+						<option value="member_nick"
+						${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
 					</select> <input class="tool" type="search" name="keyword"
 						placeholder="검색어 입력" required value="${param.keyword}">
 					<button class="btn positive">검색</button>

@@ -31,8 +31,6 @@
 <link rel="stylesheet" type="text/CSS" href="/css/commons.css">
 <!-- <link rel="stylesheet" type="text/CSS" href="/css/test.css"> -->
 
-
-
 <!-- font awesome 아이콘 CDN -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -58,17 +56,20 @@
 	margin: 0;
 	padding: 0;
 }
-ul > li{
+
+ul>li {
 	z-index: 100;
-	height:40px;
+	height: 40px;
 }
+
 .menu ul {
-    padding: 0;
-    margin: 0;
+	padding: 0;
+	margin: 0;
 }
 
-
-
+body {
+	background-color: #eeeeee;
+}
 
 </style>
 
@@ -90,8 +91,8 @@ ul > li{
 			minHeight : 200,
 			maxHeight : 300, */
 
-			height: 300,
-			
+			height : 300,
+
 			//안내문구 설정
 			//placeholder: "내용을 입력하세요", 
 			callbacks : {
@@ -127,11 +128,10 @@ ul > li{
 					});
 				}
 			}
-	};
-	
-	$("[name='boardContent'], [name='inquiryContent']").summernote(options);
-});
+		};
 
+		$("[name='boardContent'], [name='inquiryContent']").summernote(options);
+	});
 </script>
 
 <!--ChartJD CDN-->
@@ -147,11 +147,11 @@ ul > li{
 		- 로고, 검색창, 삿종 메뉴들을 배치
 		- div는 투명한 영역
 	 --%>
- 	<div class="cell center">
-			<a href="/" class="link">
-				<img src="/image/home/노실logo.jpg">
-			</a>
+	<div class="cell center">
+		<a href="/" class="link"> <img src="/image/home/NosilLogo.png" class="w-50">
+		</a>
 	</div>
+
 	<div class="cell">
 		<ul class="menu" width="400px">
 
@@ -168,49 +168,43 @@ ul > li{
 					class="fa-solid fa-gamepad"></i>&nbsp게임게시판
 			</a></li>
 
-<!-- 			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
+			<!-- 			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
 					<i class="fa-solid fa-list"></i></a></li> -->
 			<!-- <li><a href="/"><i class="fa-solid fa-home"></i> <i
 					class="fa-solid fa-arrow-right-to-bracket"></i></a></li> -->
 			<li class="menu-end"><c:choose>
-				<c:when test="${sessionScope.loginId !=null}">
-					<a href="/member/mypage"> <i class="fa-solid fa-user"></i>${sessionScope.loginNick}
-					</a>
+					<c:when test="${sessionScope.loginId !=null}">
+						<a href="/member/mypage"> <i class="fa-solid fa-user"></i>${sessionScope.loginNick}
+						</a>
 						<ul>
-							<li>
-								<a href="/member/logout"><i	class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
-								</a>
-							</li>
+							<li><a href="/member/logout"><i
+									class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃 </a></li>
 						</ul>
-				</c:when>
-				<c:otherwise>
-					<a href="/member/login"> <i class="fa-regular fa-user"></i> 로그인
-					</a>
+					</c:when>
+					<c:otherwise>
+						<a href="/member/login"> <i class="fa-regular fa-user"></i>
+							로그인
+						</a>
 						<ul>
-							<li>
-								<a href="/member/join"> <i class="fa-solid fa-user-plus"></i> 회원가입
-								</a>
-							</li>
+							<li><a href="/member/join"> <i
+									class="fa-solid fa-user-plus"></i> 회원가입
+							</a></li>
 						</ul>
 					</c:otherwise>
-				</c:choose>
-			</li>
+				</c:choose></li>
 			<c:if test="${sessionScope.loginGrade == '관리자'}">
 				<li classs="menu-end"><a href="#">관리자메뉴</a>
 					<ul>
 						<li><a href="/admin/member/search">회원관리</a></li>
 						<li><a href="/reportBoard/list">게시글 신고 목록</a></li>
-						<li><a href="/board/list?category=관리자">
-							<i class="fa-solid fa-gear"></i> 관리자게시판
+						<li><a href="/board/list?category=관리자"> <i
+								class="fa-solid fa-gear"></i> 관리자게시판
 						</a></li>
 					</ul></li>
 			</c:if>
 		</ul>
 	</div>
-	<div>
-
-
-	</div>
+	<div></div>
 </body>
 </html>
 

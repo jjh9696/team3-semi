@@ -17,6 +17,7 @@ public class PageVO {
 	
 	
 	public String getStatus() {
+		if(status == null)return "";
 		return status;
 	}
 
@@ -82,7 +83,7 @@ public class PageVO {
 
 	//계산을 위한 가상의 Getter 메소드 추가
 	public boolean isSearch() {
-		return column != null && keyword != null && category != null && status == null;//카테고리 추가
+		return column != null && keyword != null && category != null; //카테고리 추가
 	}
 	//문의게시글 관련 계산을 위한 가상의 Getter 메소드 추가
 	public boolean isSearchInquiry() {
@@ -90,6 +91,9 @@ public class PageVO {
 	}
 	
 	//모집중인 게시글만 보기 추가위해 만드는 메소드!!!!?
+	public boolean isOnlyRecruiting() {
+		return category != null && status != null;
+	}
 	public boolean isOnlyRecruitingAndSearch() {
 		return column != null && keyword != null && category != null && status != null;
 	}
@@ -123,7 +127,7 @@ public class PageVO {
 	}
 	//물음표 뒤에 붙는 데이터 중 공통된 부분
 	public String getQueryString() {
-		return "&size=" + size + "&column=" + getColumn() + "&keyword=" + getKeyword() 
+		return "&size=" + size + "&column=" + getColumn() + "&keyword=" + getKeyword()
 							+ "&status=" + getStatus();
 	}
 	

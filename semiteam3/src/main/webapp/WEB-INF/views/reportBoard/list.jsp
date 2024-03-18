@@ -34,7 +34,11 @@
 								${reportBoardDto.reportBoardNo}
 								</a>
 							</td>
-							<td>${reportBoardDto.reportBoardOrigin}</td>
+							<td>
+								<a class="link" href="http://localhost:8080/board/detail?boardNo=${reportBoardDto.reportBoardOrigin}">
+								${reportBoardDto.reportBoardOrigin}
+								</a>
+							</td>
 							<td>${reportBoardDto.reportBoardWriter}</td>
 							<td>${reportBoardDto.reportBoardReason}</td>
 							<td>${reportBoardDto.reportBoardDate}</td>

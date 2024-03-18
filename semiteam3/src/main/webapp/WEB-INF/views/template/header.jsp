@@ -29,7 +29,7 @@
 
 <!-- 내가 구현한 스타일 -->
 <link rel="stylesheet" type="text/CSS" href="/css/commons.css">
-<link rel="stylesheet" type="text/CSS" href="/css/test.css">
+<!-- <link rel="stylesheet" type="text/CSS" href="/css/test.css"> -->
 
 <!-- font awesome 아이콘 CDN -->
 <link rel="stylesheet" type="text/css"
@@ -57,8 +57,17 @@
 	padding: 0;
 }
 ul > li{
+	z-index: 100;
 	height:40px;
 }
+.menu ul {
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
 </style>
 
 <script>
@@ -75,9 +84,9 @@ ul > li{
 					[ 'insert', [ 'picture', 'link', 'hr' ] ], ],
 
 			//기본높이 설정(단위 : px)
-			height : 200,
+			/* height : 200,
 			minHeight : 200,
-			maxHeight : 300,
+			maxHeight : 300, */
 
 			//안내문구 설정
 			//placeholder: "내용을 입력하세요", 
@@ -134,6 +143,9 @@ ul > li{
 		- 로고, 검색창, 삿종 메뉴들을 배치
 		- div는 투명한 영역
 	 --%>
+ 	<div class="cell center">
+			<h1 class="center"><a href="/" class="link">노실?</a></h1>
+	</div>
 	<div class="cell">
 		<ul class="menu" width="400px">
 
@@ -150,44 +162,45 @@ ul > li{
 					class="fa-solid fa-gamepad"></i>&nbsp게임게시판
 			</a></li>
 
-			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
-					<i class="fa-solid fa-list"></i></a></li>
-			<li><a href="/"><i class="fa-solid fa-home"></i> <i
-					class="fa-solid fa-arrow-right-to-bracket"></i></a></li>
+<!-- 			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
+					<i class="fa-solid fa-list"></i></a></li> -->
+			<!-- <li><a href="/"><i class="fa-solid fa-home"></i> <i
+					class="fa-solid fa-arrow-right-to-bracket"></i></a></li> -->
+			<li class="menu-end"><c:choose>
+				<c:when test="${sessionScope.loginId !=null}">
+					<a href="/member/mypage"> <i class="fa-solid fa-user"></i>${sessionScope.loginNick}
+					</a>
+						<ul>
+							<li>
+								<a href="/member/logout"><i	class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
+								</a>
+							</li>
+						</ul>
+				</c:when>
+				<c:otherwise>
+					<a href="/member/login"> <i class="fa-regular fa-user"></i> 로그인
+					</a>
+						<ul>
+							<li>
+								<a href="/member/join"> <i class="fa-solid fa-user-plus"></i> 회원가입
+								</a>
+							</li>
+						</ul>
+					</c:otherwise>
+				</c:choose>
+			</li>
+			<c:if test="${sessionScope.loginGrade == '관리자'}">
+				<li classs="menu-end"><a href="#">관리자메뉴</a>
+					<ul>
+						<li><a href="/admin/member/search">회원관리</a></li>
+						<li><a href="/reportBoard/list">게시글 신고 목록</a></li>
+					</ul></li>
+			</c:if>
 		</ul>
 	</div>
 	<div>
 
-		<c:if test="${sessionScope.loginGrade == '관리자'}">
-			<li><a href="#">관리자메뉴</a>
-				<ul>
-					<li><a href="/admin/member/search">회원관리</a></li>
-					<li><a href="/reportBoard/list">게시글 신고 목록</a></li>
-				</ul></li>
-		</c:if>
 
-	<li class="menu-end"><c:choose>
-		<c:when test="${sessionScope.loginId !=null}">
-			<a href="/member/mypage"> <i class="fa-solid fa-user"></i>${sessionScope.loginNick}
-			</a>
-				<ul>
-					<li>
-						<a href="/member/logout"><i	class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃
-						</a>
-					</li>
-				</ul>
-		</c:when>
-		<c:otherwise>
-			<a href="/member/login"> <i class="fa-regular fa-user"></i> 로그인
-			</a>
-				<ul>
-					<li>
-						<a href="/member/join"> <i class="fa-solid fa-user-plus"></i> 회원가입
-						</a>
-					</li>
-				</ul>
-			</c:otherwise>
-		</c:choose></li>
 	</div>
 </body>
 </html>

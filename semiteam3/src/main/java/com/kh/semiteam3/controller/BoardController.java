@@ -27,7 +27,6 @@ import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dao.ReplyDao;
 import com.kh.semiteam3.dao.ReportBoardDao;
 import com.kh.semiteam3.dto.BoardDto;
-import com.kh.semiteam3.dto.BoardLikeDto;
 import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.dto.ReplyDto;
 import com.kh.semiteam3.service.AttachService;
@@ -305,7 +304,7 @@ public class BoardController {
 		    //아이디 가져오기
 		    String loginId = (String) session.getAttribute("loginId");
 		    //좋아요 목록 가져오기
-		    List<BoardLikeDto> likeList = boardDao.likeList(loginId);
+		    List<BoardDto> likeList = boardDao.likeList(loginId);
 		    
 		    model.addAttribute("likeList", likeList);
 		    

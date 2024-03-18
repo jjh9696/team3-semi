@@ -11,18 +11,29 @@
 		<table class="table table-horizontal table-hover">
 			<thead class="center">
 				<tr>
+					<th>번호</th>
+					<th width="40%">제목</th>
 					<th>작성자</th>
-					<th width="40%">번호</th>
+					<th>작성일</th>
+					<th>마감일</th>
+					<th>조회수</th>
 				</tr>
 			</thead>
-			<c:forEach var="boardLikeDto" items="${likeList}">
+			<c:forEach var="boardDto" items="${likeList}">
 				<tr>
-					<td>${boardLikeDto.memberId}</td>
-					<td>
+					<td>${boardDto.boardNo}</td>
+					<%-- 제목칸 --%>
+					<td class="left" width="40%">
 						<%-- 제목 출력 --%> <a class="link"
-						href="detail?boardNo=${boardLikeDto.boardNo}">
-							${boardLikeDto.boardNo} </a>
+						href="detail?boardNo=${boardDto.boardNo}">
+							${boardDto.boardTitle} </a>
 					</td>
+					<td>${boardDto.boardWriterStr}</td>
+					<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
+					<td>${boardDto.boardWriteTimeStr}</td>
+					<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
+					<td>${boardDto.boardLimitTime}</td>
+					<td>${boardDto.boardView}</td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -7,8 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.semiteam3.dto.BoardDto;
-import com.kh.semiteam3.dto.BoardLikeDto;
-import com.kh.semiteam3.mapper.BoardLikeMapper;
 import com.kh.semiteam3.mapper.BoardListMapper;
 import com.kh.semiteam3.mapper.BoardMapper;
 import com.kh.semiteam3.vo.PageVO;
@@ -259,13 +257,14 @@ public class BoardDao {
         return jdbcTemplate.query(sql, boardListMapper, data);
     }
 	
-    @Autowired
-    private BoardLikeMapper boardLikeMapper;
     //찜목록
-    public List<BoardLikeDto> likeList(String memberId){
-    	String sql = "select * from board_like where member_id=?";
+    public List<BoardDto> likeList(String memberId){
+    	String sql = "SELECT board.* "
+    			+ "FROM board_like "
+    			+ "JOIN board ON board_like.board_no = board.board_no "
+    			+ "WHERE board_like.member_id = ?";
     	Object[] data = {memberId};
-    	return jdbcTemplate.query(sql, boardLikeMapper, data);
+    	return jdbcTemplate.query(sql, boardListMapper, data);
     }
     
 }

@@ -44,7 +44,7 @@
 <style>
 .swiper {
 	width: 100%;
-	/*             height: 300px; */
+	height: 500px;
 }
 
 .responsive-img {
@@ -101,7 +101,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <div id="maincontainer w-100" class="cell">
-	<div class="container w-100">
+	<div class="container w-1100">
 		<div class="cell center">
 			<!-- Slider main container -->
 			<div class="swiper demo02">

@@ -480,3 +480,5 @@
     // 페이지 로드 시 초기화
     updateCountdown();
     </script>
+    
+    <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

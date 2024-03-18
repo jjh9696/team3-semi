@@ -148,7 +148,7 @@ body {
 		- div는 투명한 영역
 	 --%>
 	<div class="cell center">
-		<a href="/" class="link"> <img src="/image/home/노실logo2.png" class="w-50">
+		<a href="/" class="link"> <img src="/image/home/NosilLogo.png" class="w-50">
 		</a>
 	</div>
 

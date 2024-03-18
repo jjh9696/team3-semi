@@ -237,39 +237,44 @@ public class BoardController {
 		
 		// 내가 쓴 게시글로 가는 controller
 		@GetMapping("/mywriting")
-		public String mywriting(HttpSession session, Model model) {
+		public String mywriting(HttpSession session, Model model, PageVO pageVO) {
+			int count = boardDao.count(pageVO);
+		    pageVO.setCount(count);
+		    model.addAttribute("pageVO",pageVO);
 			// 현재 로그인된 사용자의 아이디 가져오기
 			String loginId = (String) session.getAttribute("loginId");
-
+			
 			// 해당 사용자가 작성한 게시글 가져오기
-			List<BoardDto> boardList = boardDao.findBylist(loginId);
+			List<BoardDto> boardList = boardDao.findBylist(loginId);	
 			
 			// 모델에 게시글 목록 추가
 			model.addAttribute("boardList", boardList);
-
-			// 마이페이지 내가 쓴 게시글 화면으로 이동
+			
+			// 마이페이지 내가 쓴 게시글 화면으로 이동			
 			return "/WEB-INF/views/board/mywriting.jsp";
 
 		}
 		
 		@Autowired
 		private ReplyDao replyDao;
-		// 내가 쓴 게시글로 가는 controller
-				@GetMapping("/mycomment")
-				public String mycomment(HttpSession session, Model model) {
-					// 현재 로그인된 사용자의 아이디 가져오기
-					String loginId = (String) session.getAttribute("loginId");
+		//내가쓴 댓글
+		@GetMapping("/mycomment")
+		public String mycomment(HttpSession session, Model model, PageVO pageVO) {
+			int count = boardDao.count(pageVO);
+		    pageVO.setCount(count);
+		    model.addAttribute("pageVO",pageVO);
+			// 현재 로그인된 사용자의 아이디 가져오기
+			String loginId = (String) session.getAttribute("loginId");
 
-					// 해당 사용자가 작성한 댓글 가져오기
-					List<ReplyDto> replyList = replyDao.findBylist(loginId);
-					
-					// 모델에 게시글 목록 추가
-					model.addAttribute("replyList", replyList);
+			// 해당 사용자가 작성한 댓글 가져오기
+			List<ReplyDto> replyList = replyDao.findBylist(loginId);
 
-					// 마이페이지 내가 쓴 게시글 화면으로 이동
-					return "/WEB-INF/views/board/mycomment.jsp";
+			// 모델에 게시글 목록 추가
+			model.addAttribute("replyList", replyList);
 
-				}
+			// 마이페이지 내가 쓴 게시글 화면으로 이동
+			return "/WEB-INF/views/board/mycomment.jsp";
+		}
 		
 }
 

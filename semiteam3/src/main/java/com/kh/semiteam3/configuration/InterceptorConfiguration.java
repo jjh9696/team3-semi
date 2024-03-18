@@ -42,8 +42,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		registry.addInterceptor(adminInterceptor)
 						.addPathPatterns(
 								"/admin/**",
-								"/reportBoard/**",
-								"/board/list?category=관리자"
+								"/reportBoard/**"
 								)
 						.excludePathPatterns(
 								"/reportBoard/insert*"

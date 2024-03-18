@@ -135,7 +135,8 @@ public class BoardDao {
                 + ") where rn between ? and ?";
             Object[] data = {boardCategory, pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
             return jdbcTemplate.query(sql, boardListMapper, data);
-        } else { //목록
+        } 
+        else { //목록
             String sql = "select * from("
                     + "select rownum rn, TMP.* from("
                     + "select "
@@ -157,20 +158,25 @@ public class BoardDao {
     
     
 	
-	//통합 페이지 카운트(목록 + 검색)
-	public int count(PageVO pageVO) {
-		if(pageVO.isSearch()) {//검색
-			String sql = "select count(*) from board "
-					+ "where instr("+pageVO.getColumn()+", ?) > 0";
-			Object[] data = {pageVO.getKeyword()};
-			return jdbcTemplate.queryForObject(sql, int.class, data);
-		}
-		else {//목록
-			String sql = "select count(*) from board where board_category=?";
-			Object[] data = {pageVO.getCategory()};
-			return jdbcTemplate.queryForObject(sql, int.class, data);
-		}
-	}
+ // 통합 페이지 카운트(목록 + 검색 + 모집중인 게시글)
+    public int count(PageVO pageVO) {
+        if (pageVO.isSearch()) {// 검색
+            String sql = "select count(*) from board where instr(" + pageVO.getColumn() + ", ?) > 0";
+            if (pageVO.isOnlyRecruiting()) { // 모집중인 게시글만 필터링
+                sql += " and board_limit_time > sysdate"; // 현재 시간 이후인 경우만 모집중으로 간주
+            }
+            Object[] data = { pageVO.getKeyword() };
+            return jdbcTemplate.queryForObject(sql, int.class, data);
+        } else {// 목록
+            String sql = "select count(*) from board where board_category = ?";
+            if (pageVO.isOnlyRecruiting()) { // 모집중인 게시글만 필터링
+                sql += " and board_limit_time > sysdate"; // 현재 시간 이후인 경우만 모집중으로 간주
+            }
+            Object[] data = { pageVO.getCategory() };
+            return jdbcTemplate.queryForObject(sql, int.class, data);
+        }
+    }
+
 	
 	//게시글 상세 조회
 	public BoardDto selectOne(int boardNo) {

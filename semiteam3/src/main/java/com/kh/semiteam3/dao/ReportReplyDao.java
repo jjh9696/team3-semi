@@ -74,18 +74,38 @@ public class ReportReplyDao {
 				}
 			}
 				
+//	//댓글 신고 등록
+//	public void insert(ReportReplyDto reportReplyDto) {
+//		String sql = "insert into report_reply("
+//						+ "report_reply_no, report_reply_content, "
+//						+ "reply_no, member_id, report_reply_reason "
+//					+ ") values(report_reply_seq.nextval, ?, ?, ?, ?)";
+//		Object[] data = {
+//				reportReplyDto.getReportReplyNo(), 
+//				reportReplyDto.getReportReplyContent(), 
+//				reportReplyDto.getReportReplyOrigin(), 
+//				reportReplyDto.getReportReplyWriter(),
+//				reportReplyDto.getReportReplyReason() 
+//		};
+//		jdbcTemplate.update(sql, data);
+//	}
+	
 	//댓글 신고 등록
+	public int getSequence() {
+		String sql = "select report_reply_seq.nextval from dual";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
 	public void insert(ReportReplyDto reportReplyDto) {
 		String sql = "insert into report_reply("
 						+ "report_reply_no, report_reply_content, "
 						+ "reply_no, member_id, report_reply_reason "
-					+ ") values(report_reply_seq.nextval, ?, ?, ?, ?)";
+						+ ") values(?,?,?,?,?)";
 		Object[] data = {
-				reportReplyDto.getReportReplyNo(), 
-				reportReplyDto.getReportReplyContent(), 
-				reportReplyDto.getReportReplyOrigin(), 
+				reportReplyDto.getReportReplyNo(),
+				reportReplyDto.getReportReplyContent(),
+				reportReplyDto.getReportReplyOrigin(),
 				reportReplyDto.getReportReplyWriter(),
-				reportReplyDto.getReportReplyReason() 
+				reportReplyDto.getReportReplyReason()
 		};
 		jdbcTemplate.update(sql, data);
 	}

@@ -43,23 +43,6 @@
 			<%--네비게이터 출력(구조는 복잡하지만 /board/list와 같지 않을까?) --%>
 			<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 		</div>
-		<div class="cell left">
-			<%-- 검색창 --%>
-			<form action="list" method="get">
-				<!-- 카테고리를 넘겨줘야함 -->
-				<input type="hidden" name="category" value="${param.category}">
-				<select name="column" class="tool">
-					<option value="board_title"
-						${param.column == 'board_title' ? 'selected' : ''}>제목</option>
-					<option value="board_content"
-						${param.column == 'board_content' ? 'selected' : ''}>내용</option>
-					<option value="board_writer"
-						${param.column == 'board_writer' ? 'selected' : ''}>작성자</option>
-				</select> <input class="tool" type="search" name="keyword"
-					placeholder="검색어 입력" required value="${param.keyword}">
-				<button class="btn positive">검색</button>
-			</form>
-		</div>
 	</div>
 </html>
 

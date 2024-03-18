@@ -30,12 +30,12 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String home(@ModelAttribute BoardDto boardDto, 
-								@ModelAttribute PageVO pageVO, 
 									Model model) {
-		List<BoardDto> footballList = boardDao.boardStatus(pageVO, "축구", "recruiting");
-		List<BoardDto> baseballList = boardDao.boardStatus(pageVO, "야구", "recruiting");
-		List<BoardDto> basketballList = boardDao.boardStatus(pageVO, "농구", "recruiting");
-		List<BoardDto> ESportsList = boardDao.boardStatus(pageVO, "E-스포츠", "recruiting");
+	    List<BoardDto> footballList = boardDao.boardStatus(new PageVO(), "축구", "recruiting");
+	    List<BoardDto> baseballList = boardDao.boardStatus(new PageVO(), "야구", "recruiting");
+	    List<BoardDto> basketballList = boardDao.boardStatus(new PageVO(), "농구", "recruiting");
+	    List<BoardDto> ESportsList = boardDao.boardStatus(new PageVO(), "E-스포츠", "recruiting");
+		
 		model.addAttribute("footballList", footballList);
 		model.addAttribute("baseballList", baseballList);
 		model.addAttribute("basketballList", basketballList);

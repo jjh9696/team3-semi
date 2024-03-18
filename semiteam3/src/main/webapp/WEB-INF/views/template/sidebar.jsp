@@ -38,6 +38,9 @@
 							${memberDto.memberGrade}
 						</div>
 						<a href="/board/mywriting"><button>내가쓴 글</button></a>
+						<a href="/board/mycomment"><button>내가쓴 댓글</button></a>
+						<a href="/board/mylike"><button>찜목록</button></a>
+						
 					
 					</div>
 				</c:when>

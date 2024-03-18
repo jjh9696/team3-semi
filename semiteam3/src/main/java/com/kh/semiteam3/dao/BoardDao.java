@@ -117,6 +117,7 @@ public class BoardDao {
         }
     }
     
+
     //닉네임으로 검색
     public List<BoardDto> selectByNick(PageVO pageVO, String boardCategory) {
         // 검색

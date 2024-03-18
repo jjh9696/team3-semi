@@ -29,20 +29,12 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 					.addPathPatterns(
 							"/member/**",
 							"/inquiry/**",
-							"/basketball/**",
-							"/football/**",
-							"/baseball/**",
-							"/esports/**",
-							"/reportBoard/**"
+							"/board/**"
 							)
 					.excludePathPatterns(
 							"/member/join*",
 							"/member/login","/member/find*","/member/exitFinish",
-							"/baskerball/list", "/basketball/detail",
-							"/football/list", "/football/detail",
-							"/baseball/list", "/baseball/detail",
-							"/esports/list", "/esports/detail"
-
+							"/board/list*","/board/detail*"
 							);
 		
 		// 관리자 인터셉터 등록
@@ -50,8 +42,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		registry.addInterceptor(adminInterceptor)
 						.addPathPatterns(
 								"/admin/**",
-								"/reportBoard/**", 
-								"/board/list?category=관리자*"
+								"/reportBoard/**"
 								)
 						.excludePathPatterns(
 								"/reportBoard/insert*"

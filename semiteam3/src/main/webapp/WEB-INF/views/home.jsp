@@ -49,14 +49,19 @@
 .responsive-img {
 	width: 100%
 }
+
 .swiper-slide {
-    display: flex; /* Flexbox 레이아웃 사용 */
-    justify-content: center; /* 가로 중앙 정렬 */
-}
-.swiper-slide-next {
-    z-index: -10;
+	display: flex; /* Flexbox 레이아웃 사용 */
+	justify-content: center; /* 가로 중앙 정렬 */
 }
 
+.swiper-slide-next {
+	z-index: -10;
+}
+
+.ing {
+	border: 1px solid;
+}
 </style>
 
 <!-- jquery cdn -->
@@ -92,37 +97,84 @@
 </script>
 </head>
 
-	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	
-	<div id="maincontainer w-100" class="cell">
-		<div class="container w-100">
-			<div class="cell center">
-				<!-- Slider main container -->
-				<div class="swiper demo02">
-					<!-- Additional required wrapper -->
-					<div class="swiper-wrapper">
-						<!-- Slides -->
-						<div class="swiper-slide">
-							<img src="/image/home/main2.png">
-						</div>
-						<div class="swiper-slide">
-							<img src="/image/home/event.png">
-						</div>
-						<div class="swiper-slide">
-							<img src="https://picsum.photos/id/27/1920/400">
-						</div>
-						<div class="swiper-slide">
-							<img src="https://picsum.photos/id/29/1920/400">
-						</div>
-						<div class="swiper-slide">
-							<img src="https://picsum.photos/id/33/1920/400">
-						</div>
-					</div>
-					<!-- If we need pagination -->
-					<div class="swiper-pagination"></div>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-					<!-- If we need navigation buttons -->
+<div id="maincontainer w-100" class="cell">
+	<div class="container w-100">
+		<div class="cell center">
+			<!-- Slider main container -->
+			<div class="swiper demo02">
+				<!-- Additional required wrapper -->
+				<div class="swiper-wrapper">
+					<!-- Slides -->
+					<div class="swiper-slide">
+						<img src="/image/home/main2.png">
+					</div>
+					<div class="swiper-slide">
+						<img src="/image/home/event.png">
+					</div>
+					<div class="swiper-slide">
+						<img src="https://picsum.photos/id/27/1920/400">
+					</div>
+					<div class="swiper-slide">
+						<img src="https://picsum.photos/id/29/1920/400">
+					</div>
+					<div class="swiper-slide">
+						<img src="https://picsum.photos/id/33/1920/400">
+					</div>
 				</div>
+				<!-- If we need pagination -->
+				<div class="swiper-pagination"></div>
+
+				<!-- If we need navigation buttons -->
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="cell flex-cell center mt-50">
+	<div class="cell w-100 auto-width mx-20 ing">
+		<table class="table">
+			<c:forEach var="boardDto" items="${footballList}">
+				<td class="left" width="40%"><a class="link"
+					href="detail?boardNo=${boardDto.boardNo}">
+						${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
+				<td>${boardDto.boardWriterStr}</td>
+			</c:forEach>
+		</table>
+	</div>
+	<div class="cell w-100 auto-width me-20 ing">
+		<table class="table">
+			<c:forEach var="boardDto" items="${baseballList}">
+				<td class="left" width="40%"><a class="link"
+					href="detail?boardNo=${boardDto.boardNo}">
+						${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
+				<td>${boardDto.boardWriterStr}</td>
+			</c:forEach>
+		</table>
+	</div>
+	<div class="cell w-100 auto-width me-20 ing">
+			<table class="table">
+			<c:forEach var="boardDto" items="${basketballList}">
+				<td class="left" width="40%">
+					<a class="link"
+					href="detail?boardNo=${boardDto.boardNo}">
+						${boardDto.boardTitle} [${boardDto.boardReply}]</a>
+				</td>
+				<td>${boardDto.boardWriterStr}</td>
+			</c:forEach>
+		</table>
+	</div>
+	<div class="cell w-100 auto-width me-20 ing">
+			<table class="table">
+			<c:forEach var="boardDto" items="${ESportsList}">
+				<td class="left" width="40%">
+					<a class="link"
+					href="detail?boardNo=${boardDto.boardNo}">
+						${boardDto.boardTitle} [${boardDto.boardReply}]</a>
+				</td>
+				<td>${boardDto.boardWriterStr}</td>
+			</c:forEach>
+		</table>
+	</div>
+</div>

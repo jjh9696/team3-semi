@@ -98,13 +98,21 @@ public class BoardController {
 		 */
 		@RequestMapping("/list") //게시글 작성자 아이디에서 닉네임 보이게 수정
 		public String list(@RequestParam String category,
-		        @ModelAttribute PageVO pageVO,
+		        @ModelAttribute PageVO pageVO, 
+		        @RequestParam(required = false) String status,
 		        Model model) {
 		    int count = boardDao.count(pageVO);
 		    pageVO.setCount(count);
 		    model.addAttribute("pageVO",pageVO);
 		    
-		    List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
+//		    List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
+//		    List<BoardDto> recruitingList = boardDao.boardStatus(pageVO, category, status); //모집중인 게시글만 보기
+		    List<BoardDto> list;
+		    if ("recruiting".equals(status)) { // 모집중인 게시글만 보기일 경우
+		        list = boardDao.boardStatus(pageVO, category, "모집 중");
+		    } else {
+		        list = boardDao.selectByCategoryAndPaging(pageVO, category);
+		    }
 		    List<BoardDto> adminListAll = boardDao.listByAdmin();
 		    List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
 		    
@@ -117,6 +125,14 @@ public class BoardController {
 		            boardDto.setBoardWriter("탈퇴한사용자");
 		        }
 		    }
+//		    for (BoardDto boardDto : recruitingList) {
+//		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
+//		        if (memberDto != null) {
+//		            boardDto.setBoardWriter(memberDto.getMemberNick());
+//		        } else {
+//		            boardDto.setBoardWriter("탈퇴한사용자");
+//		        }
+//		    }
 		    for (BoardDto boardDto : adminListAll) {
 		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
 		    	if (memberDto != null) {
@@ -135,8 +151,10 @@ public class BoardController {
 		    }
 		    
 		    model.addAttribute("list", list);
+//		    model.addAttribute("recruitingList", recruitingList);
 		    model.addAttribute("adminListAll", adminListAll);
 		    model.addAttribute("adminListCategory", adminListCategory);
+		    
 		    
 		    return "/WEB-INF/views/board/list.jsp";
 		}

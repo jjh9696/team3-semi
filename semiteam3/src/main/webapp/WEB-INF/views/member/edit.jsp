@@ -3,28 +3,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<style>
+	.preview{
 
+	}
+</style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(function(){
-		$("#memberAttach").on("change", function(){
-					var formData = new FormData();
-					//formData.append("이름", 값);
-					formData.append("attachList", this.files[0]);
-			$.ajax({
-				url:"http://localhost:8080/rest/member_attach/upload",
-				method:"post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				success: function(response){
-					if(response == null) return;
-					$("#preview").attr("src", "image");
-				}
-			});
-		});
+// 		$("#memberAttach").on("change", function(){
+// 					var formData = new FormData();
+// 					//formData.append("이름", 값);
+// 					formData.append("attach", this.files[0]);
+// 					console.log("");
+// 			$.ajax({
+// 				url:"/rest/member_attach/upload",
+// 				method:"post",
+// 				data: formData,
+// 				processData: false,
+// 				contentType: false,
+// 				success: function(response){
+// 					if(response == null) return;
+// 					$("#preview").attr("src", "image");
+// 				}
+// 			});
+// 		});
 
-		
 		
 	    $(".btn-address-search").click(function(){
 	        new daum.Postcode({
@@ -89,21 +93,10 @@
     </c:otherwise>
 </c:choose>
 
-	<div>
-		프로필사진 변경
-		<label for="memberAttach"><i class="fa-solid fa-camera"></i></label>
-		<input type="file" id="memberAttach" name="memberAttach" class="input" 
-				onchange="previewImage(this)" style="display:none"><br><br>
-		프로필사진 삭제
-		<label ></label>
-	<div class="profile-image-area">
-
-	</div>
-	</div>
 
 	
 
-
+	<br><br>
 	닉네임 * <input type="text" name="memberNick" required value="${memberDto.memberNick }"><br><br>
 	이메일 * <input type="email" name="memberEmail" required value="${memberDto.memberEmail }"><br><br>
 	생년월일 <input type="date" name="memberBirth"  value="${memberDto.memberBirth }"><br><br>
@@ -119,7 +112,7 @@
 	<input type="text" name="memberAddress1" placeholder="기본주소" value="${memberDto.memberAddress1}"><br><br>
 	<input type="text" name="memberAddress2" placeholder="상세주소" value="${memberDto.memberAddress2}"><br><br>
 	비밀번호 확인 * <input type="password" name="memberPw" required><br><br>
-	<button type="submit" value="Upload">변경하기</button>
+	<button type="submit" value="Upload" name="">변경하기</button>
 </form>
 
 <c:if test="${param.error != null }">

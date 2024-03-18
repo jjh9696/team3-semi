@@ -6,18 +6,75 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+$(function(){
+	
+	$("#memberAttach").on("change", function() {
+			var formData = new FormData();
+			//formData.append("이름", 값);
+			formData.append("attach", this.files[0]);
+			console.log("");
+			$.ajax({
+				url : "/rest/member_attach/upload",
+				method : "post",
+				data : formData,
+				processData : false,
+				contentType : false,
+				success : function(response) {
+					if (response == null)
+						return;
+					$("#preview").attr("src", "image");
+				}
+			});
+		});
 
-<script type="text/javascript">
+	});
+</script>
+<script>
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function(e) {
+                $('#preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+            
+        }
+    }
 </script>
 
 <div class="flex-cell">
-			<img src="image" width="200" height="200">
+<form action="mypage" method="post" autocomplete="off" enctype="multipart/form-data">
+	<c:choose>
+    	<c:when test="${empty loginMember.memberAttach}">
+    		<label for="memberAttach">
+    			<img src="image" width="200" height="200" alt="Priview Image" id="preview">
+    		</label>
+			
+    	</c:when>
+    	<c:otherwise>
+    		<label for="memberAttach">
+    			<img src="/image/user.svg" id="preview" width="200" height="200">
+    		</label>
+			
+    	</c:otherwise>
+	</c:choose>
+	<input type="file" id="memberAttach" name="memberAttach" class="input" 
+					onchange="previewImage(this)" style="display:none">
+</form>
 		<ul>
 			<li><a href="/member/password">비밀번호 변경</a></li>
 			<li><a href="/member/edit">개인정보 변경</a></li>
 			<li><a href="/member/exit">회원 탈퇴</a></li>
+			
 		</ul>
+	</div>
+	<div style="color:gray">
+		*사진을 클릭하여 변경하세요	
+	</div>
 	</div>
 	
 
@@ -67,16 +124,5 @@
 					</tr>
 				</table>
 			</div>
-
-<div class="cell">
-	<a href="/member/password"><button>비밀번호 변경</button></a> <a
-		href="/member/edit"><button>개인정보 변경</button></a> <a
-		href="/member/exit" class="link-confirm" data-message="정말 탈퇴하시겠습니까?"><button>회원 탈퇴</button></a>
-</div>
-
-<div class="cell">
-	<a href="/board/mywriting"><button>내가쓴 글</button></a> <a
-		href="#"><button>내가쓴 댓글</button></a>
-</div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

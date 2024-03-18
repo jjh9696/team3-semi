@@ -67,7 +67,9 @@ ul > li{
     margin: 0;
 }
 
-
+body {
+	background-color: #eeeeee;
+}
 
 
 </style>

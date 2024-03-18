@@ -116,6 +116,23 @@ public class BoardDao {
             return jdbcTemplate.query(sql, boardListMapper, data);
         }
     }
+    
+    public List<BoardDto> selectByNick(PageVO pageVO, String boardCategory) {
+        // 검색
+        	String sql = "SELECT * FROM ("
+        	           + "SELECT ROWNUM rn, TMP.* FROM ("
+        	           + "SELECT board_no, board_title, board_reply, board_writer,"
+        	           + "board_write_time, board_limit_time,"
+        	           + "board_view, board_like "
+        	           + "FROM board b "
+        	           + "JOIN member m ON b.board_writer = m.member_id "
+        	           + "WHERE board_category = ? AND INSTR(m.member_nick, ?) > 0 "
+        	           + "ORDER BY board_no DESC "
+        	           + ") TMP"
+        	           + ") WHERE rn BETWEEN ? AND ?";
+            Object[] data = {boardCategory, pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
+            return jdbcTemplate.query(sql, boardListMapper, data);
+    }
 	
 	//통합 페이지 카운트(목록 + 검색)
 	public int count(PageVO pageVO) {
@@ -130,6 +147,18 @@ public class BoardDao {
 			Object[] data = {pageVO.getCategory()};
 			return jdbcTemplate.queryForObject(sql, int.class, data);
 		}
+	}
+	
+	public int countForNick(PageVO pageVO) {
+	    if (pageVO.isSearch()) { // 검색
+	        String sql = "SELECT COUNT(*) FROM board b JOIN member m ON b.board_writer = m.member_id WHERE m.member_nick LIKE ?";
+	        Object[] data = {"%" + pageVO.getKeyword() + "%"};
+	        return jdbcTemplate.queryForObject(sql, int.class, data);
+	    } else { // 목록
+	        String sql = "SELECT COUNT(*) FROM board WHERE board_category = ?";
+	        Object[] data = {pageVO.getCategory()};
+	        return jdbcTemplate.queryForObject(sql, int.class, data);
+	    }
 	}
 	
 	//게시글 상세 조회

@@ -103,19 +103,21 @@
 					<div class="swiper-wrapper">
 						<!-- Slides -->
 						<div class="swiper-slide">
-							<img src="/image/home/main2.png">
+							<a href="/"><img src="/image/home/main2.png"></a>
 						</div>
 						<div class="swiper-slide">
+							<a href="http://localhost:8080/board/detail?boardNo=227">
 							<img src="/image/home/event.png">
+							</a>
 						</div>
 						<div class="swiper-slide">
-							<img src="https://picsum.photos/id/27/1920/400">
+							<a href="http://localhost:8080/board/list?category=%EC%B6%95%EA%B5%AC"><img src="https://picsum.photos/id/27/1920/400"></a>
 						</div>
 						<div class="swiper-slide">
-							<img src="https://picsum.photos/id/29/1920/400">
+							<a href="http://localhost:8080/board/list?category=%EC%95%BC%EA%B5%AC"><img src="https://picsum.photos/id/29/1920/400"></a>
 						</div>
 						<div class="swiper-slide">
-							<img src="https://picsum.photos/id/33/1920/400">
+							<a href="http://localhost:8080/board/list?category=%EB%86%8D%EA%B5%AC"><img src="https://picsum.photos/id/33/1920/400"></a>
 						</div>
 					</div>
 					<!-- If we need pagination -->

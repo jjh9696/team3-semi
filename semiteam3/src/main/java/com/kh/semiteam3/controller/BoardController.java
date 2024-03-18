@@ -109,7 +109,7 @@ public class BoardController {
 //		    List<BoardDto> recruitingList = boardDao.boardStatus(pageVO, category, status); //모집중인 게시글만 보기
 		    List<BoardDto> list;
 		    if ("recruiting".equals(status)) { // 모집중인 게시글만 보기일 경우
-		        list = boardDao.boardStatus(pageVO, category, "모집 중");
+		        list = boardDao.boardStatus(pageVO, category, "recruiting");
 		    } else {
 		        list = boardDao.selectByCategoryAndPaging(pageVO, category);
 		    }

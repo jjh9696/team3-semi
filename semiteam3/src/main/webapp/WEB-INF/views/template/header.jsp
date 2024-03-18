@@ -31,8 +31,6 @@
 <link rel="stylesheet" type="text/CSS" href="/css/commons.css">
 <!-- <link rel="stylesheet" type="text/CSS" href="/css/test.css"> -->
 
-
-
 <!-- font awesome 아이콘 CDN -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -68,9 +66,11 @@ ul>li {
 	padding: 0;
 	margin: 0;
 }
+
 body {
-    background-color: #eeeeee;
+	background-color: #eeeeee;
 }
+
 </style>
 
 <script>
@@ -147,12 +147,14 @@ body {
 		- 로고, 검색창, 삿종 메뉴들을 배치
 		- div는 투명한 영역
 	 --%>
+	<div class="container w-1800"> 
+	
 	<div class="cell center">
-		<a href="/" class="link"> <img src="/image/home/노실logo2.png" class="w-50">
+		<a href="/" class="link"> <img src="/image/home/NosilLogo.png" class="w-50">
 		</a>
 	</div>
 
-	<div class="cell">
+	<div class="cell w-100">
 		<ul class="menu" width="400px">
 
 			<li><a href="/board/list?category=축구"> <i

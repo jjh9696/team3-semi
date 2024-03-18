@@ -46,9 +46,9 @@
 
 		<div>
 			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
-					href="delete?reportBoardNo=${reportBoardDto.reportBoardNo}">글삭제</a>
-			<a class="btn positive" href="list">신고글 목록</a>
-			<a class="btn positive" href="/board/detail?boardNo=${reportBoardDto.reportBoardOrigin}">신고된 글 보러가기</a>
+					href="delete?reportBoardNo=${reportBoardDto.reportBoardNo}">게시글 신고글삭제</a>
+			<a class="btn positive" href="list">게시글 신고글 목록</a>
+			<a class="btn positive" href="/board/detail?boardNo=${reportBoardDto.reportBoardOrigin}">신고된 게시글 보러가기</a>
 
 		</div>
 	

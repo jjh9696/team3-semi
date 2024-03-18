@@ -5,7 +5,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <!-- 작성글 내역 표시 -->
-<h2>내 작성글</h2>
+<h2>찜목록</h2>
 <body>
         <div class="cell">
 		<table class="table table-horizontal table-hover">
@@ -19,7 +19,7 @@
 					<th>조회수</th>
 				</tr>
 			</thead>
-			<c:forEach var="boardDto" items="${boardList}">
+			<c:forEach var="boardDto" items="${likeList}">
 				<tr>
 					<td>${boardDto.boardNo}</td>
 					<%-- 제목칸 --%>
@@ -36,7 +36,6 @@
 					<td>${boardDto.boardView}</td>
 				</tr>
 			</c:forEach>
-
 		</table>
 		
 		<div class="cell center">

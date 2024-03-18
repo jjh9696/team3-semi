@@ -20,13 +20,11 @@
 		<span class="reply-writer">작성자</span>
 		<i class="fa-solid fa-edit blue ms-20 btn-reply-edit"></i>
 		<i class="fa-solid fa-trash red btn-reply-delete"></i>
+		<i class="fa-solid fa-bell red btn-reply-report"></i>
 	</h3>
 	<pre class="reply-content"> 댓글 내용</pre>
 	<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
 			<%-- <c:if test="${sessionScope.loginId != null && sessionScope.loginId != boardDto.boardWriter}">  --%>	
-			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
-				<div><a class="btn" href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a></div>
-			</c:if>	
 	</div>
 	
 </script>
@@ -43,6 +41,32 @@
 		</div>
 	</div>
 
+</script>
+
+<!-- 댓글 신고 관련 -->
+<script type="text/template" id="reply-item-report-wrapper">
+    <div class="reply-item-report">
+        <hr>
+		<h4>댓글 신고</h4> 
+        <select name="reportReplyReason" required class="tool w-100 reply-report-reason">
+            <option value="">신고사유</option>
+            <option value="욕설/비방">욕설/비방</option>
+            <option value="광고">광고</option>
+            <option value="무의미한 글">무의미한 글</option>
+        </select>
+        <textarea class="tool w-100 reply-report-content" style="min-height: 150px"></textarea>
+        <div class="right">
+            <button class="btn positive btn-reply-report-save">
+                <i class="fa-solid fa-check"></i>
+                신고하기
+            </button>
+            <button class="btn negative btn-reply-report-cancel">
+                <i class="fa-solid fa-xmark"></i>
+                취소
+            </button>
+        </div>
+		<hr>
+    </div>
 </script>
 
 <script type="text/javascript">
@@ -89,15 +113,26 @@
 					//- data라는 명형으로는 읽기만 가능
 					//- 태그에 글자를 추가하고 싶다면 .attr()명령 사용
 					//- 현재 로그인한 사용자의 댓글에만 버튼을 표시(나머진 삭제)
-					if(isLogin && loginNick == response[i].replyWriter) {
+					if(isLogin && loginNick == response[i].replyWriter) {//로그인되엇고 본인 댓글일때 
 						$(templateHTML).find(".btn-reply-edit")
-												.attr("data-reply-no", response[i].replyNo);
+								.attr("data-reply-no", response[i].replyNo);
 						$(templateHTML).find(".btn-reply-delete")
-												.attr("data-reply-no", response[i].replyNo);
+								.attr("data-reply-no", response[i].replyNo);
+						
+						$(templateHTML).find(".btn-reply-report").remove();//신고는 못해
+					
 					}
 					else {
 						$(templateHTML).find(".btn-reply-edit").remove();
 						$(templateHTML).find(".btn-reply-delete").remove();
+						
+						if(isLogin){
+							$(templateHTML).find(".btn-reply-report")
+								.attr("data-reply-no", response[i].replyNo);
+						}
+						else{
+							$(templateHTML).find(".btn-reply-report").remove();
+						}
 					}
 
 					//화면추가
@@ -216,6 +251,58 @@
 			$(this).parents(".reply-item-edit").prev(".reply-item").show();
 			$(this).parents(".reply-item-edit").remove();
 		});
+		<%-- 댓글 신고 이벤트 --%>
+		$(document).on("click", ".btn-reply-report", function() {
+		    // 신고 창이 이미 열려있는지 확인
+		    //(추가) 신고버튼을 눌렀을 때 댓글번호를 알 수 있도록 설정
+		   	//var reportReplyOrigin = $(this).parents(".reply-item").data("reply-no");
+		    var reportReplyOrigin = $(this).data("reply-no");
+		    				
+		    if ($(".reply-item-report").length > 0) {
+		        return; // 이미 열려있으면 아무 것도 하지 않음
+		    }
+
+		    // 신고 창을 보여줌
+		    var templateText = $("#reply-item-report-wrapper").text();
+		    var templateHTML = $.parseHTML(templateText);
+		    $(this).parents(".reply-item").after(templateHTML);
+
+		    // 신고 등록 버튼 클릭 시
+		    $(document).one("click", ".btn-reply-report-save", function() {
+			    //댓글 번호 불러오기
+			    console.log(reportReplyOrigin);
+		        var reportReplyReason = $(".reply-report-reason").val();
+		        var reportReplyContent = $(".reply-report-content").val();
+
+		        // 신고 사유와 내용이 입력되었는지 확인
+		        if (reportReplyReason.length == 0 || reportReplyContent.length == 0) {
+		            alert("신고 사유와 내용을 모두 입력해주세요.");
+		            return;
+		        }
+
+		        // AJAX를 통해 신고 등록 요청
+		        $.ajax({
+		            url: "/rest/reportReply/insert",
+		            method: "post",
+		            data: {
+		                reportReplyReason: reportReplyReason,
+		                reportReplyContent: reportReplyContent,
+		                reportReplyOrigin: reportReplyOrigin // 댓글 번호 추가
+		            },
+		            success: function(response) {
+		                // 신고 완료 후 신고 창을 숨김
+		                $(".reply-item-report").remove();
+		                alert("댓글 신고가 완료되었습니다.");
+		            }
+		        });
+		    });
+
+		    // 취소 버튼 클릭 시
+		    $(document).on("click", ".btn-reply-report-cancel", function() {
+		        // 신고 창을 숨김
+		        $(".reply-item-report").remove();
+		    });
+		});		
 	});
 </script>
 
@@ -480,3 +567,5 @@
     // 페이지 로드 시 초기화
     updateCountdown();
     </script>
+    
+    <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -60,6 +60,12 @@
 		});
 	});
 </script>
+<script>
+    // param.error가 null이 아닌 경우에만 alert을 표시합니다.
+    <c:if test="${param.error != null}">
+        alert("로그인 정보가 일치하지 않습니다");
+    </c:if>
+</script>
 </head>
 <body>
 	<form action="login" method="post" autocomplete="off"
@@ -92,7 +98,7 @@
 							<i class="fa-solid fa-arrow-right-to-bracket"></i>
 						로그인</button>
 				</div>
-
+				
 				<div class="cell right">
 					<a href="findId">아이디 찾기</a>				
 				</div>

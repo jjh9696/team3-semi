@@ -79,22 +79,22 @@ public class ReportReplyController {
 	}
 	
 	//등록
-		@GetMapping("/insert")
-		public String insert(@RequestParam Integer reportReplyOrigin, Model model) {
-			ReportReplyDto reportReplyDto = reportReplyDao.selectOne(reportReplyOrigin);
-			return "/WEB-INF/views/reportReply/insert.jsp";
-		}
-		
-		@PostMapping("/insert")
-		public String insert(@ModelAttribute ReportReplyDto reportReplyDto, 
-							HttpSession session, Model model) {
-			String loginId = (String)session.getAttribute("loginId");
-			reportReplyDto.setReportReplyWriter(loginId);
-			
-			reportReplyDao.insert(reportReplyDto);
-			
-			return "redirect:detail?reportReplyNo="+reportReplyDto.getReportReplyOrigin();
-		}
+//		@GetMapping("/insert")
+//		public String insert(@RequestParam Integer reportReplyOrigin, Model model) {
+//			ReportReplyDto reportReplyDto = reportReplyDao.selectOne(reportReplyOrigin);
+//			return "/WEB-INF/views/reportReply/insert.jsp";
+//		}
+//		
+//		@PostMapping("/insert")
+//		public String insert(@ModelAttribute ReportReplyDto reportReplyDto, 
+//							HttpSession session, Model model) {
+//			String loginId = (String)session.getAttribute("loginId");
+//			reportReplyDto.setReportReplyWriter(loginId);
+//			
+//			reportReplyDao.insert(reportReplyDto);
+//			
+//			return "redirect:detail?reportReplyNo="+reportReplyDto.getReportReplyOrigin();
+//		}
 		
 		//상세
 		@RequestMapping("/detail")

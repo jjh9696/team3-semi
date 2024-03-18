@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.semiteam3.dao.BoardDao;
 import com.kh.semiteam3.dao.MemberDao;
+import com.kh.semiteam3.dao.ReplyDao;
 import com.kh.semiteam3.dao.ReportBoardDao;
 import com.kh.semiteam3.dto.BoardDto;
 import com.kh.semiteam3.dto.MemberDto;
+import com.kh.semiteam3.dto.ReplyDto;
 import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.vo.PageVO;
 
@@ -235,7 +237,7 @@ public class BoardController {
 		
 		// 내가 쓴 게시글로 가는 controller
 		@GetMapping("/mywriting")
-		public String myBoard(HttpSession session, Model model) {
+		public String mywriting(HttpSession session, Model model) {
 			// 현재 로그인된 사용자의 아이디 가져오기
 			String loginId = (String) session.getAttribute("loginId");
 
@@ -249,6 +251,25 @@ public class BoardController {
 			return "/WEB-INF/views/board/mywriting.jsp";
 
 		}
+		
+		@Autowired
+		private ReplyDao replyDao;
+		// 내가 쓴 게시글로 가는 controller
+				@GetMapping("/mycomment")
+				public String mycomment(HttpSession session, Model model) {
+					// 현재 로그인된 사용자의 아이디 가져오기
+					String loginId = (String) session.getAttribute("loginId");
+
+					// 해당 사용자가 작성한 댓글 가져오기
+					List<ReplyDto> replyList = replyDao.findBylist(loginId);
+					
+					// 모델에 게시글 목록 추가
+					model.addAttribute("replyList", replyList);
+
+					// 마이페이지 내가 쓴 게시글 화면으로 이동
+					return "/WEB-INF/views/board/mycomment.jsp";
+
+				}
 		
 }
 

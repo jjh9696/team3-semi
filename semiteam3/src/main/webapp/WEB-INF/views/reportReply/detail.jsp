@@ -29,7 +29,9 @@
 				</c:choose>
 			</h3>
 		</div>
-
+		<div class="cell">
+			<pre>신고사유: ${reportReplyDto.reportReplyReason}</pre>
+		</div>
 		<hr>
 		<div class="cell" style="min-height: 250px;">
 			<pre>${reportReplyDto.reportReplyContent}</pre>
@@ -42,20 +44,12 @@
 				pattern="yyyy-MM-dd HH:mm:ss" />
 		</div>
 
-		<div class="cell right">
-			<a class="btn" href="write">글쓰기</a>
+		<div>
+			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
+					href="delete?reportReplyNo=${reportReplyDto.reportReplyNo}">댓글 신고글삭제</a>
+			<a class="btn positive" href="list">댓글 신고글 목록</a>
+			<a class="btn positive" href="#">신고된 댓글 보러가기</a>
 
-			<%-- 
-			삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 
-			- 본인글이란 로그인한 사용자 아이디와 게시글 작성자가 같은 경우
-			- 관리자란 로그인한 사용자 등급이 '관리자'인 경우
-		--%>
-			<c:if
-				test="${sessionScope.loginId != null && (sessionScope.loginId == reportReplyContentDto.reportReplyWriter || sessionScope.loginGrade == '관리자')}">
-				<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
-					href="delete?reportReplyNo=${reportReplyContentDto.reportReplyNo}">글삭제</a>
-			</c:if>
-			<a class="btn positive" href="list">글목록</a>
 		</div>
 
 

@@ -2,6 +2,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 
@@ -49,14 +50,19 @@
 .responsive-img {
 	width: 100%
 }
+
 .swiper-slide {
-    display: flex; /* Flexbox 레이아웃 사용 */
-    justify-content: center; /* 가로 중앙 정렬 */
-}
-.swiper-slide-next {
-    z-index: -10;
+	display: flex; /* Flexbox 레이아웃 사용 */
+	justify-content: center; /* 가로 중앙 정렬 */
 }
 
+.swiper-slide-next {
+	z-index: -10;
+}
+
+.ing {
+	border: 1px solid;
+}
 </style>
 
 <!-- jquery cdn -->
@@ -92,39 +98,98 @@
 </script>
 </head>
 
-	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	
-	<div id="maincontainer w-100" class="cell">
-		<div class="container w-100">
-			<div class="cell center">
-				<!-- Slider main container -->
-				<div class="swiper demo02">
-					<!-- Additional required wrapper -->
-					<div class="swiper-wrapper">
-						<!-- Slides -->
-						<div class="swiper-slide">
-							<a href="/"><img src="/image/home/main2.png"></a>
-						</div>
-						<div class="swiper-slide">
-							<a href="http://localhost:8080/board/detail?boardNo=227">
-							<img src="/image/home/event.png">
-							</a>
-						</div>
-						<div class="swiper-slide">
-							<a href="http://localhost:8080/board/list?category=%EC%B6%95%EA%B5%AC"><img src="https://picsum.photos/id/27/1920/400"></a>
-						</div>
-						<div class="swiper-slide">
-							<a href="http://localhost:8080/board/list?category=%EC%95%BC%EA%B5%AC"><img src="https://picsum.photos/id/29/1920/400"></a>
-						</div>
-						<div class="swiper-slide">
-							<a href="http://localhost:8080/board/list?category=%EB%86%8D%EA%B5%AC"><img src="https://picsum.photos/id/33/1920/400"></a>
-						</div>
-					</div>
-					<!-- If we need pagination -->
-					<div class="swiper-pagination"></div>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-					<!-- If we need navigation buttons -->
+<div id="maincontainer w-100" class="cell">
+	<div class="container w-100">
+		<div class="cell center">
+			<!-- Slider main container -->
+			<div class="swiper demo02">
+				<!-- Additional required wrapper -->
+				<div class="swiper-wrapper">
+					<!-- Slides -->
+					<div class="swiper-slide">
+						<a href="/"><img src="/image/home/main2.png"></a>
+					</div>
+					<div class="swiper-slide">
+						<a href="http://localhost:8080/board/detail?boardNo=227"> <img
+							src="/image/home/event.png">
+						</a>
+					</div>
+					<div class="swiper-slide">
+						<a
+							href="http://localhost:8080/board/list?category=%EC%B6%95%EA%B5%AC"><img
+							src="https://picsum.photos/id/27/1920/400"></a>
+					</div>
+					<div class="swiper-slide">
+						<a
+							href="http://localhost:8080/board/list?category=%EC%95%BC%EA%B5%AC"><img
+							src="https://picsum.photos/id/29/1920/400"></a>
+					</div>
+					<div class="swiper-slide">
+						<a
+							href="http://localhost:8080/board/list?category=%EB%86%8D%EA%B5%AC"><img
+							src="https://picsum.photos/id/33/1920/400"></a>
+					</div>
 				</div>
+				<!-- If we need pagination -->
+				<div class="swiper-pagination"></div>
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="cell flex-cell center mt-50">
+	<div class="cell w-100 auto-width mx-20 ing">
+		<table class="table">
+			<c:forEach var="boardDto" items="${footballList}">
+				<tr>
+					<td class="left" width="40%"><a class="link"
+						href="detail?boardNo=${boardDto.boardNo}">
+							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
+					<td>${boardDto.boardWriterStr}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+
+	<div class="cell w-100 auto-width me-20 ing">
+		<table class="table">
+			<c:forEach var="boardDto" items="${baseballList}">
+				<tr>
+					<td class="left" width="40%"><a class="link"
+						href="detail?boardNo=${boardDto.boardNo}">
+							${boardDto.boardTitle} [${boardDto.boardReply}] </a></td>
+					<td>${boardDto.boardWriterStr}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+
+	<div class="cell w-100 auto-width me-20 ing">
+		<table class="table">
+			<c:forEach var="boardDto" items="${basketballList}">
+				<tr>
+					<td class="left" width="40%"><a class="link"
+						href="detail?boardNo=${boardDto.boardNo}">
+							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
+					<td>${boardDto.boardWriterStr}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+	<div class="cell w-100 auto-width me-20 ing">
+		<table class="table">
+			<c:forEach var="boardDto" items="${ESportsList}">
+				<tr>
+					<td class="left" width="40%"><a class="link"
+						href="detail?boardNo=${boardDto.boardNo}">
+							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
+					<td>${boardDto.boardWriterStr}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+</div>
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

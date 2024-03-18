@@ -88,6 +88,8 @@ ul > li{
 			minHeight : 200,
 			maxHeight : 300, */
 
+			height: 300,
+			
 			//안내문구 설정
 			//placeholder: "내용을 입력하세요", 
 			callbacks : {
@@ -144,7 +146,9 @@ ul > li{
 		- div는 투명한 영역
 	 --%>
  	<div class="cell center">
-			<h1 class="center"><a href="/" class="link">노실?</a></h1>
+			<a href="/" class="link">
+				<img src="/image/home/노실logo.jpg">
+			</a>
 	</div>
 	<div class="cell">
 		<ul class="menu" width="400px">
@@ -194,6 +198,9 @@ ul > li{
 					<ul>
 						<li><a href="/admin/member/search">회원관리</a></li>
 						<li><a href="/reportBoard/list">게시글 신고 목록</a></li>
+						<li><a href="/board/list?category=관리자">
+							<i class="fa-solid fa-gear"></i> 관리자게시판
+						</a></li>
 					</ul></li>
 			</c:if>
 		</ul>

@@ -85,13 +85,13 @@
     font-size: 20px;
     padding: 0.5em 1em;
     outline: none;/*선택시 자동강조효과 제거*/
-    border: 1px solid #e3c7a6;
+    border: 1px solid #bda488;
     border-radius: 0.1em;
 }
 
 /* 입력창은 focus 효과가 발생할 때 테두리를 강조 */
 .tool:focus {
-    border-color: #e3c7a6;
+    border-color: #bda488;
 }
 
 /* 밑줄만 있는 입력창 구현 .tool.underline*/
@@ -142,7 +142,7 @@ textarea.tool.tool-fixed {
 */
 
 .btn {/* a태그를 버튼으로 쓸 경우 */
-    color: #e3c7a6;
+    color: #bda488;
     text-decoration: none; /* 밑줄 제거 */
     display: inline-block;
     text-align: center;
@@ -151,7 +151,7 @@ textarea.tool.tool-fixed {
 }
 
 .btn.positive {
-    background-color: #e3c7a6;
+    background-color: #bda488;
     color: white;
 }
 .btn.negative {
@@ -330,7 +330,7 @@ textarea.tool.tool-fixed {
 .table.table-border > tfoot > tr > th, 
 .table.table-border > tfoot > tr > td 
 {
-    border:1px solid #e3c7a6;
+    border:1px solid #bda488;
 }
 
 /*
@@ -341,7 +341,7 @@ textarea.tool.tool-fixed {
 .table.table-stripe > thead > tr,
 .table.table-stripe > tbody > tr:nth-child(2n) 
 {
-    background-color: #e3c7a6;
+    background-color: #bda488;
 }
 
 /*
@@ -627,12 +627,13 @@ textarea.tool.tool-fixed {
 */
 .menu,
 .menu ul {
-    background-color: #e3c7a6;
+    background-color: #eeeeee;
+    
 }
 .menu li {
     font-size: 20px;
     width: 200px;
-    color: white;
+    color: #e4b176;
     padding: 0.25em;
     text-align: center;
 }
@@ -650,7 +651,7 @@ textarea.tool.tool-fixed {
 
 /* 모든 메뉴에 마우스가 올라가면 강조 표시 */
 .menu li:hover{
-    background-color: #ddb484;
+    background-color: none;
 }
 
 /* 2차 메뉴(ul)의 위치를 미세조정 */

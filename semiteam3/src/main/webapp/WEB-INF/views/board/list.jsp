@@ -7,7 +7,7 @@
 
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-	<div class="container w-1200" style="display: flex;">
+	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 		<div class="container w-1000">
 			<%-- 제목칸 --%>
@@ -163,8 +163,8 @@
 							${param.column == 'board_title' ? 'selected' : ''}>제목</option>
 						<option value="board_content"
 							${param.column == 'board_content' ? 'selected' : ''}>내용</option>
-						<option value="board_writer"
-							${param.column == 'board_writer' ? 'selected' : ''}>작성자</option>
+						<option value="member_nick"
+						${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
 					</select> <input class="tool" type="search" name="keyword"
 						placeholder="검색어 입력" required value="${param.keyword}">
 					<button class="btn positive">검색</button>

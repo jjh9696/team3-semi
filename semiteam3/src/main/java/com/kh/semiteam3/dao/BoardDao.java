@@ -119,7 +119,7 @@ public class BoardDao {
     
     //카테고리별로 모집중인 게시글만 보기 버튼추가하려고..
     public List<BoardDto> boardStatus(PageVO pageVO, String boardCategory, String boardStatus) {
-        if ("모집 중".equals(boardStatus) && pageVO.isOnlyRecruitingAndSearch()) { // 모집중인 게시글 중에서 검색하는 경우
+        if ("recruiting".equals(boardStatus) && pageVO.isOnlyRecruitingAndSearch()) { // 모집중인 게시글 중에서 검색하는 경우
         	String sql = "select * from ("
                     + "select rownum rn, TMP.* from ("
                         + "select "

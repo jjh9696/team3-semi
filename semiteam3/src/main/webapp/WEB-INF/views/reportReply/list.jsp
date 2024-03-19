@@ -10,7 +10,84 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	<div class="container w-800">
+	<style>
+	.preview {
+		border: 2px solid #ccc;
+		border-radius: 50%;
+		width: 200px;
+		height: 200px;
+		object-fit: cover;
+	}
+	
+	.flex-cell {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		margin-bottom: 20px;
+	}
+	
+	.flex-cell img {
+		cursor: pointer;
+	}
+	
+	.flex-cell ul {
+		list-style-type: none;
+		padding: 0;
+		text-align: center;
+	}
+	
+	.flex-cell ul li {
+		margin-bottom: 10px;
+	}
+	
+	.cell {
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	
+	.table {
+		width: 95%;
+		margin: 0 auto; /* 수평 가운데 정렬을 위한 마진 설정 */
+		border-collapse: collapse;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+	}
+	
+	.table th, .table td {
+		padding: 8px;
+		border-bottom: 1px solid #ddd;
+	}
+	
+	.table th {
+		text-align: left;
+		background-color: #f2f2f2;
+	}
+	
+	.left {
+		text-align: left;
+	}
+	
+	.gray-text {
+		color: gray;
+		text-align: center;
+		margin-top: 10px;
+	}
+	
+	.box {
+		width: 800px;
+		background-color: #f8f9fa;
+		color: #333;
+		padding: 20px;
+		/*top: 330px;*/
+		height: fit-content;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+	}
+</style>
+	<div class="container" style="display: flex; width:1300px;">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+	<div class="box cell container">
 		<div class="cell">
 			<h1>댓글 신고 목록</h1>
 		</div>
@@ -55,8 +132,9 @@
 				<button class="btn positive">검색</button>
 			</form>
 		</div>
+		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 	</div>
-	<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
+	</div>
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -9,8 +9,22 @@
 <title>댓글 신고</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	<div class="container w-800">
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<style>
+	.box {
+		width: 800px;
+		background-color: #f8f9fa;
+		color: #333;
+		padding: 20px;
+		/*top: 330px;*/
+		height: fit-content;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+	}
+</style>
+	<div class="container" style="display: flex; width:1300px;">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+	<div class="box cell container">
 		<div class="cell center">
 			<h2>댓글 신고 상세</h2>
 		</div>
@@ -60,8 +74,7 @@
 			<!-- <a class="btn positive" href="/board/detail?boardNo=${originalBoardNo}">신고된 댓글 보러가기</a> -->
 
 		</div>
-
-
+	</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>

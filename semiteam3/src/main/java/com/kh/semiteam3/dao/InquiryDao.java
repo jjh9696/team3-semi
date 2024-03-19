@@ -23,7 +23,7 @@ public class InquiryDao {
 
 		// 통합 페이징
 		public List<InquiryDto> selectListByPaging(PageVO pageVO) {
-			if (pageVO.isSearchInquiry()) {// 검색
+			if (pageVO.isSearchOther()) {// 검색
 				String sql = "select * from (" 
 					+ "select rownum rn, TMP.* from (" 
 					+ "select "
@@ -84,7 +84,7 @@ public class InquiryDao {
 
 		// 카운트-목록 검색 통합
 		public int count(PageVO pageVO) {
-			if (pageVO.isSearchInquiry()) {// 검색
+			if (pageVO.isSearchOther()) {// 검색
 				String sql = "SELECT COUNT(*) FROM inquiry i JOIN member m ON i.inquiry_writer = m.member_id WHERE INSTR(m.member_nick, ?) > 0";
 				Object[] data = { pageVO.getKeyword() };
 				return jdbcTemplate.queryForObject(sql, int.class, data);

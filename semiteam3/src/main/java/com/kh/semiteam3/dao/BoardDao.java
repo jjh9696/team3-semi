@@ -302,6 +302,7 @@ public class BoardDao {
         return jdbcTemplate.query(sql, boardListMapper, data);
     }
 
+
 }
 
 

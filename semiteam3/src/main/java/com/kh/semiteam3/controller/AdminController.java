@@ -50,10 +50,22 @@ public class AdminController implements HandlerInterceptor{
 			//컬럼과 키워드가 없어도 목록 출력 가능
 			boolean isSearch = column !=null && keyword != null;
 			
-			List<MemberDto> list = isSearch ?
-					memberDao.searchList(column, keyword) : memberDao.selectList();
-			model.addAttribute("list", list);
-			
+//			List<MemberDto> list = isSearch ?
+//					memberDao.searchList(column, keyword) : memberDao.selectList();
+//			model.addAttribute("list", list);
+			if(isSearch) {//so, 이게 다야 코드가
+				//지정한 항목에서만 검색이 가능하도록 구현(비밀번호로 들어가게 하면 안되자나)
+				switch(column) {
+				//case "member_id","member_nick","member_contact","member_email","member_birth"
+				case "member_id" :
+				case "member_nick" :
+				case "member_contact":
+				case "member_email":
+				case "member_birth":
+					List<MemberDto> list = memberDao.searchList(column, keyword);
+					model.addAttribute("list", list);
+				}
+			}
 			return "/WEB-INF/views/admin/member/search.jsp";
 		}
 	

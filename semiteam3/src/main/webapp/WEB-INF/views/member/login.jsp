@@ -90,12 +90,11 @@ $(function() {
 	$("[name=memberId]").on(
 			"blur",
 			function() {
-				var regex = /^[가-힣0-9]{2,10}$/;
+				var regex = /^[a-z][a-z0-9]{7,19}$/;
 				state.memberIdValid = regex.test($(this).val());
 				$(this).removeClass("success fail").addClass(
 						state.memberIdValid ? "success" : "fail");
-				$(this).siblings('.fail-feedback').toggle(!state.memberIdValid)
-			});
+	});
 	$("[name=memberPw]").on(
 					"blur",
 					function() {
@@ -103,8 +102,7 @@ $(function() {
 						state.memberPwValid = regex.test($(this).val());
 						$(this).removeClass("success fail").addClass(
 								state.memberPwValid ? "success" : "fail");
-						$(this).siblings('.fail-feedback').toggle(!state.memberPwValid)
-					});
+	});
 	$(".check-form").submit(function() {
 		$("[name=memberId]").blur();
 		$("[name=memberPw]").blur();
@@ -124,13 +122,13 @@ $(function() {
 			<div class="form-group">
 				<label for="memberId">아이디<b style="color: red">*</b></label>
 					 <input type="text" name="memberId" class="tool w-100" 
-			placeholder="소문자 시작, 숫자포함 8~20자">
+							placeholder="소문자 시작, 숫자포함 8~20자">
 				<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
 			</div>
 			<div class="form-group">
 				<label for="memberPw">비밀번호<b style="color: red">*</b></label> 
-				<input type="text" name="memberId" class="tool w-100" 
-			placeholder="대소문자, 숫자, 특수문자(!@#$) 포함 6~15자">
+				<input type="password" name="memberPw" class="tool w-100" 
+						placeholder="대소문자, 숫자, 특수문자(!@#$) 포함 6~15자">
 				<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
 				</div>
 			<div class="form-group center">

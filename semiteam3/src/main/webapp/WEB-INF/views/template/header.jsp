@@ -229,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					<ul>
 						<li><a href="/admin/member/search">회원관리</a></li>
 						<li><a href="/reportBoard/list">게시글 신고 목록</a></li>
+						<li><a href="/reportReply/list">게시글 신고 목록</a></li>
 						<li><a href="/board/list?category=관리자"> <i
 								class="fa-solid fa-gear"></i> 관리자게시판
 						</a></li>
@@ -239,7 +240,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	</div>
 </body>
 </html>
-
 
 
 

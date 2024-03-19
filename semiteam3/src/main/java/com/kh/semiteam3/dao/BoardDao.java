@@ -294,14 +294,15 @@ public class BoardDao {
     
     //찜목록
     public List<BoardDto> likeList(String memberId){
-        String sql = "SELECT board.* "
-                + "FROM board_like "
-                + "JOIN board ON board_like.board_no = board.board_no "
-                + "WHERE board_like.member_id = ?";
-        Object[] data = {memberId};
-        return jdbcTemplate.query(sql, boardListMapper, data);
+    	String sql = "SELECT board.* "
+    			+ "FROM board_like "
+    			+ "JOIN board ON board_like.board_no = board.board_no "
+    			+ "WHERE board_like.member_id = ?";
+    	Object[] data = {memberId};
+    	return jdbcTemplate.query(sql, boardListMapper, data);
     }
-	
+
+
 }
 
 

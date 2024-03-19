@@ -5,6 +5,9 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <!-- 작성글 내역 표시 -->
+<div class="container" style="display: flex; width:1300px;">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+<div class="container w-1000 set-color">
 <h2>내 작성글</h2>
 <body>
         <div class="cell">
@@ -43,6 +46,9 @@
 			<%--네비게이터 출력(구조는 복잡하지만 /board/list와 같지 않을까?) --%>
 			<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 		</div>
+	</div>
+	</body>
+	</div>
 	</div>
 </html>
 

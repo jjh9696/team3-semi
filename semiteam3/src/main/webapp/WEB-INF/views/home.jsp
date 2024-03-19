@@ -61,12 +61,13 @@
 }
 
 .ing {
-	border: 2px solid #bda488;
-	padding: 10px;
+border: 1px #e3c7a6 solid;
+	padding: 1em;
 	box-shadow:
 		3px 1px 1px #e3ae7277;
 	border-radius: 5px;
 		
+
 }
 .table{
 	border-color: 1px #bda488;
@@ -155,10 +156,10 @@
 		<table class="table">
 			<c:forEach var="boardDto" items="${footballList}">
 				<tr>
-					<td class="left" width="40%"><a class="link"
+					<td class="left"><a class="link"
 						href="detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
-					<td>${boardDto.boardWriterStr}</td>
+					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -167,10 +168,10 @@
 		<table class="table">
 			<c:forEach var="boardDto" items="${baseballList}">
 				<tr>
-					<td class="left" width="40%"><a class="link"
+					<td class="left"><a class="link"
 						href="detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}] </a></td>
-					<td>${boardDto.boardWriterStr}</td>
+					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -180,10 +181,10 @@
 		<table class="table">
 			<c:forEach var="boardDto" items="${basketballList}">
 				<tr>
-					<td class="left" width="40%"><a class="link"
+					<td class="left"><a class="link"
 						href="detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
-					<td>${boardDto.boardWriterStr}</td>
+					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -192,10 +193,10 @@
 		<table class="table">
 			<c:forEach var="boardDto" items="${ESportsList}">
 				<tr>
-					<td class="left" width="40%"><a class="link"
+					<td class="left"><a class="link"
 						href="detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
-					<td>${boardDto.boardWriterStr}</td>
+					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>

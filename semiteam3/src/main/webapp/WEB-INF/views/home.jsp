@@ -145,7 +145,7 @@
 			<c:forEach var="boardDto" items="${footballList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="detail?boardNo=${boardDto.boardNo}">
+						href="/board/detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
@@ -158,7 +158,7 @@
 			<c:forEach var="boardDto" items="${baseballList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="detail?boardNo=${boardDto.boardNo}">
+						href="/board/detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}] </a></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
@@ -171,7 +171,7 @@
 			<c:forEach var="boardDto" items="${basketballList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="detail?boardNo=${boardDto.boardNo}">
+						href="/board/detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
@@ -183,7 +183,7 @@
 			<c:forEach var="boardDto" items="${ESportsList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="detail?boardNo=${boardDto.boardNo}">
+						href="/board/detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>

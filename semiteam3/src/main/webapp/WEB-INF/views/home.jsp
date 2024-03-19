@@ -61,7 +61,7 @@
 }
 
 .ing {
-border: 1px #e3c7a6 solid;
+	border: 1px #e3c7a6 solid;
 	padding: 1em;
 	box-shadow:
 		3px 1px 1px #e3ae7277;
@@ -151,25 +151,27 @@ border: 1px #e3c7a6 solid;
 		</div>
 	</div>
 </div> 
-<div class="cell flex-cell center mt-50 ">
-	<div class="cell w-100 auto-width mx-20 ing">
+
+<div class="cell flex-cell center mt-50">
+	<div class="cell w-100 auto-width mx-20 ing set-color">
 		<table class="table">
 			<c:forEach var="boardDto" items="${footballList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="detail?boardNo=${boardDto.boardNo}">
+						href="/board/detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-	<div class="cell w-100 auto-width me-20 ing">
+
+	<div class="cell w-100 auto-width me-20 ing set-color">
 		<table class="table">
 			<c:forEach var="boardDto" items="${baseballList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="detail?boardNo=${boardDto.boardNo}">
+						href="/board/detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}] </a></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
@@ -177,24 +179,24 @@ border: 1px #e3c7a6 solid;
 		</table>
 	</div>
 
-	<div class="cell w-100 auto-width me-20 ing">
+	<div class="cell w-100 auto-width me-20 ing set-color">
 		<table class="table">
 			<c:forEach var="boardDto" items="${basketballList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="detail?boardNo=${boardDto.boardNo}">
+						href="/board/detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-	<div class="cell w-100 auto-width me-20 ing">
+	<div class="cell w-100 auto-width me-20 ing set-color">
 		<table class="table">
 			<c:forEach var="boardDto" items="${ESportsList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="detail?boardNo=${boardDto.boardNo}">
+						href="/board/detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>

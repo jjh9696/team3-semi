@@ -5,18 +5,16 @@
 
  <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+	.title{
+		font-size:30px;
+	}
+	
+</style>
 
-
-
-
-<div class="container w-800">
-	<div class="cell center">
-		<h1>${InquiryDto.inquiryNo}번 글 보기</h1>
-	</div>
+<div class="container w-1000 set-color">
 	<div class="cell">
-		<h2>
-			제목: ${InquiryDto.inquiryTitle}
-			
+		<div class="title">${InquiryDto.inquiryTitle}</div>
 			<%--(추가) 수정시각 유무에 따라 수정됨 표시 --%>
 			<c:if test="${InquiryDto.inquiryEtime != null}">
 				(수정됨)

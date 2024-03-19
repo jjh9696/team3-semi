@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
        			class="nosilLogo w-50 m-10" id="changeName">
 		</a>
     </div>
-</div>
+
 
 	<div class="cell w-100">
 		<ul class="menu" width="400px">
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			</c:if>
 		</ul>
 	</div>
-	<div></div>
+	</div>
 </body>
 </html>
 

@@ -3,11 +3,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
-.input {
-	width: 350px;
-	padding: 0.5em 1em;
-	border: 0.1px;
-}
+/* .input { */
+/* 	width: 350px; */
+/* 	padding: 0.5em 1em; */
+/* 	border: 0.1px; */
+/* } */
 </style>
 
 <script type="text/javascript">
@@ -70,45 +70,46 @@
 <body>
 	<form action="login" method="post" autocomplete="off"
 		class="check-form">
-		<div class="container w-450">
+		<div class="container w-450" style="margin-top:80px">
 			<div class="cell center title" style="color: #e3c7a6">
 				<h1>
-					<i class="fa-regular fa-user"></i>
-				로그인</h1>
+					<i class="fa-regular fa-user"></i> 로그인
+				</h1>
 			</div>
 			<div class="cell">
 				<div class="cell">
 					<label>아이디<b style="color: red">*</b></label> <input type="text"
 						name="memberId" placeholder="소문자 시작, 숫자 포함 8~20자" required
 						class="tool w-100">
-					
+
 					<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
 				</div>
 				<div class="cell">
 					<label>비밀번호<b style="color: red">*</b></label> <input
-						type="password" name="memberPw" placeholder="대소문자,숫자,특수문자 포함 6~15자"
-						required class="tool w-100">
-					
+						type="password" name="memberPw"
+						placeholder="대소문자,숫자,특수문자 포함 6~15자" required class="tool w-100">
+
 					<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
 				</div>
-					
+
 				<div class="cell">
 					<button class="btn positive w-100"
 						style="background-color: #e3c7a6">
-							<i class="fa-solid fa-arrow-right-to-bracket"></i>
-						로그인</button>
+						<i class="fa-solid fa-arrow-right-to-bracket"></i> 로그인
+					</button>
 				</div>
-				
+
 				<div class="cell right">
-					<a href="findId">아이디 찾기</a>				
-				</div>
-				<div class="cell right">
-					<a href="findPw">비밀번호 찾기</a>				
+					<a href="findId">아이디 찾기</a>
 				</div>
 				<div class="cell right">
-                    <a href="join">회원가입</a>				
-                </div>
+					<a href="findPw">비밀번호 찾기</a>
+				</div>
+				<div class="cell right" style="margin-bottom:200px">
+					<a href="join">회원가입</a>
+				</div>
 			</div>
+		</div>
 	</form>
 
 </body>

@@ -61,8 +61,20 @@
 }
 
 .ing {
-	border: 1px solid;
+	border: 2px solid #bda488;
+	padding: 10px;
+	box-shadow:
+		3px 1px 1px #e3ae7277;
+	border-radius: 5px;
+		
 }
+.table{
+	border-color: 1px #bda488;
+	
+	
+}
+
+
 </style>
 
 <!-- jquery cdn -->
@@ -138,8 +150,7 @@
 		</div>
 	</div>
 </div>
-
-<div class="cell flex-cell center mt-50">
+<div class="cell flex-cell center mt-50 ">
 	<div class="cell w-100 auto-width mx-20 ing">
 		<table class="table">
 			<c:forEach var="boardDto" items="${footballList}">
@@ -152,7 +163,6 @@
 			</c:forEach>
 		</table>
 	</div>
-
 	<div class="cell w-100 auto-width me-20 ing">
 		<table class="table">
 			<c:forEach var="boardDto" items="${baseballList}">

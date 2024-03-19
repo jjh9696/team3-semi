@@ -166,7 +166,7 @@
 						<option value="member_nick"
 						${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
 					</select> <input class="tool" type="search" name="keyword"
-						placeholder="검색어 입력" required value="${param.keyword}">
+						placeholder="검색어 입력"  value="${param.keyword}">
 					<button class="btn positive">검색</button>
 				</form>
 			</div>

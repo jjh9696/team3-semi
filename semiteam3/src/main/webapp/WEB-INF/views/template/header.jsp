@@ -71,7 +71,13 @@ body {
 	background-color: #eeeeee;
 }
 
-</style>
+  .Logo {        height: 220px;
+      }
+   .nosilLogo:hover {
+   	transform: scale(1.25, 1.25);
+	transition: 0.2s ease-out;
+      }
+     </style>
 
 <script>
 	$(function() {
@@ -85,8 +91,7 @@ body {
 					[ 'para', [ 'style', 'ul', 'ol', 'paragraph' ] ],
 					// ['height', ['height']]
 					[ 'insert', [ 'picture', 'link', 'hr' ] ], ],
-
-			//기본높이 설정(단위 : px)
+//기본높이 설정(단위 : px)
 			/* height : 200,
 			minHeight : 200,
 			maxHeight : 300, */
@@ -132,6 +137,22 @@ body {
 
 		$("[name='boardContent'], [name='inquiryContent']").summernote(options);
 	});
+	
+	/* 로고 호버 코드	*/
+document.addEventListener('DOMContentLoaded', function() {
+    const imageToChange = document.getElementById('changeName');
+    imageToChange.addEventListener('mouseover', function() {
+        // 이미지 파일의 이름을 변경합니다.
+        imageToChange.src = "/image/home/nosilLogoHover.png";
+    });
+
+    imageToChange.addEventListener('mouseout', function() {
+        // 마우스가 벗어나면 다시 원래의 이미지 파일로 변경합니다.
+        imageToChange.src = "/image/home/nosilLogo.png";
+    });
+});
+
+
 </script>
 
 <!--ChartJD CDN-->
@@ -147,12 +168,14 @@ body {
 		- 로고, 검색창, 삿종 메뉴들을 배치
 		- div는 투명한 영역
 	 --%>
-	<div class="container w-1800"> 
-	
-	<div class="cell center">
-		<a href="/" class="link"> <img src="/image/home/NosilLogo.png" class="w-50">
+<div class="container w-1800 center"> 
+	<div class="cell center Logo ">
+		<a href="/" class="link "> 
+       		<img src="/image/home/nosilLogo.png" alt="nosilLogo" 
+       			class="nosilLogo w-50 m-10" id="changeName">
 		</a>
-	</div>
+    </div>
+</div>
 
 	<div class="cell w-100">
 		<ul class="menu" width="400px">

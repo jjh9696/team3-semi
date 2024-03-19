@@ -8,7 +8,7 @@ hr {
 </style>
 
 
-<hr>
+<hr class="mt-30">
 
 <div class="footer flex-cell">
 	<div class="cell center mt-40">

@@ -6,27 +6,33 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <div class="container" style="display: flex; width:1300px;">
-	<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-	<div class="container w-1000">
-		<div class="cell center">
-			<h1>Q & A</h1>
-		</div>
-		
-		<div class="cell right">
-			<h2><a class="link" href="insert">+문의하기</a></h2>
-		</div>
-		<div class="cell">
-			<%-- 테이블 --%>
-			<table class="table table-horizontal table-hover">
-		<thead>
-			<tr>
-				<th></th>
-				<th width="40%">문의 제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<th>수정일</th>
-				
-			</tr>
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+<div class="container w-1000 set-color">
+	<div class="cell center">
+		<h1>Q & A</h1>
+	</div>
+	
+	<div class="cell right">
+		<h2><a class="link" href="insert">+문의하기</a></h2>
+	</div>
+	<div class="cell">
+		<div class="cell left">
+	
+	<%-- 검색창 --%>
+	<form action="list" method="get">
+		<select name="column" class="tool">
+			<option value="inquiry_title" ${param.column == 'inquiry_title' ? 'selected' : ''}>문의내용</option>
+			<option value="inquiry_writer" ${param.column == 'inquiry_writer' ? 'selected' : ''}>작성자</option>
+			<option value="inquiry_content" ${param.column == 'inquiry_content' ? 'selected' : ''}>내용</option>
+		</select>
+		<input class="tool" type="search" name="keyword" placeholder="검색어 입력" required value="${param.keyword}">
+		<button class="btn positive">검색</button>
+	</form>
+	</div>
+		<%-- 테이블 --%>
+		<table class="table table-horizontal table-hover">
+
+	<tbody align="center">
 		</thead>
 		<tbody align="center">
 			<c:forEach var="inquiryDto" items="${list}">

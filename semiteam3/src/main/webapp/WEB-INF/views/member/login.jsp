@@ -109,9 +109,11 @@
                     <a href="join">회원가입</a>				
                 </div>
 			</div>
+			</div>
 	</form>
-
+	
 </body>
 </html>
+
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

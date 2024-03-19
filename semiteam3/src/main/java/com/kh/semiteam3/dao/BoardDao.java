@@ -301,6 +301,7 @@ public class BoardDao {
         Object[] data = {memberId};
         return jdbcTemplate.query(sql, boardListMapper, data);
     }
+
 }
 
 

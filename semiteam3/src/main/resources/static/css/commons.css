@@ -350,7 +350,7 @@ textarea.tool.tool-fixed {
     - 제목은 제외한 내용 줄만 마우스가 올라가면 색상이 변하도록 구현
 */
 .table.table-hover > tbody > tr:hover {
-    background-color: #e3c7a1;
+    background-color: #f0eae2;
 }
 
 /*

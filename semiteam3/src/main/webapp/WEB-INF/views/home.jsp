@@ -61,7 +61,6 @@
 }
 
 .ing {
-	border: 1px #e3c7a6 solid;
 	padding: 1em;
 }
 </style>
@@ -141,7 +140,7 @@
 </div>
 
 <div class="cell flex-cell center mt-50">
-	<div class="cell w-100 auto-width mx-20 ing">
+	<div class="cell w-100 auto-width mx-20 ing set-color">
 		<table class="table">
 			<c:forEach var="boardDto" items="${footballList}">
 				<tr>
@@ -154,7 +153,7 @@
 		</table>
 	</div>
 
-	<div class="cell w-100 auto-width me-20 ing">
+	<div class="cell w-100 auto-width me-20 ing set-color">
 		<table class="table">
 			<c:forEach var="boardDto" items="${baseballList}">
 				<tr>
@@ -167,7 +166,7 @@
 		</table>
 	</div>
 
-	<div class="cell w-100 auto-width me-20 ing">
+	<div class="cell w-100 auto-width me-20 ing set-color">
 		<table class="table">
 			<c:forEach var="boardDto" items="${basketballList}">
 				<tr>
@@ -179,7 +178,7 @@
 			</c:forEach>
 		</table>
 	</div>
-	<div class="cell w-100 auto-width me-20 ing">
+	<div class="cell w-100 auto-width me-20 ing set-color">
 		<table class="table">
 			<c:forEach var="boardDto" items="${ESportsList}">
 				<tr>

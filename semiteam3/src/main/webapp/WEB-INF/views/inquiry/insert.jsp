@@ -23,7 +23,7 @@
     });
 	</script>
     
-    <div class="container w-800">
+    <div class="container w-1000 set-color">
     	<div class="cell center">
     		<h1>문의글 작성</h1>
     	</div>

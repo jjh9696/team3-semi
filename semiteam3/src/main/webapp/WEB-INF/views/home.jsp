@@ -61,8 +61,21 @@
 }
 
 .ing {
+	border: 1px #e3c7a6 solid;
 	padding: 1em;
+	box-shadow:
+		3px 1px 1px #e3ae7277;
+	border-radius: 5px;
+		
+
 }
+.table{
+	border-color: 1px #bda488;
+	
+	
+}
+
+
 </style>
 
 <!-- jquery cdn -->
@@ -99,7 +112,7 @@
 </head>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
+<hr class="mb-30">
 <div id="maincontainer w-100" class="cell">
 	<div class="container w-1100">
 		<div class="cell center">
@@ -137,7 +150,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> 
 
 <div class="cell flex-cell center mt-50">
 	<div class="cell w-100 auto-width mx-20 ing set-color">

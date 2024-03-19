@@ -291,7 +291,7 @@ public class BoardDao {
         Object[] data = {memberId};
         return jdbcTemplate.query(sql, boardListMapper, data);
     }
-	
+
     //찜목록
     public List<BoardDto> likeList(String memberId){
         String sql = "SELECT board.* "

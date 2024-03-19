@@ -5,7 +5,6 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-
 <style>
 .preview {
 	border: 2px solid #ccc;
@@ -38,7 +37,6 @@
 }
 
 .cell {
-	text-align: center;
 	margin-bottom: 20px;
 }
 

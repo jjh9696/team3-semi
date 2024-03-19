@@ -85,6 +85,7 @@
     .grade{
     	color:#e3c7a6;
     }
+
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -133,7 +134,7 @@
                 <div class="container">
                     <a href="/member/login" class="button btnFloat btnlogin">로그인</a>
                 </div>
-            </c:otherwise>
+				</c:otherwise>
         </c:choose>
     </div>
 

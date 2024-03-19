@@ -54,8 +54,8 @@
 				<select name="column" class="tool">
 					<option value="member_id"
 						${param.column == 'member_id' ? 'selected' : ''}>작성자</option>
-					<option value="report_board_content"
-						${param.column == 'report_board_content' ? 'selected' : ''}>내용</option>
+					<option value="report_board_reason"
+						${param.column == 'report_board_reason' ? 'selected' : ''}>신고사유</option>
 				</select> <input class="tool" type="search" name="keyword"
 					placeholder="검색어 입력" required value="${param.keyword}">
 				<button class="btn positive">검색</button>

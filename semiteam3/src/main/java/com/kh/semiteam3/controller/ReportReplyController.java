@@ -1,6 +1,7 @@
 package com.kh.semiteam3.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,8 +24,6 @@ import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.dto.ReportReplyDto;
 import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.vo.PageVO;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/reportReply")
@@ -78,7 +76,7 @@ public class ReportReplyController {
 		return "redirect:list";
 	}
 	
-	//등록
+	//등록 -- ReportReplyRestController로 처리하였음
 //		@GetMapping("/insert")
 //		public String insert(@RequestParam Integer reportReplyOrigin, Model model) {
 //			ReportReplyDto reportReplyDto = reportReplyDao.selectOne(reportReplyOrigin);
@@ -106,6 +104,25 @@ public class ReportReplyController {
 				MemberDto memberDto = memberDao.selectOne(reportReplyDto.getReportReplyWriter());
 				model.addAttribute("memberDto", memberDto);
 			}
+			// 신고된 댓글이 있는 원본 게시글 번호를 가져옴
+	        int originalBoardNo = reportReplyDao.getReportReplyBoardOrigin(reportReplyNo);
+	        model.addAttribute("originalBoardNo", originalBoardNo);
+	        
+	        // 신고당한 댓글의 내용을 가져와 모델에 추가
+	        Map<String, Object> reportedReplyData = reportReplyDao.getReportReplyContent(reportReplyNo);
+	        model.addAttribute("reportedReplyData", reportedReplyData);
+			
 			return "/WEB-INF/views/reportReply/detail.jsp";
 		}
 }
+
+
+
+
+
+
+
+
+
+
+

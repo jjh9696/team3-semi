@@ -8,7 +8,7 @@
 
 
 $(function(){
-    $("a.link-confirm").click(function(){
+    $("a.link-confirm").off().click(function(){
         var message = $(this).data("message");
         //console.log(message);
         if(message == undefined) {

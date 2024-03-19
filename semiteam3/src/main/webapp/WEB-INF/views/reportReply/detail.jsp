@@ -11,44 +11,53 @@
 <body>
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 	<div class="container w-800">
-		<div class="cell">
-			<h2>댓글 신고</h2>
+		<div class="cell center">
+			<h2>댓글 신고 상세</h2>
 		</div>
 
 		<div class="cell">
-			<h3>
+			<h4>
 				<%-- 탈퇴한 사용자일 때와 아닐 때 나오는 정보가 다르게 구현 --%>
 				<c:choose>
 					<c:when test="${reportReplyDto.reportReplyWriter == null}">
 					${reportReplyDto.getReportReplyWriterStr}
 				</c:when>
 					<c:otherwise>
+					신고자 |
 					${memberDto.memberNick}
 					(${memberDto.memberGrade})
 				</c:otherwise>
 				</c:choose>
-			</h3>
+			</h4>
 		</div>
 		<div class="cell">
-			<pre>신고사유: ${reportReplyDto.reportReplyReason}</pre>
+			<pre>신고사유 | ${reportReplyDto.reportReplyReason}</pre>
 		</div>
 		<hr>
-		<div class="cell" style="min-height: 250px;">
+		<div class="cell" style="min-height: 150px;">
 			<pre>${reportReplyDto.reportReplyContent}</pre>
 		</div>
 
-		<hr>
+		
 
-		<div class="cell">
-			<fmt:formatDate value="${reportReplyDto.reportReplyDate}"
-				pattern="yyyy-MM-dd HH:mm:ss" />
+		<div class="cell right">
+			<pre>신고 시각 | <fmt:formatDate value="${reportReplyDto.reportReplyDate}"
+				pattern="yyyy-MM-dd HH:mm:ss" /></pre>
 		</div>
-
-		<div>
+		<!-- 신고당한 댓글 -->
+		<hr>
+		<div class="cell">
+			<h4>신고 당한 댓글 (No. ${reportedReplyData.reply_no})</h4>
+		</div>
+		<div class="cell" style="min-height: 150px;">
+			<pre>${reportedReplyData.reply_content}</pre>
+		</div>
+		<hr>
+		<div class="cell right">
 			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
 					href="delete?reportReplyNo=${reportReplyDto.reportReplyNo}">댓글 신고글삭제</a>
 			<a class="btn positive" href="list">댓글 신고글 목록</a>
-			<a class="btn positive" href="#">신고된 댓글 보러가기</a>
+			<!-- <a class="btn positive" href="/board/detail?boardNo=${originalBoardNo}">신고된 댓글 보러가기</a> -->
 
 		</div>
 

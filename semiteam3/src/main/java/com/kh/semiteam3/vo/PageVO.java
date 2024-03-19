@@ -85,8 +85,9 @@ public class PageVO {
 	public boolean isSearch() {
 		return column != null && keyword != null && category != null; //카테고리 추가
 	}
-	//문의게시글 관련 계산을 위한 가상의 Getter 메소드 추가
-	public boolean isSearchInquiry() {
+	
+	//신고/문의게시글 관련 계산을 위한 가상의 Getter 메소드 추가
+	public boolean isSearchOther() {
 		return column != null && keyword != null;//카테고리 추가
 	}
 	

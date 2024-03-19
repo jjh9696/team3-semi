@@ -23,7 +23,7 @@ public class InquiryDao {
 
 		// 통합 페이징
 		public List<InquiryDto> selectListByPaging(PageVO pageVO) {
-			if (pageVO.isSearchInquiry()) {// 검색
+			if (pageVO.isSearchOther()) {// 검색
 				String sql = "select * from (" 
 					+ "select rownum rn, TMP.* from (" 
 					+ "select "
@@ -66,7 +66,7 @@ public class InquiryDao {
 
 		// 카운트-목록 검색 통합
 		public int count(PageVO pageVO) {
-			if (pageVO.isSearchInquiry()) {// 검색
+			if (pageVO.isSearchOther()) {// 검색
 				String sql = "select count(*) from inquiry " 
 							+ "where instr(" + pageVO.getColumn() + ", ?) > 0";
 				Object[] data = { pageVO.getKeyword() };

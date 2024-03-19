@@ -84,14 +84,14 @@
 .tool , .btn {
     font-size: 16px; /* 원하는 크기로 조정 */
     padding: 0.3em 0.8em; /* 원하는 크기로 조정 */
-    outline: none; /* 선택시 자동강조효과 제거 */
+    outline: none;/*선택시 자동강조효과 제거*/
     border: 1px solid #e3c7a6;
     border-radius: 0.1em;
 }
 
 /* 입력창은 focus 효과가 발생할 때 테두리를 강조 */
 .tool:focus {
-    border-color: #e3c7a6;
+    border-color: #bda488;
 }
 
 /* 밑줄만 있는 입력창 구현 .tool.underline*/
@@ -142,7 +142,7 @@ textarea.tool.tool-fixed {
 */
 
 .btn {/* a태그를 버튼으로 쓸 경우 */
-    color: #e3c7a6;
+    color: #bda488;
     text-decoration: none; /* 밑줄 제거 */
     display: inline-block;
     text-align: center;
@@ -152,7 +152,7 @@ textarea.tool.tool-fixed {
 }
 
 .btn.positive {
-    background-color: #e3c7a6;
+    background-color: #bda488;
     color: white;
 }
 .btn.negative {
@@ -331,7 +331,7 @@ textarea.tool.tool-fixed {
 .table.table-border > tfoot > tr > th, 
 .table.table-border > tfoot > tr > td 
 {
-    border:1px solid #e3c7a6;
+    border:1px solid #bda488;
 }
 
 /*
@@ -342,7 +342,7 @@ textarea.tool.tool-fixed {
 .table.table-stripe > thead > tr,
 .table.table-stripe > tbody > tr:nth-child(2n) 
 {
-    background-color: #e3c7a6;
+    background-color: #bda488;
 }
 
 /*
@@ -383,7 +383,7 @@ textarea.tool.tool-fixed {
     display: inline-block;
 }
 .link:hover {
-    color: #0984e3;
+    color: #b68c5d;
 }
 
 .link.link-animation {
@@ -409,7 +409,7 @@ textarea.tool.tool-fixed {
         - transform 속성을 통해 원하는 작업을 부여
         - transition 속성을 통해 움직임 정도를 구현
     */
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 /*
@@ -628,12 +628,13 @@ textarea.tool.tool-fixed {
 */
 .menu,
 .menu ul {
-    background-color: #e3c7a6;
+    background-color: #eeeeee;
+    
 }
 .menu li {
     font-size: 20px;
     width: 200px;
-    color: white;
+    color: #e4b176;
     padding: 0.25em;
     text-align: center;
 }
@@ -651,7 +652,7 @@ textarea.tool.tool-fixed {
 
 /* 모든 메뉴에 마우스가 올라가면 강조 표시 */
 .menu li:hover{
-    background-color: #ddb484;
+    color: #be9362;
 }
 
 /* 2차 메뉴(ul)의 위치를 미세조정 */

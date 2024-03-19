@@ -93,7 +93,7 @@
 		</div>
 		<div class="cell">
 			<%-- 목록 --%>
-			<table class="table table-horizontal">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>댓글 신고 번호</th>

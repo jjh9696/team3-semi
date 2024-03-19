@@ -19,7 +19,8 @@
     form {
         margin-top: 20px;
     }
-
+	
+	form select[name="memberGrade"],
     form input[type="text"],
     form input[type="email"],
     form input[type="password"],
@@ -32,7 +33,6 @@
         border-radius: 5px;
         font-size: 16px;
     }
-
     form input[type="file"] {
         display: none;
     }
@@ -128,12 +128,12 @@
         <br>
         <input type="text" name="memberAddress1" placeholder="기본주소" value="${memberDto.memberAddress1}"><br>
         <input type="text" name="memberAddress2" placeholder="상세주소" value="${memberDto.memberAddress2}"><br>
-	    회원등급
 	    <select name="memberGrade">
+	        <!-- <option value="">회원등급</option>  -->
 	        <option value="일반회원">일반회원</option>
-	        <option value="신고된회원" >신고된회원</option>
-	        <option value="휴면회원" >휴면회원</option>
-	        <option value="관리자" >관리자</option>
+	        <option value="신고된회원">신고된회원</option>
+	        <option value="휴면회원">휴면회원</option>
+	        <option value="관리자">관리자</option>
 	    </select><br><br>
 	    <button class="btn positive right">변경하기</button>
 	</form>

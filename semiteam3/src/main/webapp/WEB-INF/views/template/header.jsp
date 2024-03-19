@@ -77,7 +77,14 @@ body {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
 }
-</style>
+
+  .Logo {        height: 220px;
+      }
+   .nosilLogo:hover {
+   	transform: scale(1.25, 1.25);
+	transition: 0.2s ease-out;
+      }
+     </style>
 
 <script>
 	$(function() {
@@ -91,8 +98,7 @@ body {
 					[ 'para', [ 'style', 'ul', 'ol', 'paragraph' ] ],
 					// ['height', ['height']]
 					[ 'insert', [ 'picture', 'link', 'hr' ] ], ],
-
-			//기본높이 설정(단위 : px)
+//기본높이 설정(단위 : px)
 			/* height : 200,
 			minHeight : 200,
 			maxHeight : 300, */
@@ -138,6 +144,22 @@ body {
 
 		$("[name='boardContent'], [name='inquiryContent']").summernote(options);
 	});
+	
+	/* 로고 호버 코드	*/
+document.addEventListener('DOMContentLoaded', function() {
+    const imageToChange = document.getElementById('changeName');
+    imageToChange.addEventListener('mouseover', function() {
+        // 이미지 파일의 이름을 변경합니다.
+        imageToChange.src = "/image/home/nosilLogoHover.png";
+    });
+
+    imageToChange.addEventListener('mouseout', function() {
+        // 마우스가 벗어나면 다시 원래의 이미지 파일로 변경합니다.
+        imageToChange.src = "/image/home/nosilLogo.png";
+    });
+});
+
+
 </script>
 
 <!--ChartJD CDN-->
@@ -153,68 +175,74 @@ body {
 		- 로고, 검색창, 삿종 메뉴들을 배치
 		- div는 투명한 영역
 	 --%>
-	<div class="container w-1800">
+<div class="container w-1800 center"> 
+	<div class="cell center Logo ">
+		<a href="/" class="link "> 
+       		<img src="/image/home/nosilLogo.png" alt="nosilLogo" 
+       			class="nosilLogo w-50 m-10" id="changeName">
+		</a>
+    </div>
 
-		<div class="cell center">
-			<a href="/" class="link"> <img src="/image/home/NosilLogo.png"
-				class="w-50">
-			</a>
-		</div>
 
-		<div class="cell w-100">
-			<ul class="menu" width="400px">
+	<div class="cell w-100">
+		<ul class="menu" width="400px">
 
-				<li><a href="/board/list?category=축구"> <i
-						class="fa-solid fa-soccer-ball"></i>&nbsp축구게시판
-				</a></li>
-				<li><a href="/board/list?category=야구"> <i
-						class="fa-solid fa-baseball"></i>&nbsp야구게시판
-				</a></li>
-				<li><a href="/board/list?category=농구"> <i
-						class="fa-solid fa-basketball"></i>&nbsp농구게시판
-				</a></li>
-				<li><a href="/board/list?category=E-스포츠"> <i
-						class="fa-solid fa-gamepad"></i>&nbsp게임게시판
-				</a></li>
+			<li><a href="/board/list?category=축구"> <i
+					class="fa-solid fa-soccer-ball"></i>&nbsp축구게시판
+			</a></li>
+			<li><a href="/board/list?category=야구"> <i
+					class="fa-solid fa-baseball"></i>&nbsp야구게시판
+			</a></li>
+			<li><a href="/board/list?category=농구"> <i
+					class="fa-solid fa-basketball"></i>&nbsp농구게시판
+			</a></li>
+			<li><a href="/board/list?category=E-스포츠"> <i
+					class="fa-solid fa-gamepad"></i>&nbsp게임게시판
+			</a></li>
 
-				<!-- 			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
+			<!-- 			<li><a href="/inquiry/list"><i class="fa-solid fa-question"></i>
 					<i class="fa-solid fa-list"></i></a></li> -->
-				<!-- <li><a href="/"><i class="fa-solid fa-home"></i> <i
+			<!-- <li><a href="/"><i class="fa-solid fa-home"></i> <i
 					class="fa-solid fa-arrow-right-to-bracket"></i></a></li> -->
-				<li class="menu-end"><c:choose>
-						<c:when test="${sessionScope.loginId !=null}">
-							<a href="/member/mypage"> <i class="fa-solid fa-user"></i>${sessionScope.loginNick}
-							</a>
-							<ul>
-								<li><a href="/member/logout"><i
-										class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃 </a></li>
-							</ul>
-						</c:when>
-						<c:otherwise>
-							<a href="/member/login"> <i class="fa-regular fa-user"></i>
-								로그인
-							</a>
-							<ul>
-								<li><a href="/member/join"> <i
-										class="fa-solid fa-user-plus"></i> 회원가입
-								</a></li>
-							</ul>
-						</c:otherwise>
-					</c:choose></li>
-					<c:if test="${sessionScope.loginGrade == '관리자'}">
-					<li classs="menu-end"><a href="#">관리자메뉴</a>
+			<li class="menu-end"><c:choose>
+					<c:when test="${sessionScope.loginId !=null}">
+						<a href="/member/mypage"> <i class="fa-solid fa-user"></i>${sessionScope.loginNick}
+						</a>
 						<ul>
-							<li><a href="/admin/member/search">회원관리</a></li>
-							<li><a href="/reportBoard/list">게시글 신고 목록</a></li>
-							<li><a href="/reportReply/list">댓글 신고 목록</a></li>
-							<li><a href="/board/list?category=관리자"> <i
-									class="fa-solid fa-gear"></i> 관리자게시판
+							<li><a href="/member/logout"><i
+									class="fa-solid fa-arrow-right-from-bracket"></i> 로그아웃 </a></li>
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<a href="/member/login"> <i class="fa-regular fa-user"></i>
+							로그인
+						</a>
+						<ul>
+							<li><a href="/member/join"> <i
+									class="fa-solid fa-user-plus"></i> 회원가입
 							</a></li>
-						</ul></li>
-				</c:if>
-			</ul>
-		</div>
-		<div></div>
+						</ul>
+					</c:otherwise>
+				</c:choose></li>
+			<c:if test="${sessionScope.loginGrade == '관리자'}">
+				<li classs="menu-end"><a href="#">관리자메뉴</a>
+					<ul>
+						<li><a href="/admin/member/search">회원관리</a></li>
+						<li><a href="/reportBoard/list">게시글 신고 목록</a></li>
+						<li><a href="/reportReply/list">게시글 신고 목록</a></li>
+						<li><a href="/board/list?category=관리자"> <i
+								class="fa-solid fa-gear"></i> 관리자게시판
+						</a></li>
+					</ul></li>
+			</c:if>
+		</ul>
+	</div>
+	</div>
 </body>
 </html>
-				
+
+
+
+
+
+

@@ -68,30 +68,84 @@ a:hover {
 }
 </style>
 
-<div class="form-container box">
-    <h1><i class="fa-regular fa-user"></i> 로그인</h1>
-    <form action="login" method="post" autocomplete="off" class="check-form">
-        <div class="form-group">
-            <label for="memberId">아이디<b style="color: red">*</b></label>
-            <input type="text" id="memberId" name="memberId" placeholder="소문자 시작, 숫자 포함 8~20자" required class="input">
-            <div class="form-feedback"></div>
-        </div>
-        <div class="form-group">
-            <label for="memberPw">비밀번호<b style="color: red">*</b></label>
-            <input type="password" id="memberPw" name="memberPw" placeholder="대소문자, 숫자, 특수문자 포함 6~15자" required class="input">
-            <div class="form-feedback"></div>
-        </div>
-		<div class="form-group center">
-			<a href="findId">아이디 찾기</a><span style="color:#e3c7a6">  |</span>
-			<a href="findPw"> 비밀번호 찾기</a><span style="color:#e3c7a6">  |</span>
-			 <a href="join">  회원가입</a>
-		</div>
+<script>
 
-		<div class="form-actions">
-            <button type="submit" class="btn"><i class="fa-solid fa-arrow-right-to-bracket"></i> 로그인</button>
-        </div>
-    </form>
-   
-</div>
+$(function() {
+	//해야할 일
+	//1. 아이디 입력창에서 입력이 완료될 경우 형식 검사하여 결과 기록
+	//2. form의 전송이 이루어질 때 모든 검사결과가 유효한지 판단하여 전송
+
+	//상태객체(React의 state로 개념이 이어짐)
+	var state = {
+		//key : value
+		memberIdValid : false,
+		memberPwValid : false,
+		//객체에 함수를 변수처럼 생성할 수 있다
+		//- this는 객체 자신(자바와 동일하지만 생략이 불가능)
+		ok : function() {
+			return this.memberIdValid && memberPwValid;
+		},
+	};
+
+	$("[name=memberId]").on(
+			"blur",
+			function() {
+				var regex = /^[a-z][a-z0-9]{7,19}$/;
+				state.memberIdValid = regex.test($(this).val());
+				$(this).removeClass("success fail").addClass(
+						state.memberIdValid ? "success" : "fail");
+	});
+	$("[name=memberPw]").on(
+					"blur",
+					function() {
+						var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$])[a-zA-Z\d!@#$]{6,15}$/;
+						state.memberPwValid = regex.test($(this).val());
+						$(this).removeClass("success fail").addClass(
+								state.memberPwValid ? "success" : "fail");
+	});
+	$(".check-form").submit(function() {
+		$("[name=memberId]").blur();
+		$("[name=memberPw]").blur();
+		
+		return state.ok();
+	});
+});
+</script>
+</head>
+<body>
+
+	<div class="form-container box" style="margin-top:40px">
+		<h1>
+			<i class="fa-regular fa-user"></i> 로그인
+		</h1>
+		<form action="login" method="post" autocomplete="off" class="check-form">
+			<div class="form-group">
+				<label for="memberId">아이디<b style="color: red">*</b></label>
+					 <input type="text" name="memberId" class="tool w-100" 
+							placeholder="소문자 시작, 숫자포함 8~20자">
+				<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
+			</div>
+			<div class="form-group">
+				<label for="memberPw">비밀번호<b style="color: red">*</b></label> 
+				<input type="password" name="memberPw" class="tool w-100" 
+						placeholder="대소문자, 숫자, 특수문자(!@#$) 포함 6~15자">
+				<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
+				</div>
+			<div class="form-group center">
+				<a href="findId">아이디 찾기</a><span style="color: #e3c7a6"> |</span> <a
+					href="findPw"> 비밀번호 찾기</a><span style="color: #e3c7a6"> |</span> <a
+					href="join"> 회원가입</a>
+			</div>
+
+			<div class="form-actions">
+				<button type="submit" class="btn">
+					<i class="fa-solid fa-arrow-right-to-bracket"></i> 로그인
+				</button>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

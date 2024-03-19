@@ -149,7 +149,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> 
 <div class="cell flex-cell center mt-50 ">
 	<div class="cell w-100 auto-width mx-20 ing">
 		<table class="table">

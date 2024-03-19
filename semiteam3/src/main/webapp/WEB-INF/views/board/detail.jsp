@@ -12,6 +12,21 @@
 	margin-bottom: 10px;
 	border-bottom: 1px solid #b2bec3;
 }
+
+.title {
+	font-size: 30px;
+}
+
+.info {
+	color: #8395a7;
+}
+
+.detail {
+    border: none; /* 기본 테두리를 제거합니다. */
+    height: 1px; /* 선의 높이를 설정합니다. */
+    background-color: #e3c7a6; /* 선의 색상을 지정합니다. */
+}
+
 </style>
 <script type="text/template" id="reply-item-wrapper">
 <div class="cell">
@@ -46,7 +61,7 @@
 <!-- 댓글 신고 관련 -->
 <script type="text/template" id="reply-item-report-wrapper">
     <div class="reply-item-report">
-        <hr>
+        <hr class="detail">
 		<h4>댓글 신고</h4> 
         <select name="reportReplyReason" required class="tool w-100 reply-report-reason">
             <option value="">신고사유</option>
@@ -65,7 +80,7 @@
                 취소
             </button>
         </div>
-		<hr>
+		<hr class="detail">
     </div>
 </script>
 
@@ -381,35 +396,45 @@
 
 
 
-<div class="container w-800">
-	<div class="cell center">
-		<h1>${boardDto.boardNo}번글보기</h1>
-	</div>
-	<div class="cell">
-		<h2>
-			제목: ${boardDto.boardTitle}
-
-			<%--(추가) 수정시각 유무에 따라 수정됨 표시 --%>
-			<c:if test="${boardDto.boardEditTime != null}">
-				(수정됨)
-			</c:if>
-		</h2>
-	</div>
-
-	<div class="cell">
-		<h4>
-			<%-- 탈퇴한 사용자일 때와 아닐때 나오는 정보가 다르게 구현 --%>
-			<c:choose>
-				<c:when test="${boardDto.boardWriter == null}">
+<div class="container w-800 set-color">
+	<div class="cell title left">${boardDto.boardTitle}</div>
+	<div class="cell info">
+		<c:if test="${boardDto.boardCategory == '축구'}">
+			축구
+		</c:if>
+		<c:if test="${boardDto.boardCategory == '야구'}">
+			<i class="fa-solid fa-baseball"></i> 야구 
+		</c:if>
+		<c:if test="${boardDto.boardCategory == '농구'}">
+			<i class="fa-solid fa-basketball"></i>농구
+		</c:if>
+		<c:if test="${boardDto.boardCategory == 'E-스포츠'}">
+			<i class="fa-solid fa-gamepad"></i> 게임
+		</c:if>
+		<c:if test="${boardDto.boardCategory == '관리자'}">
+			<i class="fa-solid fa-gear"></i> 공지
+		</c:if>
+		| 
+		${boardDto.boardWriteTimeDiff}
+		| 
+		<%-- 탈퇴한 사용자일 때와 아닐때 나오는 정보가 다르게 구현 --%>
+		<c:choose>
+			<c:when test="${boardDto.boardWriter == null}">
 					${boardDto.boardWriterStr}
 				</c:when>
-				<c:otherwise>
-					작성자: ${memberDto.memberNick}
-					(${memberDto.memberGrade})
+			<c:otherwise>
+					${memberDto.memberNick}
 				</c:otherwise>
-			</c:choose>
-		</h4>
+		</c:choose>
+
+		<%--(추가) 수정시각 유무에 따라 수정됨 표시 --%>
+		<c:if test="${boardDto.boardEditTime != null}">
+				(수정됨)
+		</c:if>
+
 	</div>
+
+	<div class="cell"></div>
 
 	<div class="cell">
 		마감시간
@@ -429,9 +454,9 @@
 	</c:if>
 	<c:if test="${sessionScope.loginGrade == '관리자'}">
 		신고 횟수 : ${reportCountByReportBoardOrigin}
-	</c:if> 
-	
-	<hr>
+	</c:if>
+
+	<hr class="detail">
 	<div class="cell" style="min-height: 250px">
 		<%--
 				HTML은 엔터와 스페이스 등을 무시하기 때문에 textarea와 모양이 달라진다
@@ -442,7 +467,7 @@
 			 --%>
 		${boardDto.boardContent}
 	</div>
-	<hr>
+	<hr class="detail">
 	<div class="cell">
 		조회수 ${boardDto.boardView} <span class="board-like red"> <i
 			class="fa-regular fa-heart"></i> <span class="count">?</span>
@@ -474,7 +499,7 @@
 	<!-- 댓글 작성창 + 댓글 목록 -->
 	<div class="cell">
 		<span class="reply-count">0</span>개의 댓글이 있습니다
-		<hr>
+		<hr class="detail">
 	</div>
 	<div class="cell reply-list-wrapper">
 		<div class="reply-item">
@@ -567,5 +592,5 @@
     // 페이지 로드 시 초기화
     updateCountdown();
     </script>
-    
-    <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

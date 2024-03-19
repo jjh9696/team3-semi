@@ -110,7 +110,7 @@
 				<div class="swiper-wrapper">
 					<!-- Slides -->
 					<div class="swiper-slide">
-						<a href="/"><img src="/image/home/main2.png"></a>
+						<a href="/"><img src="/image/home/main4.png"></a>
 					</div>
 					<div class="swiper-slide">
 						<a href="http://localhost:8080/board/detail?boardNo=227"> <img
@@ -120,17 +120,17 @@
 					<div class="swiper-slide">
 						<a
 							href="http://localhost:8080/board/list?category=%EC%B6%95%EA%B5%AC"><img
-							src="https://picsum.photos/id/27/1920/400"></a>
+							src="/image/home/football.png"></a>
 					</div>
 					<div class="swiper-slide">
 						<a
 							href="http://localhost:8080/board/list?category=%EC%95%BC%EA%B5%AC"><img
-							src="https://picsum.photos/id/29/1920/400"></a>
+							src="/image/home/baseball.png"></a>
 					</div>
 					<div class="swiper-slide">
 						<a
 							href="http://localhost:8080/board/list?category=%EB%86%8D%EA%B5%AC"><img
-							src="https://picsum.photos/id/33/1920/400"></a>
+							src="/image/home/basketball.png"></a>
 					</div>
 				</div>
 				<!-- If we need pagination -->

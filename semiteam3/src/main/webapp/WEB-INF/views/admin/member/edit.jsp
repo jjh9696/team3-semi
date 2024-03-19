@@ -132,10 +132,10 @@
 	    <select name="memberGrade">
 	        <option value="일반회원">일반회원</option>
 	        <option value="신고된회원" >신고된회원</option>
-	        <option value="휴먼회원" >휴먼회원</option>
+	        <option value="휴면회원" >휴면회원</option>
 	        <option value="관리자" >관리자</option>
 	    </select><br><br>
-	    <button>변경하기</button>
+	    <button class="btn positive right">변경하기</button>
 	</form>
 </div>
 </div>

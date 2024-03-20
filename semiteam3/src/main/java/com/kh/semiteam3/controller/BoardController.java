@@ -59,6 +59,8 @@ public class BoardController {
 		@Autowired
 		private ReportBoardDao reportBoardDao;
 		
+		
+		
 		//게시글작성
 		@GetMapping("/write")
 		public String write(@RequestParam String category) {//회원 아니면 못들어가게 막아야함//화면으로 넘기는 거니깐 뭐 받을게 없지 않나?
@@ -87,6 +89,10 @@ public class BoardController {
 		
 		@Autowired
 		private AttachDao attachDao;
+		
+		int currentPage;
+		
+		
 		@RequestMapping("/list") //게시글 작성자 아이디에서 닉네임 보이게 수정
 		public String list(@RequestParam String category,
                @ModelAttribute PageVO pageVO,
@@ -100,6 +106,8 @@ public class BoardController {
 		        count = boardDao.count(pageVO);
 		    }
 		    pageVO.setCount(count);
+		    
+		    currentPage = pageVO.getPage();
 
 		    model.addAttribute("pageVO", pageVO);
 
@@ -175,8 +183,17 @@ public class BoardController {
 			pageVO.setCategory(boardDto.getBoardCategory());
 		    int count = boardDao.countForDetail(pageVO);
 		    pageVO.setCount(count);
+		    
+			//해당 게시글 현재페이지수 디테일에서도 동일하게 찍어내고 싶어요...
+		    pageVO.setPage(currentPage);
+		    
 		    model.addAttribute("pageVO", pageVO);
 			List<BoardDto> list = boardDao.selectByCategoryForDetail(pageVO, boardDto.getBoardCategory());
+			
+
+			
+			
+			
 			
 			//이건 닉네임 찍어내려고
 		    for (BoardDto boardDto1 : list) {
@@ -192,6 +209,7 @@ public class BoardController {
 		    
 			return "/WEB-INF/views/board/detail.jsp";
 		}
+		
 		//게시글수정
 		@GetMapping("/edit")
 		public String edit(@RequestParam int boardNo, Model model) {//글번호가 있어야 화면 띄울수 있다/ 모델로 정보들 보여주겟다

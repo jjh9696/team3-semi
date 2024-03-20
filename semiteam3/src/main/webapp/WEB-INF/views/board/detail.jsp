@@ -626,71 +626,74 @@
 	</c:choose>
 </div>
 
-<div class="cell m-30"></div>
+<c:if test="${memberDto.memberGrade != '관리자'}">
+	<div class="cell m-30"></div>
 
-<div class="container w-1000 set-color">
-	<div class="cell">
-		<table class="table">
-			<c:forEach var="boardDto" items="${list}">
-				<tr>
-					<td class="left" width="80%">
-						<div class="my-10">
-							<a class="link" href="detail?boardNo=${boardDto.boardNo}">
-								${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
-							</a>
-						</div>
-						<div class="info my-10">
-							모집기간
-							<fmt:formatDate value="${boardDto.boardWriteTime}"
-								pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
-							~
-							<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
-								pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
-							| ${boardDto.boardWriterStr}
-						</div>
-					</td>
-					<td class="info">${boardDto.boardWriteTimeStr}
-						<p>
-							조회수
-							<fmt:formatNumber value="${boardDto.boardView}" pattern="###,###"></fmt:formatNumber>
-						</p>
-					</td>
-					<td>
-						<div class="status">${boardDto.boardStatus}</div>
-					</td>
-				</tr>
-			</c:forEach>
-		</table>
+	<div class="container w-1000 set-color">
+		<div class="cell">
+			<table class="table">
+				<c:forEach var="boardDto" items="${list}">
+					<tr>
+						<td class="left" width="80%">
+							<div class="my-10">
+								<a class="link" href="detail?boardNo=${boardDto.boardNo}">
+									${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
+								</a>
+							</div>
+							<div class="info my-10">
+								모집기간
+								<fmt:formatDate value="${boardDto.boardWriteTime}"
+									pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+								~
+								<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
+									pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+								| ${boardDto.boardWriterStr}
+							</div>
+						</td>
+						<td class="info">${boardDto.boardWriteTimeStr}
+							<p>
+								조회수
+								<fmt:formatNumber value="${boardDto.boardView}"
+									pattern="###,###"></fmt:formatNumber>
+							</p>
+						</td>
+						<td>
+							<div class="status">${boardDto.boardStatus}</div>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+
+
+		<div class="cell center">
+			<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
+		</div>
+
+		<div class="cell center">
+			<%-- 검색창 --%>
+			<form action="list" method="get">
+				<!-- 카테고리를 넘겨줘야함 -->
+				<input type="hidden" name="category"
+					value="${boardDto.boardCategory}"> <select name="column"
+					class="tool">
+					<option value="board_title"
+						${param.column == 'board_title' ? 'selected' : ''}>제목</option>
+					<option value="board_content"
+						${param.column == 'board_content' ? 'selected' : ''}>내용</option>
+					<option value="member_nick"
+						${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
+				</select> <input class="tool" type="search" name="keyword"
+					placeholder="검색어 입력" value="${param.keyword}">
+				<button class="btn positive empty-check">검색</button>
+			</form>
+		</div>
+
+
+
 	</div>
 
-	<div class="cell center">
-		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
-	</div>
-
-	<div class="cell center">
-		<%-- 검색창 --%>
-		<form action="list" method="get">
-			<!-- 카테고리를 넘겨줘야함 -->
-			<input type="hidden" name="category" value="${boardDto.boardCategory}"> 
-			<select 	name="column" class="tool">
-				<option value="board_title"
-					${param.column == 'board_title' ? 'selected' : ''}>제목</option>
-				<option value="board_content"
-					${param.column == 'board_content' ? 'selected' : ''}>내용</option>
-				<option value="member_nick"
-					${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
-			</select> 
-			<input class="tool" type="search" name="keyword"
-				placeholder="검색어 입력" value="${param.keyword}">
-			<button class="btn positive empty-check">검색</button>
-		</form>
-	</div>
-
-
-
-</div>
-
-
+</c:if>
 
 <%--이유는 모르겠지만 이걸 밑에 넣어야 로드가 빨리됨 --%>
 <script type="text/javascript">

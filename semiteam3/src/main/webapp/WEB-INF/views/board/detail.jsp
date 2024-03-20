@@ -453,16 +453,6 @@
 		});
 	});
 </script>
-
-
-
-
-
-
-
-
-
-<div class="container w-1000 set-color">
 	<div class="cell title left">${boardDto.boardTitle}</div>
 	<div class="cell flex-cell info">
 		<div class="cell w-50 left">
@@ -624,6 +614,7 @@
 			</div>
 		</c:otherwise>
 	</c:choose>
+</div>
 </div>
 
 <c:if test="${memberDto.memberGrade != '관리자'}">

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.semiteam3.dao.AttachDao;
 import com.kh.semiteam3.dao.BoardDao;
 import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dao.ReplyDao;
@@ -70,6 +71,9 @@ public class BoardController {
 			//세션에서 로그인한 사용자의 ID를 추출
 			String loginId = (String) session.getAttribute("loginId");//아이디 꺼내와
 			
+			MemberDto memberDto = memberDao.selectOne(loginId);
+			
+			model.addAttribute("memberDto", memberDto);
 			
 			//아이디를 게시글 정보에 포함시킨다
 			boardDto.setBoardWriter(loginId);
@@ -81,89 +85,14 @@ public class BoardController {
 			return "redirect:detail?boardNo=" + sequence;
 		}
 		
-        //게시글 목록
-		/*
-		 * @RequestMapping("/list") public String list(@RequestParam String category,
-		 * 
-		 * @ModelAttribute PageVO pageVO, Model model) { int count =
-		 * boardDao.count(pageVO); pageVO.setCount(count);
-		 * model.addAttribute("pageVO",pageVO);
-		 * 
-		 * List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
-		 * List<BoardDto> adminListAll = boardDao.listByAdmin(); List<BoardDto>
-		 * adminListCategory = boardDao.listByAdminAndCategory(category);
-		 * 
-		 * model.addAttribute("list", list); model.addAttribute("adminListAll",
-		 * adminListAll); model.addAttribute("adminListCategory", adminListCategory);
-		 * 
-		 * return "/WEB-INF/views/board/list.jsp"; }
-		 */
-//		@RequestMapping("/list") //게시글 작성자 아이디에서 닉네임 보이게 수정
-//		public String list(@RequestParam String category,
-//		        @ModelAttribute PageVO pageVO,
-//		        Model model) {
-//		    int count = boardDao.count(pageVO);
-//		    pageVO.setCount(count);
-//		    model.addAttribute("pageVO",pageVO);
-//		    
-//		    MemberDto memberDto = new MemberDto();
-//		    
-//		    List<BoardDto> list;
-//		    if (memberDto.getMemberNick().equals(pageVO.getColumn())) {
-//		        list = boardDao.selectByNick(pageVO, category);
-//		    } else {
-//		        list = boardDao.selectByCategoryAndPaging(pageVO, category);
-//		    }
-//		    
-////		    List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, category);
-//		    List<BoardDto> adminListAll = boardDao.listByAdmin();
-//		    List<BoardDto> adminListCategory = boardDao.listByAdminAndCategory(category);
-//		    
-//		    // 각 게시글의 작성자 정보 설정
-//		    for (BoardDto boardDto : list) {
-//		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
-//		        if (memberDto != null) {
-//		            boardDto.setBoardWriter(memberDto.getMemberNick());
-//		        } else {
-//		            boardDto.setBoardWriter("탈퇴한사용자");
-//		        }
-//		    }
-//		    for (BoardDto boardDto : adminListAll) {
-//		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
-//		    	if (memberDto != null) {
-//		    		boardDto.setBoardWriter(memberDto.getMemberNick());
-//		    	} else {
-//		    		boardDto.setBoardWriter("탈퇴한사용자");
-//		    	}
-//		    }
-//		    for (BoardDto boardDto : adminListCategory) {
-//		    	MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
-//		    	if (memberDto != null) {
-//		    		boardDto.setBoardWriter(memberDto.getMemberNick());
-//		    	} else {
-//		    		boardDto.setBoardWriter("탈퇴한사용자");
-//		    	}
-//		    }
-//		    
-//		    model.addAttribute("list", list);
-//		    model.addAttribute("adminListAll", adminListAll);
-//		    model.addAttribute("adminListCategory", adminListCategory);
-//		    
-//		    return "/WEB-INF/views/board/list.jsp";
-//		}
-		
+		@Autowired
+		private AttachDao attachDao;
 		@RequestMapping("/list") //게시글 작성자 아이디에서 닉네임 보이게 수정
 		public String list(@RequestParam String category,
                @ModelAttribute PageVO pageVO,
-               @RequestParam(required = false) String status, HttpSession session,
+               @RequestParam(required = false) String status,
                Model model) {
-			
-			String loginId = (String)session.getAttribute("loginId");
-			
-			MemberDto memberDto2 = memberDao.selectOne(loginId);
-			
-			model.addAttribute("memberDto", memberDto2);
-			
+		
 		    int count;
 		    if (pageVO.getColumn().equals("member_nick")) {
 		        count = boardDao.countForNick(pageVO);
@@ -196,14 +125,7 @@ public class BoardController {
 		            boardDto.setBoardWriter("탈퇴한사용자");
 		        }
 		    }
-//		    for (BoardDto boardDto : recruitingList) {
-//		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
-//		        if (memberDto != null) {
-//		            boardDto.setBoardWriter(memberDto.getMemberNick());
-//		        } else {
-//		            boardDto.setBoardWriter("탈퇴한사용자");
-//		        }
-//		    }
+		    
 		    for (BoardDto boardDto : adminListAll) {
 		        MemberDto memberDto = memberDao.selectOne(boardDto.getBoardWriter());
 		        if (memberDto != null) {
@@ -222,13 +144,11 @@ public class BoardController {
 		    }
 
 		    model.addAttribute("list", list);
-//		    model.addAttribute("recruitingList", recruitingList);
 		    model.addAttribute("adminListAll", adminListAll);
 		    model.addAttribute("adminListCategory", adminListCategory);
 
 		    return "/WEB-INF/views/board/list.jsp";
 		}
-
 
         
 		//게시글상세
@@ -236,6 +156,7 @@ public class BoardController {
 		public String detail(@RequestParam int boardNo, @ModelAttribute PageVO pageVO,
 							Model model) {
 			//boardDao.updateBoardReadcount(boardNo);//조회수 중복방지 이거를 인터셉터에 만들어놨잖아 여기서 또 쓰면 막 늘어나는거지....안막히고
+			
 			
 			BoardDto boardDto = boardDao.selectOne(boardNo);
 			model.addAttribute("boardDto", boardDto);
@@ -351,6 +272,10 @@ public class BoardController {
 			// 현재 로그인된 사용자의 아이디 가져오기
 			String loginId = (String) session.getAttribute("loginId");
 			
+			MemberDto memberDto = memberDao.selectOne(loginId);
+			
+			model.addAttribute("memberDto", memberDto);
+			
 			// 해당 사용자가 작성한 게시글 가져오기
 			List<BoardDto> boardList = boardDao.findBylist(loginId);	
 			
@@ -366,12 +291,16 @@ public class BoardController {
 		private ReplyDao replyDao;
 		//내가쓴 댓글
 		@GetMapping("/mycomment")
-		public String mycomment(HttpSession session, Model model, PageVO pageVO) {
+		public String mycomment(HttpSession session, Model model, PageVO pageVO) {	
 			int count = boardDao.count(pageVO);
 		    pageVO.setCount(count);
 		    model.addAttribute("pageVO",pageVO);
 			// 현재 로그인된 사용자의 아이디 가져오기
 			String loginId = (String) session.getAttribute("loginId");
+			
+			MemberDto memberDto = memberDao.selectOne(loginId);
+			
+			model.addAttribute("memberDto", memberDto);
 
 			// 해당 사용자가 작성한 댓글 가져오기
 			List<ReplyDto> replyList = replyDao.findBylist(loginId);
@@ -392,6 +321,10 @@ public class BoardController {
 		    
 		    //아이디 가져오기
 		    String loginId = (String) session.getAttribute("loginId");
+			
+			MemberDto memberDto = memberDao.selectOne(loginId);
+			
+			model.addAttribute("memberDto", memberDto);
 		    //좋아요 목록 가져오기
 		    List<BoardDto> likeList = boardDao.likeList(loginId);
 		    
@@ -401,7 +334,19 @@ public class BoardController {
 		}
 		
 		
-		
+		//프로필 다운로드 페이지
+		@RequestMapping("/image")
+		public String image(HttpSession session) {
+			try {
+				String loginId = (String)session.getAttribute("loginId");
+			int attachNo = memberDao.findAttachNo(loginId);
+			return "redirect:/download?attachNo=" + attachNo;
+		}
+		catch(Exception e) {
+			return "redirect:/image/user.svg";
+			}
+		}
+
 		
 		
 		

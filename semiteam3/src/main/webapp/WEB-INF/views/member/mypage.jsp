@@ -118,7 +118,7 @@
 </script>
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="box cell container">
+<div class="box cell container w-1000">
 <div class="flex-cell">
     <form action="mypage" method="post" autocomplete="off" enctype="multipart/form-data">
         <c:choose>

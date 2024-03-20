@@ -122,7 +122,7 @@
 
 
 
-<div class="container w-800">
+<div class="container w-1000">
 	<div class="set-color">
 		<%-- 제목칸 --%>
 		<div class="cell center title">

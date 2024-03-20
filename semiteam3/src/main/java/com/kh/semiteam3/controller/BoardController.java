@@ -453,7 +453,10 @@ public class BoardController {
 		    return "/WEB-INF/views/board/mylike.jsp";
 		}
 		
-		
+	    @GetMapping("/eventpage")
+	    public String eventpage() {
+	        return "/WEB-INF/views/board/eventpage.jsp";
+	    }
 		
 		
 		

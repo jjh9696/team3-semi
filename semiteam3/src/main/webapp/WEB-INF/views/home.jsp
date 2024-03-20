@@ -4,10 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
 
-
-<html lang="ko">
 
 <head>
 
@@ -112,7 +109,7 @@
 </head>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<hr class="mb-30">
+
 <div id="maincontainer w-100" class="cell">
 	<div class="container w-1100">
 		<div class="cell center">
@@ -125,7 +122,7 @@
 						<a href="/"><img src="/image/home/main4.png"></a>
 					</div>
 					<div class="swiper-slide">
-						<a href="http://localhost:8080/board/detail?boardNo=227"> <img
+						<a href="http://localhost:8080/board/eventpage"> <img
 							src="/image/home/event.png">
 						</a>
 					</div>

@@ -38,7 +38,7 @@
     
     /* 사이드바 스타일 */
     .sidebar {
-        position: static;
+        position: sticky;
         width: 200px;
         background-color: #f8f9fa;
         color: #333;
@@ -48,6 +48,8 @@
         max-height: calc(100vh - 100px);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
+        top: 0px;
+        overflow-y: auto;
     }
     
     .name {
@@ -120,7 +122,7 @@
                     <div class="cell">
                         <a href="/member/mypage" class="name">${sessionScope.loginNick}</a>                      
                     </div>
-                    <span class="grade">${memberDto.memberGrade}</span>
+                    <span class="grade">${sessionScope.loginGrade}</span>
 
                     <hr>
                     <a href="/board/mywriting" class="my">내가쓴 글</a>

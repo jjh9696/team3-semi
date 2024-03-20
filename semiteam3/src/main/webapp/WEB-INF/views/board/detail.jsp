@@ -395,169 +395,180 @@
 
 
 
-
-<div class="container w-800 set-color">
-	<div class="cell title left">${boardDto.boardTitle}</div>
-	<div class="cell info">
-		<c:if test="${boardDto.boardCategory == '축구'}">
-			축구
-		</c:if>
-		<c:if test="${boardDto.boardCategory == '야구'}">
-			<i class="fa-solid fa-baseball"></i> 야구 
-		</c:if>
-		<c:if test="${boardDto.boardCategory == '농구'}">
-			<i class="fa-solid fa-basketball"></i>농구
-		</c:if>
-		<c:if test="${boardDto.boardCategory == 'E-스포츠'}">
-			<i class="fa-solid fa-gamepad"></i> 게임
-		</c:if>
-		<c:if test="${boardDto.boardCategory == '관리자'}">
-			<i class="fa-solid fa-gear"></i> 공지
-		</c:if>
-		| 
-		${boardDto.boardWriteTimeDiff}
-		| 
-		<%-- 탈퇴한 사용자일 때와 아닐때 나오는 정보가 다르게 구현 --%>
-		<c:choose>
-			<c:when test="${boardDto.boardWriter == null}">
-					${boardDto.boardWriterStr}
-				</c:when>
-			<c:otherwise>
-					${memberDto.memberNick}
-				</c:otherwise>
-		</c:choose>
-
-		<%--(추가) 수정시각 유무에 따라 수정됨 표시 --%>
-		<c:if test="${boardDto.boardEditTime != null}">
-				(수정됨)
-		</c:if>
-
-	</div>
-
-	<div class="cell"></div>
-
-	<div class="cell">
-		마감시간
-		<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
-			pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
-	</div>
-	<div class="cell">
-		<span id="countdown"></span>
-	</div>
-
-	<c:if test="${sessionScope.loginId != null}">
-		<div>
-			<a class="btn"
-				href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a>
+<div class="container" style="display: flex; width:1300px;">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+	<div class="container w-1000 set-color">
+		<div class="cell title left">${boardDto.boardTitle}</div>
+		<div class="cell info">
+			<c:if test="${boardDto.boardCategory == '축구'}">
+				축구
+			</c:if>
+			<c:if test="${boardDto.boardCategory == '야구'}">
+				<i class="fa-solid fa-baseball"></i> 야구 
+			</c:if>
+			<c:if test="${boardDto.boardCategory == '농구'}">
+				<i class="fa-solid fa-basketball"></i>농구
+			</c:if>
+			<c:if test="${boardDto.boardCategory == 'E-스포츠'}">
+				<i class="fa-solid fa-gamepad"></i> 게임
+			</c:if>
+			<c:if test="${boardDto.boardCategory == '관리자'}">
+				<i class="fa-solid fa-gear"></i> 공지
+			</c:if>
+			| 
+			${boardDto.boardWriteTimeDiff}
+			| 
+			<%-- 탈퇴한 사용자일 때와 아닐때 나오는 정보가 다르게 구현 --%>
+			<c:choose>
+				<c:when test="${boardDto.boardWriter == null}">
+						${boardDto.boardWriterStr}
+					</c:when>
+				<c:otherwise>
+						${memberDto.memberNick}
+					</c:otherwise>
+			</c:choose>
+	
+			<%--(추가) 수정시각 유무에 따라 수정됨 표시 --%>
+			<c:if test="${boardDto.boardEditTime != null}">
+					(수정됨)
+			</c:if>
+	
 		</div>
-
-	</c:if>
-	<c:if test="${sessionScope.loginGrade == '관리자'}">
-		신고 횟수 : ${reportCountByReportBoardOrigin}
-	</c:if>
-
-	<hr class="detail">
-	<div class="cell" style="min-height: 250px">
-		<%--
-				HTML은 엔터와 스페이스 등을 무시하기 때문에 textarea와 모양이 달라진다
-				사용 에디터를 쓰면 알아서 글자를 보정해주기 때문에 문제가 없다
-				기본 textarea를 쓰면 문제가 발생한다
-				<pre>태그를 사용하면 글자를 있는 그대로 출력한다
-				-Rich Text Editor 를 사용하면 문제가 해결된다(ex: summernote)
-			 --%>
-		${boardDto.boardContent}
-	</div>
-	<hr class="detail">
-	<div class="cell">
-		조회수 ${boardDto.boardView} <span class="board-like red"> <i
-			class="fa-regular fa-heart"></i> <span class="count">?</span>
-		</span>
-
-	</div>
-	<div class="cell">
-		<fmt:formatDate value="${boardDto.boardWriteTime}"
-			pattern="yy-MM-dd HH:mm:ss" />
-	</div>
-	<div class="cell">${boardDto.boardWriteTimeDiff}</div>
-
-	<div class="cell right">
-		<a class="btn" href="write?category=${boardDto.boardCategory}">글쓰기</a>
-		<%-- 
-			수정과 삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 
-			- 본인글이란 로그인한 사용자 아이디와 게시글 작성자가 같은 경우
-			- 관리자란 로그인한 사용자 등급이 '관리자'인 경우
-		--%>
-		<c:if
-			test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
-			<a class="btn negative" href="edit?boardNo=${boardDto.boardNo}">글수정</a>
-			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
-				href="delete?boardNo=${boardDto.boardNo}">글삭제</a>
+	
+		<div class="cell"></div>
+	
+		<div class="cell">
+			마감시간
+			<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
+				pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+		</div>
+		<div class="cell">
+			<span id="countdown"></span>
+		</div>
+	
+		<c:if test="${sessionScope.loginId != null}">
+			<div>
+				<a class="btn"
+					href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a>
+			</div>
+	
 		</c:if>
-		<a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a>
-	</div>
-
-	<!-- 댓글 작성창 + 댓글 목록 -->
-	<div class="cell">
-		<span class="reply-count">0</span>개의 댓글이 있습니다
+		<c:if test="${sessionScope.loginGrade == '관리자'}">
+			신고 횟수 : ${reportCountByReportBoardOrigin}
+		</c:if>
+	
 		<hr class="detail">
-	</div>
-	<div class="cell reply-list-wrapper">
-		<div class="reply-item">
-			<h3>
-				<span class="reply-writer">작성자</span> <i
-					class="fa-solid fa-edit blue ms-20 btn-reply-edit"></i> <i
-					class="fa-solid fa-trash red btn-reply-delete"></i>
-			</h3>
-			<pre class="reply-content">댓글 내용</pre>
-			<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
-
+		<div class="cell" style="min-height: 250px">
+			<%--
+					HTML은 엔터와 스페이스 등을 무시하기 때문에 textarea와 모양이 달라진다
+					사용 에디터를 쓰면 알아서 글자를 보정해주기 때문에 문제가 없다
+					기본 textarea를 쓰면 문제가 발생한다
+					<pre>태그를 사용하면 글자를 있는 그대로 출력한다
+					-Rich Text Editor 를 사용하면 문제가 해결된다(ex: summernote)
+				 --%>
+			${boardDto.boardContent}
+		</div>
+		<hr class="detail">
+		<div class="cell">
+			조회수 ${boardDto.boardView} <span class="board-like red"> <i
+				class="fa-regular fa-heart"></i> <span class="count">?</span>
+			</span>
+	
+		</div>
+		<div class="cell">
+			<fmt:formatDate value="${boardDto.boardWriteTime}"
+				pattern="yy-MM-dd HH:mm:ss" />
+		</div>
+		<div class="cell">${boardDto.boardWriteTimeDiff}</div>
+	
+		<div class="cell right">
+			<a class="btn" href="write?category=${boardDto.boardCategory}">글쓰기</a>
+			<%-- 
+				수정과 삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 
+				- 본인글이란 로그인한 사용자 아이디와 게시글 작성자가 같은 경우
+				- 관리자란 로그인한 사용자 등급이 '관리자'인 경우
+			--%>
 			<c:if
 				test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
-				<div>
-					<a class="btn"
-						href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a>
-				</div>
+				<a class="btn negative" href="edit?boardNo=${boardDto.boardNo}">글수정</a>
+				<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
+					href="delete?boardNo=${boardDto.boardNo}">글삭제</a>
 			</c:if>
-
+			
+			<!--  <a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a> -->
+			<c:choose>
+				<c:when test="${boardDto.boardCategory == '관리자'}">
+						<a class="btn positive" onclick="history.back()">글목록</a>
+					</c:when>
+				<c:otherwise>
+						<a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
-		<div class="reply-item-edit">
-			<textarea class="tool w-100 reply-editor2" style="min-height: 150px"></textarea>
-			<div class="right">
-				<button class="btn positive btn-reply-save">
-					<i class="fa-solid fa-check"></i> 변경
-				</button>
-				<button class="btn negative btn-reply-cancel">
-					<i class="fa-solid fa-xmark"></i> 취소
-				</button>
+	
+		<!-- 댓글 작성창 + 댓글 목록 -->
+		<div class="cell">
+			<span class="reply-count">0</span>개의 댓글이 있습니다
+			<hr class="detail">
+		</div>
+		<div class="cell reply-list-wrapper">
+			<div class="reply-item">
+				<h3>
+					<span class="reply-writer">작성자</span> <i
+						class="fa-solid fa-edit blue ms-20 btn-reply-edit"></i> <i
+						class="fa-solid fa-trash red btn-reply-delete"></i>
+				</h3>
+				<pre class="reply-content">댓글 내용</pre>
+				<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
+	
+				<c:if
+					test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
+					<div>
+						<a class="btn"
+							href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}"><pre>신고</pre></a>
+					</div>
+				</c:if>
+	
+			</div>
+			<div class="reply-item-edit">
+				<textarea class="tool w-100 reply-editor2" style="min-height: 150px"></textarea>
+				<div class="right">
+					<button class="btn positive btn-reply-save">
+						<i class="fa-solid fa-check"></i> 변경
+					</button>
+					<button class="btn negative btn-reply-cancel">
+						<i class="fa-solid fa-xmark"></i> 취소
+					</button>
+				</div>
 			</div>
 		</div>
+	
+		<!-- 로그인이 딘 경우만 댓글 작성란이 활성화 되도록 구현 -->
+		<c:choose>
+			<c:when test="${sessionScope.loginId != null}">
+				<div class="cell">
+					<textarea class="tool w-100 reply-editor" style="min-height: 150px"
+						placeholder="댓글 내용을 입력하세요"></textarea>
+				</div>
+				<div class="cell">
+					<button class="btn positive w-100 btn-reply-insert">
+						<i class="fa-solid fa-pen"></i> 댓글 작성
+					</button>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="cell">
+					<textarea class="tool w-100 reply-editor" style="min-height: 150px"
+						placeholder="로그인 후 댓글 작성이 가능합니다" disabled></textarea>
+				</div>
+				<div class="cell">
+					<button class="btn positive w-100 btn-reply-insert" disabled>
+						<i class="fa-solid fa-ban"></i> 댓글 작성(로그인 후 이용 가능)
+					</button>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
-
-	<!-- 로그인이 딘 경우만 댓글 작성란이 활성화 되도록 구현 -->
-	<c:choose>
-		<c:when test="${sessionScope.loginId != null}">
-			<div class="cell">
-				<textarea class="tool w-100 reply-editor" style="min-height: 150px"
-					placeholder="댓글 내용을 입력하세요"></textarea>
-			</div>
-			<div class="cell">
-				<button class="btn positive w-100 btn-reply-insert">
-					<i class="fa-solid fa-pen"></i> 댓글 작성
-				</button>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<div class="cell">
-				<textarea class="tool w-100 reply-editor" style="min-height: 150px"
-					placeholder="로그인 후 댓글 작성이 가능합니다" disabled></textarea>
-			</div>
-			<div class="cell">
-				<button class="btn positive w-100 btn-reply-insert" disabled>
-					<i class="fa-solid fa-ban"></i> 댓글 작성(로그인 후 이용 가능)
-				</button>
-			</div>
-		</c:otherwise>
-	</c:choose>
 </div>
 
 

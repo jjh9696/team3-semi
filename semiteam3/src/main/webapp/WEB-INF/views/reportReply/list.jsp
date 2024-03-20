@@ -11,40 +11,6 @@
 <body>
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 	<style>
-	.preview {
-		border: 2px solid #ccc;
-		border-radius: 50%;
-		width: 200px;
-		height: 200px;
-		object-fit: cover;
-	}
-	
-	.flex-cell {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-		margin-bottom: 20px;
-	}
-	
-	.flex-cell img {
-		cursor: pointer;
-	}
-	
-	.flex-cell ul {
-		list-style-type: none;
-		padding: 0;
-		text-align: center;
-	}
-	
-	.flex-cell ul li {
-		margin-bottom: 10px;
-	}
-	
-	.cell {
-		text-align: center;
-		margin-bottom: 20px;
-	}
 	
 	.table {
 		width: 95%;
@@ -64,9 +30,6 @@
 		background-color: #f2f2f2;
 	}
 	
-	.left {
-		text-align: left;
-	}
 	
 	.gray-text {
 		color: gray;
@@ -88,7 +51,7 @@
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 	<div class="box cell container">
-		<div class="cell">
+		<div class="cell center">
 			<h1>댓글 신고 목록</h1>
 		</div>
 		<div class="cell">

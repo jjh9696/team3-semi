@@ -3,14 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
-    .preview {
-        border: 2px solid #ccc;
-        border-radius: 50%;
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-    }
-
     .form-container {
         max-width: 800px;
         margin: 0 auto;
@@ -20,28 +12,30 @@
         margin-top: 20px;
     }
 	
-	form select[name="memberGrade"],
-    form input[type="text"],
-    form input[type="email"],
-    form input[type="password"],
-    form input[type="date"],
-    form input[type="tel"] {
-        width: 500px;
+	
+    form input[type="file"] {
+        display: none;
+    }
+    
+    <%--input 디자인--%>
+    .edit{
+    	width: 500px;
         padding: 10px;
         margin-bottom: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 16px;
     }
-    form input[type="file"] {
-        display: none;
-    }
-
-    .btn-container {
-        display: flex;
-        /*justify-content: space-between;*/
-    }
-
+    form input[name="memberPost"] {
+	    width: 400px; /* 너비 조정 */
+	    padding: 10px; /* 내부 여백 설정 */
+	    margin-bottom: 10px; /* 아래 여백 추가 */
+	    border: 1px solid #ccc; /* 테두리 추가 */
+	    border-radius: 5px; /* 테두리 둥글게 처리 */
+	    font-size: 16px; /* 폰트 크기 설정 */
+	    margin-right: 10px; /* 오른쪽 여백 추가 */
+	}
+    
     .btn {
         padding: 10px 20px;
         border: none;
@@ -112,12 +106,12 @@
 	<form action="edit" method="post">
 	    <input type="hidden" name="memberId" required value="${memberDto.memberId}"><br><br>
 	    
-	    <input type="text" name="memberNick" required placeholder="닉네임 *" value="${memberDto.memberNick }"><br>
-        <input type="email" name="memberEmail" required placeholder="이메일 *" value="${memberDto.memberEmail }"><br>
-        <input type="date" name="memberBirth" value="${memberDto.memberBirth }" placeholder="생년월일"><br>
-        <input type="tel" name="memberContact" placeholder="연락처" value="${memberDto.memberContact }"><br>
-        <div class="btn-container">
-            <input type="text" name="memberPost" placeholder="우편번호" value="${memberDto.memberPost}" size="6">
+	    <input type="text" class="edit" name="memberNick" required placeholder="닉네임 *" value="${memberDto.memberNick }"><br>
+        <input type="email" class="edit" name="memberEmail" required placeholder="이메일 *" value="${memberDto.memberEmail }"><br>
+        <input type="date" class="edit" name="memberBirth" value="${memberDto.memberBirth }" placeholder="생년월일"><br>
+        <input type="tel" class="edit" name="memberContact" placeholder="연락처" value="${memberDto.memberContact }"><br>
+        <div>
+            <input type="text" name="memberPost" placeholder="우편번호" value="${memberDto.memberPost}">
             <button type="button" class="btn positive btn-address-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -125,10 +119,10 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
-        <br>
-        <input type="text" name="memberAddress1" placeholder="기본주소" value="${memberDto.memberAddress1}"><br>
-        <input type="text" name="memberAddress2" placeholder="상세주소" value="${memberDto.memberAddress2}"><br>
-	    <select name="memberGrade">
+        
+        <input type="text" class="edit" name="memberAddress1" placeholder="기본주소" value="${memberDto.memberAddress1}"><br>
+        <input type="text" class="edit" name="memberAddress2" placeholder="상세주소" value="${memberDto.memberAddress2}"><br>
+	    <select class="edit" name="memberGrade">
 	        <!-- <option value="">회원등급</option>  -->
 	        <option value="일반회원">일반회원</option>
 	        <option value="신고된회원">신고된회원</option>

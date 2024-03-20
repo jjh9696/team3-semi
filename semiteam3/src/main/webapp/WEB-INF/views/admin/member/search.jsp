@@ -4,40 +4,7 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
-.preview {
-	border: 2px solid #ccc;
-	border-radius: 50%;
-	width: 200px;
-	height: 200px;
-	object-fit: cover;
-}
 
-.flex-cell {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	margin-bottom: 20px;
-}
-
-.flex-cell img {
-	cursor: pointer;
-}
-
-.flex-cell ul {
-	list-style-type: none;
-	padding: 0;
-	text-align: center;
-}
-
-.flex-cell ul li {
-	margin-bottom: 10px;
-}
-
-.cell {
-	text-align: center;
-	margin-bottom: 20px;
-}
 
 .table {
 	width: 95%;
@@ -55,10 +22,6 @@
 .table th {
 	text-align: left;
 	background-color: #f2f2f2;
-}
-
-.left {
-	text-align: left;
 }
 
 .gray-text {
@@ -89,8 +52,10 @@
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 <div class="box cell container">
-<h1>회원 관리</h1>
- <div class="cell">
+<div class="cell center">
+	<h1>회원 관리</h1>
+</div>
+ <div class="cell center">
 	<form action="search" method="get">
 		<select class="tool" name="column">
 			<option value="member_id" ${param.column == 'member_id' ? 'selected' : ''}>아이디</option>
@@ -110,7 +75,9 @@
 		<c:when test="${list == null}">
 		</c:when>
 		<c:when test="${list.isEmpty()}">
-			<h4>검색 결과가 존재하지 않습니다</h4>
+			<div class="center">
+				<h4>검색 결과가 존재하지 않습니다</h4>
+			</div>
 		</c:when>
 		<c:otherwise>
 			<table class="table">
@@ -123,7 +90,7 @@
 						<th>생년월일</th>
 					</tr>
 				</thead>
-				<tbody align="center">
+				<tbody>
 					<c:forEach var="memberDto" items="${list}">
 					<tr>
 						<td>

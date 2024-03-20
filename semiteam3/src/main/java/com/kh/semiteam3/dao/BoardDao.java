@@ -117,6 +117,23 @@ public class BoardDao {
         }
     }
     
+    //디테일에서 리스트찍어내려고 만든 것
+    public List<BoardDto> selectByCategoryForDetail(PageVO pageVO, 
+            String boardCategory){
+    	String sql = "select * from("
+                + "select rownum rn, TMP.* from("
+                + "select "
+                    + "board_no, board_title, board_reply, board_writer,"
+                    + "board_write_time, board_limit_time, "
+                    + "board_view, board_like "
+                + "from board where board_category = ? order by board_no desc"
+                + ")TMP"
+                + ") where rn between ? and ?";
+        Object[] data= {boardCategory, 
+                                pageVO.getBeginRow(), pageVO.getEndRow()};
+        return jdbcTemplate.query(sql, boardListMapper, data);
+    }
+    
 
     //닉네임으로 검색
     public List<BoardDto> selectByNick(PageVO pageVO, String boardCategory) {
@@ -192,6 +209,13 @@ public class BoardDao {
             Object[] data = { pageVO.getCategory() };
             return jdbcTemplate.queryForObject(sql, int.class, data);
         }
+    }
+    
+    //디테일을 위한 카운트
+    public int countForDetail(PageVO pageVO) {
+        String sql = "select count(*) from board where board_category = ?";
+        Object[] data = { pageVO.getCategory() };
+        return jdbcTemplate.queryForObject(sql, int.class, data);
     }
 
 	

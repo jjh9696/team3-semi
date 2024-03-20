@@ -13,29 +13,6 @@
 	height: 200px;
 	object-fit: cover;
 }
-
-.flex-cell {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	margin-bottom: 20px;
-}
-
-.flex-cell img {
-	cursor: pointer;
-}
-
-.flex-cell ul {
-	list-style-type: none;
-	padding: 0;
-	text-align: center;
-}
-
-.flex-cell ul li {
-	margin-bottom: 10px;
-}
-
 .cell {
 	margin-bottom: 20px;
 }
@@ -54,17 +31,15 @@
 }
 
 .table th {
-	text-align: left;
-	background-color: #f2f2f2;
+	text-align: center;
+	color: gray;
+	background-color: #f2f2f2; 
 }
 
-.left {
-	text-align: left;
-}
 
 .gray-text {
 	color: gray;
-	text-align: center;
+	text-align: bottom;
 	margin-top: 10px;
 }
 
@@ -77,6 +52,18 @@
 	height: fit-content;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
+}
+.button{
+	text-decoration: none;
+	color:#e3c7a6;
+}
+.button:hover {
+    color: darken(#e3c7a6, 20%); /* 마우스를 올렸을 때 링크의 텍스트 색상 어둡게 만듭니다 */
+    text-decoration: underline; /* 마우스를 올렸을 때 밑줄 추가 */
+    color: #7f6d5f;
+}
+span{
+	color:#e3c7a6;
 }
 </style>
 
@@ -118,7 +105,7 @@
 </script>
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="box cell container">
+<div class="box cell container w-1000">
 <div class="flex-cell">
     <form action="mypage" method="post" autocomplete="off" enctype="multipart/form-data">
         <c:choose>
@@ -135,32 +122,32 @@
         </c:choose>
         <input type="file" id="memberAttach" name="memberAttach" class="input" 
                     onchange="previewImage(this)" style="display:none">
-    </form>
-      <div class="gray-text">
-        * 사진을 클릭하여 변경하세요   
-    </div>
- 
-</div>
+		<div class="gray-text">* 사진을 클릭하여 변경하세요</div>
+
+			</form>
+  </div>  
+  	
+  	
 <div class="cell">
     <table class="table">
         <tr>
-            <th width="30%">닉네임</th>
+            <th width="30%"><i class="fa-solid fa-user"></i> 닉네임</th>
             <td class="left">${memberDto.memberNick}</td>
         </tr>
         <tr>
-            <th>이메일</th>
+            <th><i class="fa-regular fa-envelope"></i> 이메일</th>
             <td class="left">${memberDto.memberEmail}</td>
         </tr>
         <tr>
-            <th>연락처</th>
+            <th><i class="fa-solid fa-phone"></i> 연락처</th>
             <td class="left">${memberDto.memberContact}</td>
         </tr>   
         <tr>
-            <th>생년월일</th>
+            <th><i class="fa-solid fa-cake-candles"></i> 생년월일</th>
             <td class="left">${memberDto.memberBirth}</td>
         </tr>
         <tr>
-            <th>주소</th>
+            <th><i class="fa-solid fa-location-dot"></i> 주소</th>
             <td class="left">
                 [${memberDto.memberPost}] 
                 ${memberDto.memberAddress1}
@@ -172,27 +159,29 @@
             <td class="left">${memberDto.memberGrade}</td>
         </tr>
         <tr>
-            <th>가입일시</th>
+            <th><i class="fa-regular fa-calendar-days"></i> 가입일시</th>
             <td class="left">
                 <fmt:formatDate value="${memberDto.memberJoin}" 
                                             pattern="y년 M월 d일"/>
             </td>
         </tr>
         <tr>
-            <th>로그인일시</th>
+            <th><i class="fa-regular fa-clock"></i> 로그인일시</th>
             <td class="left">
                 <fmt:formatDate value="${memberDto.memberLogin}" 
                                             pattern="y년 M월 d일 H시 m분 s초"/>
             </td>
         </tr>
     </table>
-
-		<div class="cell">
-			<a href="/member/password" class="button">비밀번호 변경</a> <a
-				href="/member/edit" class="button">개인정보 변경</a> <a
+  
+ 
+</div>
+		<div class="cell right">
+			<a href="/member/password" class="button">비밀번호 변경</a><span> | </span><a
+				href="/member/edit" class="button">개인정보 변경</a><span> | </span><a
 				href="/member/exit" class="button">회원 탈퇴</a>
 		</div>
-	</div>
+
 
 </div>
 </div>

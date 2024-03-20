@@ -4,10 +4,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
 
-
-<html lang="ko">
 
 <head>
 
@@ -61,21 +58,16 @@
 }
 
 .ing {
-	border: 1px #e3c7a6 solid;
+	border: none;
 	padding: 1em;
-	box-shadow:
-		3px 1px 1px #e3ae7277;
+	box-shadow: 3px 1px 1px #e3ae7277;
 	border-radius: 5px;
-		
-
-}
-.table{
-	border-color: 1px #bda488;
-	
-	
+	margin: 10px;
 }
 
-
+.ing .reply2 {
+	color: #1dd1a1;
+}
 </style>
 
 <!-- jquery cdn -->
@@ -112,8 +104,7 @@
 </head>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<hr class="mb-30">
-<div id="maincontainer w-100" class="cell">
+<div id="maincontainer w-1100" class="cell">
 	<div class="container w-1100">
 		<div class="cell center">
 			<!-- Slider main container -->
@@ -125,7 +116,7 @@
 						<a href="/"><img src="/image/home/main4.png"></a>
 					</div>
 					<div class="swiper-slide">
-						<a href="http://localhost:8080/board/detail?boardNo=227"> <img
+						<a href="http://localhost:8080/board/eventpage"> <img
 							src="/image/home/event.png">
 						</a>
 					</div>
@@ -150,54 +141,58 @@
 			</div>
 		</div>
 	</div>
-</div> 
+</div>
 
-<div class="cell flex-cell center mt-50">
-	<div class="cell w-100 auto-width mx-20 ing set-color">
-		<table class="table">
+<div class="cell flex-cell center mt-50 container w-1700 ">
+	<div class="cell w-100 ing set-color center">
+		<table class="table table-horizontal2">
 			<c:forEach var="boardDto" items="${footballList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="/board/detail?boardNo=${boardDto.boardNo}">
-							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
+						href="/board/detail?boardNo=${boardDto.boardNo}"> <span
+							class="title">${boardDto.boardTitle}</span>
+					</a> <span class="reply2">[${boardDto.boardReply}]</span></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
 
-	<div class="cell w-100 auto-width me-20 ing set-color">
-		<table class="table">
+	<div class="cell w-100 ing set-color center">
+		<table class="table table-horizontal2">
 			<c:forEach var="boardDto" items="${baseballList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="/board/detail?boardNo=${boardDto.boardNo}">
-							${boardDto.boardTitle} [${boardDto.boardReply}] </a></td>
+						href="/board/detail?boardNo=${boardDto.boardNo}"> <span
+							class="title">${boardDto.boardTitle}</span>
+					</a> <span class="reply2">[${boardDto.boardReply}]</span></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
 
-	<div class="cell w-100 auto-width me-20 ing set-color">
-		<table class="table">
+	<div class="cell w-100 ing set-color center">
+		<table class="table table-horizontal2">
 			<c:forEach var="boardDto" items="${basketballList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="/board/detail?boardNo=${boardDto.boardNo}">
-							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
+						href="/board/detail?boardNo=${boardDto.boardNo}"> <span
+							class="title">${boardDto.boardTitle}</span>
+					</a> <span class="reply2">[${boardDto.boardReply}]</span></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-	<div class="cell w-100 auto-width me-20 ing set-color">
-		<table class="table">
+	<div class="cell w-100 ing set-color center">
+		<table class="table table-horizontal2">
 			<c:forEach var="boardDto" items="${ESportsList}">
 				<tr>
 					<td class="left"><a class="link"
-						href="/board/detail?boardNo=${boardDto.boardNo}">
-							${boardDto.boardTitle} [${boardDto.boardReply}]</a></td>
+						href="/board/detail?boardNo=${boardDto.boardNo}"> <span
+							class="title2">${boardDto.boardTitle}</span>
+					</a> <span class="reply2">[${boardDto.boardReply}]</span></td>
 					<td class="right">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>

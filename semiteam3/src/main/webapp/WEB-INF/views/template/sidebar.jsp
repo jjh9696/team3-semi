@@ -38,7 +38,7 @@
     
     /* 사이드바 스타일 */
     .sidebar {
-        position: static;
+        position: sticky;
         width: 200px;
         background-color: #f8f9fa;
         color: #333;
@@ -48,6 +48,8 @@
         max-height: calc(100vh - 100px);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
+        top: 0px;
+        overflow-y: auto;
     }
     
     .name {
@@ -89,18 +91,8 @@
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    function previewImage(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#preview').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
 </script>
+
 </head>
 <body>
 
@@ -109,18 +101,12 @@
         <c:choose>
             <c:when test="${sessionScope.loginId !=null}">
                 <div>
-                    <c:choose>
-                        <c:when test="${empty loginMember.memberAttach}">
-                            <img src="image" width="150" height="150" alt="Preview Image" id="preview" class="preview">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="/image/user.svg" id="preview" width="150" height="150" class="preview">
-                        </c:otherwise>
-                    </c:choose>
+                    <img src="image" width="150" height="150" alt="Preview Image" id="preview" class="preview">
+                    
                     <div class="cell">
                         <a href="/member/mypage" class="name">${sessionScope.loginNick}</a>                      
                     </div>
-                    <span class="grade">${memberDto.memberGrade}</span>
+                    <span class="grade">${sessionScope.loginGrade}</span>
 
                     <hr>
                     <a href="/board/mywriting" class="my">내가쓴 글</a>
@@ -151,6 +137,25 @@
 			<i class="fa-solid fa-q"></i>&nbsp문의게시판
 			</a>
 		</div>
+		
+		<div class="cell">
+		<hr>
+		<c:if test="${sessionScope.loginGrade == '관리자'}">
+			</a>
+			<a href="/board/list?category=관리자" class="my"> <i class="fa-solid fa-q"></i>&nbsp관리자게시판
+			</a>
+			</a>
+			<a href="/board/list?category=관리자" class="my"> <i class="fa-solid fa-q"></i>&nbsp회원관리
+			</a>
+			</a>
+			<a href="/board/list?category=관리자" class="my"> <i class="fa-solid fa-q"></i>&nbsp신고된 게시글
+			</a>
+			</a>
+			<a href="/board/list?category=관리자" class="my"> <i class="fa-solid fa-q"></i>&nbsp신고된 댓글
+			</a>
+		</c:if>
+		</div>
+		
 </aside>
 
 </body>

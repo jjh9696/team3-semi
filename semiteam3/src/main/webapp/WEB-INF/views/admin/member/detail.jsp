@@ -44,7 +44,7 @@
 
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="box cell container">
+<div class="box cell container w-1000">
 	<div class="cell center">
 		<h2>${memberDto.memberNick}님의 상세 정보</h2>
 	</div>
@@ -103,6 +103,7 @@
 			</tr>
 		</table>
 	</div>
+	</div>
 	
 	<div class="cell right">
 		<a class="btn positive" href="edit?memberId=${memberDto.memberId}">수정</a>
@@ -110,5 +111,7 @@
 			회원강제탈퇴</a>
 	</div>
 </div>
-</div>
-	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+

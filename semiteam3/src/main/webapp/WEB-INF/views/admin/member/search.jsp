@@ -51,11 +51,9 @@
  --%>
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="box cell container">
-<div class="cell center">
-	<h1>회원 관리</h1>
-</div>
- <div class="cell center">
+<div class="box cell container w-1000">
+<h1>회원 관리</h1>
+ <div class="cell">
 	<form action="search" method="get">
 		<select class="tool" name="column">
 			<option value="member_id" ${param.column == 'member_id' ? 'selected' : ''}>아이디</option>

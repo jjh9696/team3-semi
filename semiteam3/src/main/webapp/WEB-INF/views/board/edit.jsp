@@ -5,12 +5,11 @@
 
 <script src="/js/exit.js"></script>
 
-
 <form action="edit" method="post" autocomplete="off" class="free-pass">
 	<input type="hidden" name="boardNo" value="${boardDto.boardNo}">
 
 
-	<div class="container w-800">
+	<div class="container w-1000 set-color">
 		<div class="cell center">
 			<h1>게시글 수정</h1>
 		</div>

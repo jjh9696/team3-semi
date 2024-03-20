@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+<script>
+    // param.error가 null이 아닌 경우에만 alert을 표시합니다.
+    <c:if test="${param.error != null}">
+        alert("로그인 정보가 일치하지 않습니다");
+    </c:if>
+</script>	
 <style>
     .input {
         width: 350px;

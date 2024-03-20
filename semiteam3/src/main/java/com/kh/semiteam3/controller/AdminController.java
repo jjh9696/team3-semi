@@ -16,6 +16,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dao.ReportBoardDao;
 import com.kh.semiteam3.dto.MemberDto;
+
+import jakarta.servlet.http.HttpSession;
 //관리자가 이용할 수 있는 기능을 제공하는 컨트롤러
 @Controller
 @RequestMapping("/admin")
@@ -103,7 +105,19 @@ public class AdminController implements HandlerInterceptor{
 			return "redirect:detail?memberId="+memberDto.getMemberId();			
 		}	
 		
-		
+		//프로필 다운로드 페이지
+		@RequestMapping("/image")
+		public String image(HttpSession session) {
+			try {
+				String loginId = (String)session.getAttribute("loginId");
+			int attachNo = memberDao.findAttachNo(loginId);
+			return "redirect:/download?attachNo=" + attachNo;
+		}
+		catch(Exception e) {
+			return "redirect:/image/user.svg";
+			}
+		}
+
 }	
 
 		

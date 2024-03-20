@@ -56,7 +56,7 @@
 
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="container w-800">
+<div class="container w-1000">
 	<div class="set-color">
 		<%-- 제목칸 --%>
 		<div class="cell center title">

@@ -6,41 +6,6 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <style>
-.preview {
-	border: 2px solid #ccc;
-	border-radius: 50%;
-	width: 200px;
-	height: 200px;
-	object-fit: cover;
-}
-
-.flex-cell {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	margin-bottom: 20px;
-}
-
-.flex-cell img {
-	cursor: pointer;
-}
-
-.flex-cell ul {
-	list-style-type: none;
-	padding: 0;
-	text-align: center;
-}
-
-.flex-cell ul li {
-	margin-bottom: 10px;
-}
-
-.cell {
-	text-align: center;
-	margin-bottom: 20px;
-}
-
 .table {
 	width: 95%;
 	margin: 0 auto; /* 수평 가운데 정렬을 위한 마진 설정 */
@@ -57,10 +22,6 @@
 .table th {
 	text-align: left;
 	background-color: #f2f2f2;
-}
-
-.left {
-	text-align: left;
 }
 
 .gray-text {
@@ -83,7 +44,7 @@
 
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="box cell container">
+<div class="box cell container w-1000">
 	<div class="cell center">
 		<h2>${memberDto.memberNick}님의 상세 정보</h2>
 	</div>
@@ -150,6 +111,7 @@
 			회원강제탈퇴</a>
 	</div>
 </div>
-</div>
+
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+

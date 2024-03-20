@@ -706,7 +706,7 @@ textarea.tool.tool-fixed {
 /* 2차 메뉴(ul)의 위치를 미세조정 */
 .menu > li > ul {
     top:100%;
-    left:0;
+    left:0%;
 }
 
 /* 3차 이상의 메뉴(ul)의 위치를 미세조정 */
@@ -744,6 +744,7 @@ textarea.tool.tool-fixed {
     top: 0;
     left: auto;
     right: 100%;
+    
 }
 
 /* 

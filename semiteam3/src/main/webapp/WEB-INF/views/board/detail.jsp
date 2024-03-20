@@ -452,6 +452,21 @@
 			}
 		});
 	});
+	
+	window.onload = function() {
+		// 클래스 이름이 "status"인 모든 엘리먼트를 가져옵니다.
+		var statusElements = document.querySelectorAll('.status');
+
+		statusElements.forEach(function(statusElement) {
+			var boardStatus = statusElement.textContent.trim();
+
+			if (boardStatus === '모집 중') {
+				statusElement.style.color = '#10ac84'; // 모집 중일 때의 색상
+			} else if (boardStatus === '모집 완료') {
+				statusElement.style.color = '#ff6b6b'; // 모집 완료일 때의 색상
+			}
+		});
+	};
 </script>
 
 
@@ -627,71 +642,70 @@
 </div>
 
 <c:if test="${memberDto.memberGrade != '관리자'}">
-	<div class="cell m-30"></div>
+<div class="cell m-30"></div>
 
-	<div class="container w-1000 set-color">
-		<div class="cell">
-			<table class="table">
-				<c:forEach var="boardDto" items="${list}">
-					<tr>
-						<td class="left" width="80%">
-							<div class="my-10">
-								<a class="link" href="detail?boardNo=${boardDto.boardNo}">
-									${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
-								</a>
-							</div>
-							<div class="info my-10">
-								모집기간
-								<fmt:formatDate value="${boardDto.boardWriteTime}"
-									pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
-								~
-								<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
-									pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
-								| ${boardDto.boardWriterStr}
-							</div>
-						</td>
-						<td class="info">${boardDto.boardWriteTimeStr}
-							<p>
-								조회수
-								<fmt:formatNumber value="${boardDto.boardView}"
-									pattern="###,###"></fmt:formatNumber>
-							</p>
-						</td>
-						<td>
-							<div class="status">${boardDto.boardStatus}</div>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-
-
-		<div class="cell center">
-			<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
-		</div>
-
-		<div class="cell center">
-			<%-- 검색창 --%>
-			<form action="list" method="get">
-				<!-- 카테고리를 넘겨줘야함 -->
-				<input type="hidden" name="category"
-					value="${boardDto.boardCategory}"> <select name="column"
-					class="tool">
-					<option value="board_title"
-						${param.column == 'board_title' ? 'selected' : ''}>제목</option>
-					<option value="board_content"
-						${param.column == 'board_content' ? 'selected' : ''}>내용</option>
-					<option value="member_nick"
-						${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
-				</select> <input class="tool" type="search" name="keyword"
-					placeholder="검색어 입력" value="${param.keyword}">
-				<button class="btn positive empty-check">검색</button>
-			</form>
-		</div>
-
-
-
+<div class="container w-1000 set-color">
+	<div class="cell">
+		<table class="table">
+			<c:forEach var="boardDto" items="${list}">
+				<tr>
+					<td class="left" width="80%">
+						<div class="my-10">
+							<a class="link" href="detail?boardNo=${boardDto.boardNo}">
+								${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
+							</a>
+						</div>
+						<div class="info my-10">
+							모집기간
+							<fmt:formatDate value="${boardDto.boardWriteTime}"
+								pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+							~
+							<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
+								pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+							| ${boardDto.boardWriterStr}
+						</div>
+					</td>
+					<td class="info">${boardDto.boardWriteTimeStr}
+						<p>
+							조회수
+							<fmt:formatNumber value="${boardDto.boardView}" pattern="###,###"></fmt:formatNumber>
+						</p>
+					</td>
+					<td>
+						<div class="status">${boardDto.boardStatus}</div>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
+	
+
+	<div class="cell center">
+		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
+	</div>
+
+	<div class="cell center">
+		<%-- 검색창 --%>
+		<form action="list" method="get">
+			<!-- 카테고리를 넘겨줘야함 -->
+			<input type="hidden" name="category" value="${boardDto.boardCategory}"> 
+			<select 	name="column" class="tool">
+				<option value="board_title"
+					${param.column == 'board_title' ? 'selected' : ''}>제목</option>
+				<option value="board_content"
+					${param.column == 'board_content' ? 'selected' : ''}>내용</option>
+				<option value="member_nick"
+					${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
+			</select> 
+			<input class="tool" type="search" name="keyword"
+				placeholder="검색어 입력" value="${param.keyword}">
+			<button class="btn positive empty-check">검색</button>
+		</form>
+	</div>
+
+
+
+</div>
 
 </c:if>
 

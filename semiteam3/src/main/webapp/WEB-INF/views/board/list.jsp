@@ -136,7 +136,7 @@
 
 					<c:forEach var="boardDto" items="${adminListAll}">
 						<tr>
-							<td class="left">
+							<td class="left" width="80%">
 								<div class="my-10">
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
@@ -198,8 +198,8 @@
 					<%--일반 게시판 테이블 --%>
 					<c:forEach var="boardDto" items="${list}">
 						<tr>
-							<td class="left">
-								<div class="my-10">
+							<td class="left" width="80%">
+								<div class="my-10" >
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
 									</a>

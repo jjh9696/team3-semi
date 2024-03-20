@@ -94,7 +94,7 @@
 						placeholder="제목">
 				</div>
 				<div class="cell">
-					<textarea class="tool w-100" name="boardContent"
+					<textarea class="tool w-100" name="boardContent" 
 						placeholder="내용 입력"></textarea>
 				</div>
 				<div class="flex-cell">

@@ -523,40 +523,43 @@
 				class="count">?</span></span>
 		</div>
 	</div>
+	
+	<c:if test="${memberDto.memberGrade != '관리자'}">
+		<div class="cell flex-cell">
 
-	<div class="cell flex-cell">
-
-		<div class="cell w-50 left info">
-			<c:if test="${not empty boardDto.boardLimitTimeDate}">
+			<div class="cell w-50 left info">
+				<c:if test="${not empty boardDto.boardLimitTimeDate}">
 				모집기간
 				<fmt:formatDate value="${boardDto.boardWriteTime}"
-					pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+						pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 				~
 				<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
-					pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+						pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
 
-				<div class="cell">
-					<span id="countdown"></span>
-				</div>
-			</c:if>
-		</div>
-
-		<div class="cell w-50 right">
-			<c:if test="${sessionScope.loginId != null}">
-				<a class="link btn-board-report"
-					href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">
-					<i class="fa-solid fa-bell btn-board-report"></i> 신고
-				</a>
-			</c:if>
-			<div class="cell">
-				<c:if test="${sessionScope.loginGrade == '관리자'}">
-					신고 횟수 : ${reportCountByReportBoardOrigin}
+					<div class="cell">
+						<span id="countdown"></span>
+					</div>
 				</c:if>
 			</div>
+
+			<div class="cell w-50 right">
+
+				<c:if test="${sessionScope.loginId != null}">
+					<a class="link btn-board-report"
+						href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">
+						<i class="fa-solid fa-bell btn-board-report"></i> 신고
+					</a>
+				</c:if>
+				<div class="cell">
+					<c:if test="${sessionScope.loginGrade == '관리자'}">
+					신고 횟수 : ${reportCountByReportBoardOrigin}
+				</c:if>
+				</div>
+
+			</div>
+
 		</div>
-
-	</div>
-
+	</c:if>
 
 
 
@@ -692,28 +695,28 @@
 
 
 
-	<div class="cell center">
-		<jsp:include page="/WEB-INF/views/template/navigator2.jsp"></jsp:include>
-	</div>
+		<div class="cell center">
+			<jsp:include page="/WEB-INF/views/template/navigator2.jsp"></jsp:include>
+		</div>
 
-	<div class="cell center">
-		<%-- 검색창 --%>
-		<form action="list" method="get">
-			<!-- 카테고리를 넘겨줘야함 -->
-			<input type="hidden" name="category"
-				value="${boardDto.boardCategory}"> <select name="column"
-				class="tool">
-				<option value="board_title"
-					${param.column == 'board_title' ? 'selected' : ''}>제목</option>
-				<option value="board_content"
-					${param.column == 'board_content' ? 'selected' : ''}>내용</option>
-				<option value="member_nick"
-					${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
-			</select> <input class="tool" type="search" name="keyword"
-				placeholder="검색어 입력" value="${param.keyword}">
-			<button class="btn positive empty-check">검색</button>
-		</form>
-	</div>
+		<div class="cell center">
+			<%-- 검색창 --%>
+			<form action="list" method="get">
+				<!-- 카테고리를 넘겨줘야함 -->
+				<input type="hidden" name="category"
+					value="${boardDto.boardCategory}"> <select name="column"
+					class="tool">
+					<option value="board_title"
+						${param.column == 'board_title' ? 'selected' : ''}>제목</option>
+					<option value="board_content"
+						${param.column == 'board_content' ? 'selected' : ''}>내용</option>
+					<option value="member_nick"
+						${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
+				</select> <input class="tool" type="search" name="keyword"
+					placeholder="검색어 입력" value="${param.keyword}">
+				<button class="btn positive empty-check">검색</button>
+			</form>
+		</div>
 	</div>
 	</div>
 

@@ -107,7 +107,6 @@
 </head>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<hr class="mb-30">
 <div id="maincontainer w-1100" class="cell">
 	<div class="container w-1100">
 		<div class="cell center">

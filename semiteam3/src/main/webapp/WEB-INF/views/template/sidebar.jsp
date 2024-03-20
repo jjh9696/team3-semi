@@ -89,17 +89,39 @@
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    function previewImage(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#preview').attr('src', e.target.result);
+$(function(){
+    
+    $("#memberAttach").on("change", function() {
+        var formData = new FormData();
+        formData.append("attach", this.files[0]);
+        $.ajax({
+            url : "/rest/member_attach/upload",
+            method : "post",
+            data : formData,
+            processData : false,
+            contentType : false,
+            success : function(response) {
+                if (response == null)
+                    return;
+                $("#preview").attr("src", "image");
             }
+        });
+    });
 
-            reader.readAsDataURL(input.files[0]);
+});
+
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#preview').attr('src', e.target.result);
         }
+
+        reader.readAsDataURL(input.files[0]);
+        
     }
+}
 </script>
 </head>
 <body>

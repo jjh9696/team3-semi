@@ -185,6 +185,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </head>
 <body>
+<div class="right">
+</div>
 	<%--
 	 상단영역
 		- 홈페이지에서 가장 많이 보이는 부분

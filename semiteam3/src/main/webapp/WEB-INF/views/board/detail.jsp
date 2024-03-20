@@ -476,7 +476,8 @@
 
 
 
-
+<%-- <div class="container" style="display: flex; width: 1300px;">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> --%>
 <div class="container w-1000 set-color">
 	<div class="cell title left">${boardDto.boardTitle}</div>
 	<div class="cell flex-cell info">
@@ -708,7 +709,7 @@
 </div>
 
 </c:if>
-
+<!-- </div> -->
 <%--이유는 모르겠지만 이걸 밑에 넣어야 로드가 빨리됨 --%>
 <script type="text/javascript">
 	// 마감 시간 설정 (YYYY, MM, DD, HH, MM, SS 순서)

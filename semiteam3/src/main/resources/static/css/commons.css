@@ -360,13 +360,61 @@ textarea.tool.tool-fixed {
     border-top: 1px solid #2d3436;
     border-bottom: 1px solid #2d3436;
 }
+
 .table.table-horizontal > thead {
     border-bottom: 1px solid #2d3436;
 }
-.table.table-horizontal > tfoot
-{
+.table.table-horizontal > tfoot {
     border-top: 1px solid #2d3436;
 }
+
+.table.table-horizontal2 td {
+        vertical-align: middle; /* 셀 내에서 수직 정렬을 가운데로 설정합니다. */
+    }
+
+.table.table-horizontal2 {
+    border-collapse: collapse; /* 테이블 셀 경계를 합칩니다. */
+}
+
+.table.table-horizontal2 th,
+.table.table-horizontal2 td {
+    border: none; /* 모든 셀에 선을 없앱니다. */
+}
+
+.table.table-horizontal2 > thead th,
+.table.table-horizontal2 > tbody th,
+.table.table-horizontal2 > tfoot th,
+.table.table-horizontal2 > thead td,
+.table.table-horizontal2 > tbody td,
+.table.table-horizontal2 > tfoot td {
+    border-bottom: 1px solid #ddd; 
+}
+
+.table.table-horizontal2 > thead th {
+    border-bottom: 2px solid #ddd; 
+}
+
+.table.table-horizontal2 > tfoot td {
+    border-top: 1px solid #ddd; 
+}
+
+.table.table-horizontal2 td a.link {
+    max-width: 14em;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    padding: 0;
+}
+
+.table.table-horizontal2 td a.link > .title2 {
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 0;
+}
+
+
 /* :not() 을 이용하여 특정 대상을 선택에서 제거할 수 있다 */
 .table.table-horizontal > tbody > tr:not(tr:last-child) {
     border-bottom: 1px solid #b2bec3;
@@ -658,7 +706,7 @@ textarea.tool.tool-fixed {
 /* 2차 메뉴(ul)의 위치를 미세조정 */
 .menu > li > ul {
     top:100%;
-    left:0;
+    left:0%;
 }
 
 /* 3차 이상의 메뉴(ul)의 위치를 미세조정 */
@@ -696,6 +744,7 @@ textarea.tool.tool-fixed {
     top: 0;
     left: auto;
     right: 100%;
+    
 }
 
 /* 

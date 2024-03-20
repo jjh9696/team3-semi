@@ -77,18 +77,6 @@
 			<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 		</div>
 		
-		<div class="cell center">
-		<%-- 검색창 --%>
-		<form action="list" method="get">
-			<select name="column" class="tool">
-				<option value="inquiry_title" ${param.column == 'inquiry_title' ? 'selected' : ''}>제목</option>
-				<option value="inquiry_content" ${param.column == 'inquiry_content' ? 'selected' : ''}>내용</option>
-				<option value="member_nick" ${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
-			</select>
-			<input class="tool" type="search" name="keyword" placeholder="검색어 입력" required value="${param.keyword}">
-			<button class="btn positive">검색</button>
-		</form>
-		</div>
 	</div>
 </div>
 

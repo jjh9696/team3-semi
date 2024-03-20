@@ -142,6 +142,7 @@
 			</tr>
 		</table>
 	</div>
+	</div>
 	
 	<div class="cell right">
 		<a class="btn positive" href="edit?memberId=${memberDto.memberId}">수정</a>
@@ -150,4 +151,5 @@
 	</div>
 </div>
 </div>
+
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

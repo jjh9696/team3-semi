@@ -646,7 +646,7 @@
 
 <div class="container w-1000 set-color">
 	<div class="cell">
-		<table class="table">
+		<table class="table table-horizontal table-hover">
 			<c:forEach var="boardDto" items="${list}">
 				<tr>
 					<td class="left" width="80%">
@@ -681,7 +681,7 @@
 	
 
 	<div class="cell center">
-		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/template/navigator2.jsp"></jsp:include>
 	</div>
 
 	<div class="cell center">

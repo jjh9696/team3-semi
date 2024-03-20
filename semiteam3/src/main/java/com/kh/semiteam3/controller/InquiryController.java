@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.semiteam3.dao.InquiryDao;
 import com.kh.semiteam3.dao.MemberDao;
-import com.kh.semiteam3.dto.BoardDto;
 import com.kh.semiteam3.dto.InquiryDto;
 import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.service.AttachService;
@@ -178,6 +177,19 @@ public class InquiryController {
 				}
 				inquiryDao.update(inquiryDto);
 				return "redirect:detail?inquiryNo=" + inquiryDto.getInquiryNo();
+			}
+	
+	//프로필 다운로드 페이지
+			@RequestMapping("/image")
+			public String image(HttpSession session) {
+				try {
+					String loginId = (String)session.getAttribute("loginId");
+				int attachNo = memberDao.findAttachNo(loginId);
+				return "redirect:/download?attachNo=" + attachNo;
+			}
+			catch(Exception e) {
+				return "redirect:/image/user.svg";
+				}
 			}
 
 		}

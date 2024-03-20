@@ -395,7 +395,8 @@
 
 
 
-
+<div class="container" style="display: flex; width: 1300px;">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 <div class="container w-800 set-color">
 	<div class="cell title left">${boardDto.boardTitle}</div>
 	<div class="cell info">
@@ -558,6 +559,7 @@
 			</div>
 		</c:otherwise>
 	</c:choose>
+</div>
 </div>
 
 

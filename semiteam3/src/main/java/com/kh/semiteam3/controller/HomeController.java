@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.semiteam3.dao.BoardDao;
@@ -16,6 +15,8 @@ import com.kh.semiteam3.dao.MemberDao;
 import com.kh.semiteam3.dto.BoardDto;
 import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.vo.PageVO;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
@@ -85,5 +86,18 @@ public class HomeController {
 		
 		return "/WEB-INF/views/home.jsp";
 	}
+	
+	//프로필 다운로드 페이지
+			@RequestMapping("/image")
+			public String image(HttpSession session) {
+				try {
+					String loginId = (String)session.getAttribute("loginId");
+				int attachNo = memberDao.findAttachNo(loginId);
+				return "redirect:/download?attachNo=" + attachNo;
+			}
+			catch(Exception e) {
+				return "redirect:/image/user.svg";
+				}
+			}
 
 }

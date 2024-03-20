@@ -171,10 +171,12 @@ public class BoardController {
 			}
 			
 			//디테일 밑에 리스트 찍어내기 위해서 추가한 코드
-		    int count = boardDao.count(pageVO);
+//			PageVO pageVO = new PageVO();
+			pageVO.setCategory(boardDto.getBoardCategory());
+		    int count = boardDao.countForDetail(pageVO);
 		    pageVO.setCount(count);
 		    model.addAttribute("pageVO", pageVO);
-			List<BoardDto> list = boardDao.selectByCategoryAndPaging(pageVO, boardDto.getBoardCategory());
+			List<BoardDto> list = boardDao.selectByCategoryForDetail(pageVO, boardDto.getBoardCategory());
 			
 			//이건 닉네임 찍어내려고
 		    for (BoardDto boardDto1 : list) {

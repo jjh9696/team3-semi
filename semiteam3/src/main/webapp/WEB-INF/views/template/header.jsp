@@ -82,7 +82,7 @@ body {
 	height: 220px;
 }
 .nosilLogo:hover {
-	transform: scale(1.25, 1.25);
+	transform: scale(1.1, 1.1);
 	transition: 0.2s ease-out;
 }
 .relative-box{
@@ -185,6 +185,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </head>
 <body>
+<div class="right">
+</div>
 	<%--
 	 상단영역
 		- 홈페이지에서 가장 많이 보이는 부분

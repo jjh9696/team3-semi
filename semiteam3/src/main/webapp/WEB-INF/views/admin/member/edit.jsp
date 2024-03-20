@@ -12,7 +12,7 @@
     }
 
     .form-container {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
     }
 
@@ -107,7 +107,7 @@
 
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="form-container box center">
+<div class="form-container box center w-1000">
 	<h1>${memberDto.memberNick}님의 정보 변경</h1>
 	<form action="edit" method="post">
 	    <input type="hidden" name="memberId" required value="${memberDto.memberId}"><br><br>

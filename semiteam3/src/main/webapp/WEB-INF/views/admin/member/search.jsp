@@ -88,7 +88,7 @@
  --%>
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="box cell container">
+<div class="box cell container w-1000">
 <h1>회원 관리</h1>
  <div class="cell">
 	<form action="search" method="get">

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	<div class="container w-800">
+	<div class="container w-1000">
 		<div class="cell center">
 			<h1>댓글 신고</h1>
 		</div>

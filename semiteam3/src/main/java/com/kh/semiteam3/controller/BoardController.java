@@ -333,6 +333,10 @@ public class BoardController {
 		    return "/WEB-INF/views/board/mylike.jsp";
 		}
 		
+	    @GetMapping("/eventpage")
+	    public String eventpage() {
+	        return "/WEB-INF/views/board/eventpage.jsp";
+	    }
 		
 		//프로필 다운로드 페이지
 		@RequestMapping("/image")
@@ -347,9 +351,6 @@ public class BoardController {
 			}
 		}
 
-		
-		
-		
 }
 
 

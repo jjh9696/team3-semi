@@ -91,7 +91,7 @@
 
 /* 입력창은 focus 효과가 발생할 때 테두리를 강조 */
 .tool:focus {
-    border-color: #bda488;
+    border-color: #e4b176;
 }
 
 /* 밑줄만 있는 입력창 구현 .tool.underline*/
@@ -142,7 +142,7 @@ textarea.tool.tool-fixed {
 */
 
 .btn {/* a태그를 버튼으로 쓸 경우 */
-    color: #bda488;
+    color: #e4b176;
     text-decoration: none; /* 밑줄 제거 */
     display: inline-block;
     text-align: center;
@@ -152,7 +152,7 @@ textarea.tool.tool-fixed {
 }
 
 .btn.positive {
-    background-color: #bda488;
+    background-color: #e4b176;
     color: white;
 }
 .btn.negative {
@@ -331,7 +331,7 @@ textarea.tool.tool-fixed {
 .table.table-border > tfoot > tr > th, 
 .table.table-border > tfoot > tr > td 
 {
-    border:1px solid #bda488;
+    border:1px solid #e4b176;
 }
 
 /*
@@ -342,7 +342,7 @@ textarea.tool.tool-fixed {
 .table.table-stripe > thead > tr,
 .table.table-stripe > tbody > tr:nth-child(2n) 
 {
-    background-color: #bda488;
+    background-color: #e4b176;
 }
 
 /*
@@ -477,7 +477,7 @@ textarea.tool.tool-fixed {
 
 .page-navigator > a {
     display: inline-block;
-    color: #2d3436;
+    color: #e4b176;
     text-decoration: none;
 /*     border: 1px solid #2d3436; */
 	border: 1px solid transparent; /* 투명테두리 */
@@ -493,8 +493,8 @@ textarea.tool.tool-fixed {
 .page-navigator > a.on ,
 .page-navigator > a:not(.off):hover
 {
-    color: #0984e3;
-    border-color: #0984e3;
+    color: #e4b176;
+    border-color: #e4b176;
 }
 
 /* off 클래스에 대한 효과 추가 */

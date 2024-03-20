@@ -4,12 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <head>
 <meta charset="UTF-8">
 <title>게시글 신고 목록</title>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
 	.table {
 		width: 95%;
@@ -50,7 +50,7 @@
 	
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-	<div class="box cell container">
+	<div class="box container w-1000">
 		<div class="cell">
 			<h1>게시글 신고 목록</h1>
 		</div>

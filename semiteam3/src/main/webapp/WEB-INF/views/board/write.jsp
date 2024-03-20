@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
 .map {
 	width: 100%;
@@ -13,12 +13,11 @@
 
 </style>
 
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44051ef145f6b735ac8da5c7428992fc&libraries=services"></script>
+
 <script type="text/javascript">
 	$(function() {
+		
 		var loginGrade = "${sessionScope.loginGrade}";
 
 		// 관리자인 경우 마감 시간 입력 필드를 숨깁니다.
@@ -48,14 +47,17 @@
 		});
 
 	});
+	
+	
+	
 </script>
 
 
-<script src="/js/exit.js"></script>
 
 
-	<div class="container" style="display: flex; width:1300px;">
-		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+
+<div class="container" style="display: flex; width:1300px;">
+<%-- 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> --%>
 <div class="container w-1000">
 	<div class="set-color">
 		<%-- 제목칸 --%>

@@ -44,7 +44,7 @@
 
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="box cell container w-1000">
+<div class="box container">
 	<div class="cell center">
 		<h2>${memberDto.memberNick}님의 상세 정보</h2>
 	</div>

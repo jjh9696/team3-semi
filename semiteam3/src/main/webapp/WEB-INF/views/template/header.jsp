@@ -104,6 +104,7 @@ body {
 
 <script>
 	$(function() {
+		
 		var options = {
 			toolbar : [
 			// [groupName, [list of button]]

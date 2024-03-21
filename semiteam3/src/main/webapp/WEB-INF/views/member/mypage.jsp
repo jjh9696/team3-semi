@@ -44,7 +44,7 @@
 }
 
 .box {
-	width: 800px;
+	width: 1000px;
 	background-color: #f8f9fa;
 	color: #333;
 	padding: 20px;

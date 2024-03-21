@@ -31,10 +31,6 @@ public class ReplyRestController {
 	@Autowired
 	private MemberDao memberDao;
 
-//	@PostMapping("/list")
-//	public List<ReplyDto> list(@RequestParam int replyOrigin) {
-//		return replyDao.selectList(replyOrigin);
-//	}
 	@PostMapping("/list")
 	public List<ReplyDto> list(@RequestParam int replyOrigin) {
 	    List<ReplyDto> list = replyDao.selectList(replyOrigin);

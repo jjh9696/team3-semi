@@ -26,7 +26,7 @@
 }
 
 .table th, .table td {
-	padding: 8px;
+/* 	padding: 0.5em; */
 	border-bottom: 1px solid #ddd;
 }
 
@@ -106,8 +106,8 @@ span{
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 <div class="box container w-1000">
-<div class="flex-cell">
-    <form action="mypage" method="post" autocomplete="off" enctype="multipart/form-data">
+<div class="cell center">
+    <form action="mypage" method="post" autocomplete="off" enctype="multipart/form-data" >
         <c:choose>
             <c:when test="${empty loginMember.memberAttach}">
                 <label for="memberAttach">
@@ -155,7 +155,10 @@ span{
             </td>
         </tr>
         <tr>
-            <th>등급</th>
+            <th>
+            	<i class="fa-solid fa-wand-magic-sparkles"></i>
+            	등급
+            </th>
             <td class="left">${memberDto.memberGrade}</td>
         </tr>
         <tr>

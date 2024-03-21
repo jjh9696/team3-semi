@@ -480,9 +480,9 @@
 
 
 
-<%-- <div class="container" style="display: flex; width: 1300px;">
-		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> --%>
+<!-- <div class="container" style="display: flex; width: 1300px;">  -->
 <div class="container w-1000 set-color">
+<%-- 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>  --%>
 	<div class="cell title left">${boardDto.boardTitle}</div>
 	<div class="cell flex-cell info">
 		<div class="cell w-50 left">
@@ -689,7 +689,6 @@
 					<td>
 						<div class="status">${boardDto.boardStatus}</div>
 					</td>
-					</tr>
 				</c:forEach>
 			</table>
 		</div>

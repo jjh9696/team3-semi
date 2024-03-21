@@ -32,7 +32,7 @@
 
 .box {
 	width: 800px;
-	background-color: #f8f9fa;
+	background-color: #fff;
 	color: #333;
 	padding: 20px;
 	/*top: 330px;*/
@@ -103,13 +103,13 @@
 			</tr>
 		</table>
 	</div>
-	</div>
-	
-	<div class="cell right">
+	<div class="cell right pe-20">
 		<a class="btn positive" href="edit?memberId=${memberDto.memberId}">수정</a>
 		<a href="delete?memberId=${memberDto.memberId}" class="link-confirm btn negative" data-message="정말 탈퇴시키시겠습니까?">
-			회원강제탈퇴</a>
+			회원 강제탈퇴</a>
 	</div>
+</div>
+	
 </div>
 
 

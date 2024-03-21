@@ -83,9 +83,9 @@
 */
 .tool , .btn {
     font-size: 16px; /* 원하는 크기로 조정 */
-    padding: 0.3em 0.8em; /* 원하는 크기로 조정 */
+    padding: 0.5em 0.8em; /* 원하는 크기로 조정 */
     outline: none;/*선택시 자동강조효과 제거*/
-    border: 1px solid #e3c7a6;
+    border: 1px solid #e4b176;
     border-radius: 0.1em;
 }
 
@@ -147,7 +147,6 @@ textarea.tool.tool-fixed {
     display: inline-block;
     text-align: center;
     cursor: pointer;
-    border: none; 
     
 }
 
@@ -318,7 +317,7 @@ textarea.tool.tool-fixed {
 .table > tfoot > tr > td
 {
     text-align: center;
-    padding: 0.25em;
+    padding: 0.5em;
 }
 
 /*
@@ -823,9 +822,22 @@ textarea.tool.tool-fixed {
     box-shadow: 0 0 1px 0 #ccc;
 }
 .progressbar > .guage{
-    width: 0;
+/*     width: 0; */
+/*     height: 5px; */
+/*     background: rgb(2,0,36); */
+/*     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 11%, rgba(8,39,141,1) 26%, rgba(6,85,171,1) 42%, rgba(4,131,202,1) 60%, rgba(2,169,227,1) 80%, rgba(0,212,255,1) 100%); */
+/*     transition: width 0.25s ease-out; */
+
+
+    width: 0%;
     height: 5px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 11%, rgba(8,39,141,1) 26%, rgba(6,85,171,1) 42%, rgba(4,131,202,1) 60%, rgba(2,169,227,1) 80%, rgba(0,212,255,1) 100%);
-    transition: width 0.25s ease-out;
+    background: rgb(238,174,202);
+    background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    transition: width 0.1s ease-in-out;
+
 }
+
+
+
+
+

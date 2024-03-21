@@ -107,7 +107,8 @@
 		var loginId = "${sessionScope.loginId}";
 		var loginNick = "${sessionScope.loginNick}";
 		var isLogin = loginId.length > 0;
-
+		var loginGrade = "${sessionScope.loginGrade}";
+		
 		//페이지 로딩 완료 시 댓글 목록을 불러와서 출력
 		$.ajax({
 			url : "/rest/reply/list",
@@ -141,7 +142,15 @@
 					//- data라는 명형으로는 읽기만 가능
 					//- 태그에 글자를 추가하고 싶다면 .attr()명령 사용
 					//- 현재 로그인한 사용자의 댓글에만 버튼을 표시(나머진 삭제)
-					if (isLogin && loginNick == response[i].replyWriter) {//로그인되엇고 본인 댓글일때 
+					if (loginGrade == '관리자'){//관리자면
+						$(templateHTML).find(".btn-reply-delete").attr( //삭제버튼 보여주기
+								"data-reply-no", response[i].replyNo);
+						$(templateHTML).find(".btn-reply-edit").remove();
+						$(templateHTML).find(".btn-reply-report").remove();
+					}
+					
+					//if (isLogin && (loginNick == response[i].replyWriter || loginGrade == '관리자')) {//로그인되엇고 본인 댓글일때 
+					else if (isLogin && loginNick == response[i].replyWriter) {//로그인되엇고 본인 댓글일때  
 						$(templateHTML).find(".btn-reply-edit").attr(
 								"data-reply-no", response[i].replyNo);
 						$(templateHTML).find(".btn-reply-delete").attr(
@@ -472,13 +481,10 @@
 	};
 </script>
 
-
-<!-- <div class="container" style="display: flex; width: 1300px;">  -->
 <div class="container" style="display: flex; width: 1300px;">
-	<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-	
-	<div class="container">
-	<div class="container w-1000 set-color">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+		<div class="container">
+<div class="container w-1000 set-color">
 	<div class="cell title left">${boardDto.boardTitle}</div>
 	<div class="cell flex-cell info">
 		<div class="cell w-50 left">
@@ -652,12 +658,11 @@
 		</c:otherwise>
 	</c:choose>
 </div>
-<!-- </div> -->
+
 <c:if test="${memberDto.memberGrade != '관리자'}">
 	<div class="cell m-30"></div>
 
 
-<!-- <div class="container" style="width: 1300px;"> -->
 	<div class="container w-1000 set-color">
 		<div class="cell">
 			<table class="table table-horizontal table-hover">

@@ -31,7 +31,7 @@
 }
 
 .box {
-	width: 800px;
+	width: 1000px;
 	background-color: #fff;
 	color: #333;
 	padding: 20px;

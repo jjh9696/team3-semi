@@ -34,6 +34,9 @@
 .board-like, .btn-board-report, .fa-bell {
 	color: #ee5253;
 }
+.board-detail-list{
+	
+}
 </style>
 
 
@@ -469,15 +472,8 @@
 	};
 </script>
 
-
-
-
-
-
-
-
-<%-- <div class="container" style="display: flex; width: 1300px;">
-		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> --%>
+<div class="container" style="display: flex; width: 1300px;">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> 
 <div class="container w-1000 set-color">
 	<div class="cell title left">${boardDto.boardTitle}</div>
 	<div class="cell flex-cell info">
@@ -576,7 +572,15 @@
 			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
 				href="delete?boardNo=${boardDto.boardNo}">글삭제</a>
 		</c:if>
-		<a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a>
+		
+		<c:choose>
+			<c:when test="${boardDto.boardCategory == '관리자'}">
+					<a class="btn positive" onclick="history.back()">글목록</a>
+				</c:when>
+			<c:otherwise>
+					<a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a>
+			</c:otherwise>
+		</c:choose>
 	</div>
 
 	<!-- 댓글 작성창 + 댓글 목록 -->
@@ -641,11 +645,12 @@
 		</c:otherwise>
 	</c:choose>
 </div>
-
+</div>
 <c:if test="${memberDto.memberGrade != '관리자'}">
 <div class="cell m-30"></div>
 
-<div class="container w-1000 set-color">
+<div class="container" style="width: 1300px;">
+<div class="container w-1000 set-color me-50">
 	<div class="cell">
 		<table class="table">
 			<c:forEach var="boardDto" items="${list}">
@@ -708,8 +713,9 @@
 
 </div>
 
+
+</div>
 </c:if>
-<!-- </div> -->
 <%--이유는 모르겠지만 이걸 밑에 넣어야 로드가 빨리됨 --%>
 <script type="text/javascript">
 	// 마감 시간 설정 (YYYY, MM, DD, HH, MM, SS 순서)

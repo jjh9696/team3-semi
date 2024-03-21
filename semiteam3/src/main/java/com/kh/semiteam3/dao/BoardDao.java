@@ -230,8 +230,8 @@ public class BoardDao {
     //디테일을 위한 카운트
     public int countForDetail(PageVO pageVO) {
     	String sql = "select count(*) from board "
-    			+ "where board_writer in (select member_id from member "
-    			+ "where member_grade != '관리자') "
+    			+ "where (board_writer is null or board_writer in (select member_id from member "
+    			+ "where member_grade != '관리자')) "
     			+ "and board_category = ?";
         Object[] data = { pageVO.getCategory() };
         return jdbcTemplate.queryForObject(sql, int.class, data);

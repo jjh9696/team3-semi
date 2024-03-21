@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
 .info {
 	color: #8395a7;

@@ -201,14 +201,18 @@ public class BoardDao {
  // 통합 페이지 카운트(목록 + 검색 + 모집중인 게시글)
     public int count(PageVO pageVO) {
         if (pageVO.isSearch()) {// 검색
-            String sql = "select count(*) from board where instr(" + pageVO.getColumn() + ", ?) > 0";
+            String sql = "select count(*) from board where board_writer in ("
+            		+ "select member_id from member where member_grade = '일반회원') "
+            		+ "and board_category = ? and instr(" + pageVO.getColumn() + ", ?) > 0";
             if (pageVO.isOnlyRecruiting()) { // 모집중인 게시글만 필터링
                 sql += " and board_limit_time > sysdate"; // 현재 시간 이후인 경우만 모집중으로 간주
             }
             Object[] data = { pageVO.getKeyword() };
             return jdbcTemplate.queryForObject(sql, int.class, data);
         } else {// 목록
-            String sql = "select count(*) from board where board_category = ?";
+            String sql = "select count(*) from board where board_writer in("
+            		+ "select member_id from member where member_grade = '일반회원') "
+            		+ "and board_category = ?";
             if (pageVO.isOnlyRecruiting()) { // 모집중인 게시글만 필터링
                 sql += " and board_limit_time > sysdate"; // 현재 시간 이후인 경우만 모집중으로 간주
             }

@@ -298,6 +298,11 @@ public class BoardDao {
         String sql = "UPDATE board SET board_reply = board_reply + 1 WHERE board_no = ?";
         jdbcTemplate.update(sql, boardNo);
     }
+    //댓글 수 감소
+    public void decreaseBoardReply(int boardNo) {
+    	String sql = "UPDATE board SET board_reply = board_reply - 1 WHERE board_no = ?";
+    	jdbcTemplate.update(sql, boardNo);
+    }
 
 	//관리자 전체 공지 조회하기
 	public List<BoardDto> listByAdmin(){

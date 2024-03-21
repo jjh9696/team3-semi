@@ -8,7 +8,8 @@
 <form action="edit" method="post" autocomplete="off" class="free-pass">
 	<input type="hidden" name="boardNo" value="${boardDto.boardNo}">
 
-
+<div class="container" style="display: flex; width: 1300px;">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> 
 	<div class="container w-1000 set-color">
 		<div class="cell center">
 			<h1>게시글 수정</h1>
@@ -34,8 +35,8 @@
 			<button class="btn positive">수정</button>
 		</div>
 	</div>
+</div>
 </form>
-
 <!-- Flatpickr CSS (위에다 하면 적용이 안돼서 밑에다가 했음-->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">

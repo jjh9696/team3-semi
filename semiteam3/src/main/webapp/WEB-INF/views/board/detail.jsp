@@ -473,7 +473,8 @@
 </script>
 
 <div class="container" style="display: flex; width: 1300px;">
-		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> 
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+		<div class="container">
 <div class="container w-1000 set-color">
 	<div class="cell title left">${boardDto.boardTitle}</div>
 	<div class="cell flex-cell info">
@@ -648,13 +649,13 @@
 		</c:otherwise>
 	</c:choose>
 </div>
-</div>
+<!-- </div> -->
 <c:if test="${memberDto.memberGrade != '관리자'}">
 	<div class="cell m-30"></div>
 
 
-<div class="container" style="width: 1300px;">
-	<div class="container w-1000 set-color me-50">
+<!-- <div class="container" style="width: 1300px;"> -->
+	<div class="container w-1000 set-color">
 		<div class="cell">
 			<table class="table table-horizontal table-hover">
 				<c:forEach var="boardDto" items="${list}">
@@ -721,9 +722,9 @@
 			</form>
 		</div>
 	</div>
-	</div>
 </c:if>
-
+</div>
+</div>
 </body>
 
 <%--이유는 모르겠지만 이걸 밑에 넣어야 로드가 빨리됨 --%>

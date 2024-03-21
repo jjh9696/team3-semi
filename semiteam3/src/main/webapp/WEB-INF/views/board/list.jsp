@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
 <style>
 .info {
 	color: #8395a7;
@@ -17,6 +15,7 @@
 .fa-pen {
 	color: #e3c7a6;
 }
+
 </style>
 
 <script type="text/javascript">
@@ -37,6 +36,11 @@
 </script>
 
 <body>
+
+	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+
+
 
 	<div class="container" style="display: flex; width: 1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
@@ -127,12 +131,12 @@
 
 			<%--전체공지 테이블 --%>
 			<div class="cell">
-				<table class="table table-horizontal table-hover">
+				<table class="table table-horizontal table-hover ">
 
 
 					<c:forEach var="boardDto" items="${adminListAll}">
 						<tr>
-							<td class="left">
+							<td class="left" width="80%">
 								<div class="my-10">
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
@@ -165,7 +169,7 @@
 
 					<c:forEach var="boardDto" items="${adminListCategory}">
 						<tr>
-							<td class="left" width="70%">
+							<td class="left">
 								<div class="my-10">
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
@@ -178,16 +182,12 @@
 									| ${boardDto.boardWriterStr}
 								</div>
 							</td>
-
-							<td>
-								<div class="info my-10">
-									${boardDto.boardWriteTimeStr}
-									<p>
-										조회수
-										<fmt:formatNumber value="${boardDto.boardView}"
-											pattern="###,###"></fmt:formatNumber>
-									</p>
-								</div>
+							<td class="info">${boardDto.boardWriteTimeStr}
+								<p>
+									조회수
+									<fmt:formatNumber value="${boardDto.boardView}"
+										pattern="###,###"></fmt:formatNumber>
+								</p>
 							</td>
 							<td>
 								<div class="status">${boardDto.boardStatus}</div>
@@ -198,14 +198,14 @@
 					<%--일반 게시판 테이블 --%>
 					<c:forEach var="boardDto" items="${list}">
 						<tr>
-							<td class="left">
-								<div class="my-10">
+							<td class="left" width="80%">
+								<div class="my-10" >
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
 									</a>
 								</div>
 								<div class="info my-10">
-									모집기간
+									모집기간 
 									<fmt:formatDate value="${boardDto.boardWriteTime}"
 										pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
 									~

@@ -17,8 +17,6 @@
 .fa-pen {
 	color: #e3c7a6;
 }
-
-
 </style>
 
 <script type="text/javascript">
@@ -167,7 +165,7 @@
 
 					<c:forEach var="boardDto" items="${adminListCategory}">
 						<tr>
-							<td class="left">
+							<td class="left" width="70%">
 								<div class="my-10">
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
@@ -180,12 +178,16 @@
 									| ${boardDto.boardWriterStr}
 								</div>
 							</td>
-							<td class="info">${boardDto.boardWriteTimeStr}
-								<p>
-									조회수
-									<fmt:formatNumber value="${boardDto.boardView}"
-										pattern="###,###"></fmt:formatNumber>
-								</p>
+
+							<td>
+								<div class="info my-10">
+									${boardDto.boardWriteTimeStr}
+									<p>
+										조회수
+										<fmt:formatNumber value="${boardDto.boardView}"
+											pattern="###,###"></fmt:formatNumber>
+									</p>
+								</div>
 							</td>
 							<td>
 								<div class="status">${boardDto.boardStatus}</div>
@@ -203,7 +205,7 @@
 									</a>
 								</div>
 								<div class="info my-10">
-									모집기간 
+									모집기간
 									<fmt:formatDate value="${boardDto.boardWriteTime}"
 										pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
 									~

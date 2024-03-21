@@ -699,7 +699,7 @@
 
 
 		<div class="cell center">
-			<jsp:include page="/WEB-INF/views/template/navigator2.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/template/detailNavigator.jsp"></jsp:include>
 		</div>
 
 		<div class="cell center">

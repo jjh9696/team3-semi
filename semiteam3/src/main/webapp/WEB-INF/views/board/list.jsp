@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <style>
 .info {
@@ -38,10 +39,6 @@
 </script>
 
 <body>
-
-
-
-
 
 	<div class="container" style="display: flex; width: 1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
@@ -137,7 +134,7 @@
 
 					<c:forEach var="boardDto" items="${adminListAll}">
 						<tr>
-							<td class="left" width="80%">
+							<td class="left">
 								<div class="my-10">
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
@@ -199,8 +196,8 @@
 					<%--일반 게시판 테이블 --%>
 					<c:forEach var="boardDto" items="${list}">
 						<tr>
-							<td class="left" width="80%">
-								<div class="my-10" >
+							<td class="left">
+								<div class="my-10">
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
 									</a>

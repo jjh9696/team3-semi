@@ -18,6 +18,7 @@
 <script type="text/javascript">
 	$(function() {
 		
+		
 		var loginGrade = "${sessionScope.loginGrade}";
 
 		// 관리자인 경우 마감 시간 입력 필드를 숨깁니다.

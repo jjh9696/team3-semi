@@ -1,9 +1,14 @@
 package com.kh.semiteam3.dao;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
 import com.kh.semiteam3.dto.BoardDto;
@@ -94,23 +99,24 @@ public class BoardDao {
                     	+ "select board_no, board_title, board_reply, board_writer,"
                     	+ "board_write_time, board_limit_time,"
                     	+ "board_view, board_like "
-                        + "from board where board_category = ? and instr(" + pageVO.getColumn() + ", ?) > 0 order by board_no desc "
+                        + "from board where board_writer in ("
+                        + "select member_id from member where member_grade = '일반회원') "
+                        + "and board_category = ? and instr(" + pageVO.getColumn() + ", ?) > 0 order by board_no desc "
                     + ")TMP"
                 + ") where rn between ? and ?";
             Object[] data = {boardCategory, pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
             return jdbcTemplate.query(sql, boardListMapper, data);
         }
         
+        
         else {//목록
-            String sql = "select * from("
-                    + "select rownum rn, TMP.* from("
-                    + "select "
-                        + "board_no, board_title, board_reply, board_writer,"
-                        + "board_write_time, board_limit_time, "
-                        + "board_view, board_like "
-                    + "from board where board_category = ? order by board_no desc"
-                    + ")TMP"
-                    + ") where rn between ? and ?";
+    		String sql = "select * from("
+    				+ "select rownum rn, TMP.* from("
+    				+ "select board_no, board_title, board_reply, board_writer, board_write_time, "
+    				+ "board_limit_time, board_view, board_like, board_category "
+    				+ "from board where board_writer in ("
+    				+ "select member_id from member where member_grade = '일반회원') "
+    				+ "and board_category = ? order by board_no desc) TMP) where rn between ? and ?";
             Object[] data= {boardCategory, 
                                     pageVO.getBeginRow(), pageVO.getEndRow()};
             return jdbcTemplate.query(sql, boardListMapper, data);
@@ -195,14 +201,18 @@ public class BoardDao {
  // 통합 페이지 카운트(목록 + 검색 + 모집중인 게시글)
     public int count(PageVO pageVO) {
         if (pageVO.isSearch()) {// 검색
-            String sql = "select count(*) from board where instr(" + pageVO.getColumn() + ", ?) > 0";
+            String sql = "select count(*) from board where board_writer in ("
+            		+ "select member_id from member where member_grade = '일반회원') "
+            		+ "and board_category = ? and instr(" + pageVO.getColumn() + ", ?) > 0";
             if (pageVO.isOnlyRecruiting()) { // 모집중인 게시글만 필터링
                 sql += " and board_limit_time > sysdate"; // 현재 시간 이후인 경우만 모집중으로 간주
             }
             Object[] data = { pageVO.getKeyword() };
             return jdbcTemplate.queryForObject(sql, int.class, data);
         } else {// 목록
-            String sql = "select count(*) from board where board_category = ?";
+            String sql = "select count(*) from board where board_writer in("
+            		+ "select member_id from member where member_grade = '일반회원') "
+            		+ "and board_category = ?";
             if (pageVO.isOnlyRecruiting()) { // 모집중인 게시글만 필터링
                 sql += " and board_limit_time > sysdate"; // 현재 시간 이후인 경우만 모집중으로 간주
             }
@@ -217,6 +227,15 @@ public class BoardDao {
         Object[] data = { pageVO.getCategory() };
         return jdbcTemplate.queryForObject(sql, int.class, data);
     }
+    
+    //디테일 리다이렉트 될 때 최신글인지 판단하려고..
+    public int maxBoardNo(String boardCategory) {
+        String sql = "select max(board_no) as max_board_no from board where board_category = ?";
+        Object[] data = {boardCategory};
+        return jdbcTemplate.queryForObject(sql, int.class, data);
+    }
+    
+   
 
 	
 	//닉네임으로 검색 카운트
@@ -278,6 +297,11 @@ public class BoardDao {
     public void increaseBoardReply(int boardNo) {
         String sql = "UPDATE board SET board_reply = board_reply + 1 WHERE board_no = ?";
         jdbcTemplate.update(sql, boardNo);
+    }
+    //댓글 수 감소
+    public void decreaseBoardReply(int boardNo) {
+    	String sql = "UPDATE board SET board_reply = board_reply - 1 WHERE board_no = ?";
+    	jdbcTemplate.update(sql, boardNo);
     }
 
 	//관리자 전체 공지 조회하기

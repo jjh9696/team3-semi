@@ -37,6 +37,7 @@ body {
 	font-size: 20px;
 	font-weight: bold;
 	text-decoration: none;
+	
 }
     
 .my {
@@ -81,7 +82,7 @@ body {
                 	<a href="/member/mypage" >
                 		<img src="image" alt="Preview Image" class="preview">
                 	</a>
-                   		<div class="cell center">
+                   		<div class="cell">
                         	<a href="/member/mypage" class="name">
                         		${sessionScope.loginNick}
                         	</a>                      

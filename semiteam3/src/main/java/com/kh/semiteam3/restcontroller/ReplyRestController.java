@@ -51,7 +51,11 @@ public class ReplyRestController {
 	}
 
 	@PostMapping("/delete")
-	public void delete(@RequestParam int replyNo) {
+	public void delete(@RequestParam int replyNo, @ModelAttribute ReplyDto replyDto) {
+		
+		// 댓글 수 감소
+		boardDao.decreaseBoardReply(replyDto.getReplyOrigin());
+		
 		replyDao.delete(replyNo);
 	}
 

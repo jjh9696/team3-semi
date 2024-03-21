@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 <style>
 .info {
 	color: #8395a7;
@@ -15,6 +17,7 @@
 .fa-pen {
 	color: #e3c7a6;
 }
+
 
 </style>
 
@@ -36,8 +39,6 @@
 </script>
 
 <body>
-
-	
 
 	<div class="container" style="display: flex; width: 1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>

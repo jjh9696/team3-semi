@@ -9,9 +9,7 @@
 <meta charset="UTF-8">
 <title>댓글 신고 목록</title>
 </head>
-<body>
 <style>
-	
 .table {
 	width: 95%;
 	margin: 0 auto; /* 수평 가운데 정렬을 위한 마진 설정 */
@@ -48,25 +46,31 @@
 	border-radius: 10px;
 }
 </style>
+</head>
+<body>
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-	<div class="box container w-1000">
-		<div class="cell center">
-			<h1>댓글 신고 목록</h1>
-		</div>
-	<div class="cell width-fill right pe-10">
-			<%-- 검색창 --%>
-			<form action="list" method="get">
-				<select name="column" class="tool">
-					<option value="member_id"
-						${param.column == 'member_id' ? 'selected' : ''}>신고자</option>
-					<option value="report_reply_reason"
-						${param.column == 'report_reply_reason' ? 'selected' : ''}>신고사유</option>
-				</select> <input class="tool" type="search" name="keyword"
-					placeholder="검색어 입력" required value="${param.keyword}">
-				<button class="btn positive">검색</button>
-			</form>
-		</div>
+		
+		<div class="box container w-1000">
+			<div class="cell center">
+				<h1>댓글 신고 목록</h1>
+			</div>
+			<div class="cell width-fill right pe-10">
+				<%-- 검색창 --%>
+				<form action="list" method="get">
+					<select name="column" class="tool">
+						<option value="member_id" ${param.column == 'member_id' ? 'selected' : ''}>
+							신고자
+						</option>
+						<option value="report_reply_reason"	${param.column == 'report_reply_reason' ? 'selected' : ''}>
+							신고사유
+						</option>
+					</select>
+					<input class="tool" type="search" name="keyword"
+							placeholder="검색어 입력" required value="${param.keyword}">
+					<button class="btn positive">검색</button>
+				</form>
+			</div>
 		<div class="cell">
 			<%-- 목록 --%>
 			<table class="table">
@@ -94,10 +98,11 @@
 				</tbody>
 			</table>
 		</div>
-
+		
 		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 	</div>
-	</div>
-	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+</div>
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>
 </html>

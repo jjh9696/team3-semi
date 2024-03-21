@@ -58,7 +58,7 @@
 
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="container w-1000">
+<div class="container w-800">
 	<div class="set-color">
 		<%-- 제목칸 --%>
 		<div class="cell center title">
@@ -96,7 +96,7 @@
 						placeholder="제목">
 				</div>
 				<div class="cell">
-					<textarea class="tool w-100" name="boardContent" 
+					<textarea class="tool w-100" name="boardContent"
 						placeholder="내용 입력"></textarea>
 				</div>
 				<div class="flex-cell">
@@ -113,7 +113,6 @@
 	</div>
 </div>
 </div>
-
 
 
 <!-- Flatpickr CSS (위에다 하면 적용이 안돼서 밑에다가 했음-->

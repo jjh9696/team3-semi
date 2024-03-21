@@ -223,7 +223,9 @@ public class BoardDao {
     
     //디테일을 위한 카운트
     public int countForDetail(PageVO pageVO) {
-        String sql = "select count(*) from board where board_category = ?";
+        String sql = "select count(*) from board where board_writer in("
+        		+ "select member_id from member where member_grade = '일반회원') "
+        		+ "and board_category = ?";
         Object[] data = { pageVO.getCategory() };
         return jdbcTemplate.queryForObject(sql, int.class, data);
     }

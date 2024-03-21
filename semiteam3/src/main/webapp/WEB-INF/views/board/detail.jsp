@@ -34,8 +34,9 @@
 .board-like, .btn-board-report, .fa-bell {
 	color: #ee5253;
 }
-.board-detail-list{
-	
+
+.title2 {
+	background-color: #f0eae2;
 }
 </style>
 
@@ -516,40 +517,43 @@
 				class="count">?</span></span>
 		</div>
 	</div>
+	
+	<c:if test="${memberDto.memberGrade != '관리자'}">
+		<div class="cell flex-cell">
 
-	<div class="cell flex-cell">
-
-		<div class="cell w-50 left info">
-			<c:if test="${not empty boardDto.boardLimitTimeDate}">
+			<div class="cell w-50 left info">
+				<c:if test="${not empty boardDto.boardLimitTimeDate}">
 				모집기간
 				<fmt:formatDate value="${boardDto.boardWriteTime}"
-					pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+						pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 				~
 				<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
-					pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+						pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
 
-				<div class="cell">
-					<span id="countdown"></span>
-				</div>
-			</c:if>
-		</div>
-
-		<div class="cell w-50 right">
-			<c:if test="${sessionScope.loginId != null}">
-				<a class="link btn-board-report"
-					href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">
-					<i class="fa-solid fa-bell btn-board-report"></i> 신고
-				</a>
-			</c:if>
-			<div class="cell">
-				<c:if test="${sessionScope.loginGrade == '관리자'}">
-					신고 횟수 : ${reportCountByReportBoardOrigin}
+					<div class="cell">
+						<span id="countdown"></span>
+					</div>
 				</c:if>
 			</div>
+
+			<div class="cell w-50 right">
+
+				<c:if test="${sessionScope.loginId != null}">
+					<a class="link btn-board-report"
+						href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">
+						<i class="fa-solid fa-bell btn-board-report"></i> 신고
+					</a>
+				</c:if>
+				<div class="cell">
+					<c:if test="${sessionScope.loginGrade == '관리자'}">
+					신고 횟수 : ${reportCountByReportBoardOrigin}
+				</c:if>
+				</div>
+
+			</div>
+
 		</div>
-
-	</div>
-
+	</c:if>
 
 
 
@@ -647,14 +651,22 @@
 </div>
 </div>
 <c:if test="${memberDto.memberGrade != '관리자'}">
-<div class="cell m-30"></div>
+	<div class="cell m-30"></div>
+
 
 <div class="container" style="width: 1300px;">
-<div class="container w-1000 set-color me-50">
-	<div class="cell">
-		<table class="table">
-			<c:forEach var="boardDto" items="${list}">
-				<tr>
+	<div class="container w-1000 set-color me-50">
+		<div class="cell">
+			<table class="table table-horizontal table-hover">
+				<c:forEach var="boardDto" items="${list}">
+					<c:choose>
+						<c:when test="${param.boardNo == boardDto.boardNo}">
+							<tr class="title2">
+						</c:when>
+						<c:otherwise>
+							<tr>
+						</c:otherwise>
+					</c:choose>
 					<td class="left" width="80%">
 						<div class="my-10">
 							<a class="link" href="detail?boardNo=${boardDto.boardNo}">
@@ -680,42 +692,41 @@
 					<td>
 						<div class="status">${boardDto.boardStatus}</div>
 					</td>
-				</tr>
-			</c:forEach>
-		</table>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+
+
+
+		<div class="cell center">
+			<jsp:include page="/WEB-INF/views/template/navigator2.jsp"></jsp:include>
+		</div>
+
+		<div class="cell center">
+			<%-- 검색창 --%>
+			<form action="list" method="get">
+				<!-- 카테고리를 넘겨줘야함 -->
+				<input type="hidden" name="category"
+					value="${boardDto.boardCategory}"> <select name="column"
+					class="tool">
+					<option value="board_title"
+						${param.column == 'board_title' ? 'selected' : ''}>제목</option>
+					<option value="board_content"
+						${param.column == 'board_content' ? 'selected' : ''}>내용</option>
+					<option value="member_nick"
+						${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
+				</select> <input class="tool" type="search" name="keyword"
+					placeholder="검색어 입력" value="${param.keyword}">
+				<button class="btn positive empty-check">검색</button>
+			</form>
+		</div>
 	</div>
-	
-
-	<div class="cell center">
-		<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 	</div>
-
-	<div class="cell center">
-		<%-- 검색창 --%>
-		<form action="list" method="get">
-			<!-- 카테고리를 넘겨줘야함 -->
-			<input type="hidden" name="category" value="${boardDto.boardCategory}"> 
-			<select 	name="column" class="tool">
-				<option value="board_title"
-					${param.column == 'board_title' ? 'selected' : ''}>제목</option>
-				<option value="board_content"
-					${param.column == 'board_content' ? 'selected' : ''}>내용</option>
-				<option value="member_nick"
-					${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
-			</select> 
-			<input class="tool" type="search" name="keyword"
-				placeholder="검색어 입력" value="${param.keyword}">
-			<button class="btn positive empty-check">검색</button>
-		</form>
-	</div>
-
-
-
-</div>
-
-
-</div>
 </c:if>
+
+</body>
+
 <%--이유는 모르겠지만 이걸 밑에 넣어야 로드가 빨리됨 --%>
 <script type="text/javascript">
 	// 마감 시간 설정 (YYYY, MM, DD, HH, MM, SS 순서)
@@ -747,6 +758,7 @@
 
     // 페이지 로드 시 초기화
     updateCountdown();
+    
     </script>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

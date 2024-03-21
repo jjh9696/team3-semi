@@ -300,7 +300,11 @@ public class BoardDao {
         String sql = "UPDATE board SET board_report = board_report + 1 WHERE board_no = ?";
         jdbcTemplate.update(sql, boardNo);
     }
-    
+    //신고 수 감소
+    public void decreaseBoardReport(int boardNo) {
+    	String sql = "UPDATE board SET board_report = board_report - 1 WHERE board_no = ?";
+    	jdbcTemplate.update(sql, boardNo);
+    }
     //댓글 수 증가
     public void increaseBoardReply(int boardNo) {
         String sql = "UPDATE board SET board_reply = board_reply + 1 WHERE board_no = ?";

@@ -16,39 +16,46 @@
 
 
 <script type="text/javascript">
-	$(function() {
-		
-		var loginGrade = "${sessionScope.loginGrade}";
+$(function() {
+    // 작성완료 버튼 클릭 이벤트 처리
+    $('button.positive').click(function() {
+        var loginGrade = "${sessionScope.loginGrade}";
+        var title = $('input[name="boardTitle"]').val().trim();
+        var content = $('textarea[name="boardContent"]').val().trim();
+        var limitTime = $('input[name="boardLimitTime"]').val().trim();
+        var boardTitleLength = $('#boardTitle').val().length;
+        var boardContentLength = $('#boardContent').val().length;
 
-		// 관리자인 경우 마감 시간 입력 필드를 숨깁니다.
-		if (loginGrade === "관리자") {
-			$("#datetimepicker").closest(".cell.right").hide();
-		}
+        //관리자인경우 마감시간 칸 숨김
+        if (loginGrade === "관리자") {
+        	$("#datetimepicker").closest(".cell.right").hide();
+        }
+        
+        //관리자가 아닌데 마감시간설정을 안했다면
+        if (loginGrade !== "관리자" && limitTime === '') {
+            alert('마감 시간을 입력해주세요.');
+            return false;
+        }
 
-		$("button.positive").click(function() {
-			var title = $("input[name='boardTitle']").val().trim();
-			var content = $("textarea[name='boardContent']").val().trim();
+        // 제목과 내용을 모두 입력해야함(관리자도)
+        if (title === '' || content === '') {
+            alert('제목과 내용을 모두 입력해주세요.');
+            return false;
+        }
 
-			// 마감 시간 
-			if (loginGrade !== "관리자") {
-				var limitTime = $("input[name='boardLimitTime']").val().trim();
-				if (limitTime === '') {
-					alert('마감 시간을 입력해주세요.');
-					return false; // 작성 완료 이벤트를 중지합니다.
-				}
-			}
+        // 게시글 제목의 길이가 300자를 초과하는지
+        if (boardTitleLength > 300) {
+            alert('게시글 제목의 허용범위를 초과하였습니다.');
+            return false;
+        }
 
-			// 관리자가 아닌 경우 제목과 내용을 모두 입력하고 마감 시간을 설정해야 합니다.
-			if (loginGrade !== "관리자" && (title === '' || content === '')) {
-				alert('제목과 내용을 모두 입력해주세요.');
-				return false; // 작성 완료 이벤트를 중지합니다.
-			}
-
-		});
-
-	});
-	
-	
+        // 게시글 내용의 길이제한
+        if (boardContentLength > 4000) {
+            alert('게시글 내용의 허용범위를 초과하였습니다.');
+            return false;
+        }
+    });
+});
 	
 </script>
 
@@ -92,11 +99,11 @@
 				</div>
 
 				<div class="cell">
-					<input class="tool w-100" name="boardTitle" type="text"
+					<input class="tool w-100" name="boardTitle" type="text" id="boardTitle" 
 						placeholder="제목">
 				</div>
 				<div class="cell">
-					<textarea class="tool w-100" name="boardContent"
+					<textarea class="tool w-100" name="boardContent" id="boardContent" 
 						placeholder="내용 입력"></textarea>
 				</div>
 				<div class="flex-cell">
@@ -105,7 +112,7 @@
 							class="btn negative w-100"> 취소 </a>
 					</div>
 					<div class="cell w-50">
-						<button class="btn positive w-100">작성완료</button>
+						<button type="submit" id="submitBtn" class="btn positive w-100">작성완료</button>
 					</div>
 				</div>
 			</form>
@@ -137,6 +144,10 @@
 		time_24hr : true,
 		minDate : "today",
 		enableminute : false,
+		
+		//기본 시간값 현재 시간,분으로 설정했음
+		defaultHour: new Date().getHours(),
+		defaultMinute: new Date().getMinutes(), 
 	});
 </script>
 

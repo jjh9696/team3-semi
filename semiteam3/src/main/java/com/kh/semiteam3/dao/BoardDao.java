@@ -128,15 +128,14 @@ public class BoardDao {
     //디테일에서 리스트찍어내려고 만든 것
     public List<BoardDto> selectByCategoryForDetail(PageVO pageVO, 
             String boardCategory){
-    	String sql = "select * from("
-                + "select rownum rn, TMP.* from("
-                + "select "
-                    + "board_no, board_title, board_reply, board_writer,"
-                    + "board_write_time, board_limit_time, "
-                    + "board_view, board_like "
-                + "from board where board_category = ? order by board_no desc"
-                + ")TMP"
-                + ") where rn between ? and ?";
+    	String sql = "select * from (" 
+				+ "select rownum rn, TMP.* from (" 
+				+ "select board_no, board_title, board_reply, board_writer, board_write_time, " 
+				+ "board_limit_time, board_view, board_like, board_category " 
+				+ "from board where (board_writer is null or board_writer in (select member_id from member "
+				+ "where member_grade != '관리자')) " 
+				+ "and board_category = ? order by board_no desc) TMP) " 
+				+ "where rn between ? and ?";
         Object[] data= {boardCategory, 
                                 pageVO.getBeginRow(), pageVO.getEndRow()};
         return jdbcTemplate.query(sql, boardListMapper, data);

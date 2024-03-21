@@ -22,7 +22,7 @@
 	margin: 0 auto; /* 수평 가운데 정렬을 위한 마진 설정 */
 	border-collapse: collapse;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	border-radius: 10px;
+	border-radius: 20px;
 }
 
 .table th, .table td {
@@ -47,7 +47,7 @@
 	width: 1000px;
 	background-color: #f8f9fa;
 	color: #333;
-	padding: 20px;
+	padding: 10px;
 	/*top: 330px;*/
 	height: fit-content;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -179,7 +179,7 @@ span{
   
  
 </div>
-		<div class="cell right">
+		<div class="cell right pe-30">
 			<a href="/member/password" class="button">비밀번호 변경</a><span> | </span><a
 				href="/member/edit" class="button">개인정보 변경</a><span> | </span><a
 				href="/member/exit" class="button">회원 탈퇴</a>

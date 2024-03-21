@@ -699,7 +699,7 @@ div > p > img{
 						</div>
 					</td>
 					<td class="info">${boardDto.boardWriteTimeStr}
-						<p>
+						<p class="my-10">
 							조회수
 							<fmt:formatNumber value="${boardDto.boardView}" pattern="###,###"></fmt:formatNumber>
 						</p>
@@ -743,38 +743,44 @@ div > p > img{
 
 <%--이걸 밑에 넣어야 로드가 빨리됨 --%>
 <script type="text/javascript">
-	// 마감 시간 설정 (YYYY, MM, DD, HH, MM, SS 순서)
-    var endTime = new Date(${boardDto.boardLimitTimeDate.year + 1900}, ${boardDto.boardLimitTimeDate.month}, 
-    						${boardDto.boardLimitTimeDate.date}, ${boardDto.boardLimitTimeDate.hours}, 
-    						${boardDto.boardLimitTimeDate.minutes}, ${boardDto.boardLimitTimeDate.seconds});
+    // 마감 시간 설정 (YYYY, MM, DD, HH, MM, SS 순서)
+    <c:if test="${not empty boardDto.boardLimitTimeDate && memberDto.memberGrade ne '관리자'}">
+        var endTime = new Date(
+            ${boardDto.boardLimitTimeDate.year + 1900}, 
+            ${boardDto.boardLimitTimeDate.month}, 
+            ${boardDto.boardLimitTimeDate.date}, 
+            ${boardDto.boardLimitTimeDate.hours}, 
+            ${boardDto.boardLimitTimeDate.minutes}, 
+            ${boardDto.boardLimitTimeDate.seconds}
+        );
 
-    // 1초마다 업데이트
-    var timer = setInterval(updateCountdown, 1000);
+        // 1초마다 업데이트
+        var timer = setInterval(updateCountdown, 1000);
 
-    function updateCountdown() {
-        var now = new Date();
-        var distance = endTime - now;
+        function updateCountdown() {
+            var now = new Date();
+            var distance = endTime - now;
 
-        // 마감 시간이 지난 경우
-        if (distance < 0) {
-            clearInterval(timer);
-            document.getElementById("countdown").innerHTML = "마감되었습니다.";
-            return;
+            // 마감 시간이 지난 경우
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "마감되었습니다.";
+                return;
+            }
+
+            // 일, 시, 분, 초 계산
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // 결과 표시
+            document.getElementById("countdown").innerHTML = "마감까지 " + days + "일 " + hours + "시간 " + minutes + "분 " + seconds + "초 남음";
         }
 
-        // 일, 시, 분, 초 계산
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // 결과 표시
-        document.getElementById("countdown").innerHTML = "마감까지 " + days + "일 " + hours + "시간 " + minutes + "분 " + seconds + "초 남음";
-    }
-
-    // 페이지 로드 시 초기화
-    updateCountdown();
-    
-    </script>
+        // 페이지 로드 시 초기화
+        updateCountdown();
+    </c:if>
+</script>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

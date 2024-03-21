@@ -7,8 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>댓글 신고 목록</title>
-</head>
-<body>
 	<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 	<style>
 	
@@ -48,9 +46,11 @@
 		border-radius: 10px;
 	}
 </style>
+</head>
+<body>
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-	<div class="box cell container">
+	<div class="box cell container w-1000">
 		<div class="cell center">
 			<h1>댓글 신고 목록</h1>
 		</div>

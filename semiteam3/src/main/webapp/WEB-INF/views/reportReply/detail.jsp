@@ -7,8 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>댓글 신고</title>
-</head>
-<body>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
 	.box {
@@ -22,9 +20,11 @@
 		border-radius: 10px;
 	}
 </style>
+</head>
+<body>
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-	<div class="box cell container">
+	<div class="box cell container w-1000">
 		<div class="cell center">
 			<h2>댓글 신고 상세</h2>
 		</div>
@@ -70,7 +70,8 @@
 		<div class="cell right">
 			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
 					href="delete?reportReplyNo=${reportReplyDto.reportReplyNo}">댓글 신고글삭제</a>
-			<a class="btn positive" href="list">댓글 신고글 목록</a>
+			<a class="btn positive" onclick="history.back()">댓글 신고글 목록</a>
+<!-- 			<a class="btn positive" href="list">댓글 신고글 목록</a> -->
 			<!-- <a class="btn positive" href="/board/detail?boardNo=${originalBoardNo}">신고된 댓글 보러가기</a> -->
 
 		</div>

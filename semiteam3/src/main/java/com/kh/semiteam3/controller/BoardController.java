@@ -190,10 +190,6 @@ public class BoardController {
 		    model.addAttribute("pageVO", pageVO);
 			List<BoardDto> list = boardDao.selectByCategoryForDetail(pageVO, boardDto.getBoardCategory());
 			
-
-			
-			
-			
 			
 			//이건 닉네임 찍어내려고
 		    for (BoardDto boardDto1 : list) {

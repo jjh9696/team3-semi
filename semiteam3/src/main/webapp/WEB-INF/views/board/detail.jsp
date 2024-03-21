@@ -41,10 +41,9 @@
 .btn-edit{
  	background-color:#d6303155;
  	color:#fff;
-
 }
-.btn-writer{
-
+div > p > img{
+	max-width:960px;
 }
 </style>
 
@@ -737,10 +736,12 @@
 </div>
 </body>
 
-<%--이유는 모르겠지만 이걸 밑에 넣어야 로드가 빨리됨 --%>
+<%--이걸 밑에 넣어야 로드가 빨리됨 --%>
 <script type="text/javascript">
 	// 마감 시간 설정 (YYYY, MM, DD, HH, MM, SS 순서)
-    var endTime = new Date(${boardDto.boardLimitTimeDate.year + 1900}, ${boardDto.boardLimitTimeDate.month}, ${boardDto.boardLimitTimeDate.date}, ${boardDto.boardLimitTimeDate.hours}, ${boardDto.boardLimitTimeDate.minutes}, ${boardDto.boardLimitTimeDate.seconds});
+    var endTime = new Date(${boardDto.boardLimitTimeDate.year + 1900}, ${boardDto.boardLimitTimeDate.month}, 
+    						${boardDto.boardLimitTimeDate.date}, ${boardDto.boardLimitTimeDate.hours}, 
+    						${boardDto.boardLimitTimeDate.minutes}, ${boardDto.boardLimitTimeDate.seconds});
 
     // 1초마다 업데이트
     var timer = setInterval(updateCountdown, 1000);

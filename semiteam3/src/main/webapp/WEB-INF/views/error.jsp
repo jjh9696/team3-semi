@@ -23,13 +23,13 @@
 /* background-image blur */
 .background-blur::before {
   content: "";
-  position: absolute;
+  position: ;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 50%;
+  height: 50%;
   z-index: -1;
-  background-image: url("https://picsum.photos/400/400");
+  background-image: url("/image/home/nosilLogo.png");
   background-size: cover; 
   background-repeat: no-repeat;
   background-position: center;
@@ -43,12 +43,11 @@
 </style>
  <body>
     <div class="background-blur">
-      <h5>일시적 오류가 발생했습니다</h5>
+      
     </div>
   </body>
 </html>
 
 
 	  	
-<%--템플릿 페이지를 불러오는 코드 --%>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>	 
+

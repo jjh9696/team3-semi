@@ -49,13 +49,19 @@
     cursor: pointer;
 }
 
-.btn-reply-report:hover {
+.not-bell {
+	font-weight: 450;
+}
+
+.not-bell:hover {
+	text-decoration: none;
 	cursor: pointer;
 	color: #f3a683;
 }
 
 .btn-reply-report {
-	font-size: 15.5px;
+	font-size: 15px;
+	cursor: pointer;
 }
 
 
@@ -79,7 +85,7 @@
 				<span class="btn-reply-edit">수정<span class="reply-edit-delete-bar"> | </span></span>
 				<span class="btn-reply-delete">삭제</span>
 			</div>
-				<i class="fa-solid fa-bell btn-reply-report my-10"> 신고</i>
+				<i class="fa-solid fa-bell btn-reply-report ms-10 my-15"><span class="btn-reply-report not-bell"> 신고</span></i>
 		</div>
 	<pre class="reply-content"> 댓글 내용</pre>
 			<%-- <c:if test="${sessionScope.loginId != null && sessionScope.loginId != boardDto.boardWriter}">  --%>
@@ -650,7 +656,7 @@
 							<span class="btn-reply-edit">수정<span class="reply-edit-delete-bar"> | </span></span>
 							<span class="btn-reply-delete">삭제</span>
 						</div>
-							<i class="fa-solid fa-bell btn-reply-report my-10">신고</i>
+							<i class="fa-solid fa-bell btn-reply-report ms-10 my-15"><span class="btn-reply-report not-bell"> 신고</span></i>
 					</div>
 
 					<pre class="reply-content">댓글 내용</pre>
@@ -722,7 +728,7 @@
 									<tr>
 								</c:otherwise>
 							</c:choose>
-							<td class="left" width="80%">
+							<td class="left" width="70%">
 								<div class="my-10">
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
@@ -806,6 +812,7 @@
             if (distance < 0) {
                 clearInterval(timer);
                 document.getElementById("countdown").innerHTML = "마감되었습니다.";
+                document.getElementById("countdown").style.color = "#ff6b6b";
                 return;
             }
 

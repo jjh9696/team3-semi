@@ -85,3 +85,7 @@ public class ReplyDao {
     	return jdbcTemplate.queryForObject(sql, int.class, data);
     }
 }
+
+
+
+

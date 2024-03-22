@@ -17,12 +17,31 @@
 	height: 1px;
 	background-color: #e3c7a6;
 	}
+	.box {
+	width: 1000px;
+	background-color: #fff;
+	color: #333;
+	padding: 20px;
+	/*top: 330px;*/
+	height: fit-content;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+}
 	
 </style>
 
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-	<div class="container w-1000 set-color">
+	<div class="box container">
+		<div class="cell center">
+			<c:if test="${InquiryDto.inquiryTarget != null}">
+				<h2>문의답변</h2>
+			</c:if>
+			<c:if test="${InquiryDto.inquiryTarget == null}">
+				<h2>문의글</h2>
+			</c:if>
+				
+		</div>
 		<div class="cell">
 			<div class="title">${InquiryDto.inquiryTitle}</div>
 				<%--(추가) 수정시각 유무에 따라 수정됨 표시 --%>

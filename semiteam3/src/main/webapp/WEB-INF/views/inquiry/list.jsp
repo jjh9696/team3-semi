@@ -5,6 +5,12 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+	.fa-pen {
+		color: #e3c7a6;
+	}
+</style>
+
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 <div class="container w-1000 set-color">
@@ -12,11 +18,17 @@
 		<h1>Q & A</h1>
 	</div>
 	
-	<div class="cell right">
-		<h2><a class="link" href="insert">+문의하기</a></h2>
+	<div class="cell right pen">
+		<h3>
+			<a class="link" href="insert">
+				<i class="fa-solid fa-pen"></i>
+				문의하기
+			</a>
+		</h3>
 	</div>
+	
 	<div class="cell">
-		<div class="cell left">
+		<div class="cell right">
 	
 	<%-- 검색창 --%>
 	<form action="list" method="get">

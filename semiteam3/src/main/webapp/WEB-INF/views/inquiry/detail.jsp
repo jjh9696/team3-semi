@@ -9,6 +9,14 @@
 	.title{
 		font-size:30px;
 	}
+	.info {
+	color: #8395a7;
+	}
+	.detail {
+	border: none;
+	height: 1px;
+	background-color: #e3c7a6;
+	}
 	
 </style>
 
@@ -21,25 +29,29 @@
 				<c:if test="${InquiryDto.inquiryEtime != null}">
 					(수정됨)
 				</c:if>
-			</h2>
 		</div>
 		
-		<div class="cell">
-			<h4>
+		<div class="cell info">
+			<h3>
 				<%-- 탈퇴한 사용자일 때와 아닐때 나오는 정보가 다르게 구현 --%>
 				<c:choose>
 					<c:when test="${InquiryDto.inquiryWriter == null}">
 						${InquiryDto.inquiryWriterStr}
 					</c:when>
 					<c:otherwise>
-						작성자: ${memberDto.memberNick}
+						작성자 | ${memberDto.memberNick}
 						(${memberDto.memberGrade})
 					</c:otherwise>
 				</c:choose>
-			</h4>
+			</h3>
 		</div>
-		<hr>
-		<div class="cell" style="min-height:250px">
+		<div class="cell info">
+			<fmt:formatDate value="${InquiryDto.inquiryWtime}"
+									   pattern="yyyy-MM-dd HH:mm:ss"/>
+			(${InquiryDto.inquiryWtimeDiff})
+		</div>
+		<hr  class="detail">
+		<div class="cell" style="min-height:450px">
 			<%--
 					HTML은 엔터와 스페이스 등을 무시하기 때문에 textarea와 모양이 달라진다
 					사용 에디터를 쓰면 알아서 글자를 보정해주기 때문에 문제가 없다
@@ -49,16 +61,8 @@
 				 --%>
 			${InquiryDto.inquiryContent}
 		</div>
-		<hr>
+		<hr  class="detail">
 	
-		<div class="cell">
-			<fmt:formatDate value="${InquiryDto.inquiryWtime}"
-									   pattern="yy-MM-dd HH:mm:ss"/>
-		</div>
-		<div class="cell">
-			${InquiryDto.inquiryWtimeDiff}
-		</div>
-		
 		<div class="cell right">
 	<!-- 		<a class="btn" href="write">글쓰기</a> -->
 			<%-- 

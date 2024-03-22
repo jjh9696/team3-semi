@@ -101,7 +101,7 @@
         <c:choose>
             <c:when test="${sessionScope.loginId !=null}">
                 <div>
-                    <img src="image" width="150" height="150" alt="Preview Image" id="preview" class="preview">
+                    <img src="/member/image" width="150" height="150" alt="Preview Image" id="preview" class="preview">
                     
                     <div class="cell">
                         <a href="/member/mypage" class="name">${sessionScope.loginNick}</a>                      

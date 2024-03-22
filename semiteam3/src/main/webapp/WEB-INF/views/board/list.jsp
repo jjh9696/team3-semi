@@ -16,6 +16,14 @@
 	color: #e3c7a6;
 }
 
+.list-write {
+	font-size: 18px;
+}
+
+.list-title > p {
+	font-size: 35px;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -45,51 +53,51 @@
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 		<div class="container w-1000 set-color">
 			<%-- 제목칸 --%>
-			<div class="cell center">
+			<div class="cell center list-title">
 				<c:if test="${param.category == '축구'}">
-					<h1>
+					<p>
 						<i class="fa-solid fa-soccer-ball"></i> 축구게시판 <i
 							class="fa-solid fa-soccer-ball"></i>
-					</h1>
+					</p>
 				</c:if>
 				<c:if test="${param.category == '야구'}">
-					<h1>
+					<p>
 						<i class="fa-solid fa-baseball"></i> 야구게시판 <i
 							class="fa-solid fa-baseball"></i>
-					</h1>
+					</p>
 				</c:if>
 				<c:if test="${param.category == '농구'}">
-					<h1>
+					<p>
 						<i class="fa-solid fa-basketball"></i> 농구게시판 <i
 							class="fa-solid fa-basketball"></i>
-					</h1>
+					</p>
 				</c:if>
 				<c:if test="${param.category == 'E-스포츠'}">
-					<h1>
+					<p>
 						<i class="fa-solid fa-gamepad"></i> 게임게시판 <i
 							class="fa-solid fa-gamepad"></i>
-					</h1>
+					</p>
 				</c:if>
 				<c:if test="${param.category == '관리자'}">
-					<h1>
+					<p>
 						<i class="fa-solid fa-gear"></i> 관리자게시판 <i
 							class="fa-solid fa-gear"></i>
-					</h1>
+					</p>
 				</c:if>
 			</div>
 
 
 			<div class="cell right pen">
-				<h3>
+				<p class="list-write">
 					<a class="link" href="write?category=${param.category}"> <i
 						class="fa-solid fa-pen"></i> 게시글 작성
 					</a>
-				</h3>
+				</p>
 			</div>
 
 			<div class="cell flex-cell">
 				<div class="cell left">
-					<c:if test="${empty param.status}">
+					<c:if test="${empty param.status && param.category ne '관리자'}">
 						<form action="list" method="get">
 							<input type="hidden" name="category" value="${param.category}">
 							<input type="hidden" name="status" value="recruiting">

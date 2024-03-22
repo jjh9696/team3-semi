@@ -41,7 +41,9 @@ p.mywriting {
 	<div class="container" style="display: flex; width: 1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 		<div class="container w-1000 set-color">
-			<p class="left mywriting">내가 쓴 글</p>
+			<p class="left mywriting">
+				<i class="fa-solid fa-pencil"></i>
+				내가 쓴 글</p>
 			<div class="mywriting category right">
 				<a href="mywriting" class="link me-20">All</a> <a
 					href="?category=축구" class="link me-20"><i

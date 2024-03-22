@@ -62,10 +62,8 @@ public class MemberController {
 		//가입 환영 메일 발송
 		emailService.sendWelcomeMail(memberDto.getMemberEmail());
 		
-		return "redirect:joinFinish";
+		return "redirect:/";
 	}
-	
-	//같은이메일 사용시 에러 메세지주기
 	
 	
 	@RequestMapping("/joinFinish")

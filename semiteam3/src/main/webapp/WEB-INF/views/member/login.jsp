@@ -149,7 +149,8 @@ $(function() {
 					<i class="fa-solid fa-arrow-right-to-bracket"></i> 로그인
 				</button>
 			</div>
-
+			
+			<input type="hidden" name="referer" value="${referer}" />
 		</form>
 	</div>
 </body>

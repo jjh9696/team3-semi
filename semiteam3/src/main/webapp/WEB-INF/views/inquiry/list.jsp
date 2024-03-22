@@ -40,7 +40,7 @@
 	<form action="list" method="get">
 		<select name="column" class="tool">
 			<option value="inquiry_title" ${param.column == 'inquiry_title' ? 'selected' : ''}>문의내용</option>
-			<option value="inquiry_writer" ${param.column == 'inquiry_writer' ? 'selected' : ''}>작성자</option>
+			<option value="member_nick" ${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
 			<option value="inquiry_content" ${param.column == 'inquiry_content' ? 'selected' : ''}>내용</option>
 		</select>
 		<input class="tool" type="search" name="keyword" placeholder="검색어 입력" required value="${param.keyword}">

@@ -19,6 +19,7 @@ import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.service.AttachService;
 import com.kh.semiteam3.service.EmailService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -72,47 +73,47 @@ public class MemberController {
 		return "/WEB-INF/views/member/joinFinish.jsp";
 	}
 	
-	
-	
 	//로그인 페이지
 	@GetMapping("/login")
-	public String login() {
-		return "/WEB-INF/views/member/login.jsp";
+	public String login(HttpServletRequest request, Model model, HttpSession session) {
+	    String referer = request.getHeader("referer");
+	    model.addAttribute("referer", referer);
+	    
+	    String loginId = (String)session.getAttribute("loginId");
+	    
+	    if (loginId != null) {
+	        // 이미 로그인된 상태라면 홈 페이지로 리다이렉트합니다.
+	        return "redirect:/";
+	    } else {
+	        // 로그인 페이지를 반환합니다.
+	        return "/WEB-INF/views/member/login.jsp";
+	    }
 	}
+	
 	@PostMapping("/login")
-	public String login(@ModelAttribute MemberDto inputDto, 
-														HttpSession session) {
+	public String login(@ModelAttribute MemberDto inputDto, HttpSession session, @RequestParam(value = "referer", required = false) String referer) {
+
 		MemberDto findDto = memberDao.selectOne(inputDto.getMemberId()); 
 
 		//로그인 가능한지
 		boolean isValid = findDto != null && inputDto.getMemberPw().equals(findDto.getMemberPw());
 		
-		if(isValid) {
-			//세션에 따라 데이터 추가
-			session.setAttribute("loginId", findDto.getMemberId());
-			session.setAttribute("loginGrade", findDto.getMemberGrade()); //관리자일경우 다른화면
-			session.setAttribute("loginNick", findDto.getMemberNick());
-			
-			 // 로그인 처리 후 이전페이지로 돌리기
-	        String previousUrl = (String) session.getAttribute("previousUrl");
-	        if (previousUrl != null) {//이전 url이 있다면
-	            session.removeAttribute("previousUrl"); //이후 재사용하지 않도록 URL 제거
-	            
-	            memberDao.updateMemberLogin(findDto.getMemberId());
-	            
-	            return "redirect:" + previousUrl; // 이전 요청한 URL로 리다이렉트
+	    if (isValid) {
+	        // 로그인 성공 시
+	        session.setAttribute("loginId", findDto.getMemberId());
+	        session.setAttribute("loginGrade", findDto.getMemberGrade());
+	        session.setAttribute("loginNick", findDto.getMemberNick());
+
+	        if (referer != null && !referer.isEmpty()) {
+	            return "redirect:" + referer;
+	        } else {
+	            return "redirect:/";
 	        }
-			
-			//최종 로그인시각 갱신
-			memberDao.updateMemberLogin(findDto.getMemberId());
-			
-			return "redirect:/";
-		}
-		else {//로그인 실패
-			return "redirect:login?error";
-		}
+	    } else {
+	        // 로그인 실패 시
+	        return "redirect:login?error";
+	    }
 	}
-	
 	
 	//로그아웃 페이지
 	@RequestMapping("/logout")
@@ -229,6 +230,9 @@ public class MemberController {
 	            attachDao.update(attachDto);
 	        }
 	        
+			// 최신화된 닉네임을 세션에 설정
+		    session.setAttribute("loginNick", memberDto.getMemberNick());
+		    
 	        return "redirect:mypage";
 	    }
 	    else {

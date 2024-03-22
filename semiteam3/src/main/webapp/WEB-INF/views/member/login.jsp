@@ -150,6 +150,7 @@ $(function() {
 				</button>
 			</div>
 
+			<input type="hidden" name="referer" value="${referer}" />
 		</form>
 	</div>
 </body>

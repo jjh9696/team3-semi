@@ -225,12 +225,15 @@
 
 			//태그에 심어져 있는 번호 정보를 읽어와서 삭제하도록 요청
 			var replyNo = $(this).data("reply-no");
-
+			var params = new URLSearchParams(location.search);
+			var boardNo = params.get("boardNo");
+			
 			$.ajax({
 				url : "/rest/reply/delete",
 				method : "post",
 				data : {
-					replyNo : replyNo
+					replyNo : replyNo,
+					replyOrigin : boardNo
 				},
 				success : function(response) {
 					loadList(); //삭제가 완료되면 목록 불러오기

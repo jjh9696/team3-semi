@@ -94,11 +94,11 @@ body {
                     <hr>
                     <a href="/board/mywriting" class="my">
                     	<i class="fa-solid fa-pencil"></i>
-                    	내가쓴 글
+                    	내가 쓴 글
                     </a>
                     <a href="/board/mycomment" class="my">
                     	<i class="fa-regular fa-comment-dots"></i>
-                    	내가쓴 댓글
+                    	내가 쓴 댓글
                     </a>
                 </div>
    			<hr>             

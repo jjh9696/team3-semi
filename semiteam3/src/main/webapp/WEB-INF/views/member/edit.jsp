@@ -48,26 +48,12 @@
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
-        cursor: pointer;
     }
 
     .btn-address-search,
     .btn-address-clear {
         font-size: 18px;
-    }
-
-    .btn.positive {
-        background-color: #007bff;
-        color: #fff;
-    }
-
-    .btn.negative {
-        background-color: #dc3545;
-        color: #fff;
-    }
-
-    .btn:hover {
-        opacity: 0.8;
+        
     }
 
     .error-message {
@@ -83,6 +69,7 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
 }
+
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -115,8 +102,10 @@
         <input type="email" name="memberEmail" required placeholder="이메일 *" value="${memberDto.memberEmail }"><br>
         <input type="date" name="memberBirth" value="${memberDto.memberBirth }" placeholder="생년월일"><br>
         <input type="tel" name="memberContact" placeholder="연락처" value="${memberDto.memberContact }"><br>
-        <div class="btn-container">
-            <input type="text" name="memberPost" placeholder="우편번호" value="${memberDto.memberPost}" size="6" maxlength="6">
+        <div class="container">
+            <input type="text" name="memberPost" placeholder="우편번호" 
+            		value="${memberDto.memberPost}" maxlength="6" style="width:380px">
+            
             <button type="button" class="btn positive btn-address-search">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -124,7 +113,6 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
-        <br>
         <input type="text" name="memberAddress1" placeholder="기본주소" value="${memberDto.memberAddress1}"><br>
         <input type="text" name="memberAddress2" placeholder="상세주소" value="${memberDto.memberAddress2}"><br>
         <input type="password" name="memberPw" required placeholder="비밀번호 확인 *"><br>

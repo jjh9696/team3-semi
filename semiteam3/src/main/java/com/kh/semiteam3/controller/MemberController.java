@@ -62,18 +62,14 @@ public class MemberController {
 		//가입 환영 메일 발송
 		emailService.sendWelcomeMail(memberDto.getMemberEmail());
 		
-		return "redirect:joinFinish";
+		return "redirect:/";
 	}
-	
-	//같은이메일 사용시 에러 메세지주기
 	
 	
 	@RequestMapping("/joinFinish")
 	public String joinFinish() {
 		return "/WEB-INF/views/member/joinFinish.jsp";
 	}
-	
-	
 	
 	//로그인 페이지
 	@GetMapping("/login")
@@ -91,30 +87,30 @@ public class MemberController {
 	        return "/WEB-INF/views/member/login.jsp";
 	    }
 	}
+	
 	@PostMapping("/login")
 	public String login(@ModelAttribute MemberDto inputDto, HttpSession session, @RequestParam(value = "referer", required = false) String referer) {
+
 		MemberDto findDto = memberDao.selectOne(inputDto.getMemberId()); 
 
 		//로그인 가능한지
 		boolean isValid = findDto != null && inputDto.getMemberPw().equals(findDto.getMemberPw());
 		
-		 if (isValid) {
-		        // 로그인 성공 시
-		        session.setAttribute("loginId", findDto.getMemberId());
-		        session.setAttribute("loginGrade", findDto.getMemberGrade());
-		        session.setAttribute("loginNick", findDto.getMemberNick());
+	    if (isValid) {
+	        // 로그인 성공 시
+	        session.setAttribute("loginId", findDto.getMemberId());
+	        session.setAttribute("loginGrade", findDto.getMemberGrade());
+	        session.setAttribute("loginNick", findDto.getMemberNick());
 
-		        if (referer != null && !referer.isEmpty()) {
-		            return "redirect:" + referer;
-		        } 
-		        else {
-		            return "redirect:/";
-		        }
-		 } 
-		 else {
-		        // 로그인 실패 시
-		        return "redirect:login?error";
-		 }
+	        if (referer != null && !referer.isEmpty()) {
+	            return "redirect:" + referer;
+	        } else {
+	            return "redirect:/";
+	        }
+	    } else {
+	        // 로그인 실패 시
+	        return "redirect:login?error";
+	    }
 	}
 	
 	//로그아웃 페이지
@@ -232,9 +228,9 @@ public class MemberController {
 	            attachDao.update(attachDto);
 	        }
 	        
-	        // 최신화된 닉네임을 세션에 설정
+			// 최신화된 닉네임을 세션에 설정
 		    session.setAttribute("loginNick", memberDto.getMemberNick());
-	        
+		    
 	        return "redirect:mypage";
 	    }
 	    else {

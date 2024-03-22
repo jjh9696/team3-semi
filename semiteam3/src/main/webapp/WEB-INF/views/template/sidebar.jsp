@@ -80,7 +80,7 @@ body {
             <c:when test="${sessionScope.loginGrade == '관리자'}">
                 <div>
                 	<a href="/member/mypage" >
-                		<img src="image" alt="Preview Image" class="preview">
+                		<img src="/member/image" alt="Preview Image" class="preview">
                 	</a>
                    		<div class="cell">
                         	<a href="/member/mypage" class="name">
@@ -127,20 +127,20 @@ body {
 			<hr>
 				<div class="cell">
 					<a href="/board/list?category=관리자" class="my">
-						<i class="fa-solid fa-q"></i>
+						<i class="fa-solid fa-gear"></i>	
 						관리자게시판
 					</a>
-					<a href="/board/list?category=관리자" class="my">
-						<i class="fa-solid fa-q"></i>
+					<a href="/admin/member/search" class="my">
+						<i class="fa-regular fa-rectangle-list"></i>
 						회원관리
 					</a>
-					<a href="/board/list?category=관리자" class="my">
-						<i class="fa-solid fa-q"></i>
-						신고된 게시글
+					<a href="/reportBoard/list" class="my">
+						<i class="fa-solid fa-reply-all"></i>
+						게시글 신고 목록
 					</a>
-					<a href="/board/list?category=관리자" class="my">
-						<i class="fa-solid fa-q"></i>
-						신고된 댓글
+					<a href="/reportReply/list" class="my">
+						<i class="fa-solid fa-reply"></i>
+						댓글 신고 목록
 					</a>
     			</div>
     		<hr>
@@ -201,8 +201,9 @@ body {
     		<hr>
         		<div class="cell">
                     <a href="/member/logout" class="my">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    로그아웃</a>
+                    	<i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    	로그아웃
+                    </a>
             	</div>
 			</c:when>
             <c:otherwise>

@@ -277,6 +277,7 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
 				url:"/rest/member/sendCert",
 				method:"post",//제출
 				data:{ memberEmail : email },
+				
 				success: function(response){//데이터가 전송됐을시
 				
 				        // 템플릿 불러와서 인증번호 입력창을 추가
@@ -394,6 +395,9 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
 			return state.ok();
 		});
 	});
+	<c:if test="${param.error != null}">
+    alert("로그인 정보가 일치하지 않습니다");
+</c:if>
 </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -432,10 +436,46 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
         	$("[name=memberAddress2]").val("");
         });
     });
+    
+    
+    $(function(){
+        
+        $("#memberAttach").on("change", function() {
+            var formData = new FormData();
+            formData.append("attach", this.files[0]);
+            $.ajax({
+                url : "/rest/member_attach/upload",
+                method : "post",
+                data : formData,
+                processData : false,
+                contentType : false,
+                success : function(response) {
+                    if (response == null)
+                        return;
+                    $("#preview").attr("src", "image");
+                }
+            });
+        });
+
+    });
+
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+            
+        }
+    }
 </script>
 
 <div class="box cell container">
 <form action="join" method="post" enctype="multipart/form-data"
+
 	class="check-form free-pass" autocomplete="off">
 
 	<div class="container w-450">
@@ -602,17 +642,29 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
 
 		<!-- 4페이지 - 프로필사진 -->
 		<div class="cell page w-450 center">
-			<div class="cell">
-				<label for="attach">
-					<img src="/image/user.svg" width="200px">
-				</label>
-				<label for="attach">
-					<P style="color:gray">클릭하여 프로필을 변경하세요(선택)</P>
-				</label>
-				<input type="file" id="attach" name="attach" 
-						class="too w-100" style="display:none">
-			</div>
+		
+<div class="cell center">
+    <form action="mypage" method="post" autocomplete="off" enctype="multipart/form-data" >
+             <c:choose>
+            <c:when test="${empty loginMember.memberAttach}">
+                <label for="memberAttach">
+                    <img src="image" width="200" height="200" alt="Preview Image" id="preview" class="preview">
+                </label>
+            </c:when>
+            <c:otherwise>
+                <label for="memberAttach">
+                    <img src="/image/user.svg" id="preview" width="200" height="200" class="preview">
+                </label>
+            </c:otherwise>
+        </c:choose>
+                  
+        <input type="file" id="memberAttach" name="memberAttach" class="input" 
+                    onchange="previewImage(this)" style="display:none">
+		<div class="gray-text">* 사진을 클릭하여 변경하세요</div>
 
+	</form>
+  </div>  
+  	
 				
 
 				<div class="flex-cell">

@@ -3,37 +3,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
 <style>
-	.fa-pen {
-		color: #e3c7a6;
-	}
+.qna-list-title > p {
+	font-size: 35px;
+}
+
+.qna-list-write {
+	font-size: 18px;
+}
+
+.fa-pen {
+	color: #e3c7a6;
+}
+
 </style>
+
+
+
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 <div class="container w-1000 set-color">
-	<div class="cell center">
-		<h1>Q & A</h1>
+	<div class="cell center qna-list-title">
+		<p>Q & A</p>
 	</div>
 	
-	<div class="cell right pen">
-		<h3>
-			<a class="link" href="insert">
-				<i class="fa-solid fa-pen"></i>
-				문의하기
-			</a>
-		</h3>
+	<div class="cell right">
+		<p class="qna-list-write"><a class="link" href="insert">
+		<i class="fa-solid fa-pen"></i> 문의게시글 작성</a></p>
 	</div>
-	
 	<div class="cell">
-		<div class="cell right">
+		<div class="cell left">
 	
 	<%-- 검색창 --%>
 	<form action="list" method="get">
 		<select name="column" class="tool">
-			<option value="inquiry_title" ${param.column == 'inquiry_title' ? 'selected' : ''}>제목</option>
+			<option value="inquiry_title" ${param.column == 'inquiry_title' ? 'selected' : ''}>문의내용</option>
 			<option value="inquiry_writer" ${param.column == 'inquiry_writer' ? 'selected' : ''}>작성자</option>
 			<option value="inquiry_content" ${param.column == 'inquiry_content' ? 'selected' : ''}>내용</option>
 		</select>

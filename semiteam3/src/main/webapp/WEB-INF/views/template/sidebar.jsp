@@ -200,7 +200,9 @@ body {
 				</div>
     		<hr>
         		<div class="cell">
-                    <a href="/member/logout" class="my">로그아웃</a>
+                    <a href="/member/logout" class="my">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    로그아웃</a>
             	</div>
 			</c:when>
             <c:otherwise>

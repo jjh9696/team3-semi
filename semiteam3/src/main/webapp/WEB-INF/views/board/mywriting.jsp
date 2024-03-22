@@ -18,6 +18,10 @@ p.mywriting {
 .info {
 	color: #8395a7;
 }
+
+.reply {
+	color: #1dd1a1;
+}
 </style>
 
 <script type="text/javascript">
@@ -41,21 +45,30 @@ p.mywriting {
 	<div class="container" style="display: flex; width: 1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 		<div class="container w-1000 set-color">
-			<p class="left mywriting">내가 쓴 글</p>
+			<p class="left mywriting">
+				<i class="fa-solid fa-pencil"></i>
+				내가 쓴 글
+			</p>
 			<div class="mywriting category right">
-				<a href="mywriting" class="link me-20">All</a> <a
-					href="?category=축구" class="link me-20"><i
-					class="fa-solid fa-soccer-ball"></i></a> <a href="?category=야구"
-					class="link me-20"><i class="fa-solid fa-baseball"></i></a> <a
-					href="?category=농구" class="link me-20"><i
-					class="fa-solid fa-basketball"></i></a> <a href="?category=E-스포츠"
-					class="link"><i class="fa-solid fa-gamepad"></i></a>
+				<a href="mywriting" class="link me-20">All</a> 
+				
+				<a href="?category=축구" class="link me-20">
+				<i class="fa-solid fa-soccer-ball"></i></a> 
+					
+				<a href="?category=야구" class="link me-20">
+				<i class="fa-solid fa-baseball"></i></a> 
+					
+				<a href="?category=농구" class="link me-20">
+				<i class="fa-solid fa-basketball"></i></a> 
+				
+				<a href="?category=E-스포츠" class="link">
+				<i class="fa-solid fa-gamepad"></i></a>
 			</div>
 			<div class="cell">
 				<table class="table table-horizontal table-hover">
 					<c:forEach var="boardDto" items="${boardList}">
 						<tr>
-							<td class="left" width="80%">
+							<td class="left" width="70%">
 								<div class="my-10">
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>

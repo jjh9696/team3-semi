@@ -9,9 +9,18 @@
 <div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 <div class="container w-1000 set-color">
-<h2>내 댓글</h2>
+<h2>내가 쓴 댓글</h2>
         <div class="cell">
 		<table class="table table-horizontal table-hover">
+			<thead class="center">
+				<tr>
+					<th>게시글 번호</th>
+					<th width="40%">내용</th>
+					<th>작성일</th>
+				</tr>
+			</thead>
+			<!--  -->
+			
 			<c:forEach var="replyDto" items="${replyList}">
 				<tr>
 					<td>${replyDto.boardTitle}</td>

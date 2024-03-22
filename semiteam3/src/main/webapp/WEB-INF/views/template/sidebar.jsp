@@ -80,7 +80,7 @@ body {
             <c:when test="${sessionScope.loginGrade == '관리자'}">
                 <div>
                 	<a href="/member/mypage" >
-                		<img src="image" alt="Preview Image" class="preview">
+                		<img src="/member/image" alt="Preview Image" class="preview">
                 	</a>
                    		<div class="cell">
                         	<a href="/member/mypage" class="name">
@@ -201,8 +201,9 @@ body {
     		<hr>
         		<div class="cell">
                     <a href="/member/logout" class="my">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    로그아웃</a>
+                    	<i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    	로그아웃
+                    </a>
             	</div>
 			</c:when>
             <c:otherwise>

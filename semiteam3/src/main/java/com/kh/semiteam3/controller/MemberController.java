@@ -64,6 +64,9 @@ public class MemberController {
 		return "redirect:joinFinish";
 	}
 	
+	//같은이메일 사용시 에러 메세지주기
+	
+	
 	@RequestMapping("/joinFinish")
 	public String joinFinish() {
 		return "/WEB-INF/views/member/joinFinish.jsp";
@@ -161,6 +164,9 @@ public class MemberController {
 			 // 추가: 새 비밀번호 형식 검사
 	        if (!isValidChangePw) {
 	            return "redirect:password?formatError";
+	        }
+	        else if(changePw.equals(originPw)) {
+	        	return "redirect:password?equalsError";
 	        }
 			
 			MemberDto memberDto = new MemberDto();

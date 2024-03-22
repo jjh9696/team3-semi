@@ -55,6 +55,10 @@
 <c:if test="${param.formatError != null}">
     <div class="error-message">비밀번호가 형식에 맞지 않습니다</div>
 </c:if>
+<c:if test="${param.equalsError != null}">
+    <div class="error-message">현재 비밀번호와 변경할 비밀번호가 같습니다</div>
+</c:if>
+
 <form action="password" method="post">
     현재 비밀번호: <input name="originPw" type="password" required><br><br>
     변경할 비밀번호: <input name="changePw" type="password" required><br><br>

@@ -44,13 +44,16 @@ public class MemberRestController {
         return memberDto == null;
 	}
 	
-	//이메일 인증을 위한 페이지
+	// 이메일 인증을 위한 페이지
 	@RequestMapping("/sendCert")
-	public void sendCert(@RequestParam String memberEmail) {
-		
-		emailService.sendCert(memberEmail);
-	}
-	
+    public void sendCert(@RequestParam String memberEmail) {
+        MemberDto memberDto = memberDao.selectOne(memberEmail);//memberEmail에 있는지 찾기 없으면 null이 뜰것임
+        if (memberDto == null) {
+            // 중복된 이메일이 없는 경우에만 이메일을 보내기
+            emailService.sendCert(memberEmail);
+        }
+    }
+
 	@Autowired
 	private CertDao certDao;
 	
@@ -62,6 +65,5 @@ public class MemberRestController {
 			certDao.delete(certDto.getCertEmail());
 		}
 		return isValid;
-	}
-	
+	}	
 }

@@ -12,3 +12,5 @@
 		<h3><a href="/" class="link link-animation">홈으로 이동</a></h3>
 	</div>
 </div>
+
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

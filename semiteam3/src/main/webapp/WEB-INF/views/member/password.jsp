@@ -45,11 +45,15 @@
         text-align: center;
     }
 </style>
+
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <h1>비밀번호 변경</h1>
-<c:if test="${param.error != null}">
-    <div class="error-message">비밀번호가 일치하지 않습니다</div>
+<c:if test="${param.originError != null}">
+    <div class="error-message">현재 비밀번호가 일치하지 않습니다</div>
+</c:if>
+<c:if test="${param.formatError != null}">
+    <div class="error-message">비밀번호가 형식에 맞지 않습니다</div>
 </c:if>
 <form action="password" method="post">
     현재 비밀번호: <input name="originPw" type="password" required><br><br>

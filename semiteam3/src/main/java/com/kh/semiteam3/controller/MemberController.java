@@ -221,6 +221,9 @@ public class MemberController {
 	            attachDao.update(attachDto);
 	        }
 	        
+			// 최신화된 닉네임을 세션에 설정
+		    session.setAttribute("loginNick", memberDto.getMemberNick());
+		    
 	        return "redirect:mypage";
 	    }
 	    else {

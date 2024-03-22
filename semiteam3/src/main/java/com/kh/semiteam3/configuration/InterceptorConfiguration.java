@@ -36,7 +36,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 							)
 					.excludePathPatterns(
 							"/member/join*", "/member/login", "/member/find*",
-							"/member/exitFinish", "/board/list*", "/board/detail*"
+							"/member/exitFinish", "/board/list*", "/board/detail*", "/board/eventpage"
 							);
 		
 		// 관리자 인터셉터 등록

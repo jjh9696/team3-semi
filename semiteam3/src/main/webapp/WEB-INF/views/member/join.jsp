@@ -278,8 +278,7 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
 				method:"post",//제출
 				data:{ memberEmail : email },
 				success: function(response){//데이터가 전송됐을시
-					
-					if (response) {
+				
 				        // 템플릿 불러와서 인증번호 입력창을 추가
 				        var templateText = $("#cert-template").text();
 				        var templateHtml = $.parseHTML(templateText);
@@ -287,21 +286,19 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
 
 				        // 이메일 저장
 				        memberEmail = email;
-				    } else {
-				        // 서버로부터 응답이 없으면(이메일이 중복됨) 실행
-				        alert("중복된 이메일입니다.");
-				    }
+
 				},
-				error:function(){
-					alert("시스템 오류. 잠시 후 이용바람");
-				},
-				complete:function(){
-					$(btn).find("i").removeClass("fa-solid fa-spinner fa-spin")  
-                    			.addClass("fa-regular fa-paper-plane");
-					$(btn).prop("disabled", false);
-				},				
-			});
-		});
+						error : function() {
+							alert("시스템 오류. 잠시 후 이용바람");
+						},
+						complete : function() {
+							$(btn).find("i").removeClass(
+									"fa-solid fa-spinner fa-spin").addClass(
+									"fa-regular fa-paper-plane");
+							$(btn).prop("disabled", false);
+						},
+					});
+				});
 
 		//인증번호 확인 이벤트
 		$(document).on(
@@ -528,6 +525,7 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
 						<i class="fa-regular fa-paper-plane"></i>
 					</button>
 					<div class="fail-feedback w-100">잘못된 이메일 형식입니다</div>
+					<div class="fail2-feedback w-100">잘못된 이메일 형식입니다</div>
 				</div>
 			</div>
 			

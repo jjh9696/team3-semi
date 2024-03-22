@@ -38,21 +38,51 @@
 .title2 {
 	background-color: #f0eae2;
 }
+
+.reply-writer {
+    font-weight: 500;
+}
+
+.btn-reply-edit:hover,
+.btn-reply-delete:hover {
+    color: #f3a683;
+    cursor: pointer;
+}
+
+.btn-reply-report:hover {
+	cursor: pointer;
+	color: #f3a683;
+}
+
+.btn-reply-report {
+	font-size: 15.5px;
+}
+
+
+
+
 </style>
 
 
 <script type="text/template" id="reply-item-wrapper">
 <div class="cell">
-	<div class="reply-item">
-	<h3>
-		<span class="reply-writer">작성자</span>
-		<i class="fa-solid fa-edit blue ms-20 btn-reply-edit"></i>
-		<i class="fa-solid fa-trash red btn-reply-delete"></i>
-		<i class="fa-solid fa-bell btn-reply-report"></i>
-	</h3>
+	<div class="reply-item mx-20">
+		<div class="cell flex-cell">
+			<div class="cell w-50 left">
+				<i class="fa-regular fa-comment-dots"></i>
+				<span class="reply-writer">작성자</span>
+				<span class="info">(</span>
+				<span class="reply-time info">yyyy-MM-dd HH:mm:ss</span>
+				<span class="info">)</span>
+			</div>
+			<div class="cell width-fill right info">
+				<span class="btn-reply-edit">수정<span class="reply-edit-delete-bar"> | </span></span>
+				<span class="btn-reply-delete">삭제</span>
+			</div>
+				<i class="fa-solid fa-bell btn-reply-report my-10"> 신고</i>
+		</div>
 	<pre class="reply-content"> 댓글 내용</pre>
-	<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
-			<%-- <c:if test="${sessionScope.loginId != null && sessionScope.loginId != boardDto.boardWriter}">  --%>	
+			<%-- <c:if test="${sessionScope.loginId != null && sessionScope.loginId != boardDto.boardWriter}">  --%>
 	</div>
 	<hr class="detail">
 	
@@ -143,16 +173,18 @@
 					//- 태그에 글자를 추가하고 싶다면 .attr()명령 사용
 					//- 현재 로그인한 사용자의 댓글에만 버튼을 표시(나머진 삭제)
 					if (loginGrade == '관리자'){//관리자면
+						$(templateHTML).find(".btn-reply-edit").remove();
 						$(templateHTML).find(".btn-reply-delete").attr( //삭제버튼 보여주기
 								"data-reply-no", response[i].replyNo);
-						$(templateHTML).find(".btn-reply-edit").remove();
 						$(templateHTML).find(".btn-reply-report").remove();
+						$(templateHTML).find(".reply-edit-delete-bar").remove();
 					}
 					
 					//if (isLogin && (loginNick == response[i].replyWriter || loginGrade == '관리자')) {//로그인되엇고 본인 댓글일때 
 					else if (isLogin && loginNick == response[i].replyWriter) {//로그인되엇고 본인 댓글일때  
 						$(templateHTML).find(".btn-reply-edit").attr(
 								"data-reply-no", response[i].replyNo);
+						$(templateHTML).find(".reply-edit-delete-bar").show();
 						$(templateHTML).find(".btn-reply-delete").attr(
 								"data-reply-no", response[i].replyNo);
 
@@ -160,6 +192,7 @@
 
 					} else {
 						$(templateHTML).find(".btn-reply-edit").remove();
+						$(templateHTML).find(".reply-edit-delete-bar").remove();
 						$(templateHTML).find(".btn-reply-delete").remove();
 
 						if (isLogin) {
@@ -485,255 +518,267 @@
 </script>
 
 <div class="container" style="display: flex; width: 1300px;">
-		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-		<div class="container">
-<div class="container w-1000 set-color">
-	<div class="cell title left">${boardDto.boardTitle}</div>
-	<div class="cell flex-cell info">
-		<div class="cell w-50 left">
-			<c:if test="${boardDto.boardCategory == '축구'}">
+	<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+	<div class="container">
+		<div class="container w-1000 set-color">
+			<div class="cell title left">${boardDto.boardTitle}</div>
+			<div class="cell flex-cell info">
+				<div class="cell w-50 left">
+					<c:if test="${boardDto.boardCategory == '축구'}">
 			축구
 		</c:if>
-			<c:if test="${boardDto.boardCategory == '야구'}">
-				<i class="fa-solid fa-baseball"></i> 야구  
+					<c:if test="${boardDto.boardCategory == '야구'}">
+						<i class="fa-solid fa-baseball"></i> 야구  
 		</c:if>
-			<c:if test="${boardDto.boardCategory == '농구'}">
-				<i class="fa-solid fa-basketball"></i> 농구 
+					<c:if test="${boardDto.boardCategory == '농구'}">
+						<i class="fa-solid fa-basketball"></i> 농구 
 		</c:if>
-			<c:if test="${boardDto.boardCategory == 'E-스포츠'}">
-				<i class="fa-solid fa-gamepad"></i> 게임 
+					<c:if test="${boardDto.boardCategory == 'E-스포츠'}">
+						<i class="fa-solid fa-gamepad"></i> 게임 
 		</c:if>
-			<c:if test="${boardDto.boardCategory == '관리자'}">
-				<i class="fa-solid fa-gear"></i> 공지 
+					<c:if test="${boardDto.boardCategory == '관리자'}">
+						<i class="fa-solid fa-gear"></i> 공지 
 		</c:if>
-			| ${boardDto.boardWriteTimeDiff}
-			<%--(추가) 수정시각 유무에 따라 수정됨 표시 --%>
-			<c:if test="${boardDto.boardEditTime != null}">
+					| ${boardDto.boardWriteTimeDiff}
+					<%--(추가) 수정시각 유무에 따라 수정됨 표시 --%>
+					<c:if test="${boardDto.boardEditTime != null}">
 				(수정됨)
 			</c:if>
-			|
-			<%-- 탈퇴한 사용자일 때와 아닐때 나오는 정보가 다르게 구현 --%>
-			<c:choose>
-				<c:when test="${boardDto.boardWriter == null}">
+					|
+					<%-- 탈퇴한 사용자일 때와 아닐때 나오는 정보가 다르게 구현 --%>
+					<c:choose>
+						<c:when test="${boardDto.boardWriter == null}">
 					${boardDto.boardWriterStr}
 				</c:when>
-				<c:otherwise>
+						<c:otherwise>
 					${memberDto.memberNick}
+				</c:otherwise>
+					</c:choose>
+				</div>
+
+				<div class="cell w-50 right">
+					조회수 ${boardDto.boardView} | <i class="fa-regular fa-comment-dots"></i>
+					댓글 <span class="reply-count">0</span> | <span class="board-like">
+						<i class="fa-regular fa-heart"></i> <span class="count">?</span>
+					</span>
+				</div>
+			</div>
+
+			<c:if test="${memberDto.memberGrade != '관리자'}">
+				<div class="cell flex-cell">
+
+					<div class="cell w-50 left info">
+						<c:if test="${not empty boardDto.boardLimitTimeDate}">
+				모집기간
+				<fmt:formatDate value="${boardDto.boardWriteTime}"
+								pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+				~
+				<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
+								pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+
+							<div class="cell">
+								<span id="countdown"></span>
+							</div>
+						</c:if>
+					</div>
+
+					<div class="cell w-50 right">
+
+						<c:if test="${sessionScope.loginId != null}">
+							<a class="link btn-board-report"
+								href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">
+								<i class="fa-solid fa-bell btn-board-report"></i> 신고
+							</a>
+						</c:if>
+						<div class="cell">
+							<c:if test="${sessionScope.loginGrade == '관리자'}">
+								신고 횟수 : ${reportCountByReportBoardOrigin}
+							</c:if>
+						</div>
+
+					</div>
+
+				</div>
+			</c:if>
+
+
+
+
+			<hr class="detail">
+
+			<div class="cell" style="min-height: 250px">
+				${boardDto.boardContent}</div>
+
+			<hr class="detail">
+
+			<div class="cell right">
+				<a class="btn" href="write?category=${boardDto.boardCategory}">글쓰기</a>
+
+				<%-- 수정과 삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 --%>
+				<c:if
+					test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
+					<a class="btn negative btn-edit"
+						href="edit?boardNo=${boardDto.boardNo}">글수정</a>
+					<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
+						href="delete?boardNo=${boardDto.boardNo}">글삭제</a>
+				</c:if>
+
+				<c:choose>
+					<c:when test="${boardDto.boardCategory == '관리자'}">
+						<a class="btn positive" onclick="history.back()">글목록</a>
+					</c:when>
+					<c:otherwise>
+						<a class="btn positive"
+							href="list?category=${boardDto.boardCategory}">글목록</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
+
+			<!-- 댓글 작성창 + 댓글 목록 -->
+			<div class="cell">
+				<hr class="detail">
+			</div>
+			<div class="cell reply-list-wrapper ">
+				<div class="reply-item">
+					<div class="cell flex-cell mx-20">
+						<div class="cell w-50 left">
+							<i class="fa-regular fa-comment-dots"></i> <span class="reply-writer">작성자</span>
+							<span class="info">(</span> <span class="reply-time info">yyyy-MM-dd
+								HH:mm:ss</span> <span class="info">)</span>
+						</div>
+						<div class="cell w-50 right info">
+							<span class="btn-reply-edit">수정<span class="reply-edit-delete-bar"> | </span></span>
+							<span class="btn-reply-delete">삭제</span>
+						</div>
+							<i class="fa-solid fa-bell btn-reply-report my-10">신고</i>
+					</div>
+
+					<pre class="reply-content">댓글 내용</pre>
+
+					<c:if
+						test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
+						<div>
+							<a class="btn"
+								href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">신고</a>
+						</div>
+					</c:if>
+
+				</div>
+				<div class="reply-item-edit">
+					<textarea class="tool w-100 reply-editor2"
+						style="min-height: 150px"></textarea>
+					<div class="right">
+						<button class="btn positive btn-reply-save">
+							<i class="fa-solid fa-check"></i> 변경
+						</button>
+						<button class="btn negative btn-reply-cancel">
+							<i class="fa-solid fa-xmark"></i> 취소
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- 로그인이 딘 경우만 댓글 작성란이 활성화 되도록 구현 -->
+			<c:choose>
+				<c:when test="${sessionScope.loginId != null}">
+					<div class="cell">
+						<textarea class="tool w-100 reply-editor"
+							style="min-height: 150px" placeholder="댓글 내용을 입력하세요"></textarea>
+					</div>
+					<div class="cell">
+						<button class="btn positive w-100 btn-reply-insert">
+							<i class="fa-solid fa-pen"></i> 댓글 작성
+						</button>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="cell">
+						<textarea class="tool w-100 reply-editor"
+							style="min-height: 150px" placeholder="로그인 후 댓글 작성이 가능합니다"
+							disabled></textarea>
+					</div>
+					<div class="cell">
+						<button class="btn positive w-100 btn-reply-insert" disabled>
+							<i class="fa-solid fa-ban"></i> 댓글 작성(로그인 후 이용 가능)
+						</button>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
 
-		<div class="cell w-50 right">
-			조회수 ${boardDto.boardView} | 댓글 <span class="reply-count">0</span> | <span
-				class="board-like"> <i class="fa-regular fa-heart"></i> <span
-				class="count">?</span></span>
-		</div>
-	</div>
-	
-	<c:if test="${memberDto.memberGrade != '관리자'}">
-		<div class="cell flex-cell">
+		<c:if test="${memberDto.memberGrade != '관리자'}">
+			<div class="cell m-30"></div>
 
-			<div class="cell w-50 left info">
-				<c:if test="${not empty boardDto.boardLimitTimeDate}">
-				모집기간
-				<fmt:formatDate value="${boardDto.boardWriteTime}"
-						pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-				~
-				<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
-						pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
 
-					<div class="cell">
-						<span id="countdown"></span>
-					</div>
-				</c:if>
-			</div>
-
-			<div class="cell w-50 right">
-
-				<c:if test="${sessionScope.loginId != null}">
-					<a class="link btn-board-report"
-						href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">
-						<i class="fa-solid fa-bell btn-board-report"></i> 신고
-					</a>
-				</c:if>
+			<div class="container w-1000 set-color">
 				<div class="cell">
-					<c:if test="${sessionScope.loginGrade == '관리자'}">
-					신고 횟수 : ${reportCountByReportBoardOrigin}
-				</c:if>
+					<table class="table table-horizontal table-hover">
+						<c:forEach var="boardDto" items="${list}">
+							<c:choose>
+								<c:when test="${param.boardNo == boardDto.boardNo}">
+									<tr class="title2">
+								</c:when>
+								<c:otherwise>
+									<tr>
+								</c:otherwise>
+							</c:choose>
+							<td class="left" width="80%">
+								<div class="my-10">
+									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
+										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
+									</a>
+								</div>
+								<div class="info my-10">
+									모집기간
+									<fmt:formatDate value="${boardDto.boardWriteTime}"
+										pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+									~
+									<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
+										pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+									| ${boardDto.boardWriterStr}
+								</div>
+							</td>
+							<td class="info">${boardDto.boardWriteTimeStr}
+								<p class="my-10">
+									조회수
+									<fmt:formatNumber value="${boardDto.boardView}"
+										pattern="###,###"></fmt:formatNumber>
+								</p>
+							</td>
+							<td>
+								<div class="status">${boardDto.boardStatus}</div>
+							</td>
+						</c:forEach>
+					</table>
 				</div>
 
+
+
+				<div class="cell center">
+					<jsp:include page="/WEB-INF/views/template/detailNavigator.jsp"></jsp:include>
+				</div>
+
+				<div class="cell center">
+					<%-- 검색창 --%>
+					<form action="list" method="get">
+						<!-- 카테고리를 넘겨줘야함 -->
+						<input type="hidden" name="category"
+							value="${boardDto.boardCategory}"> <select name="column"
+							class="tool">
+							<option value="board_title"
+								${param.column == 'board_title' ? 'selected' : ''}>제목</option>
+							<option value="board_content"
+								${param.column == 'board_content' ? 'selected' : ''}>내용</option>
+							<option value="member_nick"
+								${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
+						</select> <input class="tool" type="search" name="keyword"
+							placeholder="검색어 입력" value="${param.keyword}">
+						<button class="btn positive empty-check">검색</button>
+					</form>
+				</div>
 			</div>
-
-		</div>
-	</c:if>
-
-
-
-
-	<hr class="detail">
-
-	<div class="cell" style="min-height: 250px">
-		${boardDto.boardContent}</div>
-
-	<hr class="detail">
-
-	<div class="cell right">
-		<a class="btn" href="write?category=${boardDto.boardCategory}">글쓰기</a>
-
-		<%-- 수정과 삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 --%>
-		<c:if
-			test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
-			<a class="btn negative btn-edit"
-				href="edit?boardNo=${boardDto.boardNo}">글수정</a>
-			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
-				href="delete?boardNo=${boardDto.boardNo}">글삭제</a>
 		</c:if>
-		
-		<c:choose>
-			<c:when test="${boardDto.boardCategory == '관리자'}">
-					<a class="btn positive" onclick="history.back()">글목록</a>
-				</c:when>
-			<c:otherwise>
-					<a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a>
-			</c:otherwise>
-		</c:choose>
 	</div>
-
-	<!-- 댓글 작성창 + 댓글 목록 -->
-	<div class="cell">
-		<hr class="detail">
-	</div>
-	<div class="cell reply-list-wrapper">
-		<div class="reply-item">
-			<h3>
-				<span class="reply-writer">작성자</span> <i
-					class="fa-solid fa-edit blue ms-20 btn-reply-edit"></i> <i
-					class="fa-solid fa-trash red btn-reply-delete"></i>
-			</h3>
-			<pre class="reply-content">댓글 내용</pre>
-			<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
-
-			<c:if
-				test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
-				<div>
-					<a class="btn"
-						href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">신고</a>
-				</div>
-			</c:if>
-
-		</div>
-		<div class="reply-item-edit">
-			<textarea class="tool w-100 reply-editor2" style="min-height: 150px"></textarea>
-			<div class="right">
-				<button class="btn positive btn-reply-save">
-					<i class="fa-solid fa-check"></i> 변경
-				</button>
-				<button class="btn negative btn-reply-cancel">
-					<i class="fa-solid fa-xmark"></i> 취소
-				</button>
-			</div>
-		</div>
-	</div>
-
-	<!-- 로그인이 딘 경우만 댓글 작성란이 활성화 되도록 구현 -->
-	<c:choose>
-		<c:when test="${sessionScope.loginId != null}">
-			<div class="cell">
-				<textarea class="tool w-100 reply-editor" style="min-height: 150px"
-					placeholder="댓글 내용을 입력하세요"></textarea>
-			</div>
-			<div class="cell">
-				<button class="btn positive w-100 btn-reply-insert">
-					<i class="fa-solid fa-pen"></i> 댓글 작성
-				</button>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<div class="cell">
-				<textarea class="tool w-100 reply-editor" style="min-height: 150px"
-					placeholder="로그인 후 댓글 작성이 가능합니다" disabled></textarea>
-			</div>
-			<div class="cell">
-				<button class="btn positive w-100 btn-reply-insert" disabled>
-					<i class="fa-solid fa-ban"></i> 댓글 작성(로그인 후 이용 가능)
-				</button>
-			</div>
-		</c:otherwise>
-	</c:choose>
-</div>
-
-<c:if test="${memberDto.memberGrade != '관리자'}">
-	<div class="cell m-30"></div>
-
-
-	<div class="container w-1000 set-color">
-		<div class="cell">
-			<table class="table table-horizontal table-hover">
-				<c:forEach var="boardDto" items="${list}">
-					<c:choose>
-						<c:when test="${param.boardNo == boardDto.boardNo}">
-							<tr class="title2">
-						</c:when>
-						<c:otherwise>
-							<tr>
-						</c:otherwise>
-					</c:choose>
-					<td class="left" width="80%">
-						<div class="my-10">
-							<a class="link" href="detail?boardNo=${boardDto.boardNo}">
-								${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
-							</a>
-						</div>
-						<div class="info my-10">
-							모집기간
-							<fmt:formatDate value="${boardDto.boardWriteTime}"
-								pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
-							~
-							<fmt:formatDate value="${boardDto.boardLimitTimeDate}"
-								pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
-							| ${boardDto.boardWriterStr}
-						</div>
-					</td>
-					<td class="info">${boardDto.boardWriteTimeStr}
-						<p class="my-10">
-							조회수
-							<fmt:formatNumber value="${boardDto.boardView}" pattern="###,###"></fmt:formatNumber>
-						</p>
-					</td>
-					<td>
-						<div class="status">${boardDto.boardStatus}</div>
-					</td>
-				</c:forEach>
-			</table>
-		</div>
-
-
-
-		<div class="cell center">
-			<jsp:include page="/WEB-INF/views/template/detailNavigator.jsp"></jsp:include>
-		</div>
-
-		<div class="cell center">
-			<%-- 검색창 --%>
-			<form action="list" method="get">
-				<!-- 카테고리를 넘겨줘야함 -->
-				<input type="hidden" name="category"
-					value="${boardDto.boardCategory}"> <select name="column"
-					class="tool">
-					<option value="board_title"
-						${param.column == 'board_title' ? 'selected' : ''}>제목</option>
-					<option value="board_content"
-						${param.column == 'board_content' ? 'selected' : ''}>내용</option>
-					<option value="member_nick"
-						${param.column == 'member_nick' ? 'selected' : ''}>작성자</option>
-				</select> <input class="tool" type="search" name="keyword"
-					placeholder="검색어 입력" value="${param.keyword}">
-				<button class="btn positive empty-check">검색</button>
-			</form>
-		</div>
-	</div>
-</c:if>
-</div>
 </div>
 </body>
 

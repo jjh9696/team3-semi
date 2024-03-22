@@ -210,7 +210,7 @@ public class BoardDao {
             if (pageVO.isOnlyRecruiting()) { // 모집중인 게시글만 필터링
                 sql += " and board_limit_time > sysdate"; // 현재 시간 이후인 경우만 모집중으로 간주
             }
-            Object[] data = { pageVO.getKeyword() };
+            Object[] data = { pageVO.getCategory(),pageVO.getKeyword() };
             return jdbcTemplate.queryForObject(sql, int.class, data);
         } else {// 목록
         	String sql = "select count(*) from board "
@@ -352,19 +352,19 @@ public class BoardDao {
     				+ "select rownum rn, TMP.* from (" 
     				+ "select board_no, board_title, board_reply, board_writer, board_write_time, " 
     				+ "board_limit_time, board_view, board_like, board_category " 
-    				+ "from board where member_id = ? "
+    				+ "from board where board_writer = ? "
     				+ "order by board_no desc"
     				+ ")TMP"
     				+ ") where rn between ? and ?";
     		Object[] data = {memberId, pageVO.getBeginRow(), pageVO.getEndRow()};
     		return jdbcTemplate.query(sql, boardListMapper, data);
     	}
-    	else { //카데고리별
+    	else { //카테고리별
     		String sql = "select * from (" 
     				+ "select rownum rn, TMP.* from (" 
     				+ "select board_no, board_title, board_reply, board_writer, board_write_time, " 
     				+ "board_limit_time, board_view, board_like, board_category " 
-    				+ "from board where member_id = ? and board_category = ? "
+    				+ "from board where board_writer = ? and board_category = ? "
     				+ "order by board_no desc"
     				+ ")TMP"
     				+ ") where rn between ? and ?";
@@ -372,6 +372,23 @@ public class BoardDao {
     		return jdbcTemplate.query(sql, boardListMapper, data);
     	}
     }
+    
+    //내가 쓴 글을 위한 카운트
+    public int countForMywriting(PageVO pageVO, String memberId) {
+    	if(pageVO.isCategory()) {//카테고리인지
+        	String sql = "select count(*) from board "
+        			+ "where board_writer = ? and board_category = ?";
+        	Object[] data = {memberId, pageVO.getCategory()};
+        	return jdbcTemplate.queryForObject(sql, int.class, data);
+    	}
+    	else {
+        	String sql = "select count(*) from board "
+        			+ "where board_writer = ?";
+        	Object[] data = {memberId};
+        	return jdbcTemplate.queryForObject(sql, int.class, data);
+    	}
+    }
+    
 
     //찜목록
     public List<BoardDto> likeList(String memberId){

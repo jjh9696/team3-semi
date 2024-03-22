@@ -283,7 +283,33 @@ public class BoardController {
 		return "redirect:list?category=" + boardCategoryEncoded;
 	}
 
+	// 내가 쓴 게시글로 가는 controller
+	@GetMapping("/mywriting")
+	public String mywriting(@RequestParam(required = false) String category,
+					HttpSession session, Model model, PageVO pageVO) {
+		
+		// 현재 로그인된 사용자의 아이디 가져오기
+		String loginId = (String) session.getAttribute("loginId");
+		int count = boardDao.countForMywriting(pageVO, loginId);
+		pageVO.setCount(count);
+		model.addAttribute("pageVO", pageVO);
 
+		MemberDto memberDto = memberDao.selectOne(loginId);
+
+		model.addAttribute("memberDto", memberDto);
+
+		// 해당 사용자가 작성한 게시글 가져오기
+		List<BoardDto> boardList = boardDao.findBylist(loginId, pageVO, category);
+
+		// 모델에 게시글 목록 추가
+		model.addAttribute("boardList", boardList);
+
+		// 마이페이지 내가 쓴 게시글 화면으로 이동
+		return "/WEB-INF/views/board/mywriting.jsp";
+
+	}
+	
+	
 	@Autowired
 	private ReplyDao replyDao;
 

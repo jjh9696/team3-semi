@@ -124,7 +124,7 @@ span{
                     onchange="previewImage(this)" style="display:none">
 		<div class="gray-text">* 사진을 클릭하여 변경하세요</div>
 
-			</form>
+	</form>
   </div>  
   	
   	
@@ -149,7 +149,7 @@ span{
         <tr>
             <th><i class="fa-solid fa-location-dot"></i> 주소</th>
             <td class="left">
-                [${memberDto.memberPost}] 
+                ${memberDto.memberPost}
                 ${memberDto.memberAddress1}
                 ${memberDto.memberAddress2}
             </td>
@@ -170,10 +170,10 @@ span{
         </tr>
         <tr>
             <th><i class="fa-regular fa-clock"></i> 로그인일시</th>
-            <td class="left">
+            <span class="left">
                 <fmt:formatDate value="${memberDto.memberLogin}" 
                                             pattern="y년 M월 d일 H시 m분 s초"/>
-            </td>
+            </span>>
         </tr>
     </table>
   

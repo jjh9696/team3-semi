@@ -44,12 +44,12 @@ public class MemberRestController {
         return memberDto == null;
 	}
 	
-	//이메일 인증을 위한 페이지
-	@RequestMapping("/sendCert")
-	public void sendCert(@RequestParam String memberEmail) {
-		
-		emailService.sendCert(memberEmail);
-	}
+	// DB에 동일한 이메일 체크 후 이메일 발송
+    @RequestMapping("/sendCert")
+      public void sendCert(@RequestParam String memberEmail) {
+        emailService.sendCert(memberEmail);
+
+    }
 	
 	@Autowired
 	private CertDao certDao;

@@ -3,6 +3,7 @@ package com.kh.semiteam3.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class ReplyRestController {
 	private MemberDao memberDao;
 
 	@PostMapping("/list")
-	public List<ReplyDto> list(@RequestParam int replyOrigin) {
+	public List<ReplyDto> list(@RequestParam int replyOrigin, @ModelAttribute ReplyDto replyDto2) {
 	    List<ReplyDto> list = replyDao.selectList(replyOrigin);
 
 	    for (ReplyDto replyDto : list) {

@@ -14,7 +14,7 @@
 		<table class="table table-horizontal table-hover">
 			<thead class="center">
 				<tr>
-					<th>게시글 제목</th>
+					<th>게시글 번호</th>
 					<th width="40%">내용</th>
 					<th>작성일</th>
 				</tr>
@@ -23,7 +23,7 @@
 			
 			<c:forEach var="replyDto" items="${replyList}">
 				<tr>
-					<td>${replyDto.replyOrigin}</td>
+					<td>${replyDto.boardTitle}</td>
 					<%-- 제목칸 --%>
 					<td class="left" width="40%">
 						<%-- 제목 출력--%>  <a class="link"
@@ -37,8 +37,7 @@
 		</table>
 		
 				<div class="cell center">
-			<%--네비게이터 출력(구조는 복잡하지만 /board/list와 같지 않을까?) --%>
-			<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/template/MycommentNavigator.jsp"></jsp:include>
 		</div>
 		
 	</div>

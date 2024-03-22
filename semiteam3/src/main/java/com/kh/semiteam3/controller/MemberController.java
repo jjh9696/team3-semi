@@ -64,10 +64,11 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-//	@RequestMapping("/joinFinish")
-//	public String joinFinish() {
-//		return "/WEB-INF/views/member/joinFinish.jsp";
-//	}
+	
+	@RequestMapping("/joinFinish")
+	public String joinFinish() {
+		return "/WEB-INF/views/member/joinFinish.jsp";
+	}
 	
 	
 	
@@ -152,8 +153,19 @@ public class MemberController {
 		MemberDto findDto = memberDao.selectOne(loginId);
 		
 		boolean isValid = findDto.getMemberPw().equals(originPw);
+		String regexPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()-_=+[{]};:.,<>]).{8,}$";
+
+		boolean isValidChangePw = changePw.matches(regexPattern);
+
 		
 		if(isValid) {//입력한 기존 비밀번호가 유효할 경우
+			 // 추가: 새 비밀번호 형식 검사
+	        if (!isValidChangePw) {
+	            return "redirect:password?formatError";
+	        }
+	        else if(changePw.equals(originPw)) {
+	        	return "redirect:password?equalsError";
+	        }
 			
 			MemberDto memberDto = new MemberDto();
 			
@@ -164,7 +176,7 @@ public class MemberController {
 			return "redirect:passwordFinish";
 		}
 		else {//입력한 기존 비밀번호가 유효하지 않을 경우
-			return "redirect:password?error";
+			return "redirect:password?originError";
 		}
 	}
 		
@@ -333,5 +345,9 @@ public class MemberController {
 	public String findPwFail() {
 		return "/WEB-INF/views/member/findPwFail.jsp";
 	}
+	
+	
+	
+
 	
 }

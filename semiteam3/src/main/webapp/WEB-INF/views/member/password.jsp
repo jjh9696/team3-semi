@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+</style>
+
 
 <script>
     // param.error가 null이 아닌 경우에만 alert을 표시합니다.
@@ -174,6 +176,21 @@ $(function() {
 				</button>
 			</div>
 				</div>
+<h1>비밀번호 변경</h1>
+<c:if test="${param.originError != null}">
+    <div class="error-message">현재 비밀번호가 일치하지 않습니다</div>
+</c:if>
+<c:if test="${param.formatError != null}">
+    <div class="error-message">비밀번호가 형식에 맞지 않습니다</div>
+</c:if>
+<c:if test="${param.equalsError != null}">
+    <div class="error-message">현재 비밀번호와 변경할 비밀번호가 같습니다</div>
+</c:if>
+
+<form action="password" method="post">
+    현재 비밀번호: <input name="originPw" type="password" required><br><br>
+    변경할 비밀번호: <input name="changePw" type="password" required><br><br>
+    <button>확인</button>
 </form>
 </div>
 </body>

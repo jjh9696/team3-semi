@@ -399,7 +399,7 @@ textarea.tool.tool-fixed {
 }
 
 .table.table-horizontal2 td a.link {
-    max-width: 14em;
+    max-width: 13em;
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis;

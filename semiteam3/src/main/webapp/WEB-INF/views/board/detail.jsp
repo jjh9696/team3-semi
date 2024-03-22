@@ -107,7 +107,8 @@
 		var loginId = "${sessionScope.loginId}";
 		var loginNick = "${sessionScope.loginNick}";
 		var isLogin = loginId.length > 0;
-
+		var loginGrade = "${sessionScope.loginGrade}";
+		
 		//페이지 로딩 완료 시 댓글 목록을 불러와서 출력
 		$.ajax({
 			url : "/rest/reply/list",
@@ -141,7 +142,15 @@
 					//- data라는 명형으로는 읽기만 가능
 					//- 태그에 글자를 추가하고 싶다면 .attr()명령 사용
 					//- 현재 로그인한 사용자의 댓글에만 버튼을 표시(나머진 삭제)
-					if (isLogin && loginNick == response[i].replyWriter) {//로그인되엇고 본인 댓글일때 
+					if (loginGrade == '관리자'){//관리자면
+						$(templateHTML).find(".btn-reply-delete").attr( //삭제버튼 보여주기
+								"data-reply-no", response[i].replyNo);
+						$(templateHTML).find(".btn-reply-edit").remove();
+						$(templateHTML).find(".btn-reply-report").remove();
+					}
+					
+					//if (isLogin && (loginNick == response[i].replyWriter || loginGrade == '관리자')) {//로그인되엇고 본인 댓글일때 
+					else if (isLogin && loginNick == response[i].replyWriter) {//로그인되엇고 본인 댓글일때  
 						$(templateHTML).find(".btn-reply-edit").attr(
 								"data-reply-no", response[i].replyNo);
 						$(templateHTML).find(".btn-reply-delete").attr(
@@ -183,12 +192,15 @@
 
 			//태그에 심어져 있는 번호 정보를 읽어와서 삭제하도록 요청
 			var replyNo = $(this).data("reply-no");
-
+			var params = new URLSearchParams(location.search);
+			var boardNo = params.get("boardNo");
+			
 			$.ajax({
 				url : "/rest/reply/delete",
 				method : "post",
 				data : {
-					replyNo : replyNo
+					replyNo : replyNo,
+					replyOrigin : boardNo
 				},
 				success : function(response) {
 					loadList(); //삭제가 완료되면 목록 불러오기
@@ -458,7 +470,6 @@
 	});
 	
 	window.onload = function() {
-		// 클래스 이름이 "status"인 모든 엘리먼트를 가져옵니다.
 		var statusElements = document.querySelectorAll('.status');
 
 		statusElements.forEach(function(statusElement) {
@@ -473,15 +484,9 @@
 	};
 </script>
 
-
-
-
-
-
-
-
-<%-- <div class="container" style="display: flex; width: 1300px;">
-		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> --%>
+<div class="container" style="display: flex; width: 1300px;">
+		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+		<div class="container">
 <div class="container w-1000 set-color">
 	<div class="cell title left">${boardDto.boardTitle}</div>
 	<div class="cell flex-cell info">
@@ -583,7 +588,15 @@
 			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
 				href="delete?boardNo=${boardDto.boardNo}">글삭제</a>
 		</c:if>
-		<a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a>
+		
+		<c:choose>
+			<c:when test="${boardDto.boardCategory == '관리자'}">
+					<a class="btn positive" onclick="history.back()">글목록</a>
+				</c:when>
+			<c:otherwise>
+					<a class="btn positive" href="list?category=${boardDto.boardCategory}">글목록</a>
+			</c:otherwise>
+		</c:choose>
 	</div>
 
 	<!-- 댓글 작성창 + 댓글 목록 -->
@@ -652,6 +665,7 @@
 <c:if test="${memberDto.memberGrade != '관리자'}">
 	<div class="cell m-30"></div>
 
+
 	<div class="container w-1000 set-color">
 		<div class="cell">
 			<table class="table table-horizontal table-hover">
@@ -681,7 +695,7 @@
 						</div>
 					</td>
 					<td class="info">${boardDto.boardWriteTimeStr}
-						<p>
+						<p class="my-10">
 							조회수
 							<fmt:formatNumber value="${boardDto.boardView}" pattern="###,###"></fmt:formatNumber>
 						</p>
@@ -689,7 +703,6 @@
 					<td>
 						<div class="status">${boardDto.boardStatus}</div>
 					</td>
-					</tr>
 				</c:forEach>
 			</table>
 		</div>
@@ -697,7 +710,7 @@
 
 
 		<div class="cell center">
-			<jsp:include page="/WEB-INF/views/template/navigator2.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/template/detailNavigator.jsp"></jsp:include>
 		</div>
 
 		<div class="cell center">
@@ -719,44 +732,51 @@
 			</form>
 		</div>
 	</div>
-	</div>
-
 </c:if>
+</div>
+</div>
 </body>
 
-<!-- </div> -->
 <%--이유는 모르겠지만 이걸 밑에 넣어야 로드가 빨리됨 --%>
 <script type="text/javascript">
-	// 마감 시간 설정 (YYYY, MM, DD, HH, MM, SS 순서)
-    var endTime = new Date(${boardDto.boardLimitTimeDate.year + 1900}, ${boardDto.boardLimitTimeDate.month}, ${boardDto.boardLimitTimeDate.date}, ${boardDto.boardLimitTimeDate.hours}, ${boardDto.boardLimitTimeDate.minutes}, ${boardDto.boardLimitTimeDate.seconds});
+    // 마감 시간 설정 (YYYY, MM, DD, HH, MM, SS 순서)
+    <c:if test="${not empty boardDto.boardLimitTimeDate && memberDto.memberGrade ne '관리자'}">
+        var endTime = new Date(
+            ${boardDto.boardLimitTimeDate.year + 1900}, 
+            ${boardDto.boardLimitTimeDate.month}, 
+            ${boardDto.boardLimitTimeDate.date}, 
+            ${boardDto.boardLimitTimeDate.hours}, 
+            ${boardDto.boardLimitTimeDate.minutes}, 
+            ${boardDto.boardLimitTimeDate.seconds}
+        );
 
-    // 1초마다 업데이트
-    var timer = setInterval(updateCountdown, 1000);
+        // 1초마다 업데이트
+        var timer = setInterval(updateCountdown, 1000);
 
-    function updateCountdown() {
-        var now = new Date();
-        var distance = endTime - now;
+        function updateCountdown() {
+            var now = new Date();
+            var distance = endTime - now;
 
-        // 마감 시간이 지난 경우
-        if (distance < 0) {
-            clearInterval(timer);
-            document.getElementById("countdown").innerHTML = "마감되었습니다.";
-            return;
+            // 마감 시간이 지난 경우
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "마감되었습니다.";
+                return;
+            }
+
+            // 일, 시, 분, 초 계산
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // 결과 표시
+            document.getElementById("countdown").innerHTML = "마감까지 " + days + "일 " + hours + "시간 " + minutes + "분 " + seconds + "초 남음";
         }
 
-        // 일, 시, 분, 초 계산
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // 결과 표시
-        document.getElementById("countdown").innerHTML = "마감까지 " + days + "일 " + hours + "시간 " + minutes + "분 " + seconds + "초 남음";
-    }
-
-    // 페이지 로드 시 초기화
-    updateCountdown();
-    
-    </script>
+        // 페이지 로드 시 초기화
+        updateCountdown();
+    </c:if>
+</script>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

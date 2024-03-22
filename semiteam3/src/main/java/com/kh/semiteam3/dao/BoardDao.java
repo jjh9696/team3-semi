@@ -346,10 +346,31 @@ public class BoardDao {
 	}
 	
 	//내가 쓴 게시글
-    public List<BoardDto> findBylist(String memberId) {
-        String sql = "SELECT * FROM board WHERE BOARD_WRITER = ?";
-        Object[] data = {memberId};
-        return jdbcTemplate.query(sql, boardListMapper, data);
+    public List<BoardDto> findBylist(String memberId, PageVO pageVO, String boardCategory) {
+    	if(boardCategory == null) { //전체글
+    		String sql = "select * from (" 
+    				+ "select rownum rn, TMP.* from (" 
+    				+ "select board_no, board_title, board_reply, board_writer, board_write_time, " 
+    				+ "board_limit_time, board_view, board_like, board_category " 
+    				+ "from board where member_id = ? "
+    				+ "order by board_no desc"
+    				+ ")TMP"
+    				+ ") where rn between ? and ?";
+    		Object[] data = {memberId, pageVO.getBeginRow(), pageVO.getEndRow()};
+    		return jdbcTemplate.query(sql, boardListMapper, data);
+    	}
+    	else { //카데고리별
+    		String sql = "select * from (" 
+    				+ "select rownum rn, TMP.* from (" 
+    				+ "select board_no, board_title, board_reply, board_writer, board_write_time, " 
+    				+ "board_limit_time, board_view, board_like, board_category " 
+    				+ "from board where member_id = ? and board_category = ? "
+    				+ "order by board_no desc"
+    				+ ")TMP"
+    				+ ") where rn between ? and ?";
+    		Object[] data = {memberId, boardCategory, pageVO.getBeginRow(), pageVO.getEndRow()};
+    		return jdbcTemplate.query(sql, boardListMapper, data);
+    	}
     }
 
     //찜목록

@@ -4,19 +4,35 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+.category{
+    font-size: 20px;
+    color: #e4b176;
+}
+p { /* p태그 전체를 뜻한다*/
+	font-size: 24pt;
+}
+
+</style>
 <body>
 <!-- 작성글 내역 표시 -->
 <div class="container" style="display: flex; width:1300px;">
-		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-<div class="container w-1000 set-color">
-<h2>내 작성글</h2>
+	<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
+	<div class="container w-1000 set-color">
+		<p class="left">내 작성글</p>
+			<div class="myWriting category">
+					<a href="" class="link">All</a>
+					<a href="" class="link"><i class="fa-solid fa-soccer-ball"></i></a>
+					<a href="" class="link"><i class="fa-solid fa-baseball"></i></a>
+					<a href="" class="link"><i class="fa-solid fa-basketball"></i></a>
+					<a href="" class="link"><i class="fa-solid fa-gamepad"></i></a>
+			</div>
         <div class="cell">
 		<table class="table table-horizontal table-hover">
 			<thead class="center">
 				<tr>
 					<th>번호</th>
 					<th width="40%">제목</th>
-					<th>작성자</th>
 					<th>작성일</th>
 					<th>마감일</th>
 					<th>조회수</th>
@@ -31,7 +47,7 @@
 						href="detail?boardNo=${boardDto.boardNo}">
 							${boardDto.boardTitle} </a>
 					</td>
-					<td>${boardDto.boardWriterStr}</td>
+					
 					<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>
 					<td>${boardDto.boardWriteTimeStr}</td>
 					<%-- dto 에서 가상의 메소드 하나 만들어주기 --%>

@@ -76,8 +76,7 @@
 				<span class="info">)</span>
 			</div>
 			<div class="cell width-fill right info">
-				<span class="btn-reply-edit">수정</span> 
-				<span class="reply-edit-delete-bar">|<span>
+				<span class="btn-reply-edit">수정<span class="reply-edit-delete-bar"> | </span></span>
 				<span class="btn-reply-delete">삭제</span>
 			</div>
 				<i class="fa-solid fa-bell btn-reply-report my-10"> 신고</i>
@@ -174,10 +173,11 @@
 					//- 태그에 글자를 추가하고 싶다면 .attr()명령 사용
 					//- 현재 로그인한 사용자의 댓글에만 버튼을 표시(나머진 삭제)
 					if (loginGrade == '관리자'){//관리자면
+						$(templateHTML).find(".btn-reply-edit").remove();
 						$(templateHTML).find(".btn-reply-delete").attr( //삭제버튼 보여주기
 								"data-reply-no", response[i].replyNo);
-						$(templateHTML).find(".btn-reply-edit").remove();
 						$(templateHTML).find(".btn-reply-report").remove();
+						$(templateHTML).find(".reply-edit-delete-bar").remove();
 					}
 					
 					//if (isLogin && (loginNick == response[i].replyWriter || loginGrade == '관리자')) {//로그인되엇고 본인 댓글일때 
@@ -647,8 +647,7 @@
 								HH:mm:ss</span> <span class="info">)</span>
 						</div>
 						<div class="cell w-50 right info">
-							<span class="btn-reply-edit">수정</span>
-							<span class="reply-edit-delete-bar">|</span>
+							<span class="btn-reply-edit">수정<span class="reply-edit-delete-bar"> | </span></span>
 							<span class="btn-reply-delete">삭제</span>
 						</div>
 							<i class="fa-solid fa-bell btn-reply-report my-10">신고</i>

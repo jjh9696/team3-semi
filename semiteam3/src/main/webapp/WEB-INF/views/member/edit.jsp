@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<script src="/js/exit.js"></script>
 <style>
     .preview {
         border: 2px solid #ccc;
@@ -96,7 +97,7 @@
 <div class="form-container box center">
     <h1>개인정보 변경</h1>
 
-    <form action="edit" method="post" autocomplete="off" enctype="multipart/form-data">
+    <form action="edit" method="post" autocomplete="off" enctype="multipart/form-data" class="free-pass">
         <input type="text" name="memberNick" required placeholder="닉네임 *" value="${memberDto.memberNick }"><br>
         <input type="email" name="memberEmail" required placeholder="이메일 *" value="${memberDto.memberEmail }"><br>
         <input type="date" name="memberBirth" value="${memberDto.memberBirth }" placeholder="생년월일"><br>

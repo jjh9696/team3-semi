@@ -2,7 +2,6 @@ package com.kh.semiteam3.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,14 +37,14 @@ public class MemberRestController {
 	}
 	
 	//멤버 닉네임 중복체크
-	@PostMapping("/checkMemberNick")
+	@RequestMapping("/checkMemberNick")
     public boolean checkMemberNick(@RequestParam String memberNick) {
         MemberDto memberDto = memberDao.selectOneByMemberNick(memberNick);
         return memberDto == null;
 	}
 	
 	// 이메일 인증을 위한 페이지
-	@RequestMapping("/sendCert")
+    @RequestMapping("/sendCert")
     public void sendCert(@RequestParam String memberEmail) {
         MemberDto memberDto = memberDao.selectOne(memberEmail);//memberEmail에 있는지 찾기 없으면 null이 뜰것임
         if (memberDto == null) {

@@ -20,7 +20,6 @@
 
 <script type="text/javascript">
 	window.onload = function() {
-		// 클래스 이름이 "status"인 모든 엘리먼트를 가져옵니다.
 		var statusElements = document.querySelectorAll('.status');
 
 		statusElements.forEach(function(statusElement) {

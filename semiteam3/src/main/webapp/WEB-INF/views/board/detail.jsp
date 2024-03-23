@@ -64,7 +64,7 @@
 	cursor: pointer;
 }
 .btn-edit{
- 	background-color:#d6303155;
+ 	background-color:#F2D692;
  	color:#fff;
 }
 div > p > img{
@@ -630,7 +630,7 @@ div > p > img{
 				<%-- 수정과 삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 --%>
 				<c:if
 					test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
-					<a class="btn negative btn-edit"
+					<a class="btn btn-edit"
 						href="edit?boardNo=${boardDto.boardNo}">글수정</a>
 					<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
 						href="delete?boardNo=${boardDto.boardNo}">글삭제</a>

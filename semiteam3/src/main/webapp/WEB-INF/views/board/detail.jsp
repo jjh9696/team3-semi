@@ -86,7 +86,9 @@
 				<i class="fa-regular fa-comment-dots"></i>
 				<span class="reply-writer">작성자</span>
 				<span class="info">
-				<span class="author">작성자</span>
+				<c:if test="${isSameWriter}">
+					<span class="author">작성자</span>
+				</c:if>
 				(</span>
 				<span class="reply-time info">yyyy-MM-dd HH:mm:ss</span>
 				<span class="info">)</span>
@@ -163,8 +165,7 @@ function loadList() {
             replyOrigin: boardNo
         },
         success: function (response) {
-            //작성자 표시 관련
-            //$(".author").hide(); // 작성자 표시를 숨김
+ 
 
             //댓글 개수를 표시
             $(".reply-count").text(response.length);
@@ -217,9 +218,9 @@ function loadList() {
                 }
 
                 // 작성자 표시
-                //if (boardDto.boardWriterStr === response[i].replyWriter) {
+                //if (memberDto.memberNick === response[i].replyWriter) {
                     //$(templateHTML).find(".author").show();
-               // }
+                //}
 
                 //화면추가
                 $(".reply-list-wrapper").append(templateHTML);
@@ -661,7 +662,9 @@ function loadList() {
 						<div class="cell w-50 left">
 							<i class="fa-regular fa-comment-dots"></i> <span class="reply-writer">작성자</span>
 							<span class="info">
-							<span class="author">작성자</span>
+							<c:if test="${isSameWriter}">
+							    <span class="author">작성자</span>
+							</c:if>
 							(</span> <span class="reply-time info">yyyy-MM-dd
 								HH:mm:ss</span> <span class="info">)</span>
 						</div>

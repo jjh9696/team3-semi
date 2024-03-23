@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.semiteam3.dto.MemberDto;
 import com.kh.semiteam3.dto.ReplyDto;
 import com.kh.semiteam3.mapper.ReplyMapper;
 import com.kh.semiteam3.vo.PageVO;
@@ -84,6 +85,8 @@ public class ReplyDao {
     	Object[] data = {memberId};
     	return jdbcTemplate.queryForObject(sql, int.class, data);
     }
+    
+
 }
 
 

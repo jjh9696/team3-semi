@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -399,5 +400,19 @@ public class BoardDao {
         return jdbcTemplate.query(sql, boardListMapper, data);
     }
 
+    
+    //댓글이 작성자 본인인지?
+    public boolean isSameWriter(int boardNo, String replyWriter) {
+        String sql = "SELECT COUNT(*) " +
+                     "FROM reply r " +
+                     "INNER JOIN board b ON r.board_no = b.board_no " +
+                     "WHERE r.member_id = ? AND b.board_no = ?";
+        
+        // jdbcTemplate을 사용하여 SQL을 실행하고 결과를 처리
+        int count = jdbcTemplate.queryForObject(sql, Integer.class, replyWriter, boardNo);
+        
+        // count 값이 1이면 게시글 작성자와 댓글 작성자가 동일함을 의미함
+        return count == 1;
+    }
 
 }

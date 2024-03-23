@@ -203,8 +203,13 @@ public class BoardController {
 				boardDto1.setBoardWriter("탈퇴한사용자");
 			}
 		}
+		
+		
+		
+		boolean isSameWriter = boardDao.isSameWriter(boardNo, null);
 
 		model.addAttribute("list", list);
+		model.addAttribute("isSameWriter", isSameWriter);
 
 		return "/WEB-INF/views/board/detail.jsp";
 	}

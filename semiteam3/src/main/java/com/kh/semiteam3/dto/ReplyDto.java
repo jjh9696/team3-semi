@@ -8,6 +8,16 @@ public class ReplyDto {
 	private String replyWriter; //작성자 - member_id 참조
 	private int replyOrigin; //게시글번호 - board_no 참조
 	
+	private String boardWriter; // 게시글 작성자
+	
+	
+    public String getBoardWriter() {
+        return boardWriter;
+    }
+
+    public void setBoardWriter(String boardWriter) {
+        this.boardWriter = boardWriter;
+    }
 	
 	public int getReplyNo() {
 		return replyNo;

@@ -1,20 +1,15 @@
 package com.kh.semiteam3.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
 import com.kh.semiteam3.dto.BoardDto;
 import com.kh.semiteam3.mapper.BoardListMapper;
 import com.kh.semiteam3.mapper.BoardMapper;
+import com.kh.semiteam3.mapper.BoardWithNicknameMapper;
 import com.kh.semiteam3.vo.PageVO;
 
 @Repository
@@ -25,6 +20,8 @@ public class BoardDao {
 	private BoardMapper boardMapper;
 	@Autowired
 	private BoardListMapper boardListMapper;
+	@Autowired
+	private BoardWithNicknameMapper boardWithNicknameMapper;
 	
 	//커뮤니티 게시글 작성(등록)
 	public void insert(BoardDto boardDto) {//**마감시간 처리방법 생각해보기
@@ -267,6 +264,15 @@ public class BoardDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 	
+	public BoardDto selectOne2(int boardNo) {
+	    String sql = "SELECT b.*, m.member_nick AS boardWriterNickname " +
+	            "FROM board b " +
+	            "LEFT JOIN member m ON b.board_writer = m.member_id " +
+	            "WHERE b.board_no = ?";
+	    Object[] data = {boardNo};
+	    return jdbcTemplate.queryForObject(sql, boardWithNicknameMapper, data);
+	}
+		
     //게시글 수정
     public boolean update(BoardDto boardDto) {//제목, 내용, 수정일, 카테고리, 마감일을 게시글 번호 뽑아서 수정~!
         String sql = "update board "
@@ -401,18 +407,12 @@ public class BoardDao {
     }
 
     
-    //댓글이 작성자 본인인지?
-    public boolean isSameWriter(int boardNo, String replyWriter) {
-        String sql = "SELECT COUNT(*) " +
-                     "FROM reply r " +
-                     "INNER JOIN board b ON r.board_no = b.board_no " +
-                     "WHERE r.member_id = ? AND b.board_no = ?";
-        
-        // jdbcTemplate을 사용하여 SQL을 실행하고 결과를 처리
-        int count = jdbcTemplate.queryForObject(sql, Integer.class, replyWriter, boardNo);
-        
-        // count 값이 1이면 게시글 작성자와 댓글 작성자가 동일함을 의미함
-        return count == 1;
+    @Autowired
+    private MemberDao memberDao;
+
+
+    public String getBoardWriterNickname(String memberId) {
+        return memberDao.getMemberNickById(memberId);
     }
 
 }

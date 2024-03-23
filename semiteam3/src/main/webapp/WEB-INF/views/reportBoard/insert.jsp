@@ -24,7 +24,7 @@
 	<form action="insert" method="post" autocomplete="off" class="free-pass">
 		<div class="container" style="display: flex; width:1300px;">
 			<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
-		<div class="container w-1000">
+		<div class="container w-1000 set-color">
 			<div class="cell center">
 				<h1>게시글 신고</h1>
 			</div>

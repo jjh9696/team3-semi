@@ -34,7 +34,7 @@
 					</div>
 					<div class="cell right">
 						<label>신고사유</label>
-						<select name="reportBoardReason" class="tool w-40">
+						<select name="reportBoardReason" class="tool w-50">
 							<option value="">선택하세요</option>
 							<option value="욕설/비방">욕설/비방</option>
 							<option value="광고">광고</option>

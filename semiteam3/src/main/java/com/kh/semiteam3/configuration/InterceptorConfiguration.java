@@ -64,7 +64,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		//비로그인시 접근 제한
 		registry.addInterceptor(NonMemberInterceptor)
 					.addPathPatterns(
-							"/member/find*"
+							"/member/find*", 
+							"/member/join*"
 					);
 	
 	}	

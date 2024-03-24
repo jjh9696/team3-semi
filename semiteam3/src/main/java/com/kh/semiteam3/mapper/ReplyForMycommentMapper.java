@@ -21,6 +21,7 @@ public class ReplyForMycommentMapper implements RowMapper<ReplyDto> {
         replyDto.setBoardTitle(rs.getString("board_title")); 
         replyDto.setBoardView(rs.getInt("board_view"));
         replyDto.setBoardReply(rs.getInt("board_reply"));
+        replyDto.setReplyOrigin(rs.getInt("board_no"));
 		return replyDto;
 	}
 

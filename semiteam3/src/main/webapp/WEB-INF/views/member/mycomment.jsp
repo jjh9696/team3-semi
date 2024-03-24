@@ -7,10 +7,17 @@
 .info {
 	color: #8395a7;
 }
+.mycomment-title {
+	font-size: 30px;
+}
 
 .reply {
 	color: #1dd1a1;
 }
+.reply-time{
+	font-size: 14px;
+}
+
 </style>
 
 
@@ -19,18 +26,26 @@
     <div class="container" style="display: flex; width:1300px;">
         <jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
         <div class="container w-1000 set-color">
-            <h2>내가 쓴 댓글</h2>
+            <p class="mycomment-title">
+	            <i class="fa-regular fa-comment-dots"></i>
+	            내가 쓴 댓글</p>
+	            
             <div class="cell">
                 <table class="table table-horizontal table-hover">
                     <c:forEach var="replyDto" items="${replyList}">
                         <tr>
-                            <td>${replyDto.boardTitle}</td>
-                            <td class="left" width="40%">
-                                <a class="link" href="/board/detail?boardNo=${replyDto.replyOrigin}">
-                                    ${replyDto.replyContent}
-                                </a>
-                            </td>
-                            <td>${replyDto.replyTime}</td>
+                            <td class="left">
+                            	<div class="my-10">
+                            		${replyDto.replyContent}
+                            	</div>
+                            	<div class="info reply-time">
+                            		${replyDto.replyTime}
+                            	</div>
+                            	<div class="board-title">
+		                            <a class="link info" href="/board/detail?boardNo=${replyDto.replyOrigin}">
+		                            ${replyDto.boardTitle}<span class="reply">[${replyDto.boardReply}]</span></a>
+	                            </div>
+	                       	</td>
                         </tr>
                     </c:forEach>
                 </table>

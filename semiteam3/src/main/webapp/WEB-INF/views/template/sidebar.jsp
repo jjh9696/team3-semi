@@ -164,13 +164,13 @@ body {
 			<hr>
                     <a href="/member/mywriting" class="my">
                     	<i class="fa-solid fa-pencil"></i>
-                    	내가쓴 글
+                    	내가 쓴 글
                     </a>
                     <a href="/member/mycomment" class="my">
                     	<i class="fa-regular fa-comment-dots"></i>
-                     	내가쓴 댓글
+                     	내가 쓴 댓글
                     </a>
-                    <a href="/board/mylike" class="my">
+                    <a href="/member/mylike" class="my">
                     	<i class="fa-regular fa-heart"></i>
                      	찜목록
                     </a>

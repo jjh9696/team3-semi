@@ -413,6 +413,28 @@ public class MemberController {
 		return "/WEB-INF/views/member/mycomment.jsp";
 	}
 	
+	// 찜목록
+	@GetMapping("/mylike")
+	public String mylike(HttpSession session, Model model, PageVO pageVO) {
+		int count = boardDao.count(pageVO);
+		pageVO.setCount(count);
+		model.addAttribute("pageVO", pageVO);
+
+		// 아이디 가져오기
+		String loginId = (String) session.getAttribute("loginId");
+
+		MemberDto memberDto = memberDao.selectOne(loginId);
+
+		model.addAttribute("memberDto", memberDto);
+		// 좋아요 목록 가져오기
+		List<BoardDto> likeList = boardDao.likeList(loginId);
+
+		model.addAttribute("likeList", likeList);
+
+		return "/WEB-INF/views/member/mylike.jsp";
+	}
+	
+	
 	
 	
 

@@ -53,7 +53,7 @@ body {
     
 .btnFloat {
 	display: block;
-	background-color: #007bff;
+	background-color: #ddb486;
 	color: #fff;
 	text-align: center;
 	padding: 10px 0;
@@ -63,7 +63,7 @@ body {
 }
     
 .btnFloat:hover {
-	background-color: #0056b3;
+	background-color: #e4b178;
 }
 .grade{
 	color:#e3c7a6;

@@ -68,8 +68,8 @@ public class ReplyDao {
 	public List<ReplyDto> findBylist(String memberId, PageVO pageVO) {
 	    String sql = "select * from (" 
 	            + "select rownum rn, TMP.* from (" 
-	            + "select reply.reply_no, reply.reply_content, reply.reply_time, member.member_id "
-	            + "as reply_writer, board.board_view, board.board_title, board.board_reply "
+	            + "select reply.reply_no, reply.reply_content, reply.reply_time, member.member_id, "
+	            + "board.board_view, board.board_title, board.board_reply "
 	            + "from reply "
 	            + "inner join member "
 	            + "on reply.member_id = member.member_id "

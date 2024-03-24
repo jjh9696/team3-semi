@@ -3,6 +3,17 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+.info {
+	color: #8395a7;
+}
+
+.reply {
+	color: #1dd1a1;
+}
+</style>
+
+
 <body>
     <!-- 작성글 내역 표시 -->
     <div class="container" style="display: flex; width:1300px;">
@@ -11,13 +22,6 @@
             <h2>내가 쓴 댓글</h2>
             <div class="cell">
                 <table class="table table-horizontal table-hover">
-                    <thead class="center">
-                        <tr>
-                            <th>게시글 제목</th>
-                            <th width="40%">내용</th>
-                            <th>작성일</th>
-                        </tr>
-                    </thead>
                     <c:forEach var="replyDto" items="${replyList}">
                         <tr>
                             <td>${replyDto.boardTitle}</td>

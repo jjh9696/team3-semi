@@ -67,10 +67,9 @@ span{
 }
 </style>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    $(function(){
-        
+
+$(document).ready(function() {
         $("#memberAttach").on("change", function() {
             var formData = new FormData();
             formData.append("attach", this.files[0]);
@@ -88,7 +87,26 @@ span{
             });
         });
 
-    });
+  
+    
+
+		$("#memberAttach").on("change", function() {
+	    	var formData = new FormData();
+    		formData.append("attach", this.files[0]);
+    		$.ajax({
+	        	url : "/rest/member_attach/delete",
+        		method : "post",
+        		data : formData,
+        		processData : false,
+        		contentType : false,
+        		success : function(response) {
+	            	if (response == null)
+                	return;
+            	$("#preview").attr("src", "image");
+        		}
+    		});
+		});
+});
 
     function previewImage(input) {
         if (input.files && input.files[0]) {
@@ -102,7 +120,9 @@ span{
             
         }
     }
-</script>
+    
+    </script>
+
 	<div class="container" style="display: flex; width:1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 <div class="box container w-1000">
@@ -123,6 +143,12 @@ span{
         <input type="file" id="memberAttach" name="memberAttach" class="input" 
                     onchange="previewImage(this)" style="display:none">
 		<div class="gray-text">* 사진을 클릭하여 변경하세요</div>
+<!-- 		<button type="button" id="memberAttachDelete" name="memberAttachDelete" class=""  -->
+<!--                     onchange="previewImage(this)" style="display:none"> -->
+<!--         </button> -->
+<!--         	<label for="memberAttachDelete"> -->
+<!--         	<div class="gray-text">&#91;이미지삭제&#93;</div> -->
+<!--         	</label> -->
 
 	</form>
   </div>  

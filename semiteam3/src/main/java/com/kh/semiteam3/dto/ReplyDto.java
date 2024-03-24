@@ -52,6 +52,47 @@ public class ReplyDto {
 	public ReplyDto() {
 		super();
 	}
+
+	
+	//내가 쓴 댓글 하려고
+	private String boardTitle;
+	private String boardContent;
+	private int boardView;
+	private int boardReply;
+
+
+	public String getBoardTitle() {
+		return boardTitle;
+	}
+
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
+	}
+
+	public String getBoardContent() {
+		return boardContent;
+	}
+
+	public void setBoardContent(String boardContent) {
+		this.boardContent = boardContent;
+	}
+
+	public int getBoardView() {
+		return boardView;
+	}
+
+	public void setBoardView(int boardView) {
+		this.boardView = boardView;
+	}
+
+	public int getBoardReply() {
+		return boardReply;
+	}
+
+	public void setBoardReply(int boardReply) {
+		this.boardReply = boardReply;
+	}
+	
 	
 	
 }

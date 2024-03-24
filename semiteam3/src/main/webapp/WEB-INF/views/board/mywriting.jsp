@@ -6,6 +6,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <style>
+
 .category {
 	font-size: 20px;
 	color: #e4b176;
@@ -22,6 +23,7 @@ p.mywriting {
 .reply {
 	color: #1dd1a1;
 }
+
 </style>
 
 <script type="text/javascript">

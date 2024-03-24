@@ -92,11 +92,11 @@ body {
                     	${sessionScope.loginGrade}
                     </span>
                     <hr>
-                    <a href="/board/mywriting" class="my">
+                    <a href="/member/mywriting" class="my">
                     	<i class="fa-solid fa-pencil"></i>
                     	내가 쓴 글
                     </a>
-                    <a href="/board/mycomment" class="my">
+                    <a href="/member/mycomment" class="my">
                     	<i class="fa-regular fa-comment-dots"></i>
                     	내가 쓴 댓글
                     </a>
@@ -162,11 +162,11 @@ body {
                     </div>
                     <span class="grade">${sessionScope.loginGrade}</span>
 			<hr>
-                    <a href="/board/mywriting" class="my">
+                    <a href="/member/mywriting" class="my">
                     	<i class="fa-solid fa-pencil"></i>
                     	내가쓴 글
                     </a>
-                    <a href="/board/mycomment" class="my">
+                    <a href="/member/mycomment" class="my">
                     	<i class="fa-regular fa-comment-dots"></i>
                      	내가쓴 댓글
                     </a>

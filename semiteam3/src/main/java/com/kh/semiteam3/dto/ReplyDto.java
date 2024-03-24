@@ -59,6 +59,8 @@ public class ReplyDto {
 	private String boardContent;
 	private int boardView;
 	private int boardReply;
+	
+//	private int boardNo;
 
 
 	public String getBoardTitle() {
@@ -92,6 +94,14 @@ public class ReplyDto {
 	public void setBoardReply(int boardReply) {
 		this.boardReply = boardReply;
 	}
+
+//	public int getBoardNo() {
+//		return boardNo;
+//	}
+//
+//	public void setBoardNo(int boardNo) {
+//		this.boardNo = boardNo;
+//	}
 	
 	
 	

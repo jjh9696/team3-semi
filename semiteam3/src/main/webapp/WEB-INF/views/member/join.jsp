@@ -607,7 +607,7 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
 				주소
 			</div>
 			<div class="cell">
-				<input name="memberPost" class="tool tool-image w-60"
+				<input name="memberPost" class="tool tool-image" style="width:355px"
 					placeholder="우편번호" type="text">
 				<button type="button" class="btn positive btn-address-search">
 					<i class="fa-solid fa-magnifying-glass"></i>

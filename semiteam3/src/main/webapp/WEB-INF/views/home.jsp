@@ -70,7 +70,7 @@
     align-items: center;
 }
 
-.home-title {
+.home-title2 {
 	font-size: 25px;
 }
 
@@ -78,6 +78,69 @@
 	font-size: 20px;
 	margin: 10;
 	color: rgba(182, 139, 89, 0.856);
+}
+
+
+
+.table.table-horizontal2 td {
+        vertical-align: middle; /* 셀 내에서 수직 정렬을 가운데로 설정합니다. */
+    }
+
+.table.table-horizontal2 {
+    border-collapse: collapse; /* 테이블 셀 경계를 합칩니다. */
+}
+
+.table.table-horizontal2 th,
+.table.table-horizontal2 td {
+    border: none; /* 모든 셀에 선을 없앱니다. */
+}
+
+.table.table-horizontal2 > thead th,
+.table.table-horizontal2 > tbody th,
+.table.table-horizontal2 > tfoot th,
+.table.table-horizontal2 > thead td,
+.table.table-horizontal2 > tbody td,
+.table.table-horizontal2 > tfoot td {
+    border-bottom: 1px solid #ddd; 
+}
+
+.table.table-horizontal2 > thead th {
+    border-bottom: 2px solid #ddd; 
+}
+
+.table.table-horizontal2 > tfoot td {
+    border-top: 1px solid #ddd; 
+}
+
+
+.table.table-horizontal2 td a.link > .home-title:not(:first-child) {
+    display: inline-block;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.table.table-horizontal2 td a.link > .home-title {
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 0;
+}
+
+.home-title {
+	overflow: hidden;
+	white-space: nowrap;
+	font-size: 15px;
+	display: inline-block;
+	max-width: 100%;
+}
+.home-writer {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
 }
 
 </style>
@@ -114,6 +177,33 @@
 
 		});
 	});
+	
+    function applyEllipsis() {
+        var homeWriters = document.getElementsByClassName("home-writer");
+        for (var i = 0; i < homeWriters.length; i++) {
+            var writer = homeWriters[i];
+            if (writer.textContent.length >= 5) {
+                writer.classList.add("ellipsis");
+            }
+        }
+    }
+    
+    window.onload = function() {
+        applyEllipsis();
+    };
+    
+    $(document).ready(function() {
+        $(".home-title").each(function() {
+            if ($(this).text().length > 10) {
+                $(this).css({
+                    "overflow": "hidden",
+                    "text-overflow": "ellipsis",
+                    "white-space": "nowrap"
+                });
+            }
+        });
+    });
+    
 </script>
 </head>
 
@@ -157,7 +247,7 @@
 	</div>
 </div>
 
-<p class="home-title center mt-20">♡ 현재 모집중인 게시글 ♡</p>
+<p class="home-title2 center mt-20">♡ 현재 모집중인 게시글 ♡</p>
 <div class="cell flex-cell center container w-1700 ">
 	<div class="cell w-100 ing set-color center">
 		<a href="/board/list?category=축구" class="link home-table-title center">		
@@ -171,9 +261,9 @@
 				<tr>
 					<td class="left"><a class="link"
 						href="/board/detail?boardNo=${boardDto.boardNo}"> <span
-							class="title">${boardDto.boardTitle}</span>
+							class="home-title">${boardDto.boardTitle}</span>
 					</a> <span class="reply2">[${boardDto.boardReply}]</span></td>
-					<td class="right">${boardDto.boardWriterStr}</td>
+					<td class="right home-writer">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -191,9 +281,9 @@
 				<tr>
 					<td class="left"><a class="link"
 						href="/board/detail?boardNo=${boardDto.boardNo}"> <span
-							class="title">${boardDto.boardTitle}</span>
+							class="home-title">${boardDto.boardTitle}</span>
 					</a> <span class="reply2">[${boardDto.boardReply}]</span></td>
-					<td class="right">${boardDto.boardWriterStr}</td>
+					<td class="right home-writer">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -211,9 +301,9 @@
 				<tr>
 					<td class="left"><a class="link"
 						href="/board/detail?boardNo=${boardDto.boardNo}"> <span
-							class="title">${boardDto.boardTitle}</span>
+							class="home-title">${boardDto.boardTitle}</span>
 					</a> <span class="reply2">[${boardDto.boardReply}]</span></td>
-					<td class="right">${boardDto.boardWriterStr}</td>
+					<td class="right home-writer">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -230,9 +320,9 @@
 				<tr>
 					<td class="left"><a class="link"
 						href="/board/detail?boardNo=${boardDto.boardNo}"> <span
-							class="title2">${boardDto.boardTitle}</span>
+							class="home-title">${boardDto.boardTitle}</span>
 					</a> <span class="reply2">[${boardDto.boardReply}]</span></td>
-					<td class="right">${boardDto.boardWriterStr}</td>
+					<td class="right home-writer">${boardDto.boardWriterStr}</td>
 				</tr>
 			</c:forEach>
 		</table>

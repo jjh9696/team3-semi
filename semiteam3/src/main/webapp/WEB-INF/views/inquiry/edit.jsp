@@ -3,14 +3,23 @@
 <!DOCTYPE html>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+
+<style>
+.qna-edit-title{
+	font-size: 25px;
+}
+
+</style>
 <script src="/js/exit.js"></script>
 
 <form class="free-pass" action="edit" method="post" autocomplete="off">
     <input type="hidden" name="inquiryNo" value="${inquiryDto.inquiryNo}">
 <div class="container" style="display: flex; width: 1300px;">
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include> 
-<div class="container w-1000">
-    <div class="cell center"><h1>문의게시글 수정</h1></div>
+<div class="container w-1000 set-color">
+    <div class="cell center">
+    	<p class="qna-edit-title">문의게시글 수정</p>
+    </div>
     <div class="cell">
         <label>제목</label>
         <input type="text" name="inquiryTitle" required class="tool w-100" value="${inquiryDto.inquiryTitle}">
@@ -22,7 +31,7 @@
     </div>
     <div class="cell right">
         <a href="list" class="btn">목록</a>
-        <button class="btn positive">수정하기</button>
+        <button class="btn positive">수정</button>
     </div>
 </div>
 </div>

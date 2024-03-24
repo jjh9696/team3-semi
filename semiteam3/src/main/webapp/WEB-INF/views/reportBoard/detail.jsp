@@ -30,6 +30,11 @@
 	height: 1px;
 	background-color: #e3c7a6;
 	}
+	
+	.report-title{
+		font-size:25px;
+	}
+	
 	</style>
 </head>
 <body>
@@ -37,7 +42,7 @@
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 	<div class="container w-1000 set-color">
 		<div class="cell center">
-			<h2>게시글 신고 상세</h2>
+			<p class="report-title">게시글 신고 상세</p>
 		</div>
 
 		 <div class="cell info">

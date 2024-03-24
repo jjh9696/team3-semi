@@ -41,9 +41,9 @@
                             	<div class="info reply-time">
                             		${replyDto.replyTime}
                             	</div>
-                            	<div class="board-title">
+                            	<div class="board-title mb-10">
 		                            <a class="link info" href="/board/detail?boardNo=${replyDto.replyOrigin}">
-		                            ${replyDto.boardTitle}<span class="reply">[${replyDto.boardReply}]</span></a>
+		                            ${replyDto.boardTitle}<span class="reply"> [${replyDto.boardReply}]</span></a>
 	                            </div>
 	                       	</td>
                         </tr>

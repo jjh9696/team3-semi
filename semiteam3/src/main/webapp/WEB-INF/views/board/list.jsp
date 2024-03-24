@@ -39,6 +39,8 @@
     margin-right: 0; 
 }
 
+}
+
 
 </style>
 
@@ -150,20 +152,25 @@
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
 									</a>
 								</div>
-								<div class="info my-10">
+								<div class="info">
 									<span class="red">전체공지 </span>|
 									<fmt:formatDate value="${boardDto.boardWriteTime}"
 										pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
 									| ${boardDto.boardWriterStr}
 								</div>
 							</td>
-							<td class="info" >${boardDto.boardWriteTimeStr}
-								<p>
-									조회수
-									<fmt:formatNumber value="${boardDto.boardView}"
-										pattern="###,###"></fmt:formatNumber>
-								</p>
-							</td>
+								<td class="info" >
+									<div class="mt-10">
+										${boardDto.boardWriteTimeStr}
+									</div>
+									<div class="">
+										<p>
+											조회수
+											<fmt:formatNumber value="${boardDto.boardView}"
+												pattern="###,###"></fmt:formatNumber>
+										</p>
+									</div>
+								</td>
 							<td>
 								<div class="status">${boardDto.boardStatus}</div>
 							</td>
@@ -190,13 +197,18 @@
 									| ${boardDto.boardWriterStr}
 								</div>
 							</td>
-							<td class="info">${boardDto.boardWriteTimeStr}
-								<p>
-									조회수
-									<fmt:formatNumber value="${boardDto.boardView}"
-										pattern="###,###"></fmt:formatNumber>
-								</p>
-							</td>
+								<td class="info" >
+									<div class="mt-10">
+										${boardDto.boardWriteTimeStr}
+									</div>
+									<div class="">
+										<p>
+											조회수
+											<fmt:formatNumber value="${boardDto.boardView}"
+												pattern="###,###"></fmt:formatNumber>
+										</p>
+									</div>
+								</td>
 							<td>
 								<div class="status">${boardDto.boardStatus}</div>
 							</td>
@@ -207,7 +219,7 @@
 					<c:forEach var="boardDto" items="${list}">
 						<tr>
 							<td class="left">
-								<div class="my-10" >
+								<div class="mt-10" >
 									<a class="link" href="detail?boardNo=${boardDto.boardNo}">
 										${boardDto.boardTitle} <span class="reply">[${boardDto.boardReply}]</span>
 									</a>
@@ -222,13 +234,18 @@
 									| ${boardDto.boardWriterStr}
 								</div>
 							</td>
-							<td class="info">${boardDto.boardWriteTimeStr}
-								<p>
-									조회수
-									<fmt:formatNumber value="${boardDto.boardView}"
-										pattern="###,###"></fmt:formatNumber>
-								</p>
-							</td>
+								<td class="info" >
+									<div class="mt-10">
+										${boardDto.boardWriteTimeStr}
+									</div>
+									<div class="">
+										<p>
+											조회수
+											<fmt:formatNumber value="${boardDto.boardView}"
+												pattern="###,###"></fmt:formatNumber>
+										</p>
+									</div>
+								</td>
 							<td>
 								<div class="status">${boardDto.boardStatus}</div>
 							</td>

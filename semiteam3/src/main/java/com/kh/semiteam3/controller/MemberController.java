@@ -68,7 +68,7 @@ public class MemberController {
 		//가입 환영 메일 발송
 		emailService.sendWelcomeMail(memberDto.getMemberEmail());
 		
-		return "redirect:/";
+		return "redirect:joinFinish";
 	}
 	
 	

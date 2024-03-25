@@ -4,11 +4,11 @@
 
 <div class="container w-600">
 	<div class="cell center">
-		<h1>비밀번호변경이 완료되었습니다</h1>
+		<h1 style="color:#e4b176">비밀번호변경이 완료되었습니다</h1>
 	</div>
 
 	<div class="cell center">
-		<h3><a href="/" class="link link-animation">홈으로 이동</a></h3>
+		<h3><a href="/" class="link link-animation" style="margin-bottom:200px">홈으로 이동</a></h3>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

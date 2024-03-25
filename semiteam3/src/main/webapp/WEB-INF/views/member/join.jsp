@@ -438,6 +438,7 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
         });
     });
     
+
     
 //     $(function(){
         
@@ -606,7 +607,7 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
 				주소
 			</div>
 			<div class="cell">
-				<input name="memberPost" class="tool tool-image w-60"
+				<input name="memberPost" class="tool tool-image" style="width:355px"
 					placeholder="우편번호" type="text">
 				<button type="button" class="btn positive btn-address-search">
 					<i class="fa-solid fa-magnifying-glass"></i>
@@ -644,13 +645,27 @@ input[name=memberId],[name=memberPw],[id="pw-reinput"],[name=memberNick] ,
 		<!-- 4페이지 - 프로필사진 -->
 			<div class="cell page w-450 center">
 			<div class="cell">
+
+
+<%-- 업로드된 파일이 있는지 확인하고, 이미지 프리뷰를 표시합니다. --%>
+<%-- <c:if test="${!empty member_attach}"> --%>
+<!-- 				<label for="attach"> -->
+<%--     <img src="/member/image/${member_attach}" class="preview" alt="Preview Image"> --%>
+<!--     </label> -->
+<%-- </c:if> --%>
+<%-- <c:if test="${empty member_attach}"> --%>
+<%--     기본 이미지를 표시합니다. --%>
+    				<label for="attach">
+    <img src="/image/user.svg" width="200px" alt="Default Image">
+    </label>
+<%-- </c:if> --%>
+
+
 				<label for="attach">
-					<img src="/image/user.svg" width="200px">
+					<P style="color:gray">기본 프로필사진</P>
+					<P style="color:gray">개인정보 변경창에서 변경 가능합니다</P>
 				</label>
-				<label for="attach">
-					<P style="color:gray">클릭하여 프로필을 변경하세요(선택)</P>
-				</label>
-				<input type="file" id="attach" name="attach" 
+				<input type="" id="attach" name="attach" 
 						class="too w-100" style="display:none">
 			</div>
   	 

@@ -154,42 +154,56 @@ public class MemberController {
 		
 	@PostMapping("/password")
 	public String password(@RequestParam String originPw,
-										@RequestParam String changePw,
-										HttpSession session) {
+							@RequestParam String changePw,
+							HttpSession session) {
 		//로그인된 사용자의 아이디를 추출
 		String loginId = (String)session.getAttribute("loginId");
 		
 		//비밀번호 검사를 위해 DB에 저장된 정보를 불러온다
 		MemberDto findDto = memberDao.selectOne(loginId);
-		
 		boolean isValid = findDto.getMemberPw().equals(originPw);
-		String regexPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()-_=+[{]};:.,<>]).{8,}$";
-
-		boolean isValidChangePw = changePw.matches(regexPattern);
-
 		
-		if(isValid) {//입력한 기존 비밀번호가 유효할 경우
-			 // 추가: 새 비밀번호 형식 검사
-	        if (!isValidChangePw) {
-	            return "redirect:password?formatError";
-	        }
-	        else if(changePw.equals(originPw)) {
-	        	return "redirect:password?equalsError";
-	        }
-			
+		
+		if(isValid) {
+			//아이디와 변경할 비밀번호로 DTO를 만들어 DAO의 기능을 호출
 			MemberDto memberDto = new MemberDto();
-			
 			memberDto.setMemberId(loginId);
 			memberDto.setMemberPw(changePw);
-			memberDao.updateMemberPw(memberDto);
-			
+
 			return "redirect:passwordFinish";
 		}
-		else {//입력한 기존 비밀번호가 유효하지 않을 경우
+		else {//입력한 기존 비밀번호가 유효하지 않은 경우
 			return "redirect:password?originError";
 		}
 	}
 		
+		
+//		String regexPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()-_=+[{]};:.,<>]).{8,}$";
+//		boolean isValidChangePw = changePw.matches(regexPattern);
+
+		
+//		if(isValid) {//입력한 기존 비밀번호가 유효할 경우
+//			 // 추가: 새 비밀번호 형식 검사
+//	        if (!isValidChangePw) {
+//	            return "redirect:password?formatError";
+//	        }
+//	        else if(changePw.equals(originPw)) {
+//	        	return "redirect:password?equalsError";
+//	        }
+//			
+//			MemberDto memberDto = new MemberDto();
+//			
+//			memberDto.setMemberId(loginId);
+//			memberDto.setMemberPw(changePw);
+//			memberDao.updateMemberPw(memberDto);
+//			
+//			return "redirect:passwordFinish";
+//		}
+//		else {//입력한 기존 비밀번호가 유효하지 않을 경우
+//			return "redirect:password?originError";
+//		}
+//	}
+//		
 		
 	@RequestMapping("/passwordFinish")
 	public String passwordFinish() {

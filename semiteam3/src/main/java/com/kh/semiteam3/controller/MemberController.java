@@ -169,6 +169,7 @@ public class MemberController {
 			MemberDto memberDto = new MemberDto();
 			memberDto.setMemberId(loginId);
 			memberDto.setMemberPw(changePw);
+			memberDao.updateMemberPw(memberDto);
 
 			return "redirect:passwordFinish";
 		}

@@ -620,7 +620,7 @@ function loadList() {
 
 						<c:if test="${sessionScope.loginId != null}">
 							<a class="link btn-board-report"
-								href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">
+								href="/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">
 								<i class="fa-solid fa-bell btn-board-report"></i> 신고
 							</a>
 						</c:if>
@@ -695,7 +695,7 @@ function loadList() {
 						test="${sessionScope.loginId != null && (sessionScope.loginId == boardDto.boardWriter || sessionScope.loginGrade == '관리자')}">
 						<div>
 							<a class="btn"
-								href="http://localhost:8080/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">신고</a>
+								href="/reportBoard/insert?reportBoardOrigin=${boardDto.boardNo}">신고</a>
 						</div>
 					</c:if>
 

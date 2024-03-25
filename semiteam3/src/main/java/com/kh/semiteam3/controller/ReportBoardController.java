@@ -100,7 +100,7 @@ public class ReportBoardController {
         reportBoardDto.setReportBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
         reportBoardDao.insert(reportBoardDto);
 
-        return "redirect:http://localhost:8080/board/detail?boardNo="+reportBoardDto.getReportBoardOrigin();
+        return "redirect:/board/detail?boardNo="+reportBoardDto.getReportBoardOrigin();
     }
 
 

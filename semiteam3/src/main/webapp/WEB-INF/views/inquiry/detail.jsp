@@ -27,6 +27,11 @@
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
 }
+
+.btn-edit{
+ 	background-color:#F2D692;
+ 	color:#fff;
+}
 	
 </style>
 
@@ -93,7 +98,7 @@
 				- 관리자인 경우만 답글쓰기 가능!
 			--%>
 			<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == inquiryDto.inquiryWriter || sessionScope.loginGrade == '관리자')}">
-				<a class="btn negative" href="edit?inquiryNo=${inquiryDto.inquiryNo}">글수정</a>
+				<a class="btn btn-edit" href="edit?inquiryNo=${inquiryDto.inquiryNo}">글수정</a>
 				<a class="btn negative link-confirm" 
 					data-message="정말 삭제하시겠습니까?" 
 					href="delete?inquiryNo=${inquiryDto.inquiryNo}">글삭제</a>

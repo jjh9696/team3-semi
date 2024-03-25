@@ -3,6 +3,12 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+.edit-title{
+	font-size: 25px;
+}
+</style>
+
 <script src="/js/exit.js"></script>
 
 <form action="edit" method="post" autocomplete="off" class="free-pass">
@@ -12,7 +18,7 @@
 		<jsp:include page="/WEB-INF/views/template/sidebar.jsp"></jsp:include>
 		<div class="container w-1000 set-color">
 			<div class="cell center">
-				<h1>게시글 수정</h1>
+				<p class="edit-title">게시글 수정</p>
 			</div>
 
 			<div class="cell right">

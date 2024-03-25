@@ -79,8 +79,13 @@ div > p > img{
 	font-size: 10px;
 	background-color: #778beb;
 	border-radius: 2em;
-	padding: 5px 7px;
+	padding: 4px 7px;
 	color: white;
+}
+
+.reply-content {
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 
@@ -672,7 +677,7 @@ function loadList() {
 			<div class="cell">
 				<hr class="detail">
 			</div>
-			<div class="cell reply-list-wrapper ">
+			<div class="cell reply-list-wrapper">
 				<div class="reply-item">
 					<div class="cell flex-cell mx-20">
 						<div class="cell w-50 left">

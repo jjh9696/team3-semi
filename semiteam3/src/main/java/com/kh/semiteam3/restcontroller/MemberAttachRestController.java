@@ -87,7 +87,26 @@ public class MemberAttachRestController {
 		
 	    // 파일 저장 및 해당 파일 번호 반환
 	    return attachService.save(attach);
-	
 	}
 	
+	@PostMapping("/delete")
+	public void delete(@RequestParam MultipartFile attach, HttpSession session) throws IllegalStateException, IOException {
+		String loginId = (String)session.getAttribute("loginId");
+		
+	    // 파일이 없으면 중지
+		if(!attach.isEmpty()) {
+			
+			//기존 파일 삭제
+			try {
+				int attachNo = attachDao.findAttachNo(loginId);//파일번호찾고
+				File dir = new File(System.getProperty("user.home"), "upload");
+				File target = new File(dir, String.valueOf(attachNo));
+				target.delete();//실제파일 삭제
+				attachDao.delete(attachNo);//DB에서 삭제
+			}
+			catch(Exception e) {
+				//e.printStackTrace();
+			}//예외 발생 시 아무것도 안함(skip)
+		}
+	}
 }

@@ -7,9 +7,7 @@
 
 <script>
     // param.error가 null이 아닌 경우에만 alert을 표시합니다.
-    <c:if test="${param.error != null}">
-        alert("정보가 일치하지 않습니다");
-    </c:if>
+
 </script>	
 <style>
 .input {
@@ -90,9 +88,7 @@ button:hover {
 	border-radius: 10px;
 	/*top: 330px;*/
 }
-.same{
-	border-color:#d63031 !important;
-}
+
 </style>
 <script>
 $(function() {
@@ -103,43 +99,37 @@ $(function() {
 	//상태객체(React의 state로 개념이 이어짐)
 	var state = {
 		//key : value
-		memberIdValid : false,
-		memberPwValid : false,
+		
+		originPwValid : false,
+		changePwValid : false,
 		//객체에 함수를 변수처럼 생성할 수 있다
 		//- this는 객체 자신(자바와 동일하지만 생략이 불가능)
 		ok : function() {
-			return this.memberIdValid && originPwValid;
+			return this.originPwValid && this.changePwValid;
 		},
 	};
 
-	$("[name=originPw]").on(
-			"blur",
+	$("[name=originPw]").blur(
 			function() {
 				var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$])[a-zA-Z\d!@#$]{6,15}$/;
 				state.originPwValid = regex.test($(this).val());
 				$(this).removeClass("success fail").addClass(
 						state.originPwValid ? "success" : "fail");
 });
-	$("#pw-reinput").blur(
+	$("[name=changePw]").blur(
 			function() {
-				var originPw = $("[name=originPw]").val();
-				state.originPwCheckValid = originPw == $(this).val();
-
-				if (originPw.length == 0) {
-					$(this).removeClass("same fail fail2").addClass(
-							"fail2");
-				} else {
-					$(this).removeClass("same fail fail2").addClass(
-							state.originPwCheckValid ? "same" : "fail");
-				}
+				var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$])[a-zA-Z\d!@#$]{6,15}$/;
+				state.changePwValid = regex.test($(this).val());
+				$(this).removeClass("success fail").addClass(
+						state.changePwValid ? "success" : "fail");
 			});
 	//form 전송
 	$(".check-form").submit(function() {
 		//$(this).find("[name], #pw-reinput").blur();
 		//$(this).find(".tool").blur();//모든 창
 
-		//입력창 중에서 success fail fail2가 없는 창
-		$(this).find(".tool").not(".success, .fail, .fail2").blur();
+		//입력창 중에서 same fail fail2가 없는 창
+		$(this).find(".tool").not(".same, .fail, .fail2").blur();
 //			console.table(state);
 //			console.log(state.ok());
 		
@@ -156,18 +146,16 @@ $(function() {
 		</h1>
 		<form action="password" method="post" autocomplete="off" class="check-form">
     		<div class="form-group">
-				<label for="originPw">현재 비밀번호<b style="color: red">*</b></label> 
-				<input type="password" name="originPw" class="tool w-100" 
+				<label for="origin_pw">현재 비밀번호<b style="color: red">*</b></label> 
+				<input type="password" id="origin_pw" name="originPw" class="tool w-100" 
 						placeholder="대소문자, 숫자, 특수문자(!@#$) 포함 6~15자">
 				<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
 			</div>
 			<div class="form-group">
-    			<label for="changePw">변경할 비밀번호<b style="color: red">*</b></label> 
+    			<label for="change_pw">변경할 비밀번호<b style="color: red">*</b></label> 
     			<input type="password" placeholder="대소문자, 숫자, 특수문자(!@#$) 포함 6~15자" 
-    					name="changePw" id="pw-reinput" class="tool  w-100">
-				<div class="fail2-feedback">비밀번호를 먼저 입력하세요</div>
-				<div class="fail-feedback">비밀번호를 입력하세여</div>
-				<div class="success-feedback">비밀번호가 동일합니다</div>
+    					name="changePw" id="change_pw" class="tool w-100">
+				<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
 			</div>
     		<div class="form-actions">
 				<button type="submit" class="btn">
@@ -176,6 +164,9 @@ $(function() {
 			</div>
 
 		</form>
+		    <c:if test="${param.error != null}">
+        alert("정보가 일치하지 않습니다");
+    </c:if>
 	</div>
 </body>
 

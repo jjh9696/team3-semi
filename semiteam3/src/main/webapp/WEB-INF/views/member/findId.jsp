@@ -4,11 +4,7 @@
 
 
 <style>
-.input {
-	width: 350px;
-	padding: 0.5em 1em;
-	border: 0.1px;
-}
+
 .form-container {
 	width: 450px;
 	margin: 0 auto;
@@ -25,7 +21,7 @@
 	margin-bottom: 5px;
 }
 .form-group input {
-	width: 100%;
+	width: 410px;
 	padding: 10px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
@@ -66,6 +62,19 @@ a:hover {
     color: darken(#e3c7a6, 20%); /* 마우스를 올렸을 때 링크의 텍스트 색상 어둡게 만듭니다 */
     text-decoration: underline; /* 마우스를 올렸을 때 밑줄 추가 */
     color: #7f6d5f;
+}
+
+.btn-magnifying {/* a태그를 버튼으로 쓸 경우 */
+  	font-size:25px;
+  	width:43px;
+  	height:43px;
+  	color: white;
+    text-decoration: none; /* 밑줄 제거 */
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+	border:#e3c7a6; 
+	background-color:#e3c7a6; 
 }
 </style>
 <script type="text/javascript">
@@ -109,17 +118,21 @@ a:hover {
 			아이디 찾기
 		</h1>
 	<form action="findId" method="post" autocomplete="off" class="check-form">
-			<div class="form-group">
-				<label for="memberNick">닉네임<b style="color: red">*</b></label>
-				<input type="text" name="memberNick" class="tool w-100" 
-						placeholder="닉네임 입력하세요">
-				<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
-			</div>	
+		<div class="form-group">
+			<label for="memberNick">닉네임<b style="color: red">*</b></label>
+			<div class="cell">
+				<input name="memberNick" class="tool" style="width:410px"
+					placeholder="닉네임 입력하세요" type="text">
+				
+				<button type="sumit" class="btn positive btn-address-search">
+					<i class="fa-solid fa-magnifying-glass"></i>
+					
+				
+				</button>
+			</div>
+			<div class="fail-feedback">형식에 맞게 다시 작성해주세요.</div>
+		</div>	
 			
-			
-		<button type="submit" class="btn positive">
-			<i class="fa-solid fa-magnifying-glass"></i>
-		</button>
 	<div class="cell right" >
 		<a href="findPw">비밀번호 찾기</a>
 	</div>

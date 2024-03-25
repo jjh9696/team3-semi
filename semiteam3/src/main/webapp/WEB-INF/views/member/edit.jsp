@@ -99,7 +99,7 @@
 
     <form action="edit" method="post" autocomplete="off" enctype="multipart/form-data" class="free-pass">
         <input type="text" name="memberNick" required placeholder="닉네임 *" value="${memberDto.memberNick }"><br>
-        <input type="email" name="memberEmail" required placeholder="이메일 *" value="${memberDto.memberEmail }"><br>
+        <input type="email" name="memberEmail" readonly placeholder="이메일 *" value="${memberDto.memberEmail }"><br>
         <input type="date" name="memberBirth" value="${memberDto.memberBirth }" placeholder="생년월일"><br>
         <input type="tel" name="memberContact" placeholder="연락처" value="${memberDto.memberContact }"><br>
         <div class="container">
